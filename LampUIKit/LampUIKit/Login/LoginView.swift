@@ -5,13 +5,26 @@
 //  Created by 김윤석 on 2022/07/13.
 //
 
+import CombineCocoa
+import Combine
 import UIKit
 
+enum LoginViewAction {
+    case kakao
+    case gmail
+    case apple
+    case logout
+}
+
 class LoginView: UIView {
+    
+    private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
+    private let actionSubject = PassthroughSubject<LoginViewAction, Never>()
     
     private let kakao = RectangleTextButton("카카오", background: .yellow)
     private let gmail = RectangleTextButton("gmail", background: .orange)
     private let apple = RectangleTextButton("Apple", background: .white)
+    private let logOut = RectangleTextButton("LogOut", background: .red)
     
     private let contractText: UILabel = {
        let lb = UILabel()
@@ -22,10 +35,28 @@ class LoginView: UIView {
         return lb
     }()
     
+    private var cancellables: Set<AnyCancellable>
+    
     init() {
+        self.cancellables = .init()
         super.init(frame: .zero)
         
-        let stackView = UIStackView(arrangedSubviews: [kakao, gmail, apple])
+        gmail.tapPublisher.sink { _ in
+            self.actionSubject.send(.gmail)
+        }
+        .store(in: &cancellables)
+        
+        apple.tapPublisher.sink { _ in
+            self.actionSubject.send(.apple)
+        }
+        .store(in: &cancellables)
+        
+        logOut.tapPublisher.sink { _ in
+            self.actionSubject.send(.logout)
+        }
+        .store(in: &cancellables)
+        
+        let stackView = UIStackView(arrangedSubviews: [kakao, gmail, apple, logOut])
         stackView.axis = .vertical
         stackView.spacing = 14
         stackView.distribution = .equalSpacing
