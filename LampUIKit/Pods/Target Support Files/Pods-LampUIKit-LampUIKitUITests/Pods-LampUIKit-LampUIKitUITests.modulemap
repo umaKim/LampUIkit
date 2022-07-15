@@ -1,0 +1,6 @@
+framework module Pods_LampUIKit_LampUIKitUITests {
+  umbrella header "Pods-LampUIKit-LampUIKitUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
