@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		042FF9F60601143DB9E69007 /* Pods_LampUIKit_LampUIKitUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86A679694E62A8499098D704 /* Pods_LampUIKit_LampUIKitUITests.framework */; };
+		122457D5C1A0D210E7364AEE /* Pods_LampUIKitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADCAAF286EF0E13397622B60 /* Pods_LampUIKitTests.framework */; };
 		35189D56287F0A3F0030F987 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189D55287F0A3F0030F987 /* AppDelegate.swift */; };
 		35189D58287F0A3F0030F987 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189D57287F0A3F0030F987 /* SceneDelegate.swift */; };
 		35189D5A287F0A3F0030F987 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189D59287F0A3F0030F987 /* LoginViewController.swift */; };
@@ -29,6 +31,24 @@
 		35189DA42880116D0030F987 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189DA32880116D0030F987 /* SearchViewController.swift */; };
 		35189DA62880117F0030F987 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189DA52880117F0030F987 /* SearchViewModel.swift */; };
 		35189DA8288023660030F987 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189DA7288023660030F987 /* MainTabBarViewController.swift */; };
+		35189DAB2880F71B0030F987 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 35189DAA2880F71B0030F987 /* CombineCocoa */; };
+		35189DAE2880F8390030F987 /* ARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189DAD2880F8390030F987 /* ARViewController.swift */; };
+		35189DB12880F87B0030F987 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189DB02880F87B0030F987 /* NotificationViewController.swift */; };
+		35189DB42880F89A0030F987 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189DB32880F89A0030F987 /* Extensions.swift */; };
+		35189DBA288119020030F987 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 35189DB9288119020030F987 /* GoogleService-Info.plist */; };
+		35189DBE288137CD0030F987 /* Crypto in Frameworks */ = {isa = PBXBuildFile; productRef = 35189DBD288137CD0030F987 /* Crypto */; };
+		35189DC0288137CD0030F987 /* _CryptoExtras in Frameworks */ = {isa = PBXBuildFile; productRef = 35189DBF288137CD0030F987 /* _CryptoExtras */; };
+		35189DC42881BF9C0030F987 /* SearchRecommendationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189DC32881BF9C0030F987 /* SearchRecommendationCollectionViewCell.swift */; };
+		35189DC62881BFDC0030F987 /* CategoryButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189DC52881BFDC0030F987 /* CategoryButtonView.swift */; };
+		35189DCB2881D2970030F987 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 35189DCA2881D2970030F987 /* Alamofire */; };
+		35189DCD2882A5FD0030F987 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189DCC2882A5FD0030F987 /* BaseViewController.swift */; };
+		35189DD02882A75C0030F987 /* MyTravelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189DCF2882A75C0030F987 /* MyTravelViewController.swift */; };
+		35189DD22882AB7A0030F987 /* MyTravelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189DD12882AB7A0030F987 /* MyTravelView.swift */; };
+		35189DD42882AB950030F987 /* MyTravelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189DD32882AB950030F987 /* MyTravelViewModel.swift */; };
+		35189DD62882CE490030F987 /* MyTravelCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189DD52882CE490030F987 /* MyTravelCategoryView.swift */; };
+		35189DDA2882FAD30030F987 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189DD92882FAD30030F987 /* NetworkService.swift */; };
+		35189DDC2883077B0030F987 /* StartPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189DDB2883077A0030F987 /* StartPageViewController.swift */; };
+		6717F3226DB9AFBA07831964 /* Pods_LampUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFFAB2822DE1525100BBE124 /* Pods_LampUIKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +95,29 @@
 		35189DA32880116D0030F987 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		35189DA52880117F0030F987 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		35189DA7288023660030F987 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
+		35189DAD2880F8390030F987 /* ARViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewController.swift; sourceTree = "<group>"; };
+		35189DB02880F87B0030F987 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		35189DB32880F89A0030F987 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		35189DB9288119020030F987 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		35189DBB288134F90030F987 /* LampUIKit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LampUIKit.entitlements; sourceTree = "<group>"; };
+		35189DC32881BF9C0030F987 /* SearchRecommendationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecommendationCollectionViewCell.swift; sourceTree = "<group>"; };
+		35189DC52881BFDC0030F987 /* CategoryButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButtonView.swift; sourceTree = "<group>"; };
+		35189DCC2882A5FD0030F987 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		35189DCF2882A75C0030F987 /* MyTravelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTravelViewController.swift; sourceTree = "<group>"; };
+		35189DD12882AB7A0030F987 /* MyTravelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTravelView.swift; sourceTree = "<group>"; };
+		35189DD32882AB950030F987 /* MyTravelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTravelViewModel.swift; sourceTree = "<group>"; };
+		35189DD52882CE490030F987 /* MyTravelCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTravelCategoryView.swift; sourceTree = "<group>"; };
+		35189DD92882FAD30030F987 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		35189DDB2883077A0030F987 /* StartPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartPageViewController.swift; sourceTree = "<group>"; };
+		5A62D20E2C018C13E31D615E /* Pods-LampUIKitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LampUIKitTests.debug.xcconfig"; path = "Target Support Files/Pods-LampUIKitTests/Pods-LampUIKitTests.debug.xcconfig"; sourceTree = "<group>"; };
+		86A679694E62A8499098D704 /* Pods_LampUIKit_LampUIKitUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LampUIKit_LampUIKitUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A787A4809528B6100B8E016 /* Pods-LampUIKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LampUIKit.release.xcconfig"; path = "Target Support Files/Pods-LampUIKit/Pods-LampUIKit.release.xcconfig"; sourceTree = "<group>"; };
+		91A4885EF7662C84F2242C6B /* Pods-LampUIKit-LampUIKitUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LampUIKit-LampUIKitUITests.debug.xcconfig"; path = "Target Support Files/Pods-LampUIKit-LampUIKitUITests/Pods-LampUIKit-LampUIKitUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		ADCAAF286EF0E13397622B60 /* Pods_LampUIKitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LampUIKitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AFFAB2822DE1525100BBE124 /* Pods_LampUIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LampUIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D606038363D9A7C4F8F93658 /* Pods-LampUIKitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LampUIKitTests.release.xcconfig"; path = "Target Support Files/Pods-LampUIKitTests/Pods-LampUIKitTests.release.xcconfig"; sourceTree = "<group>"; };
+		D6192C679DBBFE688FD6F640 /* Pods-LampUIKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LampUIKit.debug.xcconfig"; path = "Target Support Files/Pods-LampUIKit/Pods-LampUIKit.debug.xcconfig"; sourceTree = "<group>"; };
+		DE19D665464016FB093F852B /* Pods-LampUIKit-LampUIKitUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LampUIKit-LampUIKitUITests.release.xcconfig"; path = "Target Support Files/Pods-LampUIKit-LampUIKitUITests/Pods-LampUIKit-LampUIKitUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +125,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35189DCB2881D2970030F987 /* Alamofire in Frameworks */,
+				35189DC0288137CD0030F987 /* _CryptoExtras in Frameworks */,
+				35189DBE288137CD0030F987 /* Crypto in Frameworks */,
+				35189DAB2880F71B0030F987 /* CombineCocoa in Frameworks */,
+				6717F3226DB9AFBA07831964 /* Pods_LampUIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,6 +137,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				122457D5C1A0D210E7364AEE /* Pods_LampUIKitTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,6 +145,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				042FF9F60601143DB9E69007 /* Pods_LampUIKit_LampUIKitUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,6 +159,8 @@
 				35189D6E287F0A400030F987 /* LampUIKitTests */,
 				35189D78287F0A400030F987 /* LampUIKitUITests */,
 				35189D53287F0A3F0030F987 /* Products */,
+				D39E0054945E0F61ED179C3B /* Pods */,
+				E780A64DDB8A5CB5DAE3E87E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -125,15 +177,18 @@
 		35189D54287F0A3F0030F987 /* LampUIKit */ = {
 			isa = PBXGroup;
 			children = (
-				35189DA0288011430030F987 /* Search */,
+				35189DBB288134F90030F987 /* LampUIKit.entitlements */,
 				35189D55287F0A3F0030F987 /* AppDelegate.swift */,
 				35189D57287F0A3F0030F987 /* SceneDelegate.swift */,
-				35189D89287F0BC10030F987 /* Login */,
-				35189D9F287FFB200030F987 /* TabBar */,
-				35189D90287F106C0030F987 /* LampSpot */,
+				35189DDB2883077A0030F987 /* StartPageViewController.swift */,
+				35189DD82882FAC50030F987 /* Service */,
+				35189DB22880F8910030F987 /* Helper */,
+				35189DC82881C2850030F987 /* Auth */,
+				35189DC72881C2650030F987 /* Core */,
 				35189D88287F0A970030F987 /* View */,
 				35189D66287F0A400030F987 /* Info.plist */,
 				35189D5E287F0A3F0030F987 /* LampUIKit.xcdatamodeld */,
+				35189DB9288119020030F987 /* GoogleService-Info.plist */,
 			);
 			path = LampUIKit;
 			sourceTree = "<group>";
@@ -207,11 +262,117 @@
 		35189DA0288011430030F987 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				35189DA12880115F0030F987 /* SearchView.swift */,
-				35189DA32880116D0030F987 /* SearchViewController.swift */,
 				35189DA52880117F0030F987 /* SearchViewModel.swift */,
+				35189DA32880116D0030F987 /* SearchViewController.swift */,
+				35189DA12880115F0030F987 /* SearchView.swift */,
+				35189DC22881BF870030F987 /* View */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		35189DAC2880F82B0030F987 /* Ar */ = {
+			isa = PBXGroup;
+			children = (
+				35189DAD2880F8390030F987 /* ARViewController.swift */,
+			);
+			path = Ar;
+			sourceTree = "<group>";
+		};
+		35189DAF2880F86F0030F987 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				35189DB02880F87B0030F987 /* NotificationViewController.swift */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
+		35189DB22880F8910030F987 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				35189DB32880F89A0030F987 /* Extensions.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		35189DC22881BF870030F987 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				35189DC32881BF9C0030F987 /* SearchRecommendationCollectionViewCell.swift */,
+				35189DC52881BFDC0030F987 /* CategoryButtonView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		35189DC72881C2650030F987 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				35189DCC2882A5FD0030F987 /* BaseViewController.swift */,
+				35189D9F287FFB200030F987 /* TabBar */,
+				35189D90287F106C0030F987 /* LampSpot */,
+				35189DA0288011430030F987 /* Search */,
+				35189DCE2882A74F0030F987 /* MyTravel */,
+				35189DAF2880F86F0030F987 /* Notification */,
+				35189DAC2880F82B0030F987 /* Ar */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		35189DC82881C2850030F987 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				35189D89287F0BC10030F987 /* Login */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		35189DCE2882A74F0030F987 /* MyTravel */ = {
+			isa = PBXGroup;
+			children = (
+				35189DD32882AB950030F987 /* MyTravelViewModel.swift */,
+				35189DCF2882A75C0030F987 /* MyTravelViewController.swift */,
+				35189DD12882AB7A0030F987 /* MyTravelView.swift */,
+				35189DD72882D88B0030F987 /* View */,
+			);
+			path = MyTravel;
+			sourceTree = "<group>";
+		};
+		35189DD72882D88B0030F987 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				35189DD52882CE490030F987 /* MyTravelCategoryView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		35189DD82882FAC50030F987 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				35189DD92882FAD30030F987 /* NetworkService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		D39E0054945E0F61ED179C3B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D6192C679DBBFE688FD6F640 /* Pods-LampUIKit.debug.xcconfig */,
+				8A787A4809528B6100B8E016 /* Pods-LampUIKit.release.xcconfig */,
+				91A4885EF7662C84F2242C6B /* Pods-LampUIKit-LampUIKitUITests.debug.xcconfig */,
+				DE19D665464016FB093F852B /* Pods-LampUIKit-LampUIKitUITests.release.xcconfig */,
+				5A62D20E2C018C13E31D615E /* Pods-LampUIKitTests.debug.xcconfig */,
+				D606038363D9A7C4F8F93658 /* Pods-LampUIKitTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		E780A64DDB8A5CB5DAE3E87E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AFFAB2822DE1525100BBE124 /* Pods_LampUIKit.framework */,
+				86A679694E62A8499098D704 /* Pods_LampUIKit_LampUIKitUITests.framework */,
+				ADCAAF286EF0E13397622B60 /* Pods_LampUIKitTests.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,15 +382,23 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 35189D7F287F0A400030F987 /* Build configuration list for PBXNativeTarget "LampUIKit" */;
 			buildPhases = (
+				D432DD4D800BFDB5FE5D0ACB /* [CP] Check Pods Manifest.lock */,
 				35189D4E287F0A3F0030F987 /* Sources */,
 				35189D4F287F0A3F0030F987 /* Frameworks */,
 				35189D50287F0A3F0030F987 /* Resources */,
+				4AE4D1FA7EE9905A90A22404 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = LampUIKit;
+			packageProductDependencies = (
+				35189DAA2880F71B0030F987 /* CombineCocoa */,
+				35189DBD288137CD0030F987 /* Crypto */,
+				35189DBF288137CD0030F987 /* _CryptoExtras */,
+				35189DCA2881D2970030F987 /* Alamofire */,
+			);
 			productName = LampUIKit;
 			productReference = 35189D52287F0A3F0030F987 /* LampUIKit.app */;
 			productType = "com.apple.product-type.application";
@@ -238,6 +407,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 35189D82287F0A400030F987 /* Build configuration list for PBXNativeTarget "LampUIKitTests" */;
 			buildPhases = (
+				766D5D9619F46C97290417BF /* [CP] Check Pods Manifest.lock */,
 				35189D67287F0A400030F987 /* Sources */,
 				35189D68287F0A400030F987 /* Frameworks */,
 				35189D69287F0A400030F987 /* Resources */,
@@ -256,9 +426,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 35189D85287F0A400030F987 /* Build configuration list for PBXNativeTarget "LampUIKitUITests" */;
 			buildPhases = (
+				643055349D0B4018097F47F6 /* [CP] Check Pods Manifest.lock */,
 				35189D71287F0A400030F987 /* Sources */,
 				35189D72287F0A400030F987 /* Frameworks */,
 				35189D73287F0A400030F987 /* Resources */,
+				88A8DAB355BFE30B4FCCE600 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -302,6 +474,11 @@
 				Base,
 			);
 			mainGroup = 35189D49287F0A3F0030F987;
+			packageReferences = (
+				35189DA92880F71B0030F987 /* XCRemoteSwiftPackageReference "CombineCocoa" */,
+				35189DBC288137CD0030F987 /* XCRemoteSwiftPackageReference "swift-crypto" */,
+				35189DC92881D2970030F987 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = 35189D53287F0A3F0030F987 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -320,6 +497,7 @@
 			files = (
 				35189D65287F0A400030F987 /* LaunchScreen.storyboard in Resources */,
 				35189D62287F0A400030F987 /* Assets.xcassets in Resources */,
+				35189DBA288119020030F987 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,6 +517,109 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4AE4D1FA7EE9905A90A22404 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LampUIKit/Pods-LampUIKit-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LampUIKit/Pods-LampUIKit-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LampUIKit/Pods-LampUIKit-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		643055349D0B4018097F47F6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LampUIKit-LampUIKitUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		766D5D9619F46C97290417BF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LampUIKitTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		88A8DAB355BFE30B4FCCE600 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LampUIKit-LampUIKitUITests/Pods-LampUIKit-LampUIKitUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LampUIKit-LampUIKitUITests/Pods-LampUIKit-LampUIKitUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LampUIKit-LampUIKitUITests/Pods-LampUIKit-LampUIKitUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D432DD4D800BFDB5FE5D0ACB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LampUIKit-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		35189D4E287F0A3F0030F987 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -346,17 +627,29 @@
 			files = (
 				35189DA42880116D0030F987 /* SearchViewController.swift in Sources */,
 				35189D5A287F0A3F0030F987 /* LoginViewController.swift in Sources */,
+				35189DD42882AB950030F987 /* MyTravelViewModel.swift in Sources */,
+				35189DD22882AB7A0030F987 /* MyTravelView.swift in Sources */,
 				35189DA62880117F0030F987 /* SearchViewModel.swift in Sources */,
+				35189DCD2882A5FD0030F987 /* BaseViewController.swift in Sources */,
+				35189DDA2882FAD30030F987 /* NetworkService.swift in Sources */,
+				35189DAE2880F8390030F987 /* ARViewController.swift in Sources */,
 				35189DA8288023660030F987 /* MainTabBarViewController.swift in Sources */,
 				35189D9C287FA68C0030F987 /* RecommendationCollectionViewCell.swift in Sources */,
+				35189DC42881BF9C0030F987 /* SearchRecommendationCollectionViewCell.swift in Sources */,
 				35189D56287F0A3F0030F987 /* AppDelegate.swift in Sources */,
 				35189D8F287F0DAE0030F987 /* RectangleTextButton.swift in Sources */,
+				35189DDC2883077B0030F987 /* StartPageViewController.swift in Sources */,
+				35189DC62881BFDC0030F987 /* CategoryButtonView.swift in Sources */,
 				35189D8D287F0D9B0030F987 /* LoginViewModel.swift in Sources */,
 				35189D60287F0A3F0030F987 /* LampUIKit.xcdatamodeld in Sources */,
 				35189D94287F10A70030F987 /* LampSpotView.swift in Sources */,
+				35189DD62882CE490030F987 /* MyTravelCategoryView.swift in Sources */,
 				35189D8B287F0D850030F987 /* LoginView.swift in Sources */,
+				35189DB12880F87B0030F987 /* NotificationViewController.swift in Sources */,
 				35189D92287F10990030F987 /* LampSpotViewController.swift in Sources */,
 				35189D96287F10B90030F987 /* LampSpotViewModel.swift in Sources */,
+				35189DD02882A75C0030F987 /* MyTravelViewController.swift in Sources */,
+				35189DB42880F89A0030F987 /* Extensions.swift in Sources */,
 				35189DA22880115F0030F987 /* SearchView.swift in Sources */,
 				35189D9E287FA69C0030F987 /* PopularLampSpotCollectionViewCell.swift in Sources */,
 				35189D9A287FA6730030F987 /* MyMapCollectionViewCell.swift in Sources */,
@@ -524,9 +817,11 @@
 		};
 		35189D80287F0A400030F987 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D6192C679DBBFE688FD6F640 /* Pods-LampUIKit.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = LampUIKit/LampUIKit.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PHT5ZHW738;
@@ -551,9 +846,11 @@
 		};
 		35189D81287F0A400030F987 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8A787A4809528B6100B8E016 /* Pods-LampUIKit.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = LampUIKit/LampUIKit.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PHT5ZHW738;
@@ -578,6 +875,7 @@
 		};
 		35189D83287F0A400030F987 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5A62D20E2C018C13E31D615E /* Pods-LampUIKitTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -598,6 +896,7 @@
 		};
 		35189D84287F0A400030F987 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D606038363D9A7C4F8F93658 /* Pods-LampUIKitTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -618,6 +917,7 @@
 		};
 		35189D86287F0A400030F987 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 91A4885EF7662C84F2242C6B /* Pods-LampUIKit-LampUIKitUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -636,6 +936,7 @@
 		};
 		35189D87287F0A400030F987 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DE19D665464016FB093F852B /* Pods-LampUIKit-LampUIKitUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -692,6 +993,56 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		35189DA92880F71B0030F987 /* XCRemoteSwiftPackageReference "CombineCocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CombineCommunity/CombineCocoa.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.4.0;
+			};
+		};
+		35189DBC288137CD0030F987 /* XCRemoteSwiftPackageReference "swift-crypto" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-crypto.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+		35189DC92881D2970030F987 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		35189DAA2880F71B0030F987 /* CombineCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 35189DA92880F71B0030F987 /* XCRemoteSwiftPackageReference "CombineCocoa" */;
+			productName = CombineCocoa;
+		};
+		35189DBD288137CD0030F987 /* Crypto */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 35189DBC288137CD0030F987 /* XCRemoteSwiftPackageReference "swift-crypto" */;
+			productName = Crypto;
+		};
+		35189DBF288137CD0030F987 /* _CryptoExtras */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 35189DBC288137CD0030F987 /* XCRemoteSwiftPackageReference "swift-crypto" */;
+			productName = _CryptoExtras;
+		};
+		35189DCA2881D2970030F987 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 35189DC92881D2970030F987 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		35189D5E287F0A3F0030F987 /* LampUIKit.xcdatamodeld */ = {
