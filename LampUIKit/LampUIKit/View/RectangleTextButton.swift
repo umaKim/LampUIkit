@@ -8,15 +8,18 @@
 import UIKit
 
 class RectangleTextButton: UIButton {
-    init(_ title: String, background: UIColor, textColor: UIColor = .black) {
+    init(
+        _ title: String,
+        background: UIColor,
+        textColor: UIColor = .black,
+        fontSize: CGFloat
+    ) {
         super.init(frame: .zero)
         self.setTitle(title, for: .normal)
         self.setTitleColor(textColor, for: .normal)
         self.backgroundColor = background
         self.layer.cornerRadius = 5
-        
-        widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 32).isActive = true
-        heightAnchor.constraint(equalToConstant: 51).isActive = true
+        self.titleLabel?.font = UIFont.systemFont(ofSize: fontSize)
     }
     
     required init?(coder: NSCoder) {
