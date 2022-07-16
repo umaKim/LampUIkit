@@ -40,13 +40,6 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
-        if Auth.auth().currentUser?.uid != nil {
-            print("already logged in")
-        } else {
-            print("need to log in")
-        }
-        
         bind()
     }
     
