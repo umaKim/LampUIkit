@@ -24,3 +24,11 @@ extension UIColor {
     static let darkNavy = UIColor(red: 38/255, green: 38/255, blue: 92/255, alpha: 1)
     static let lightNavy = UIColor(red: 112/255, green: 112/255, blue: 255/255, alpha: 1)
 }
+
+extension UIImage {
+    static let camera = UIImage(systemName: "camera")
+    static let bell = UIImage(systemName: "bell")
+    static let magnify = UIImage(systemName: "magnifyingglass")
+    static let gear = UIImage(systemName: "gear")
+}
+
