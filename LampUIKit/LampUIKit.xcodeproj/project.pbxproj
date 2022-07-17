@@ -46,8 +46,10 @@
 		35189DD22882AB7A0030F987 /* MyTravelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189DD12882AB7A0030F987 /* MyTravelView.swift */; };
 		35189DD42882AB950030F987 /* MyTravelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189DD32882AB950030F987 /* MyTravelViewModel.swift */; };
 		35189DD62882CE490030F987 /* MyTravelCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189DD52882CE490030F987 /* MyTravelCategoryView.swift */; };
-		35189DDA2882FAD30030F987 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189DD92882FAD30030F987 /* NetworkService.swift */; };
+		35189DDA2882FAD30030F987 /* KeywordSearchXMLService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189DD92882FAD30030F987 /* KeywordSearchXMLService.swift */; };
 		35189DDC2883077B0030F987 /* StartPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189DDB2883077A0030F987 /* StartPageViewController.swift */; };
+		35189DDE288438450030F987 /* BaseXMLService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189DDD288438450030F987 /* BaseXMLService.swift */; };
+		35189DE0288445A20030F987 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189DDF288445A20030F987 /* NetworkService.swift */; };
 		6717F3226DB9AFBA07831964 /* Pods_LampUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFFAB2822DE1525100BBE124 /* Pods_LampUIKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -107,8 +109,10 @@
 		35189DD12882AB7A0030F987 /* MyTravelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTravelView.swift; sourceTree = "<group>"; };
 		35189DD32882AB950030F987 /* MyTravelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTravelViewModel.swift; sourceTree = "<group>"; };
 		35189DD52882CE490030F987 /* MyTravelCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTravelCategoryView.swift; sourceTree = "<group>"; };
-		35189DD92882FAD30030F987 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		35189DD92882FAD30030F987 /* KeywordSearchXMLService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordSearchXMLService.swift; sourceTree = "<group>"; };
 		35189DDB2883077A0030F987 /* StartPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartPageViewController.swift; sourceTree = "<group>"; };
+		35189DDD288438450030F987 /* BaseXMLService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseXMLService.swift; sourceTree = "<group>"; };
+		35189DDF288445A20030F987 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		5A62D20E2C018C13E31D615E /* Pods-LampUIKitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LampUIKitTests.debug.xcconfig"; path = "Target Support Files/Pods-LampUIKitTests/Pods-LampUIKitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		86A679694E62A8499098D704 /* Pods_LampUIKit_LampUIKitUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LampUIKit_LampUIKitUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A787A4809528B6100B8E016 /* Pods-LampUIKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LampUIKit.release.xcconfig"; path = "Target Support Files/Pods-LampUIKit/Pods-LampUIKit.release.xcconfig"; sourceTree = "<group>"; };
@@ -347,7 +351,9 @@
 		35189DD82882FAC50030F987 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				35189DD92882FAD30030F987 /* NetworkService.swift */,
+				35189DDD288438450030F987 /* BaseXMLService.swift */,
+				35189DD92882FAD30030F987 /* KeywordSearchXMLService.swift */,
+				35189DDF288445A20030F987 /* NetworkService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -631,7 +637,8 @@
 				35189DD22882AB7A0030F987 /* MyTravelView.swift in Sources */,
 				35189DA62880117F0030F987 /* SearchViewModel.swift in Sources */,
 				35189DCD2882A5FD0030F987 /* BaseViewController.swift in Sources */,
-				35189DDA2882FAD30030F987 /* NetworkService.swift in Sources */,
+				35189DDE288438450030F987 /* BaseXMLService.swift in Sources */,
+				35189DDA2882FAD30030F987 /* KeywordSearchXMLService.swift in Sources */,
 				35189DAE2880F8390030F987 /* ARViewController.swift in Sources */,
 				35189DA8288023660030F987 /* MainTabBarViewController.swift in Sources */,
 				35189D9C287FA68C0030F987 /* RecommendationCollectionViewCell.swift in Sources */,
@@ -652,6 +659,7 @@
 				35189DB42880F89A0030F987 /* Extensions.swift in Sources */,
 				35189DA22880115F0030F987 /* SearchView.swift in Sources */,
 				35189D9E287FA69C0030F987 /* PopularLampSpotCollectionViewCell.swift in Sources */,
+				35189DE0288445A20030F987 /* NetworkService.swift in Sources */,
 				35189D9A287FA6730030F987 /* MyMapCollectionViewCell.swift in Sources */,
 				35189D58287F0A3F0030F987 /* SceneDelegate.swift in Sources */,
 			);
