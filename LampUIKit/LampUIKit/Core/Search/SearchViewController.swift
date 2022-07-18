@@ -45,7 +45,8 @@ class SearchViewController: BaseViewContronller {
     private var cancellables: Set<AnyCancellable>
     
     private func bind() {
-        contentView.acationPublisher
+        contentView
+            .acationPublisher
             .sink { action in
                 switch action {
                 case .all:
@@ -73,6 +74,16 @@ class SearchViewController: BaseViewContronller {
                 }
             }
             .store(in: &cancellables)
+        
+        viewModel
+            .notifyPublisher
+            .sink { notify in
+                switch notify {
+                case .reload:
+                    self.contentView.reload()
+                }
+            }
+            .store(in: &cancellables)
     }
 }
 
@@ -85,6 +96,7 @@ extension SearchViewController: UICollectionViewDataSource {
         guard
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchRecommendationCollectionViewCell.identifier, for: indexPath) as? SearchRecommendationCollectionViewCell
         else {return UICollectionViewCell()}
+        cell.configure(with: viewModel.items[indexPath.item])
         return cell
     }
 }

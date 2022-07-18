@@ -41,6 +41,7 @@ class SearchView: UIView {
         let cv = UICollectionView(frame: .zero, collectionViewLayout: cl)
         cv.register(SearchRecommendationCollectionViewCell.self, forCellWithReuseIdentifier: SearchRecommendationCollectionViewCell.identifier)
         cv.backgroundColor = .greyshWhite
+        cv.keyboardDismissMode = .onDrag
         return cv
     }()
     
@@ -52,6 +53,10 @@ class SearchView: UIView {
         
         bind()
         setupUI()
+    }
+    
+    func reload() {
+        collectionView.reloadData()
     }
     
     private func bind() {
@@ -78,23 +83,29 @@ class SearchView: UIView {
     }
     
     private func setupUI() {
+        let sv = UIStackView(arrangedSubviews: [categoryButtons, collectionView])
+        sv.alignment = .fill
+        sv.distribution = .fill
+        sv.axis = .vertical
         
-        [categoryButtons, collectionView].forEach { uv in
+        [sv].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
             addSubview(uv)
         }
         
         NSLayoutConstraint.activate([
-            categoryButtons.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            categoryButtons.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            categoryButtons.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
+//            categoryButtons.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+//            categoryButtons.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+//            categoryButtons.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
             categoryButtons.heightAnchor.constraint(equalToConstant: 30),
             
-            collectionView.topAnchor.constraint(equalTo: categoryButtons.bottomAnchor, constant: 20),
-            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            sv.topAnchor.constraint(equalTo: topAnchor),
+            sv.leadingAnchor.constraint(equalTo: leadingAnchor),
+            sv.trailingAnchor.constraint(equalTo: trailingAnchor),
+            sv.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+        
+        backgroundColor = .red
     }
     
     required init?(coder: NSCoder) {

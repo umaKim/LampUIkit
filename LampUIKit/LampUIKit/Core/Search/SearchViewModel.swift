@@ -8,7 +8,14 @@
 import Combine
 import Foundation
 
+enum SearchViewModelNotify {
+    case reload
+}
+
 class SearchViewModel {
+    
+    private(set) lazy var notifyPublisher = notifySubject.eraseToAnyPublisher()
+    private let notifySubject = PassthroughSubject<SearchViewModelNotify, Never>()
     
     private let service: KeywordSearchXMLService
     
@@ -18,20 +25,21 @@ class SearchViewModel {
         self.cancellables = .init()
         self.service = service
         
-        service.$items.sink(receiveCompletion: { completion in
-            switch completion {
-            case .finished:
-                print("finished")
-                break
-                
-            case .failure(let error):
-                print(error)
-            }
-        }, receiveValue: {[weak self] items in
-            print(items)
-            self?.items = items
-        })
-        .store(in: &cancellables)
+        service.$items
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    print("finished")
+                    break
+                    
+                case .failure(let error):
+                    print(error)
+                }
+            }, receiveValue: {[weak self] items in
+                self?.items = items
+                self?.notifySubject.send(.reload)
+            })
+            .store(in: &cancellables)
     }
     
     private var cancellables: Set<AnyCancellable>
