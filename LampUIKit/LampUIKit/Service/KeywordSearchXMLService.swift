@@ -12,7 +12,7 @@ class KeywordSearchXMLService: BaseXMLService, XMLParserDelegate {
     
     func fetch(about keyword: String) {
         guard let encodedString = keyword.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {return }
-        let urlString = baseUrl + language(.kr) + "/searchKeyword?ServiceKey=\(Key.encoding)&keyword=\(encodedString)&MobileOS=ETC&MobileApp=Lamp"
+        let urlString = baseUrl + language(.kr) + "/searchKeyword?ServiceKey=\(Key.encoding)&keyword=\(encodedString)&numOfRows=100&MobileOS=ETC&MobileApp=Lamp"
         
         guard
             let url = URL(string: urlString),
