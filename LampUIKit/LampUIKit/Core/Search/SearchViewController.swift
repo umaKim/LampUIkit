@@ -16,7 +16,6 @@ class SearchViewController: BaseViewContronller {
     
     init(vm: SearchViewModel) {
         self.viewModel = vm
-        self.cancellables = .init()
         super.init()
     }
     
@@ -41,8 +40,6 @@ class SearchViewController: BaseViewContronller {
         
         bind()
     }
-    
-    private var cancellables: Set<AnyCancellable>
     
     private func bind() {
         contentView
