@@ -109,38 +109,48 @@ class WriteReviewView: BaseWhiteView {
     private let contentView = UIView()
     
     private func bind() {
+        starRatingView.ratingDidChange = {
+            self.actionSubject.send(.updateStarRating($0))
+        }
+        
         satisfactionEvaluationView.actionPublisher.sink { action in
             switch action {
-            case .updateElement(let models):
-                print(models)
+            case .updateElement(let model):
+                self.actionSubject.send(.updateSatisfactionModel(model))
             }
         }
         .store(in: &cancellables)
         
         atmosphereEvaluationView.actionPublisher.sink { action in
             switch action {
-            case .updateElement(let models):
-                print(models)
+            case .updateElement(let model):
+                self.actionSubject.send(.updateAtmosphereModel(model))
             }
         }
         .store(in: &cancellables)
         
         surroundingEvaluationView.actionPublisher.sink { action in
             switch action {
-            case .updateElement(let models):
-                print(models)
+            case .updateElement(let model):
+                self.actionSubject.send(.updateSurroundingModel(model))
             }
         }
         .store(in: &cancellables)
         
         foodEvaluationView.actionPublisher.sink { action in
             switch action {
-            case .updateElement(let models):
-                self.actionSubject.send(.)
+            case .updateElement(let model):
+                self.actionSubject.send(.updateFoodModel(model))
             }
         }
         .store(in: &cancellables)
         
+        textContextView.textPublisher
+            .compactMap({$0})
+            .sink { text in
+            self.actionSubject.send(.updateComment(text))
+        }
+        .store(in: &cancellables)
     }
     
     override init() {
@@ -154,6 +164,12 @@ class WriteReviewView: BaseWhiteView {
         
         bind()
         setupUI()
+    }
+    
+    public func ableCompleteButton(_ isAble: Bool) {
+        self.completeButton.isEnabled = isAble
+        
+        completeButton.setImage(UIImage(named: self.completeButton.isEnabled ? "completeWriting_able" : "completeWriting_disable"), for: .normal)
     }
     
     private func setupUI() {

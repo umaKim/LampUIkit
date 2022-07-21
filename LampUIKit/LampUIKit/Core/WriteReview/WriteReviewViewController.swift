@@ -14,7 +14,6 @@ class WriteReviewViewController: BaseViewContronller {
     init(_ vm: WriteReviewViewModel) {
         self.viewModel = vm
         super.init()
-        
     }
     
     private let contentView = WriteReviewView()
@@ -31,7 +30,36 @@ class WriteReviewViewController: BaseViewContronller {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        contentView.actionPublisher.sink { action in
+            switch action {
+            case .updateSatisfactionModel(let satisfactionRatings):
+                self.viewModel.setComfortRating(satisfactionRatings.title)
+            
+            case .updateAtmosphereModel(let atmosphereRatings):
+                self.viewModel.setAtmosphereRating(atmosphereRatings.title)
+            
+            case .updateSurroundingModel(let surroundingRatings):
+                self.viewModel.setSurroundingRating(surroundingRatings.title)
+            
+            case .updateFoodModel(let foodRatings):
+                self.viewModel.setFoodRating(foodRatings.title)
+                
+            case .updateStarRating(let starRating):
+                self.viewModel.setStarRating(starRating)
+                
+            case .updateComment(let text):
+                self.viewModel.setComments(text)
+            }
+        }
+        .store(in: &cancellables)
+        
+        viewModel.notifyPublisher.sink { noti in
+            switch noti {
+            case .ableCompleteButton(let isAble):
+                self.contentView.ableCompleteButton(isAble)
+            }
+        }
+        .store(in: &cancellables)
     }
 
 }
