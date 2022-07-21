@@ -31,7 +31,7 @@ class SearchViewController: BaseViewContronller {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        contentView.searchBar.placeholder = "Search User"
+        contentView.searchBar.placeholder = "검색어 입력"
         navigationItem.titleView = contentView.searchBar
 
         navigationItem.rightBarButtonItems = [contentView.arButton]
