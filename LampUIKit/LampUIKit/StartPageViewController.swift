@@ -17,6 +17,12 @@ class StartPageViewController: UIViewController {
         return uv
     }()
     
+    private lazy var titleImage: UIImageView = {
+        let uv = UIImageView()
+        uv.image = UIImage(named: "lampTitle")
+        return uv
+    }()
+    
     private lazy var startButton: UIButton = {
         let bt = UIButton()
         bt.setImage(UIImage(named: "startButton"), for: .normal)
@@ -38,7 +44,7 @@ class StartPageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         startButton.tapPublisher.sink { _ in
             if let uid = Auth.auth().currentUser?.uid {
                 self.present(MainTabBarViewController(with: uid), transitionType: .fromTop, animated: true, pushing: true)
@@ -48,7 +54,7 @@ class StartPageViewController: UIViewController {
         }
         .store(in: &cancellables)
         
-        [background, startButton].forEach { uv in
+        [background, titleImage, startButton].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(uv)
         }
@@ -58,6 +64,9 @@ class StartPageViewController: UIViewController {
             background.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             background.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             background.topAnchor.constraint(equalTo: view.topAnchor),
+            
+            titleImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            titleImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
             
             startButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
