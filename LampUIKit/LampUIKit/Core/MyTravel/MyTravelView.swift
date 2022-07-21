@@ -26,7 +26,7 @@ class MyTravelView: UIView {
         return bt
     }()
     
-    private let categoryButton = MyTravelCategoryView()
+    private(set) lazy var categoryButton = MyTravelCategoryView()
     
     private(set) lazy var collectionView: UICollectionView = {
         let cl = UICollectionViewFlowLayout()
@@ -52,6 +52,8 @@ class MyTravelView: UIView {
     init() {
         self.cancellables = .init()
         super.init(frame: .zero)
+        
+        categoryButton.selectItem(at: 0)
         
         categoryButton.actionPublisher
             .sink {[weak self] action in

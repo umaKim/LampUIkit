@@ -32,6 +32,8 @@ class MyTravelViewController: BaseViewContronller {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        title = "나의 여행"
+        
         navigationItem.largeTitleDisplayMode = .always
         
         navigationController?.navigationBar.tintColor = .red
@@ -41,6 +43,14 @@ class MyTravelViewController: BaseViewContronller {
         contentView.collectionView.delegate = self
         
         navigationItem.rightBarButtonItems = [contentView.gearButton, contentView.arButton]
+        
+        UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.red]
+        
+        self.navigationController?.setLargeTitleColor(.midNavy)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        contentView.categoryButton.scrollIndicator(to: scrollView.contentOffset)
     }
 }
 
@@ -54,20 +64,23 @@ extension MyTravelViewController: UICollectionViewDataSource {
             guard
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyTravelCell.identifier, for: indexPath) as? MyTravelCell
             else { return UICollectionViewCell() }
+            cell.configure(models: viewModel.model.myTravel)
             return cell
             
-        } else if indexPath.item == 1 { guard
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FavoriteCell.identifier, for: indexPath) as? FavoriteCell
+        } else if indexPath.item == 1 {
+            guard
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FavoriteCell.identifier, for: indexPath) as? FavoriteCell
             else { return UICollectionViewCell() }
+            cell.configure(models: viewModel.model.favoriteTravel)
             return cell
             
         } else if indexPath.item == 2 {
             guard
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CompletedTravelCell.identifier, for: indexPath) as? CompletedTravelCell
             else { return UICollectionViewCell() }
+            cell.configure(models: viewModel.model.completedTravel)
             return cell
         }
-        
         return UICollectionViewCell()
     }
 }
