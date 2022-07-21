@@ -21,10 +21,32 @@ class LoginView: UIView {
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<LoginViewAction, Never>()
     
-    private let kakao = RectangleTextButton("카카오", background: .yellow, fontSize: 15)
-    private let gmail = RectangleTextButton("gmail", background: .orange, fontSize: 15)
-    private let apple = RectangleTextButton("Apple", background: .white, fontSize: 15)
-    private let logOut = RectangleTextButton("LogOut", background: .red, fontSize: 15)
+    private let titleImage: UIImageView = {
+       let uv = UIImageView()
+        uv.image = UIImage(named: "lampTitle")
+        return uv
+    }()
+    
+    private let kakao: UIButton = {
+        let bt = UIButton()
+        bt.setImage(UIImage(named: "kakaoButton"), for: .normal)
+        bt.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        return bt
+    }()
+    
+    private let gmail: UIButton = {
+        let bt = UIButton()
+        bt.setImage(UIImage(named: "gmailButton"), for: .normal)
+        bt.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        return bt
+    }()
+    
+    private let apple: UIButton = {
+        let bt = UIButton()
+        bt.setImage(UIImage(named: "appleButton"), for: .normal)
+        bt.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        return bt
+    }()
     
     private let contractText: UILabel = {
        let lb = UILabel()
@@ -41,6 +63,8 @@ class LoginView: UIView {
         self.cancellables = .init()
         super.init(frame: .zero)
         
+        backgroundColor = .darkNavy
+        
         gmail.tapPublisher.sink { _ in
             self.actionSubject.send(.gmail)
         }
@@ -51,23 +75,21 @@ class LoginView: UIView {
         }
         .store(in: &cancellables)
         
-        logOut.tapPublisher.sink { _ in
-            self.actionSubject.send(.logout)
-        }
-        .store(in: &cancellables)
-        
-        let stackView = UIStackView(arrangedSubviews: [kakao, gmail, apple, logOut])
+        let stackView = UIStackView(arrangedSubviews: [kakao, gmail, apple])
         stackView.axis = .vertical
         stackView.spacing = 14
         stackView.distribution = .equalSpacing
         stackView.alignment = .fill
         
-        [stackView, contractText].forEach { uv in
+        [titleImage, stackView, contractText].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
             addSubview(uv)
         }
         
         NSLayoutConstraint.activate([
+            titleImage.centerXAnchor.constraint(equalTo: centerXAnchor),
+            titleImage.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 100),
+            
             stackView.centerXAnchor.constraint(equalTo: centerXAnchor),
             stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
