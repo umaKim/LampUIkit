@@ -25,36 +25,43 @@ class MainTabBarViewController: UITabBarController {
         viewControllers = [
             createNavController(viewController: LampSpotViewController(vm: LampSpotViewModel()),
                                 title: "램프스팟",
-                                imageName: "house"),
+                                imageName: "lampSpot_unselected",
+                                selectedImage: "lampSpot_selected"),
             
             createNavController(viewController: SearchViewController(vm: SearchViewModel()),
                                 title: "검색",
-                                imageName: "apps"),
+                                imageName: "search_unselected",
+                                selectedImage: "search_selected"),
             
             createNavController(viewController: MyTravelViewController(vm: MyTravelViewModel()),
                                 title: "나의여행",
-                                imageName: "search"),
+                                imageName: "myTravel_unselected",
+                                selectedImage: "myTravel_selected"),
             
             createNavController(viewController: UIViewController(),
                                 title: "마이캐릭터",
-                                imageName: "music"),
+                                imageName: "myCharacter_unselected",
+                                selectedImage: "myCharacter_selected"),
         ]
         
         tabBar.barTintColor = .greyshWhite
+        tabBar.tintColor = .midNavy
         tabBar.backgroundColor = .greyshWhite
     }
     
     fileprivate func createNavController(
         viewController: UIViewController,
         title: String,
-        imageName: String
+        imageName: String,
+        selectedImage: String
     ) -> UIViewController {
         let navController = UINavigationController(rootViewController: viewController)
         navController.navigationBar.prefersLargeTitles = true
-        viewController.navigationItem.title = title
-        viewController.view.backgroundColor = .white
+//        viewController.view.backgroundColor = .white
         navController.tabBarItem.title = title
-        navController.tabBarItem.image = UIImage(named: imageName)
+        navController.tabBarItem.image = .init(named: imageName)
+        navController.tabBarItem.selectedImage = .init(named: selectedImage)?.withTintColor(.midNavy, renderingMode: .alwaysOriginal)
+        navController.setAllTitleColor(.midNavy)
         return navController
     }
 }
