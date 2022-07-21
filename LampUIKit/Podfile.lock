@@ -1,4 +1,5 @@
 PODS:
+  - AARatingBar (1.2)
   - AppAuth (1.5.0):
     - AppAuth/Core (= 1.5.0)
     - AppAuth/ExternalUserAgent (= 1.5.0)
@@ -62,11 +63,13 @@ PODS:
   - PromisesObjC (2.1.0)
 
 DEPENDENCIES:
+  - AARatingBar
   - Firebase/Auth
   - GoogleSignIn
 
 SPEC REPOS:
   trunk:
+    - AARatingBar
     - AppAuth
     - Firebase
     - FirebaseAuth
@@ -82,6 +85,7 @@ SPEC REPOS:
     - PromisesObjC
 
 SPEC CHECKSUMS:
+  AARatingBar: dc54d24687ae97688ffdb29738332d0bc5c0c09f
   AppAuth: 80317d99ac7ff2801a2f18ff86b48cd315ed465d
   Firebase: a876fadc5ea653a377693376fd4f885c62704512
   FirebaseAuth: eae56c13e1161da89be202b1fae3ca60b4b8d689
@@ -96,6 +100,6 @@ SPEC CHECKSUMS:
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: 99b6f43f9e1044bd87a95a60beff28c2c44ddb72
 
-PODFILE CHECKSUM: 401f1cdb136486a35e66f169618e8e0c24c7cc0f
+PODFILE CHECKSUM: b111304fd38a21a36cde4c7c0ca6b7575ca822aa
 
 COCOAPODS: 1.11.0.beta.2

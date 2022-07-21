@@ -18,5 +18,5 @@ target 'LampUIKit' do
 
 pod 'Firebase/Auth'
 pod 'GoogleSignIn'
-
+pod 'AARatingBar'
 end
