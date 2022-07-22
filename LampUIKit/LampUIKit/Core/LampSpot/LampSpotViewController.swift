@@ -55,6 +55,32 @@ class LampSpotViewController: BaseViewContronller {
     }
 }
 
+extension LampSpotViewController: MyMapCollectionViewCellDelegate {
+    func didSelectMyLampImage() {
+        //TODO: Move to new page
+        let vm = LampSpotMapViewModel()
+        let vc = LampSpotMapViewController()
+        vc.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension LampSpotViewController: RecommendationCollectionViewCellDelegate {
+    func recommendationCollectionViewCellDidSelect(itemAt indexPath: IndexPath) {
+        let vm = LocationDetailViewModel()
+        let vc = LocationDetailViewController(vm: vm)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension LampSpotViewController: PopularLampSpotCollectionViewCellDelegate {
+    func popularLampSpotCollectionViewCellDidTap() {
+        let vm = LocationDetailViewModel()
+        let vc = LocationDetailViewController(vm: vm)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
 extension LampSpotViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         viewModel.models.count
@@ -63,13 +89,16 @@ extension LampSpotViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.item == 0 {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyMapCollectionViewCell.identifier, for: indexPath) as? MyMapCollectionViewCell else {return UICollectionViewCell() }
+            cell.delegate = self
             return cell
         } else if indexPath.item == 1 {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendationCollectionViewCell.identifier, for: indexPath) as? RecommendationCollectionViewCell else {return UICollectionViewCell() }
             cell.models = ["nice", "good", "paw", "nice", "good", "paw", "nice", "good", "paw"]
+            cell.delegate = self
             return cell
         } else if indexPath.item == 2 {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PopularLampSpotCollectionViewCell.identifier, for: indexPath) as? PopularLampSpotCollectionViewCell else {return UICollectionViewCell() }
+            cell.delegate = self
             return cell
         }
         return UICollectionViewCell()
