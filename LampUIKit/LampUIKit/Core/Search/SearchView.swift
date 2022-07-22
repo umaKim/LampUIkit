@@ -83,10 +83,14 @@ class SearchView: UIView {
     }
     
     private func setupUI() {
+        searchBar.searchTextField.textColor = .midNavy
+        searchBar.tintColor = .midNavy
+        
         let sv = UIStackView(arrangedSubviews: [categoryButtons, collectionView])
         sv.alignment = .fill
         sv.distribution = .fill
         sv.axis = .vertical
+        sv.spacing = 16
         
         [sv].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
@@ -94,9 +98,6 @@ class SearchView: UIView {
         }
         
         NSLayoutConstraint.activate([
-//            categoryButtons.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-//            categoryButtons.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-//            categoryButtons.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
             categoryButtons.heightAnchor.constraint(equalToConstant: 30),
             
             sv.topAnchor.constraint(equalTo: topAnchor),
@@ -105,7 +106,7 @@ class SearchView: UIView {
             sv.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
         
-        backgroundColor = .red
+        backgroundColor = .greyshWhite
     }
     
     required init?(coder: NSCoder) {
