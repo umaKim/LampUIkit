@@ -8,7 +8,7 @@ import Combine
 import UIKit
 
 class LampSpotViewController: BaseViewContronller {
-
+    
     private let contentView = LampSpotView()
     
     override func loadView() {
@@ -19,12 +19,12 @@ class LampSpotViewController: BaseViewContronller {
     private let viewModel: LampSpotViewModel
     
     init(vm: LampSpotViewModel) {
-        self.cancellables = .init()
         self.viewModel = vm
         super.init()
         
         contentView.collectionView.dataSource = self
         contentView.collectionView.delegate = self
+        
     }
     
     required init?(coder: NSCoder) {
@@ -34,28 +34,25 @@ class LampSpotViewController: BaseViewContronller {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.rightBarButtonItems = [contentView.bellButton, contentView.arButton]
+        navigationItem.rightBarButtonItems = [contentView.bellButton,
+                                              contentView.arButton]
         bind()
-        
-      
     }
     
     private func bind() {
         contentView
             .actionPublisher
-            .sink { action in
+            .sink {[weak self] action in
             switch action {
             case .ar:
-                self.present(ARViewController(vm: ARViewModel()), animated: true)
+                self?.present(ARViewController(vm: ARViewModel()), animated: true)
             case .bell:
                 let nav = UINavigationController(rootViewController: UIViewController())
-                self.navigationController?.pushViewController(nav, animated: true)
+                self?.navigationController?.pushViewController(nav, animated: true)
             }
         }
         .store(in: &cancellables)
     }
-    
-    private var cancellables: Set<AnyCancellable>
 }
 
 extension LampSpotViewController: UICollectionViewDataSource {
