@@ -22,6 +22,13 @@ class RectangleTextButton: UIButton {
         self.titleLabel?.font = UIFont.systemFont(ofSize: fontSize)
     }
     
+    override var isHighlighted: Bool {
+        didSet {
+            // If you have images in your button, add them here same as the code below
+            (self.isHighlighted && self.titleLabel != nil) ? (self.titleLabel!.alpha = 0.2) : (self.titleLabel!.alpha = 1.0)
+        }
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
