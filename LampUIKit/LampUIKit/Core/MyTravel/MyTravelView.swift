@@ -13,7 +13,15 @@ enum MenuTabBarButtonType: Int {
     case completedTravel = 2
 }
 
+enum MyTravelViewAction {
+    case ar
+    case gear
+}
+
 class MyTravelView: UIView {
+    
+    private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
+    private let actionSubject = PassthroughSubject<MyTravelViewAction, Never>()
     
     private(set) var arButton: UIBarButtonItem = {
         let bt = UIBarButtonItem(image: .camera, style: .done, target: nil, action: nil)
@@ -52,6 +60,16 @@ class MyTravelView: UIView {
     init() {
         self.cancellables = .init()
         super.init(frame: .zero)
+        
+        arButton.tapPublisher.sink { _ in
+            self.actionSubject.send(.ar)
+        }
+        .store(in: &cancellables)
+        
+        gearButton.tapPublisher.sink { _ in
+            self.actionSubject.send(.gear)
+        }
+        .store(in: &cancellables)
         
         categoryButton.selectItem(at: 0)
         

@@ -36,9 +36,6 @@ class MyTravelViewController: BaseViewContronller {
         
         navigationItem.largeTitleDisplayMode = .always
         
-        navigationController?.navigationBar.tintColor = .red
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.backgroundColor : UIColor.red]
-        
         contentView.collectionView.dataSource = self
         contentView.collectionView.delegate = self
         
@@ -47,6 +44,27 @@ class MyTravelViewController: BaseViewContronller {
         UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.red]
         
         self.navigationController?.setLargeTitleColor(.midNavy)
+        
+        bind()
+    }
+    
+    private func bind() {
+        contentView
+            .actionPublisher
+            .sink { action in
+                switch action {
+                case .ar:
+                    let vm = ARViewModel()
+                    let vc = ARViewController(vm: vm)
+                    self.present(vc, animated: true)
+                    
+                case .gear:
+                    let vm = MyPageViewModel()
+                    let vc = MyPageViewController(vm: vm)
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            }
+            .store(in: &cancellables)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
