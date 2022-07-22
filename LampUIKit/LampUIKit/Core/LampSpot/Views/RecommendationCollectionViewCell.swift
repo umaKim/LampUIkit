@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol RecommendationCollectionViewCellDelegate: AnyObject {
+    func recommendationCollectionViewCellDidSelect(itemAt indexPath: IndexPath)
+}
+
 class RecommendationCollectionViewCell: UICollectionViewCell, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         models?.count ?? 0
@@ -17,6 +21,10 @@ class RecommendationCollectionViewCell: UICollectionViewCell, UICollectionViewDe
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        delegate?.recommendationCollectionViewCellDidSelect(itemAt: indexPath)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return .init(width: UIScreen.main.width / 4, height: UIScreen.main.width / 4)
     }
@@ -24,6 +32,8 @@ class RecommendationCollectionViewCell: UICollectionViewCell, UICollectionViewDe
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         .init(top: 0, left: 16, bottom: 0, right: 16)
     }
+    
+    weak var delegate: RecommendationCollectionViewCellDelegate?
     
     static let identifier = "RecommendationCollectionViewCell"
     
