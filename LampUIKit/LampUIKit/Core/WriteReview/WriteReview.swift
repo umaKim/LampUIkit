@@ -9,16 +9,18 @@ import Combine
 import UIKit
 
 enum WriteReviewViewAction {
-    case updateSatisfactionModel([EvaluationModel])
-    case updateAtmosphereModel([EvaluationModel])
-    case updateSurroundingModel([EvaluationModel])
-    case updateFoodModel([EvaluationModel])
+    case updateStarRating(CGFloat)
+    case updateSatisfactionModel(EvaluationModel)
+    case updateAtmosphereModel(EvaluationModel)
+    case updateSurroundingModel(EvaluationModel)
+    case updateFoodModel(EvaluationModel)
+    case updateComment(String)
 }
 
 class WriteReviewView: BaseWhiteView {
 
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
-    private let actionSubject = PassthroughSubject<LocationDetailViewAction, Never>()
+    private let actionSubject = PassthroughSubject<WriteReviewViewAction, Never>()
     
     private let contentScrollView: UIScrollView = {
        let sv = UIScrollView()
