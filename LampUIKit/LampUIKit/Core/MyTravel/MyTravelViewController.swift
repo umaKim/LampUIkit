@@ -40,10 +40,7 @@ class MyTravelViewController: BaseViewContronller {
         contentView.collectionView.delegate = self
         
         navigationItem.rightBarButtonItems = [contentView.gearButton, contentView.arButton]
-        
-        UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.red]
-        
-        self.navigationController?.setLargeTitleColor(.midNavy)
+        navigationController?.setLargeTitleColor(.midNavy)
         
         bind()
     }
