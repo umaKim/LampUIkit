@@ -4,6 +4,7 @@
 //
 //  Created by 김윤석 on 2022/07/20.
 //
+import AARatingBar
 import CombineCocoa
 import Combine
 import UIKit
@@ -35,9 +36,9 @@ class WriteReviewView: BaseWhiteView {
     
     private let dividerView1 = DividerView()
     
-    private let starRatingView: UIView = {
-       let uv = UIView()
-        uv.backgroundColor = .systemYellow
+    private lazy var starRatingView: AARatingBar = {
+        let uv = AARatingBar(frame: .zero)
+        uv.color = .midNavy
         uv.heightAnchor.constraint(equalToConstant: 60).isActive = true
         return uv
     }()
@@ -95,6 +96,7 @@ class WriteReviewView: BaseWhiteView {
         ut.layer.borderColor = UIColor.gray.cgColor
         ut.layer.cornerRadius = 5
         ut.backgroundColor = .white
+        ut.textColor = .black
         return ut
     }()
     
@@ -102,8 +104,9 @@ class WriteReviewView: BaseWhiteView {
     
     private let dividerView3 = DividerView()
     
-    private(set) lazy var textButton: RectangleTextButton = {
-        let bt = RectangleTextButton("작성을 완료하기", background: .midNavy, fontSize: 17)
+    private(set) lazy var completeButton: UIButton = {
+        let bt = UIButton()
+        bt.setImage(UIImage(named: "completeWriting_disable"), for: .normal)
         bt.heightAnchor.constraint(equalToConstant: 60).isActive = true
         return bt
     }()
@@ -191,7 +194,7 @@ class WriteReviewView: BaseWhiteView {
                                                             textContextView,
                                                             dividerView2,
                                                             dividerView3,
-                                                            textButton])
+                                                            completeButton])
         totalStackView.axis = .vertical
         totalStackView.distribution = .fill
         totalStackView.alignment = .fill
@@ -219,7 +222,10 @@ class WriteReviewView: BaseWhiteView {
             totalStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             totalStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             totalStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            totalStackView.topAnchor.constraint(equalTo: contentView.topAnchor)
+            totalStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            
+            starRatingView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            starRatingView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
         ])
     }
     
