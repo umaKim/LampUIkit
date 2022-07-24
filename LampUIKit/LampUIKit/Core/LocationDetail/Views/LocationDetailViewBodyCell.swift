@@ -130,7 +130,11 @@ class ReviewLabel: UIView {
         return lb
     }()
     
-    init(title: String, subTitle: String, spacing: CGFloat = 16) {
+    init(
+        title: String,
+        subTitle: String,
+        spacing: CGFloat = 16
+    ) {
         self.titleLabel.text = title
         self.subTitleLabel.text = subTitle
         super.init(frame: .zero)
