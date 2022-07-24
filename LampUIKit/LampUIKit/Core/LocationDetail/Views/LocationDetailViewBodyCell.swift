@@ -7,8 +7,14 @@
 
 import UIKit
 
+protocol LocationDetailViewBodyCellDelegate: AnyObject {
+    func locationDetailViewBodyCellDidTapShowDetail()
+}
+
 class LocationDetailViewBodyCell: UICollectionViewCell {
     static let identifier = "LocationDetailViewBodyCell"
+    
+    weak var delegate: LocationDetailViewBodyCellDelegate?
     
     private lazy var titleLabel: UILabel = {
        let lb = UILabel()
