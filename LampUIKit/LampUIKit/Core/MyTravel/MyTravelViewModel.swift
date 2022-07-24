@@ -48,7 +48,14 @@ class MyTravelViewModel {
 }
 
 struct MyTravelDataSet: Codable {
-    let myTravel: [String]
-    let favoriteTravel: [String]
-    let completedTravel: [String]
+    let myTravel: [MyTravelLocations]
+    let favoriteTravel: [MyTravelLocations]
+    let completedTravel: [MyTravelLocations]
+}
+
+struct MyTravelLocations: Codable, Hashable {
+    let name: String
+    let category: String
+    let visitableTime: String
+    let address: String
 }
