@@ -4,7 +4,8 @@
 //
 //  Created by 김윤석 on 2022/07/13.
 //
-
+import KakaoSDKUser
+import KakaoSDKAuth
 import CryptoKit
 import Combine
 import FirebaseAuth
@@ -58,10 +59,7 @@ class LoginViewController: UIViewController {
                 // Start the sign in flow!
                 GIDSignIn.sharedInstance.signIn(with: config, presenting: self) { [unowned self] user, error in
 
-                  if let error = error {
-                    // ...
-                    return
-                  }
+                  if let error = error { return }
 
                   guard
                     let authentication = user?.authentication,
@@ -70,7 +68,6 @@ class LoginViewController: UIViewController {
                     return
                   }
 
-                    
                   let credential = GoogleAuthProvider.credential(withIDToken: idToken,
                                                                  accessToken: authentication.accessToken)
                     Auth.auth().signIn(with: credential) {result, error in
@@ -81,14 +78,25 @@ class LoginViewController: UIViewController {
                         }
                         
                         guard let uid = result?.user.uid else {return }
-                        
-//                        self.store?.setIsLoggedIn(.loggedIn(uid: uid))
-                        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(MainTabBarViewController(with: uid))
+                        self.changeRootViewcontroller(with: uid)
                     }
                 }
                 
             case .kakao:
-                break
+                // ✅ 카카오톡 설치 여부 확인
+                if (UserApi.isKakaoTalkLoginAvailable()) {
+                    UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
+                        if let error = error {
+                            print(error)
+                        }
+                        else {
+                            self.getUserInfo()
+                        }
+                    }
+                }
+                else {
+                    self.presentUmaDefaultAlert(title: "Install Kakao App")
+                }
                 
             case .logout:
                 do {
@@ -101,6 +109,24 @@ class LoginViewController: UIViewController {
             }
         }
         .store(in: &cancellables)
+    }
+    
+    // ✅ 사용자 정보를 성공적으로 가져오면 화면전환 한다.
+    private func getUserInfo() {
+        
+        // ✅ 사용자 정보 가져오기
+        UserApi.shared.me() {(user, error) in
+            if let error = error {
+                self.presentUmaDefaultAlert(title: "\(error.localizedDescription)")
+            }
+            else {
+                self.changeRootViewcontroller(with: "\(user?.id)")
+            }
+        }
+    }
+    
+    private func changeRootViewcontroller(with uid: String) {
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(MainTabBarViewController(with: uid))
     }
 }
 

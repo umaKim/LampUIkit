@@ -65,6 +65,11 @@ class LoginView: UIView {
         
         backgroundColor = .darkNavy
         
+        kakao.tapPublisher.sink { _ in
+            self.actionSubject.send(.kakao)
+        }
+        .store(in: &cancellables)
+        
         gmail.tapPublisher.sink { _ in
             self.actionSubject.send(.gmail)
         }
