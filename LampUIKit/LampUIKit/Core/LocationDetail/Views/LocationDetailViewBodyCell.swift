@@ -45,10 +45,20 @@ class LocationDetailViewBodyCell: UICollectionViewCell {
     }
     
     override init(frame: CGRect) {
+        self.cancellables = .init()
         super.init(frame: frame)
-        
+        bind()
         setupUI()
     }
+    
+    private func bind() {
+        showDetailButton.tapPublisher.sink { _ in
+            self.delegate?.locationDetailViewBodyCellDidTapShowDetail()
+        }
+        .store(in: &cancellables)
+    }
+    
+    private var cancellables: Set<AnyCancellable>
     
     private func setupUI() {
         let verticalSv = UIStackView(arrangedSubviews: [satisfyView, atmosphereView, surroundingView, foodView])
