@@ -60,6 +60,14 @@ extension LocationDetailViewController: LocationDetailViewHeaderCellDelegate {
     }
 }
 
+extension LocationDetailViewController: LocationDetailViewBodyCellDelegate {
+    func locationDetailViewBodyCellDidTapShowDetail() {
+        let vm = DetailReviewViewModel()
+        let vc = DetailReviewViewController(vm: vm)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
 extension LocationDetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 1
@@ -74,6 +82,7 @@ extension LocationDetailViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LocationDetailViewBodyCell.identifier, for: indexPath) as? LocationDetailViewBodyCell else {return UICollectionViewCell()}
+        cell.delegate = self
         return cell
     }
 }
