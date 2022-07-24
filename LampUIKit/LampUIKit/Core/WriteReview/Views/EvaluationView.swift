@@ -4,6 +4,7 @@ import UIKit
 enum EvaluationViewAction {
     case updateElement(EvaluationModel)
 }
+final class EvaluationView: BaseWhiteView {
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<EvaluationViewAction, Never>()
     
@@ -27,7 +28,19 @@ enum EvaluationViewAction {
         return cv
     }()
     
+    private var elements: [EvaluationModel]
+    
+    init(title: String, elements: [EvaluationModel]) {
+        self.titleLabel.text = title
+        self.elements = elements
+        super.init()
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
         setupUI()
+    }
+    
     private func setupUI() {
         let sv = UIStackView(arrangedSubviews: [titleLabel, collectionView])
         sv.axis = .vertical
@@ -53,3 +66,4 @@ extension EvaluationView: UICollectionViewDelegateFlowLayout {
         let height: CGFloat = EvaluationCollectionViewCell.preferredHeight
         return CGSize(width: width, height: height)
     }
+}
