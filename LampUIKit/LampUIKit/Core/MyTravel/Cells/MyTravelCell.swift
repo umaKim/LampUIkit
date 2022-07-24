@@ -61,8 +61,14 @@ final class MyTravelCellHeaderCell: UICollectionReusableView {
     }
 }
 
+protocol MyTravelCellCollectionViewCellDelegate: AnyObject {
+    func myTravelCellCollectionViewCellDidTapDelete(at index: Int)
+}
+
 final class MyTravelCellCollectionViewCell: UICollectionViewCell {
     static let identifier = "MyTravelCellCollectionViewCell"
+    
+    weak var delegate: MyTravelCellCollectionViewCellDelegate?
     
     private let containerView: UIView = {
         let uv = UIView()
@@ -119,6 +125,7 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell {
             totalSv.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
             totalSv.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16)
         ])
+            self.delegate?.myTravelCellCollectionViewCellDidTapDelete(at: self.tag)
     }
     
     required init?(coder: NSCoder) {
