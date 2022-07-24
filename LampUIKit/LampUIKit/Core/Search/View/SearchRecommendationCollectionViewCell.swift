@@ -162,6 +162,12 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
         starRatingView.configure(with: 3)
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        titleLabel.text = nil
+        locationImageView.image = nil
+    }
     private func bind() {
         
     }
