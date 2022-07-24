@@ -33,7 +33,13 @@ extension UIImage {
 }
 
 extension UIViewController {
-    open func present(_ viewControllerToPresent: UIViewController, transitionType: CATransitionSubtype = .fromRight, animated flag: Bool, pushing: Bool, completion: (() -> Void)? = nil) {
+    open func present(
+        _ viewControllerToPresent: UIViewController,
+        transitionType: CATransitionSubtype = .fromRight,
+        animated flag: Bool,
+        pushing: Bool,
+        completion: (() -> Void)? = nil
+    ) {
         if pushing {
             let transition = CATransition()
             transition.duration = 0.5
