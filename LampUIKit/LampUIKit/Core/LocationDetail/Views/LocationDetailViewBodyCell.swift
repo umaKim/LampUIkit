@@ -4,7 +4,7 @@
 //
 //  Created by 김윤석 on 2022/07/20.
 //
-
+import Combine
 import UIKit
 
 protocol LocationDetailViewBodyCellDelegate: AnyObject {
@@ -22,6 +22,14 @@ class LocationDetailViewBodyCell: UICollectionViewCell {
         lb.textColor = .darkNavy
         lb.font = .systemFont(ofSize: 20, weight: .bold)
         return lb
+    }()
+    
+    private lazy var showDetailButton: UIButton = {
+        let bt = UIButton()
+        bt.setImage(UIImage(named: "showDetail"), for: .normal)
+        bt.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        bt.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        return bt
     }()
     
     private lazy var satisfyView: ReviewLabel = {
@@ -73,26 +81,31 @@ class LocationDetailViewBodyCell: UICollectionViewCell {
         verticalSv.distribution = .fillEqually
         verticalSv.spacing = 21
         
-        let sv = UIStackView(arrangedSubviews: [titleLabel, verticalSv])
+        let headerSv = UIStackView(arrangedSubviews: [titleLabel, showDetailButton])
+        headerSv.axis = .horizontal
+        headerSv.alignment = .fill
+        headerSv.distribution = .fill
+        
+        let sv = UIStackView(arrangedSubviews: [headerSv, verticalSv])
         sv.axis = .vertical
-        sv.alignment = .leading
-        sv.distribution = .fillProportionally
+        sv.alignment = .fill
+        sv.distribution = .fill
         sv.spacing = 18
         
-        [sv,dividerView].forEach { uv in
+        [sv, dividerView].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
-            addSubview(uv)
+            contentView.addSubview(uv)
         }
         
         NSLayoutConstraint.activate([
-            sv.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            sv.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            sv.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
-            sv.topAnchor.constraint(equalTo: topAnchor),
+            sv.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            sv.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            sv.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
+            sv.topAnchor.constraint(equalTo: contentView.topAnchor),
             
-            dividerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            dividerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            dividerView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            dividerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            dividerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            dividerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
     }
     
