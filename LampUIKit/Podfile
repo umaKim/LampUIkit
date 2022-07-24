@@ -19,4 +19,8 @@ target 'LampUIKit' do
 pod 'Firebase/Auth'
 pod 'GoogleSignIn'
 pod 'AARatingBar'
+pod 'KakaoSDKCommon'
+pod 'KakaoSDKAuth'
+pod 'KakaoSDKUser'
+
 end

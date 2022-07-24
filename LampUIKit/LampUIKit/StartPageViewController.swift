@@ -4,6 +4,8 @@
 //
 //  Created by 김윤석 on 2022/07/16.
 //
+import KakaoSDKUser
+import KakaoSDKAuth
 import Firebase
 import Combine
 import CombineCocoa
@@ -46,10 +48,25 @@ class StartPageViewController: UIViewController {
         super.viewDidLoad()
         
         startButton.tapPublisher.sink { _ in
-            if let uid = Auth.auth().currentUser?.uid {
-                self.present(MainTabBarViewController(with: uid), transitionType: .fromTop, animated: true, pushing: true)
+            
+            if AuthApi.hasToken() {
+                UserApi.shared.me { user, error in
+                    self.present(MainTabBarViewController(with: "\(user?.id)"),
+                                 transitionType: .fromTop,
+                                 animated: true,
+                                 pushing: true)
+                }
+            }
+            else if let uid = Auth.auth().currentUser?.uid {
+                self.present(MainTabBarViewController(with: uid),
+                             transitionType: .fromTop,
+                             animated: true,
+                             pushing: true)
             } else {
-                self.present(LoginViewController(vm: LoginViewModel()), transitionType: .fromTop, animated: true, pushing: true)
+                self.present(LoginViewController(vm: LoginViewModel()),
+                             transitionType: .fromTop,
+                             animated: true,
+                             pushing: true)
             }
         }
         .store(in: &cancellables)
