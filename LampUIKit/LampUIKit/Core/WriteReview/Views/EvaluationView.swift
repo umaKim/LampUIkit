@@ -59,6 +59,21 @@ final class EvaluationView: BaseWhiteView {
             sv.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
+extension EvaluationView: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        elements.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EvaluationCollectionViewCell.identifier,
+                                                          for: indexPath) as? EvaluationCollectionViewCell
+        else {return UICollectionViewCell() }
+        cell.configure(with: elements[indexPath.item])
+        return cell
+    }
+}
+
 extension EvaluationView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let name = elements[indexPath.item].title
