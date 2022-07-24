@@ -164,22 +164,22 @@ final class MyTravelCell: UICollectionViewCell {
     }
 }
 
-extension MyTravelCell: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        self.models.count
+extension MyTravelCell: MyTravelCellHeaderCellDelegate {
+    func myTravelCellHeaderCellDidSelectComplete() {
+        showDeleteButton.toggle()
+        updateSections()
     }
     
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        
-        let cell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: MyTravelCellHeaderCell.identifier, for: indexPath) as! MyTravelCellHeaderCell
-        return cell
+    func myTravelCellHeaderCellDidSelectEdit() {
+        showDeleteButton.toggle()
+        updateSections()
     }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyTravelCellCollectionViewCell.identifier, for: indexPath) as? MyTravelCellCollectionViewCell
-        else {return UICollectionViewCell()}
-        return cell
+}
+
+extension MyTravelCell: MyTravelCellCollectionViewCellDelegate {
+    func myTravelCellCollectionViewCellDidTapDelete(at index: Int) {
+        models.remove(at: index)
+        updateSections()
     }
 }
 
@@ -192,6 +192,39 @@ extension MyTravelCell: UICollectionViewDelegateFlowLayout {
         .init(width: UIScreen.main.width, height: 60)
     }
 }
+
+//MARK: - set up UI
+extension MyTravelCell {
+    private func updateSections() {
+        var snapshot = Snapshot()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(models)
+        dataSource?.apply(snapshot, animatingDifferences: true, completion: {
+            self.dataSource?.applySnapshotUsingReloadData(snapshot)
+        })
+    }
+    
+    private func configureCollectionView() {
+        collectionView.delegate = self
+        
+        dataSource = DataSource(collectionView: collectionView) { collectionView, indexPath, model in
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: MyTravelCellCollectionViewCell.identifier,
+                for: indexPath) as? MyTravelCellCollectionViewCell else { return nil }
+            cell.delegate = self
+            cell.tag = indexPath.item
+            cell.showDeleButton = self.showDeleteButton
+            return cell
+        }
+        
+        dataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
+            guard kind == UICollectionView.elementKindSectionHeader else { return nil }
+            let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: MyTravelCellHeaderCell.identifier, for: indexPath) as? MyTravelCellHeaderCell
+            view?.delegate = self
+            return view
+        }
+    }
+    
     private func setupUI() {
         configureCollectionView()
         
@@ -209,3 +242,4 @@ extension MyTravelCell: UICollectionViewDelegateFlowLayout {
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
+}
