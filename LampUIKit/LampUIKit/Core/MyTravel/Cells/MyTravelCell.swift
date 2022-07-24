@@ -100,7 +100,9 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell {
         return lb
     }()
     
+    private var cancellables: Set<AnyCancellable>
     override init(frame: CGRect) {
+        self.cancellables = .init()
         super.init(frame: frame)
         
         configureShadow(0.4)
@@ -125,7 +127,12 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell {
             totalSv.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
             totalSv.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16)
         ])
+        
+        deleteButton.tapPublisher.sink { _ in
             self.delegate?.myTravelCellCollectionViewCellDidTapDelete(at: self.tag)
+        }
+        .store(in: &cancellables)
+    }
     }
     
     required init?(coder: NSCoder) {
