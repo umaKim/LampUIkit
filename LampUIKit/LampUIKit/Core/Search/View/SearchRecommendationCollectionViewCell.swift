@@ -5,6 +5,8 @@
 //  Created by 김윤석 on 2022/07/16.
 //
 
+import Combine
+import CombineCocoa
 import SDWebImage
 import UIKit
 
@@ -143,6 +145,7 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
     }()
     
     override init(frame: CGRect) {
+        self.cancellables = .init()
         super.init(frame: frame)
 
         bind()
@@ -168,8 +171,19 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
         titleLabel.text = nil
         locationImageView.image = nil
     }
+    
+    private var cancellables: Set<AnyCancellable>
+    
     private func bind() {
+        lampSpotButton.tapPublisher.sink { _ in
+            self.delegate?.didTapSetThisLocationButton()
+        }
+        .store(in: &cancellables)
         
+        pinButton.tapPublisher.sink { _ in
+            self.delegate?.didTapMapPin()
+        }
+        .store(in: &cancellables)
     }
     
     private func setupUI() {
