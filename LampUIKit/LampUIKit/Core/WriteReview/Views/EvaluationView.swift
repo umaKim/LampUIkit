@@ -1,9 +1,22 @@
+//
+//  EvaluationView.swift
+//  LampUIKit
+//
+//  Created by 김윤석 on 2022/07/20.
+//
+
 import Combine
 import UIKit
 
 enum EvaluationViewAction {
     case updateElement(EvaluationModel)
 }
+
+struct EvaluationModel {
+    var isSelected: Bool
+    var title: String
+}
+
 final class EvaluationView: BaseWhiteView {
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<EvaluationViewAction, Never>()
