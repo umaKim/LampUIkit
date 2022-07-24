@@ -4,7 +4,7 @@
 //
 //  Created by 김윤석 on 2022/07/21.
 //
-
+import UmaBasicAlertKit
 import UIKit
 
 class MyPageViewController: BaseViewContronller {
@@ -22,9 +22,6 @@ class MyPageViewController: BaseViewContronller {
     init(vm: MyPageViewModel) {
         self.viewModel = vm
         super.init()
-        
-        contentView.tableView.dataSource = self
-        contentView.tableView.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -33,8 +30,49 @@ class MyPageViewController: BaseViewContronller {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        contentView.tableView.dataSource = self
+        contentView.tableView.delegate = self
         
+        contentView
+            .actionPublisher
+            .sink { action in
+                switch action {
+                case .logoutActions:
+                    self.presentUmaActionAlert(title: "로그아웃 하시겠습니까?",
+                                               with: self.logoutAction, self.cancelAction)
+                    
+                case .deleteAccountActions:
+                    self.presentUmaActionAlert(title: "회원 탈퇴 하시겠습니까?",
+                                               with: self.deleteAccountAction, self.cancelAction)
+                }
+            }
+            .store(in: &cancellables)
+        
+        viewModel.notifyPublisher.sink { noti in
+            switch noti {
+            case .goBackToBeforeLoginPage:
+                (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(StartPageViewController())
+            }
+        }
+        .store(in: &cancellables)
     }
+    
+    private var logoutAction: UIAlertAction {
+        return .init(title: "로그아웃", style: .default, handler: {action in
+            self.viewModel.logout()
+        })
+    }
+    
+    private var deleteAccountAction: UIAlertAction {
+        return .init(title: "계정 삭제", style: .default, handler: {action in
+            self.viewModel.deleteAccount()
+        })
+    }
+    
+    private var cancelAction: UIAlertAction {
+        return .init(title: "취소", style: .cancel)
+    }
+    
 }
 
 extension MyPageViewController: UITableViewDataSource {
@@ -47,12 +85,19 @@ extension MyPageViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: MyPageTableViewCell.identifier,
                                                      for: indexPath) as? MyPageTableViewCell
         else {return UITableViewCell()}
+        cell.configure(with: viewModel.models[indexPath.row])
         return cell
     }
 }
 
 extension MyPageViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        contentView.tableView.deselectRow(at: indexPath, animated: true)
         
+        if viewModel.models[indexPath.item] == "로그아웃" {
+            contentView.presentLogOutActions()
+        } else if viewModel.models[indexPath.item] == "회원탈퇴" {
+            contentView.presentDeleteAccountActions()
+        }
     }
 }
