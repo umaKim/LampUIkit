@@ -92,7 +92,7 @@ extension SearchViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchRecommendationCollectionViewCell.identifier, for: indexPath) as? SearchRecommendationCollectionViewCell
-        else {return UICollectionViewCell()}
+        else { return UICollectionViewCell() }
         cell.configure(with: viewModel.items[indexPath.item])
         return cell
     }
