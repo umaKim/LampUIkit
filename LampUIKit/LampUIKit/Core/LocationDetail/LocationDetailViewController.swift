@@ -8,6 +8,7 @@ import Combine
 import UIKit
 
 final class LocationDetailViewController: BaseViewContronller {
+    
     private let contentView = LocationDetailView()
     
     override func loadView() {
@@ -49,7 +50,9 @@ extension LocationDetailViewController: LocationDetailViewHeaderCellDelegate {
     }
     
     func locationDetailViewHeaderCellDidTapAr() {
-        
+        let vm = ARViewModel()
+        let vc = ARViewController(vm: vm)
+        present(vc, animated: true)
     }
     
     func locationDetailViewHeaderCellDidTapShare() {
