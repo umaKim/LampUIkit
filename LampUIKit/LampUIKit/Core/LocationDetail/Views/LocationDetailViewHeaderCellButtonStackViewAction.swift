@@ -23,7 +23,7 @@ class LocationDetailViewHeaderCellButtonStackView: UIView {
     private var cancellables: Set<AnyCancellable>
     
     private let saveButton: UIButton = {
-        return .buttonMaker(image: UIImage(systemName: "circle"),
+        return .buttonMaker(image: UIImage(named: "detailSave"),
                             imagePadding: 12,
                             subTitle: "저장하기")
     }()
@@ -35,13 +35,13 @@ class LocationDetailViewHeaderCellButtonStackView: UIView {
     }()
     
     private let reviewButton: UIButton = {
-        return .buttonMaker(image: UIImage(systemName: "star"),
+        return .buttonMaker(image: UIImage(named: "detailReview"),
                             imagePadding: 12,
                             subTitle: "후기쓰기")
     }()
     
     private let shareButton: UIButton = {
-        return .buttonMaker(image: UIImage(systemName: "person"),
+        return .buttonMaker(image: UIImage(named: "detailShare"),
                             imagePadding: 12,
                             subTitle: "공유하기")
     }()
@@ -49,8 +49,6 @@ class LocationDetailViewHeaderCellButtonStackView: UIView {
     init() {
         self.cancellables = .init()
         super.init(frame: .zero)
-        
-      
         
         bind()
         setupUI()
