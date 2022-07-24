@@ -46,3 +46,10 @@ enum EvaluationViewAction {
             sv.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
+extension EvaluationView: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let name = elements[indexPath.item].title
+        let width = name.size(withAttributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15, weight: .semibold)]).width + 24
+        let height: CGFloat = EvaluationCollectionViewCell.preferredHeight
+        return CGSize(width: width, height: height)
+    }
