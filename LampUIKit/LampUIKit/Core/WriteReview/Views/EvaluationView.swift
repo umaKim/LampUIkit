@@ -74,6 +74,22 @@ extension EvaluationView: UICollectionViewDataSource {
     }
 }
 
+extension EvaluationView: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        clearPreviouslySelectedItem()
+        elements[indexPath.item].isSelected.toggle()
+        if elements[indexPath.item].isSelected {
+            actionSubject.send(.updateElement(elements[indexPath.item]))
+            collectionView.reloadData()
+        }
+    }
+    
+    private func clearPreviouslySelectedItem() {
+        let clearedElements = elements.map({EvaluationModel(isSelected: false, title: $0.title)})
+        elements = clearedElements
+    }
+}
+
 extension EvaluationView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let name = elements[indexPath.item].title
