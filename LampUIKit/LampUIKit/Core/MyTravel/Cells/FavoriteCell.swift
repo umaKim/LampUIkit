@@ -145,9 +145,9 @@ final class FavoriteCell: UICollectionViewCell {
         ])
     }
     
-    private var models: [String] = []
+    private var models: [MyTravelLocations] = []
     
-    public func configure(models: [String]) {
+    public func configure(models: [MyTravelLocations]) {
         self.models = models
     }
     
