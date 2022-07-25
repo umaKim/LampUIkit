@@ -1,4 +1,14 @@
+//
+//  MyTravelCategoryView.swift
+//  LampUIKit
+//
+//  Created by 김윤석 on 2022/07/16.
+//
+
+import CombineCocoa
 import Combine
+import UIKit
+
 enum MenuBarButtonAction {
     case didTapMyTravel
     case didTapFavoritePlace
@@ -40,6 +50,22 @@ enum MenuBarButtonAction {
     
     private let separatorView = DividerView()
         self.cancellable = .init()
+        
+        myTravelButton.tapPublisher.sink {[weak self] _ in
+            self?.actionSubject.send(.didTapMyTravel)
+        }
+        .store(in: &cancellable)
+        
+        favoritePlaceButton.tapPublisher.sink {[weak self] _ in
+            self?.actionSubject.send(.didTapFavoritePlace)
+        }
+        .store(in: &cancellable)
+        
+        completedTravelButton.tapPublisher.sink {[weak self] _ in
+            self?.actionSubject.send(.didTapCompletedTravel)
+        }
+        .store(in: &cancellable)
+        
         let sv = UIStackView(arrangedSubviews: [myTravelButton, favoritePlaceButton, completedTravelButton])
         sv.axis = .horizontal
         sv.distribution = .fillEqually
