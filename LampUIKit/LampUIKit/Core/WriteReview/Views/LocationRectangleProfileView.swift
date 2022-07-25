@@ -1,3 +1,13 @@
+//
+//  LocationRectangleProfileView.swift
+//  LampUIKit
+//
+//  Created by 김윤석 on 2022/07/20.
+//
+
+import UIKit
+
+final class LocationRectangleProfileView: UIView {
     private lazy var profileImageView: UIImageView = {
         let uv = UIImageView()
         uv.image = .gear
@@ -20,6 +30,10 @@
         lb.font = .systemFont(ofSize: 12, weight: .semibold)
         return lb
     }()
+    
+    init() {
+        super.init(frame: .zero)
+        
         let labelSv = UIStackView(arrangedSubviews: [titleLabel, addrLabel])
         labelSv.axis = .vertical
         labelSv.distribution = .fill
@@ -43,3 +57,7 @@
         ])
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
