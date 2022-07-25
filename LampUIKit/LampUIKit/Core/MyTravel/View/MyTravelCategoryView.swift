@@ -1,3 +1,13 @@
+import Combine
+enum MenuBarButtonAction {
+    case didTapMyTravel
+    case didTapFavoritePlace
+    case didTapCompletedTravel
+}
+    private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
+    private let actionSubject = PassthroughSubject<MenuBarButtonAction, Never>()
+    private var cancellable: Set<AnyCancellable>
+        self.cancellable = .init()
     private func setAlpha(for button: UIButton) {
         self.myTravelButton.alpha = 0.5
         self.myTravelButton.setTitleColor(.gray, for: .normal)
