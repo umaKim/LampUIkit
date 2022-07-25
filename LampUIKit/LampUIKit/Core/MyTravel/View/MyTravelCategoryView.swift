@@ -14,6 +14,9 @@ enum MenuBarButtonAction {
     case didTapFavoritePlace
     case didTapCompletedTravel
 }
+
+final class MyTravelCategoryView: BaseWhiteView {
+    
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<MenuBarButtonAction, Never>()
     private var cancellable: Set<AnyCancellable>
@@ -49,7 +52,10 @@ enum MenuBarButtonAction {
     }()
     
     private let separatorView = DividerView()
+    
+    override init() {
         self.cancellable = .init()
+        super.init()
         
         myTravelButton.tapPublisher.sink {[weak self] _ in
             self?.actionSubject.send(.didTapMyTravel)
@@ -90,6 +96,14 @@ enum MenuBarButtonAction {
             separatorView.leadingAnchor.constraint(equalTo: leadingAnchor),
             separatorView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension MyTravelCategoryView {
     func selectItem(at index: Int) {
         animateIndicator(to: index)
     }
@@ -118,6 +132,7 @@ enum MenuBarButtonAction {
         button.alpha = 1.0
         button.setTitleColor(.midNavy, for: .normal)
     }
+    
     private func animateIndicator(to index: Int) {
         
         var button: UIButton
@@ -136,3 +151,4 @@ enum MenuBarButtonAction {
         setAlpha(for: button)
         
     }
+}
