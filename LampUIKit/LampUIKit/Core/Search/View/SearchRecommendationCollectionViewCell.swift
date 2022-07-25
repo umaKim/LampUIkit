@@ -85,9 +85,9 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
     
     private let titleLabel: UILabel = {
        let lb = UILabel()
-        lb.text = "경복궁"
-        lb.font = .systemFont(ofSize: 18, weight: .bold)
+        lb.font = .systemFont(ofSize: 18, weight: .semibold)
         lb.textColor = .darkNavy
+        lb.numberOfLines = 2
         return lb
     }()
     
@@ -104,19 +104,17 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
     
     private let setThisLocationButton: UIButton = {
        let bt = UIButton()
-        bt.setTitle("여행지로 설정하기", for: .normal)
-        bt.backgroundColor = .darkNavy
-        bt.titleLabel?.font = .systemFont(ofSize: 11)
+        bt.setImage(UIImage(named: "destinationSetButton"), for: .normal)
         bt.layer.cornerRadius = 2.5
+        bt.heightAnchor.constraint(equalToConstant: 30).isActive = true
         return bt
     }()
     
     private let pinButton: UIButton = {
        let bt = UIButton()
-        let image = UIImage(systemName: "pin.circle")?.withTintColor(.white, renderingMode: .alwaysOriginal)
-        bt.setImage(image, for: .normal)
-        bt.backgroundColor = .darkNavy
-        bt.widthAnchor.constraint(equalToConstant: 29).isActive = true
+        bt.setImage(UIImage(named: "openMapButton"), for: .normal)
+        bt.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        bt.heightAnchor.constraint(equalToConstant: 30).isActive = true
         bt.layer.cornerRadius = 2.5
         return bt
     }()
@@ -126,7 +124,9 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
         uv.image = .init(systemName: "house")
         uv.backgroundColor = .gray
         uv.layer.cornerRadius = 16
-        uv.widthAnchor.constraint(equalToConstant: UIScreen.main.width / 2).isActive = true
+        uv.clipsToBounds = true
+        uv.contentMode = .scaleAspectFill
+        uv.widthAnchor.constraint(equalToConstant: UIScreen.main.width / 2.2).isActive = true
         return uv
     }()
     
