@@ -90,6 +90,23 @@ enum MenuBarButtonAction {
             separatorView.leadingAnchor.constraint(equalTo: leadingAnchor),
             separatorView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
+    func selectItem(at index: Int) {
+        animateIndicator(to: index)
+    }
+    
+    func scrollIndicator(to contentOffset: CGPoint) {
+        let buttons = [myTravelButton, favoritePlaceButton, completedTravelButton]
+        let index = Int(contentOffset.x / frame.width)
+        setAlpha(for: buttons[index])
+        setSelectionBar(at: index)
+    }
+    
+    private func setSelectionBar(at index: Int) {
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
+            self.selectionBarView.frame.origin.x = (UIScreen.main.width / 3) * CGFloat(index)
+        } completion: { _ in }
+    }
+    
     private func setAlpha(for button: UIButton) {
         self.myTravelButton.alpha = 0.5
         self.myTravelButton.setTitleColor(.gray, for: .normal)
