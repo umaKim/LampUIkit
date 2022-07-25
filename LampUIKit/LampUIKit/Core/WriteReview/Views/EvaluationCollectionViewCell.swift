@@ -18,3 +18,14 @@
         ])
     }
     
+    public func configure(with model: EvaluationModel) {
+        titleLabel.text = model.title
+        
+        if model.isSelected {
+            self.layer.borderColor = UIColor.midNavy.cgColor
+            self.titleLabel.textColor = .midNavy
+        } else {
+            self.layer.borderColor = UIColor.systemGray.cgColor
+            self.titleLabel.textColor = .systemGray
+        }
+    }
