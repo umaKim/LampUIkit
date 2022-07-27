@@ -14,11 +14,11 @@ enum DetailReviewViewAction {
 class DetailReviewView: BaseWhiteView {
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<DetailReviewViewAction, Never>()
-    
+
     private(set) var reportButton: UIBarButtonItem = .init(image: UIImage(named: ""), style: .done, target: nil, action: nil)
     
     private(set) var collectionView: UICollectionView = {
-       let cl = UICollectionViewFlowLayout()
+        let cl = UICollectionViewFlowLayout()
         cl.scrollDirection = .vertical
         
         let cv = UICollectionView(frame: .zero, collectionViewLayout: cl)
@@ -27,6 +27,8 @@ class DetailReviewView: BaseWhiteView {
                     withReuseIdentifier: DetailReviewCollectionViewHeader.identifier)
         cv.register(DetailReviewViewCollectionViewCell.self,
                     forCellWithReuseIdentifier: DetailReviewViewCollectionViewCell.identifier)
+        
+        cv.backgroundColor = .greyshWhite
         return cv
     }()
     
@@ -64,26 +66,60 @@ class DetailReviewCollectionViewHeader: UICollectionReusableView {
     static let identifier = "DetailReviewCollectionViewHeader"
     
     private let profileView: LocationRectangleProfileView = {
-       let uv = LocationRectangleProfileView()
+        let uv = LocationRectangleProfileView()
         uv.heightAnchor.constraint(equalToConstant: 70).isActive = true
         return uv
     }()
     
-    private let starRatingView: UIView = {
-       let uv = UIView()
-        uv.heightAnchor.constraint(equalToConstant: 60).isActive = true
+    private let starRatingView: UIStackView = {
+        let sv = UIStackView()
+        for _ in 0..<5 {
+            sv.addArrangedSubview(UIImageView(image: UIImage(systemName: "star")))
+        }
+        sv.distribution = .fillEqually
+        sv.alignment = .fill
+        sv.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        return sv
+    }()
+    
+    private lazy var satisfyView: ReviewLabel = {
+        let uv = ReviewLabel(title: "만족도", subTitle: "만족")
         return uv
     }()
+    
+    private lazy var atmosphereView: ReviewLabel = {
+        let uv = ReviewLabel(title: "분위기", subTitle: "만족")
+        return uv
+    }()
+    
+    private lazy var surroundingView: ReviewLabel = {
+        let uv = ReviewLabel(title: "주차 및 주변", subTitle: "만족")
+        return uv
+    }()
+    
+    private lazy var foodView: ReviewLabel = {
+        let uv = ReviewLabel(title: "먹거리", subTitle: "만족")
+        return uv
+    }()
+    
+    private lazy var dividerView = DividerView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         backgroundColor = .greyshWhite
         
-        let sv = UIStackView(arrangedSubviews: [profileView, starRatingView])
+        let verticalSv = UIStackView(arrangedSubviews: [satisfyView, atmosphereView, surroundingView, foodView])
+        verticalSv.axis = .vertical
+        verticalSv.alignment = .leading
+        verticalSv.distribution = .fillEqually
+        verticalSv.spacing = 21
+        
+        let sv = UIStackView(arrangedSubviews: [profileView, starRatingView, verticalSv, dividerView])
         sv.axis = .vertical
         sv.alignment = .fill
         sv.distribution = .fill
+        sv.spacing = 16
         
         [sv].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
@@ -91,10 +127,10 @@ class DetailReviewCollectionViewHeader: UICollectionReusableView {
         }
         
         NSLayoutConstraint.activate([
-            sv.leadingAnchor.constraint(equalTo: leadingAnchor),
-            sv.trailingAnchor.constraint(equalTo: trailingAnchor),
-            sv.bottomAnchor.constraint(equalTo: bottomAnchor),
-            sv.topAnchor.constraint(equalTo: topAnchor)
+            sv.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            sv.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            sv.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -26),
+            sv.topAnchor.constraint(equalTo: topAnchor),
         ])
     }
     
