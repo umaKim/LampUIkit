@@ -106,8 +106,54 @@ class DetailReviewCollectionViewHeader: UICollectionReusableView {
 class DetailReviewViewCollectionViewCell: UICollectionViewCell {
     static let identifier = "DetailReviewViewCollectionViewCell"
     
+    private lazy var imageView: UIImageView = {
+        let uv = UIImageView()
+        uv.backgroundColor = .blue
+        uv.layer.cornerRadius = 6
+        uv.clipsToBounds = true
+        uv.contentMode = .scaleAspectFill
+        uv.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        return uv
+    }()
+    
+    private lazy var starRatinView: UIView = {
+        let uv = UIView()
+        uv.backgroundColor = .green
+        uv.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        return uv
+    }()
+    
+    private lazy var commentLabel: UILabel = {
+        let lb = UILabel()
+        lb.backgroundColor = .brown
+        return lb
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        layer.cornerRadius = 6
+        layer.borderWidth = 1
+        layer.borderColor = UIColor.systemGray.cgColor
+        clipsToBounds = true
+        
+        let sv = UIStackView(arrangedSubviews: [imageView, starRatinView, commentLabel])
+        sv.distribution = .fill
+        sv.alignment = .fill
+        sv.axis = .vertical
+        sv.spacing = 8
+        
+        [sv].forEach { uv in
+            uv.translatesAutoresizingMaskIntoConstraints = false
+            contentView.addSubview(uv)
+        }
+        
+        NSLayoutConstraint.activate([
+            sv.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 13),
+            sv.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -13),
+            sv.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -13),
+            sv.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 13)
+        ])
     }
     
     required init?(coder: NSCoder) {
