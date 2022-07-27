@@ -7,8 +7,15 @@
 import Combine
 import UIKit
 
+protocol MyTravelCellHeaderCellDelegate:AnyObject {
+    func myTravelCellHeaderCellDidSelectEdit()
+    func myTravelCellHeaderCellDidSelectComplete()
+}
+
 final class MyTravelCellHeaderCell: UICollectionReusableView {
     static let identifier = "MyTravelCellHeaderCell"
+    
+    weak var delegate: MyTravelCellHeaderCellDelegate?
     
     private lazy var goalDateLabel: UILabel = {
        let ul = UILabel()
