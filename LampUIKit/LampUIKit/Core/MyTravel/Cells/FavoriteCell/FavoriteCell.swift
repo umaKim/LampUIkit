@@ -37,6 +37,16 @@ final class FavoriteCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 }
+extension FavoriteCell: FavoriteCellHeaderCellDelegate {
+    func favoriteCellHeaderCellDidSelectEdit() {
+        
+    }
+    
+    func favoriteCellHeaderCellDidSelectComplete() {
+        
+    }
+}
+
 extension FavoriteCell {
     private func updateSections() {
         var snapshot = Snapshot()
