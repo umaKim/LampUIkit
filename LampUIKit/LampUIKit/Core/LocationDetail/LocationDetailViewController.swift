@@ -31,6 +31,18 @@ final class LocationDetailViewController: BaseViewContronller {
         
         contentView.collectionView.dataSource = self
         contentView.collectionView.delegate = self
+        
+        navigationItem.leftBarButtonItems = [contentView.backButton]
+        
+        contentView
+            .actionPublisher
+            .sink { action in
+                switch action {
+                case .back:
+                    self.navigationController?.popViewController(animated: true)
+                }
+            }
+            .store(in: &cancellables)
     }
     
     required init?(coder: NSCoder) {
