@@ -8,13 +8,19 @@ import Combine
 import UIKit
 
 enum DetailReviewViewAction {
-    
+    case back
 }
 
 class DetailReviewView: BaseWhiteView {
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<DetailReviewViewAction, Never>()
 
+    private(set) lazy var backButton: UIBarButtonItem = {
+        let image = UIImage(named:"back")?.withTintColor(.midNavy, renderingMode: .alwaysOriginal)
+        let bt = UIBarButtonItem(image: image, style: .done, target: nil, action: nil)
+        return bt
+    }()
+    
     private(set) var reportButton: UIBarButtonItem = .init(image: UIImage(named: ""), style: .done, target: nil, action: nil)
     
     private(set) var collectionView: UICollectionView = {
@@ -44,7 +50,10 @@ class DetailReviewView: BaseWhiteView {
     }
     
     private func bind() {
-        
+        backButton.tapPublisher.sink { _ in
+            self.actionSubject.send(.back)
+        }
+        .store(in: &cancellables)
     }
     
     private func setupUI() {
@@ -98,7 +107,7 @@ class DetailReviewCollectionViewHeader: UICollectionReusableView {
     }()
     
     private lazy var foodView: ReviewLabel = {
-        let uv = ReviewLabel(title: "먹거리", subTitle: "만족")
+        let uv = ReviewLabel(title: "먹거리", subTitle: "만족", setRoundDesign: true)
         return uv
     }()
     

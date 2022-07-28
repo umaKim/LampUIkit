@@ -9,10 +9,16 @@ import Combine
 import UIKit
 
 enum LocationDetailViewAction {
-    
+    case back
 }
 
 final class LocationDetailView: BaseWhiteView {
+    
+    private(set) lazy var backButton: UIBarButtonItem = {
+        let image = UIImage(named:"back")?.withTintColor(.midNavy, renderingMode: .alwaysOriginal)
+        let bt = UIBarButtonItem(image: image, style: .done, target: nil, action: nil)
+        return bt
+    }()
     
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<LocationDetailViewAction, Never>()
@@ -34,6 +40,13 @@ final class LocationDetailView: BaseWhiteView {
     
     override init() {
         super.init()
+        
+        backButton
+            .tapPublisher
+            .sink { _ in
+                self.actionSubject.send(.back)
+            }
+            .store(in: &cancellables)
         
         [collectionView].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
