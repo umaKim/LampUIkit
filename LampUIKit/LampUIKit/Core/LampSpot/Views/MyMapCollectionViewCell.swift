@@ -44,7 +44,6 @@ class MyMapCollectionViewCell: UICollectionViewCell {
     
     @objc
     private func didTap() {
-        print("didTap")
         delegate?.didSelectMyLampImage()
     }
     
