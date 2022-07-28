@@ -22,5 +22,5 @@ pod 'AARatingBar'
 pod 'KakaoSDKCommon'
 pod 'KakaoSDKAuth'
 pod 'KakaoSDKUser'
-
+pod 'ARCL'
 end
