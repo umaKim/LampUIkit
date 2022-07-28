@@ -33,6 +33,14 @@ final class FavoriteCell: UICollectionViewCell {
         super.init(frame: frame)
         setupUI()
     }
+    
+    private var models: [MyTravelLocations] = []
+    
+    public func configure(models: [MyTravelLocations]) {
+        self.models = models
+        self.updateSections()
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
