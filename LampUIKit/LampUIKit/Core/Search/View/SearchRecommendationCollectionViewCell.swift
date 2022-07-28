@@ -130,6 +130,13 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
         return uv
     }()
     
+    private let favoriteButton: UIButton = {
+       let bt = UIButton()
+        let image = UIImage(named: "favorite_unselected")
+        bt.setImage(image, for: .normal)
+        return bt
+    }()
+    
     private let separatorView: UIView = {
        let uv = UIView()
         uv.backgroundColor = .lightGrey
@@ -175,15 +182,35 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
     private var cancellables: Set<AnyCancellable>
     
     private func bind() {
-        lampSpotButton.tapPublisher.sink { _ in
-            self.delegate?.didTapSetThisLocationButton()
-        }
-        .store(in: &cancellables)
+        setThisLocationButton
+            .tapPublisher
+            .sink { _ in
+                self.delegate?.didTapSetThisLocationButton()
+            }
+            .store(in: &cancellables)
         
-        pinButton.tapPublisher.sink { _ in
-            self.delegate?.didTapMapPin()
-        }
-        .store(in: &cancellables)
+        pinButton
+            .tapPublisher
+            .sink { _ in
+                self.delegate?.didTapMapPin()
+            }
+            .store(in: &cancellables)
+        
+        favoriteButton
+            .tapPublisher
+            .sink { _ in
+                
+                self.isFavorite.toggle()
+                
+                if self.isFavorite {
+                    self.favoriteButton.setImage(UIImage(named: "favorite_selected"), for: .normal)
+                } else {
+                    self.favoriteButton.setImage(UIImage(named: "favorite_unselected"), for: .normal)
+                }
+                self.delegate?.didTapFavoriteButton(at: self.tag,
+                                                    self.isFavorite)
+            }
+            .store(in: &cancellables)
     }
     
     private func setupUI() {
