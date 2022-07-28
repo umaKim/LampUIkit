@@ -2,6 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Photo Library access permission is required for bringing photos</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Camera acess permission is required to use AR service</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Location access permission is required to use AR service</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Location access permission is required to use AR service</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
