@@ -37,6 +37,16 @@ final class FavoriteCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+extension FavoriteCell: FavoriteCellCollectionViewCellDelegate {
+    func favoriteCellCollectionViewCellDidTapDelete(at index: Int) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.models.remove(at: index)
+            self.updateSections()
+        }
+    }
+}
+
 extension FavoriteCell: FavoriteCellHeaderCellDelegate {
     func favoriteCellHeaderCellDidSelectEdit() {
         
