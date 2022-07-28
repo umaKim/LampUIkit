@@ -81,4 +81,13 @@ struct LocationItem: Decodable, Hashable {
     var addr2: String
     var mapx: Int
     var mapy: Int
+    
+    var isFavorite: Bool?
+    
+    var score: Float?
+    
+    var allOrderScore: Int?
+    var recommendingOrderScore: Int?
+    var travelOrderScore: Int?
+    var notVisitOrderScore: Int?
 }
