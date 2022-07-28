@@ -15,6 +15,57 @@ protocol LocationDetailViewHeaderCellDelegate: AnyObject {
     func locationDetailViewHeaderCellDidTapShare()
 }
 
+class LocationDescriptionView: UIView {
+    private lazy var titleLabel: UILabel = {
+       let lb = UILabel()
+        lb.textColor = .midNavy
+        lb.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        return lb
+    }()
+    
+    private lazy var descriptionLabel: UILabel = {
+       let lb = UILabel()
+        lb.textColor = .black
+        lb.numberOfLines = 0
+        lb.lineBreakMode = .byWordWrapping
+        lb.textAlignment = .left
+        return lb
+    }()
+    
+    init(_ title: String, description: String) {
+        super.init(frame: .zero)
+        
+        self.titleLabel.text = title
+        self.descriptionLabel.text = description
+        
+        setupUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupUI() {
+        let sv = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel])
+        sv.axis = .horizontal
+        sv.distribution = .fill
+        sv.alignment = .top
+        sv.spacing = 16
+        
+        [sv].forEach { uv in
+            uv.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(uv)
+        }
+        
+        NSLayoutConstraint.activate([
+            sv.leadingAnchor.constraint(equalTo: leadingAnchor),
+            sv.trailingAnchor.constraint(equalTo: trailingAnchor),
+            sv.bottomAnchor.constraint(equalTo: bottomAnchor),
+            sv.topAnchor.constraint(equalTo: topAnchor)
+        ])
+    }
+}
+
 class LocationDetailViewHeaderCell: UICollectionReusableView {
     
     static let identifier = "LocationDetailViewHeaderCell"
@@ -29,6 +80,19 @@ class LocationDetailViewHeaderCell: UICollectionReusableView {
     private let buttonSv = LocationDetailViewHeaderCellButtonStackView()
     
     private let dividerView = DividerView()
+    
+    private let timeLabel: LocationDescriptionView = {
+       let uv = LocationDescriptionView("관람시간", description: "09:00~18:30 (입장마감은 17:30)")
+        uv.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        return uv
+    }()
+    
+    private let priceLabel: LocationDescriptionView = {
+       let uv = LocationDescriptionView("관람요금",
+                                        description: "성인 : 3,000원 (개인) |  2,400원 (단체) \n만 65세 이상 / 만 6세 이하  : 무료\n소인 : 1,500원 (개인) | 1,200원 (단체)")
+        uv.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        return uv
+    }()
     
     private let addToMyTravelButton = RectangleTextButton("내 여행지로 추가", background: .midNavy, textColor: .white, fontSize: 17)
     
@@ -64,7 +128,13 @@ class LocationDetailViewHeaderCell: UICollectionReusableView {
     }
     
     private func setupUI() {
-        [locationImageView, buttonSv, dividerView, addToMyTravelButton].forEach { uv in
+        let labelStackView = UIStackView(arrangedSubviews: [timeLabel, priceLabel])
+        labelStackView.alignment = .leading
+        labelStackView.distribution = .fill
+        labelStackView.spacing = 16
+        labelStackView.axis = .vertical
+        
+        [locationImageView, buttonSv, dividerView, labelStackView, addToMyTravelButton].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
             addSubview(uv)
         }
@@ -84,10 +154,14 @@ class LocationDetailViewHeaderCell: UICollectionReusableView {
             dividerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             dividerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             
-            addToMyTravelButton.topAnchor.constraint(equalTo: dividerView.bottomAnchor, constant: 16),
+            labelStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            labelStackView.topAnchor.constraint(equalTo: dividerView.bottomAnchor, constant: 16),
+            
+            addToMyTravelButton.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: 16),
             addToMyTravelButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             addToMyTravelButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            addToMyTravelButton.heightAnchor.constraint(equalToConstant: 60)
+            addToMyTravelButton.heightAnchor.constraint(equalToConstant: 60),
+            addToMyTravelButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -60)
         ])
     }
     
