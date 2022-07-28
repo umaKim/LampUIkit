@@ -37,6 +37,16 @@ final class FavoriteCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 }
+extension FavoriteCell {
+    private func updateSections() {
+        var snapshot = Snapshot()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(models)
+        dataSource?.apply(snapshot, animatingDifferences: true, completion: {
+            self.dataSource?.applySnapshotUsingReloadData(snapshot)
+        })
+    }
+    
     private func configureCollectionView() {
         collectionView.delegate = self
         
