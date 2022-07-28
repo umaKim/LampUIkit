@@ -5,6 +5,8 @@
 //  Created by 김윤석 on 2022/07/15.
 //
 
+import ARCL
+import CoreLocation
 import UIKit
 
 class ARViewModel {
@@ -12,7 +14,8 @@ class ARViewModel {
 }
 
 class ARViewController: UIViewController {
-
+    var sceneLocationView = SceneLocationView()
+    
     private let viewModel: ARViewModel
     
     init(vm: ARViewModel) {
@@ -26,8 +29,27 @@ class ARViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        sceneLocationView.run()
+        view.addSubview(sceneLocationView)
+        
+        sceneLocationView.locationNodeTouchDelegate = self
+    }
+    
+    override func viewDidLayoutSubviews() {
+      super.viewDidLayoutSubviews()
 
-        view.backgroundColor = .red
-        // Do any additional setup after loading the view.
+      sceneLocationView.frame = view.bounds
     }
 }
+
+extension ARViewController: LNTouchDelegate {
+    func annotationNodeTouched(node: AnnotationNode) {
+        
+    }
+    
+    func locationNodeTouched(node: LocationNode) {
+        
+    }
+}
+    
