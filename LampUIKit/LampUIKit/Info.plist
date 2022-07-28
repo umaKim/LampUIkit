@@ -10,6 +10,13 @@
 	<string>Location access permission is required to use AR service</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Location access permission is required to use AR service</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Roboto-Bold.ttf</string>
+		<string>Roboto-Light.ttf</string>
+		<string>Roboto-Medium.ttf</string>
+		<string>Roboto-Regular.ttf</string>
+	</array>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
