@@ -73,7 +73,7 @@ class KeywordSearchXMLService: BaseXMLService, XMLParserDelegate {
     }
 }
 
-struct LocationItem {
+struct LocationItem: Decodable, Hashable {
     var areaCode: String
     var title: String
     var firstimage: String
