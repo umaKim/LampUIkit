@@ -57,6 +57,15 @@ extension LocationDetailViewController: LocationDetailViewHeaderCellDelegate {
     
     func locationDetailViewHeaderCellDidTapShare() {
         
+        //TODO: start loading image
+        
+        let vc = UIActivityViewController(
+            activityItems: [],
+            applicationActivities: nil)
+        
+        present(vc, animated: true) {
+            //TODO: end loading image
+        }
     }
 }
 
