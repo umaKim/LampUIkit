@@ -9,7 +9,14 @@ import Combine
 import UIKit
 
 class SearchViewController: BaseViewContronller {
-
+    
+    private typealias DataSource = UICollectionViewDiffableDataSource<Section, LocationItem>
+    private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, LocationItem>
+    
+    enum Section { case main }
+    
+    private var dataSource: DataSource?
+    
     private let contentView = SearchView()
     
     private let viewModel: SearchViewModel
@@ -33,10 +40,10 @@ class SearchViewController: BaseViewContronller {
         
         contentView.searchBar.placeholder = "검색어 입력"
         navigationItem.titleView = contentView.searchBar
-
+        
         navigationItem.rightBarButtonItems = [contentView.arButton]
         contentView.collectionView.delegate = self
-        contentView.collectionView.dataSource = self
+//        contentView.collectionView.dataSource = self
         
         bind()
     }
@@ -77,24 +84,33 @@ class SearchViewController: BaseViewContronller {
             .sink { notify in
                 switch notify {
                 case .reload:
-                    self.contentView.reload()
+                    //                    self.contentView.reload()
+                    self.updateSections()
                 }
             }
             .store(in: &cancellables)
     }
 }
 
-extension SearchViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        viewModel.items.count
+extension SearchViewController {
+    private func updateSections() {
+        var snapshot = Snapshot()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(viewModel.items)
+        dataSource?.apply(snapshot, animatingDifferences: true)
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchRecommendationCollectionViewCell.identifier, for: indexPath) as? SearchRecommendationCollectionViewCell
-        else { return UICollectionViewCell() }
-        cell.configure(with: viewModel.items[indexPath.item])
-        return cell
+    private func configureCollectionView() {
+        contentView.collectionView.delegate = self
+        
+        dataSource = DataSource(collectionView: contentView.collectionView,
+                                cellProvider: { collectionView, indexPath, itemIdentifier in
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchRecommendationCollectionViewCell.identifier, for: indexPath) as? SearchRecommendationCollectionViewCell else { return UICollectionViewCell() }
+            cell.tag = indexPath.item
+            cell.configure(with: self.viewModel.items[indexPath.item])
+            cell.delegate = self
+            return cell
+        })
     }
 }
 
