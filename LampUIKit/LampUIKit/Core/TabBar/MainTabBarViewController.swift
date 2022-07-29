@@ -38,7 +38,7 @@ class MainTabBarViewController: UITabBarController {
                                 imageName: "myTravel_unselected",
                                 selectedImage: "myTravel_selected"),
             
-            createNavController(viewController: UIViewController(),
+            createNavController(viewController: MyCharacterViewController(vm: MyCharacterViewModel()),
                                 title: "마이캐릭터",
                                 imageName: "myCharacter_unselected",
                                 selectedImage: "myCharacter_selected"),
