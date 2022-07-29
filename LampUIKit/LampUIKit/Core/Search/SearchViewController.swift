@@ -92,6 +92,21 @@ class SearchViewController: BaseViewContronller {
     }
 }
 
+extension SearchViewController: SearchRecommendationCollectionViewCellDelegate {
+    func didTapSetThisLocationButton() {
+        
+    }
+    
+    func didTapMapPin() {
+        
+    }
+    
+    func didTapFavoriteButton(at index: Int, _ isFavorite: Bool) {
+        print(index)
+        print(isFavorite)
+    }
+}
+
 extension SearchViewController {
     private func updateSections() {
         var snapshot = Snapshot()
