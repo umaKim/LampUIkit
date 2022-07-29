@@ -9,37 +9,22 @@ import ARCL
 import CoreLocation
 import UIKit
 
-class ARViewModel {
-    
-}
-
 class ARViewController: UIViewController {
-    var sceneLocationView = SceneLocationView()
+    
+    private let contentView = ARView()
     
     private let viewModel: ARViewModel
+    
+    override func loadView() {
+        super.loadView()
+        
+        self.view = contentView
+    }
     
     init(vm: ARViewModel) {
         self.viewModel = vm
         super.init(nibName: nil, bundle: nil)
         
-        
-    }
-    
-    private lazy var dismissButton: UIButton = {
-       let bt = UIButton()
-        bt.setImage(UIImage(systemName: ""), for: .normal)
-        return bt
-    }()
-    
-    private func setupUI() {
-        [dismissButton].forEach { uv in
-            uv.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(uv)
-        }
-        
-        NSLayoutConstraint.activate([
-            
-        ])
     }
     
     required init?(coder: NSCoder) {
@@ -49,14 +34,12 @@ class ARViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        sceneLocationView.run()
-        view.addSubview(sceneLocationView)
-        
-        sceneLocationView.locationNodeTouchDelegate = self
+        contentView.sceneLocationView.run()
+        contentView.sceneLocationView.locationNodeTouchDelegate = self
         
         //남산 타워
-//        37.551502,126.988597
-        let coordinate = CLLocationCoordinate2D(latitude: 37.551502, longitude: 126.988597)
+//        37.551170, 126.988290
+        let coordinate = CLLocationCoordinate2D(latitude: 37.551170, longitude: 126.988290)
         let location = CLLocation(coordinate: coordinate, altitude: 300)
         let image = UIImage(systemName: "person")!
 
@@ -69,13 +52,7 @@ class ARViewController: UIViewController {
 
         let annotationNode2 = LocationAnnotationNode(location: location2, image: image2)
         
-        sceneLocationView.addLocationNodesWithConfirmedLocation(locationNodes: [annotationNode, annotationNode2])
-    }
-    
-    override func viewDidLayoutSubviews() {
-      super.viewDidLayoutSubviews()
-
-      sceneLocationView.frame = view.bounds
+        contentView.sceneLocationView.addLocationNodesWithConfirmedLocation(locationNodes: [annotationNode, annotationNode2])
     }
 }
 
