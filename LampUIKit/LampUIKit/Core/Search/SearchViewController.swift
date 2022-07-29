@@ -46,6 +46,7 @@ class SearchViewController: BaseViewContronller {
 //        contentView.collectionView.dataSource = self
         
         bind()
+        configureCollectionView()
     }
     
     private func bind() {
