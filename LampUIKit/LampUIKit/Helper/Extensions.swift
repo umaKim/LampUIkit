@@ -99,3 +99,21 @@ extension UINavigationController {
         setLargeTitleColor(color)
     }
 }
+
+extension UIFont {
+    static func robotoLight(_ size: CGFloat) -> UIFont? {
+        UIFont(name: "Roboto-Light", size: size)
+    }
+    
+    static func robotoBold(_ size: CGFloat) -> UIFont? {
+        UIFont(name: "Roboto-Bold", size: size)
+    }
+    
+    static func robotoMedium(_ size: CGFloat) -> UIFont? {
+        UIFont(name: "Roboto-Medium", size: size)
+    }
+    
+    static func robotoRegular(_ size: CGFloat) -> UIFont? {
+        UIFont(name: "Roboto-Rgular", size: size)
+    }
+}
