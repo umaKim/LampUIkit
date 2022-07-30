@@ -13,6 +13,14 @@ class MyCharacterViewController: BaseViewContronller {
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, GaugeData>
     
     enum Section { case main }
+    
+    private let contentView = MyCharacterView()
+    
+    override func loadView() {
+        super.loadView()
+        view = contentView
+    }
+    
     private let viewModel: MyCharacterViewModel
     
     init(vm: MyCharacterViewModel) {
