@@ -16,6 +16,8 @@ class MyCharacterViewController: BaseViewContronller {
     
     private let contentView = MyCharacterView()
     
+    private var dataSource: DataSource?
+    
     override func loadView() {
         super.loadView()
         view = contentView
