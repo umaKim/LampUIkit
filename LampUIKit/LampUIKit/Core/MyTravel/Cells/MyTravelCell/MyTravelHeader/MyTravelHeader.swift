@@ -1,3 +1,12 @@
+//
+//  MyTravelHeader.swift
+//  LampUIKit
+//
+//  Created by 김윤석 on 2022/07/28.
+//
+import Combine
+import UIKit
+
 protocol MyTravelCellHeaderCellDelegate:AnyObject {
     func myTravelCellHeaderCellDidSelectEdit()
     func myTravelCellHeaderCellDidSelectComplete()
