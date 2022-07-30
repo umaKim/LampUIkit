@@ -59,7 +59,7 @@ extension LampSpotViewController: MyMapCollectionViewCellDelegate {
     func didSelectMyLampImage() {
         //TODO: Move to new page
         let vm = LampSpotMapViewModel()
-        let vc = LampSpotMapViewController()
+        let vc = LampSpotMapViewController(vm: vm)
         vc.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(vc, animated: true)
     }
