@@ -88,7 +88,9 @@ extension DetailReviewViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        .init(width: UIScreen.main.width / 2, height: 250)
+        .init(width: UIScreen.main.width / 2 - 24, height: 250)
+    }
+    
     }
 }
 
