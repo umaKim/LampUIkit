@@ -39,6 +39,8 @@ class DetailReviewViewController: BaseViewContronller {
 
         contentView.collectionView.delegate = self
         
+        navigationItem.leftBarButtonItems = [contentView.backButton]
+        navigationItem.rightBarButtonItems = [contentView.reportButton]
         configureCollectionView()
         updateSections()
         
