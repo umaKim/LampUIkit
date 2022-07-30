@@ -9,6 +9,10 @@ import UIKit
 
 class MyCharacterViewController: BaseViewContronller {
 
+    private typealias DataSource = UITableViewDiffableDataSource<Section, GaugeData>
+    private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, GaugeData>
+    
+    enum Section { case main }
     private let viewModel: MyCharacterViewModel
     
     init(vm: MyCharacterViewModel) {
@@ -27,6 +31,24 @@ class MyCharacterViewController: BaseViewContronller {
         // Do any additional setup after loading the view.
     }
     
+    private func updateSections() {
+        var snapshot = Snapshot()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(viewModel.characterData?.gaugeDatum ?? [])
+        dataSource?.apply(snapshot, animatingDifferences: true, completion: {
+            self.dataSource?.applySnapshotUsingReloadData(snapshot)
+        })
+    }
+    
+    private func setupDataSource() {
+        contentView.tableView.delegate = self
+        
+        dataSource = .init(tableView: contentView.tableView, cellProvider: { tableView, indexPath, itemIdentifier in
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: MyCharacterViewTableViewCell.identifier, for: indexPath) as? MyCharacterViewTableViewCell else {return UITableViewCell()}
+            cell.configure(with: GaugeData(name: "", rate: ""))
+            return cell
+        })
+    }
 }
 
     /*
