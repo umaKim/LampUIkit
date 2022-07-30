@@ -41,6 +41,16 @@ class DetailReviewViewController: BaseViewContronller {
         
         configureCollectionView()
         updateSections()
+        
+        contentView
+            .actionPublisher
+            .sink { action in
+                switch action {
+                case .back:
+                    self.navigationController?.popViewController(animated: true)
+                }
+            }
+            .store(in: &cancellables)
     }
     
     private func configureCollectionView() {
