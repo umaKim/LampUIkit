@@ -31,6 +31,9 @@ final class MyTravelCellHeaderCell: UICollectionReusableView {
         bt.setTitleColor(.midNavy, for: .normal)
         return bt
     }()
+    
+    private var isEditButtonTapped: Bool = false
+    
     private var cancellables: Set<AnyCancellable>
     
     override init(frame: CGRect) {
