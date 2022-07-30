@@ -36,8 +36,21 @@ final class MyTravelCellHeaderCell: UICollectionReusableView {
     override init(frame: CGRect) {
         self.cancellables = .init()
         super.init(frame: frame)
+        
+        editButton
+            .tapPublisher
+            .sink { _ in
+                self.isEditButtonTapped.toggle()
+                if self.isEditButtonTapped {
+                    self.editButton.setTitle("완료", for: .normal)
                     self.delegate?.myTravelCellHeaderCellDidSelectEdit()
+                } else {
+                    self.editButton.setTitle("편집", for: .normal)
                     self.delegate?.myTravelCellHeaderCellDidSelectComplete()
+                }
+            }
+            .store(in: &cancellables)
+        
         [editButton].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
             addSubview(uv)
