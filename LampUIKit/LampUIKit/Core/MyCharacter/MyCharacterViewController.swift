@@ -69,8 +69,15 @@ class MyCharacterViewController: BaseViewContronller {
     }
 }
 
-    /*
-    // MARK: - Navigation
+extension MyCharacterViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard
+            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: MyCharacterViewTableViewHeaderCell.identifier) as? MyCharacterViewTableViewHeaderCell
+        else {return nil}
+        header.configure(with: CharacterData(characterName: "", level: "", image: "", averageStat: "", mileage: "", gaugeDatum: []))
+        return header
+    }
+}
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
