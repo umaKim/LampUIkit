@@ -91,6 +91,10 @@ extension DetailReviewViewController: UICollectionViewDelegateFlowLayout {
         .init(width: UIScreen.main.width / 2 - 24, height: 250)
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        .init(top: 0, left: 16, bottom: 0, right: 16)
+    }
+    
     }
 }
 
