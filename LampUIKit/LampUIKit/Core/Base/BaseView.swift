@@ -21,3 +21,16 @@ class BaseWhiteView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+class BaseView: UIView {
+    init() {
+        self.cancellables = .init()
+        super.init(frame: .zero)
+    }
+    
+    var cancellables: Set<AnyCancellable>
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
