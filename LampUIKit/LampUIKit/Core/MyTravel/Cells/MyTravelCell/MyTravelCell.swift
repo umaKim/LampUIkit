@@ -8,6 +8,26 @@ import Combine
 import UIKit
 
 final class MyTravelCell: UICollectionViewCell {
+    static let identifier = "MyTravelCell"
+    
+    private typealias DataSource = UICollectionViewDiffableDataSource<Section, MyTravelLocations>
+    private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, MyTravelLocations>
+    
+    enum Section { case main }
+    
+    private var dataSource: DataSource?
+    
+    private lazy var collectionView: UICollectionView = {
+        let cl = UICollectionViewFlowLayout()
+        cl.scrollDirection = .vertical
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: cl)
+        cv.register(MyTravelCellHeaderCell.self,
+                    forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                    withReuseIdentifier: MyTravelCellHeaderCell.identifier)
+        cv.register(MyTravelCellCollectionViewCell.self, forCellWithReuseIdentifier: MyTravelCellCollectionViewCell.identifier)
+        cv.backgroundColor = .greyshWhite
+        return cv
+    }()
         setupUI()
 }
 
