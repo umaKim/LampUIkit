@@ -241,7 +241,7 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
         totalStackView.alignment = .fill
         totalStackView.distribution = .fill
         
-        [totalStackView, lampSpotButton, separatorView].forEach { uv in
+        [totalStackView, favoriteButton, separatorView].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
             contentView.addSubview(uv)
         }
@@ -252,8 +252,8 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
             totalStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
             totalStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
             
-            lampSpotButton.topAnchor.constraint(equalTo: locationImageView.topAnchor, constant: 8),
-            lampSpotButton.trailingAnchor.constraint(equalTo: locationImageView.trailingAnchor, constant: -8),
+            favoriteButton.topAnchor.constraint(equalTo: locationImageView.topAnchor, constant: 8),
+            favoriteButton.trailingAnchor.constraint(equalTo: locationImageView.trailingAnchor, constant: -8),
             
             separatorView.widthAnchor.constraint(equalToConstant: UIScreen.main.width - 32),
             separatorView.bottomAnchor.constraint(equalTo: bottomAnchor)
