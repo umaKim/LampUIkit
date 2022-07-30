@@ -28,7 +28,11 @@ final class MyTravelCell: UICollectionViewCell {
         cv.backgroundColor = .greyshWhite
         return cv
     }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setupUI()
+    }
 }
 
 extension MyTravelCell: MyTravelCellHeaderCellDelegate {
