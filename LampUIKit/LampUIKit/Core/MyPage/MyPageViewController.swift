@@ -33,6 +33,8 @@ class MyPageViewController: BaseViewContronller {
         contentView.tableView.dataSource = self
         contentView.tableView.delegate = self
         
+        navigationItem.leftBarButtonItems = [contentView.backButton]
+        
         contentView
             .actionPublisher
             .sink { action in
@@ -44,6 +46,8 @@ class MyPageViewController: BaseViewContronller {
                 case .deleteAccountActions:
                     self.presentUmaActionAlert(title: "회원 탈퇴 하시겠습니까?",
                                                with: self.deleteAccountAction, self.cancelAction)
+                case .back:
+                    self.navigationController?.popViewController(animated: true)
                 }
             }
             .store(in: &cancellables)

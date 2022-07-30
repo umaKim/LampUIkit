@@ -69,11 +69,18 @@ class MyPageTableViewCell: UITableViewCell {
 }
 
 enum MyPageViewAction {
+    case back
     case logoutActions
     case deleteAccountActions
 }
 
 class MyPageView: BaseWhiteView {
+    private(set) lazy var backButton: UIBarButtonItem = {
+        let image = UIImage(named:"back")?.withTintColor(.midNavy, renderingMode: .alwaysOriginal)
+        let bt = UIBarButtonItem(image: image, style: .done, target: nil, action: nil)
+        return bt
+    }()
+    
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<MyPageViewAction, Never>()
     
@@ -108,7 +115,10 @@ class MyPageView: BaseWhiteView {
     }
     
     private func bind() {
-        
+        backButton.tapPublisher.sink { _ in
+            self.actionSubject.send(.back)
+        }
+        .store(in: &cancellables)
     }
     
     private func setupUI() {
