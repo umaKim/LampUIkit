@@ -86,12 +86,11 @@ class MyPageView: BaseWhiteView {
     
     private(set) lazy var tableView: UITableView = {
        let tv = UITableView()
-        tv.register(MyPageTableViewHeaderCell.self,
-                    forHeaderFooterViewReuseIdentifier: MyPageTableViewHeaderCell.identifier)
         tv.register(MyPageTableViewCell.self,
                     forCellReuseIdentifier: MyPageTableViewCell.identifier)
         tv.rowHeight = 72
         tv.backgroundColor = .greyshWhite
+        tv.sectionHeaderTopPadding = 0
         return tv
     }()
     
