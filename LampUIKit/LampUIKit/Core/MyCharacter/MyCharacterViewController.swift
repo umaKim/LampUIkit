@@ -35,8 +35,18 @@ class MyCharacterViewController: BaseViewContronller {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        setupDataSource()
+        updateSections()
+        
+        viewModel
+            .notifyPublisher
+            .sink { noti in
+                switch noti {
+                case .reload:
+                    self.updateSections()
+                }
+            }
+            .store(in: &cancellables)
     }
     
     private func updateSections() {
