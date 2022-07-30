@@ -1,4 +1,27 @@
+//
+//  MyTravelCell.swift
+//  LampUIKit
+//
+//  Created by 김윤석 on 2022/07/18.
+//
+import Combine
+import UIKit
+
+final class MyTravelCell: UICollectionViewCell {
         setupUI()
+}
+
+extension MyTravelCell: MyTravelCellHeaderCellDelegate {
+}
+
+extension MyTravelCell: MyTravelCellCollectionViewCellDelegate {
+}
+
+extension MyTravelCell: UICollectionViewDelegateFlowLayout {
+}
+
+//MARK: - set up UI
+extension MyTravelCell {
     private func setupUI() {
         configureCollectionView()
         
@@ -16,3 +39,4 @@
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
+}
