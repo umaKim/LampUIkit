@@ -42,6 +42,27 @@ extension MyTravelCell: UICollectionViewDelegateFlowLayout {
 
 //MARK: - set up UI
 extension MyTravelCell {
+    private func configureCollectionView() {
+        collectionView.delegate = self
+        
+        dataSource = DataSource(collectionView: collectionView) { collectionView, indexPath, model in
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: MyTravelCellCollectionViewCell.identifier,
+                for: indexPath) as? MyTravelCellCollectionViewCell else { return nil }
+            cell.delegate = self
+            cell.tag = indexPath.item
+            cell.showDeleButton = self.showDeleteButton
+            return cell
+        }
+        
+        dataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
+            guard kind == UICollectionView.elementKindSectionHeader else { return nil }
+            let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: MyTravelCellHeaderCell.identifier, for: indexPath) as? MyTravelCellHeaderCell
+            view?.delegate = self
+            return view
+        }
+    }
+    
     private func setupUI() {
         configureCollectionView()
         
