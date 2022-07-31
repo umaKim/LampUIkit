@@ -14,6 +14,11 @@ class MyCharacterViewTableViewHeaderCell: UITableViewHeaderFooterView {
         super.init(reuseIdentifier: reuseIdentifier)
         setupUI()
     }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private lazy var nameLabel: UILabel = {
         let lb = UILabel()
         lb.text = "My Lampie"
