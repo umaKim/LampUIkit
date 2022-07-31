@@ -52,11 +52,13 @@ class MyPageViewController: BaseViewContronller {
             }
             .store(in: &cancellables)
         
-        viewModel.notifyPublisher.sink { noti in
-            switch noti {
-            case .goBackToBeforeLoginPage:
-                (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(StartPageViewController())
-            }
+        viewModel
+            .notifyPublisher
+            .sink { noti in
+                switch noti {
+                case .goBackToBeforeLoginPage:
+                    (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(StartPageViewController())
+                }
         }
         .store(in: &cancellables)
     }
@@ -76,7 +78,6 @@ class MyPageViewController: BaseViewContronller {
     private var cancelAction: UIAlertAction {
         return .init(title: "취소", style: .cancel)
     }
-    
 }
 
 extension MyPageViewController: UITableViewDataSource {
