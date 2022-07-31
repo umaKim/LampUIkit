@@ -10,6 +10,9 @@ import UIKit
 import Combine
 
 class InitialQuizViewController: BaseViewContronller {
+
+    private let contentView = InitialQuizView()
+    
     init(vm: InitialQuizViewModel) {
         self.viewModel = vm
         super.init()
@@ -18,6 +21,12 @@ class InitialQuizViewController: BaseViewContronller {
         
         bind()
     }
+    override func loadView() {
+        super.loadView()
+        
+        view = contentView
+    }
+    
     private func bind() {
         contentView
             .actionPublisher
