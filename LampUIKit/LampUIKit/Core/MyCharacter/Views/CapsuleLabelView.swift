@@ -13,6 +13,21 @@ final class CapsuleLabelView: UIView {
         lb.textAlignment = .center
         return lb
     }()
+    
+    convenience init(
+        _ text: String,
+        backgroundColor: UIColor = .systemGray,
+        textColor: UIColor = .white,
+        textSize: CGFloat = 11
+    ) {
+        self.init()
+        label.text = text
+        
+        self.backgroundColor = backgroundColor
+        self.label.textColor = textColor
+        self.label.font = .robotoMedium(textSize)
+    }
+    
     init() {
         super.init(frame: .zero)
         
