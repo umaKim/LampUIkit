@@ -36,6 +36,15 @@ final class MyTravelCell: UICollectionViewCell {
 }
 
 extension MyTravelCell: MyTravelCellHeaderCellDelegate {
+    func myTravelCellHeaderCellDidSelectComplete() {
+        showDeleteButton.toggle()
+        updateSections()
+    }
+    
+    func myTravelCellHeaderCellDidSelectEdit() {
+        showDeleteButton.toggle()
+        updateSections()
+    }
 }
 
 extension MyTravelCell: MyTravelCellCollectionViewCellDelegate {
