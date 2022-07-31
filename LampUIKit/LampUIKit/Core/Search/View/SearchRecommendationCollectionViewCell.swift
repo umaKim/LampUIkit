@@ -13,6 +13,7 @@ import UIKit
 protocol SearchRecommendationCollectionViewCellDelegate: AnyObject {
     func didTapMapPin()
     func didTapSetThisLocationButton()
+    func didTapFavoriteButton(at index: Int, _ isFavorite: Bool)
 }
 
 class StarRatingView: UIView {
