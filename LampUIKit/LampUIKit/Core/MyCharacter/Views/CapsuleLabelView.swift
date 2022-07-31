@@ -18,6 +18,11 @@ final class CapsuleLabelView: UIView {
         
         setupUI()
     }
+    
+    public func setText(_ text: String) {
+        label.text = text
+    }
+    
     private func setupUI() {
         clipsToBounds = true
         
@@ -35,6 +40,7 @@ final class CapsuleLabelView: UIView {
             heightAnchor.constraint(equalToConstant: 20),
         ])
     }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
