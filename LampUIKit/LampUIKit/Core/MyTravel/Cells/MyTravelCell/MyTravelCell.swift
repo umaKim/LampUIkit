@@ -39,6 +39,10 @@ extension MyTravelCell: MyTravelCellHeaderCellDelegate {
 }
 
 extension MyTravelCell: MyTravelCellCollectionViewCellDelegate {
+    func myTravelCellCollectionViewCellDidTapDelete(at index: Int) {
+        models.remove(at: index)
+        updateSections()
+    }
 }
 
 extension MyTravelCell: UICollectionViewDelegateFlowLayout {
