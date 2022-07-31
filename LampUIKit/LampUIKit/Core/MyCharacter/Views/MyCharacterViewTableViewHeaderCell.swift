@@ -87,3 +87,9 @@
             mileageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
         ])
     }
+    
+    public func configure(with character: CharacterData) {
+        averageStat.setValue(20)
+        mileageStat.setValue(50)
+    }
+}
