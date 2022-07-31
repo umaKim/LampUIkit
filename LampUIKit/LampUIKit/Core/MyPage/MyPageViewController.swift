@@ -105,4 +105,24 @@ extension MyPageViewController: UITableViewDelegate {
             contentView.presentDeleteAccountActions()
         }
     }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = MyPageTableViewHeaderView()
+        return view
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        100
+    }
+}
+
+class MyPageTableViewHeaderView: UIView {
+    init() {
+        super.init(frame: .zero)
+        
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
