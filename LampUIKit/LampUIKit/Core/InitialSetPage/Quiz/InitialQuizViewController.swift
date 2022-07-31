@@ -13,6 +13,8 @@ class InitialQuizViewController: BaseViewContronller {
 
     private let contentView = InitialQuizView()
     
+    private let viewModel: InitialQuizViewModel
+    
     init(vm: InitialQuizViewModel) {
         self.viewModel = vm
         super.init()
