@@ -10,7 +10,14 @@ import UIKit
 import Combine
 
 class InitialQuizViewController: BaseViewContronller {
+    init(vm: InitialQuizViewModel) {
+        self.viewModel = vm
+        super.init()
+     
+        NetworkService.shared.login()
+        
         bind()
+    }
     private func bind() {
         contentView
             .actionPublisher
