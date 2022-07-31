@@ -38,6 +38,12 @@ final class CapsuleLabelView: UIView {
         label.text = text
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        layer.cornerRadius = frame.height/2
+    }
+    
     private func setupUI() {
         clipsToBounds = true
         
