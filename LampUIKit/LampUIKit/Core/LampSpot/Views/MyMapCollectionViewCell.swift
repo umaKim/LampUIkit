@@ -19,7 +19,7 @@ class MyMapCollectionViewCell: UICollectionViewCell {
     private lazy var titleLabel: UILabel = {
        let lb = UILabel()
         lb.text = "MY LAMP"
-        lb.font = .systemFont(ofSize: 28, weight: .bold)
+        lb.font = .robotoBold(28)
         lb.textColor = .darkNavy
         return lb
     }()
@@ -27,7 +27,7 @@ class MyMapCollectionViewCell: UICollectionViewCell {
     private lazy var subTitleLabel: UILabel = {
         let lb = UILabel()
         lb.text = "대한민국 지도에 나만의 흔적 남기기"
-        lb.font = .systemFont(ofSize: 16, weight: .bold)
+        lb.font = .robotoBold(16)
         lb.textColor = .lightNavy
         return lb
     }()
