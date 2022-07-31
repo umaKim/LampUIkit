@@ -33,6 +33,18 @@ final class MyTravelCell: UICollectionViewCell {
         super.init(frame: frame)
         setupUI()
     }
+    
+    private var models: [MyTravelLocations] = []
+    private var showDeleteButton: Bool = false
+    
+    public func configure(models: [MyTravelLocations]) {
+        self.models = models
+        updateSections()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
 
 extension MyTravelCell: MyTravelCellHeaderCellDelegate {
