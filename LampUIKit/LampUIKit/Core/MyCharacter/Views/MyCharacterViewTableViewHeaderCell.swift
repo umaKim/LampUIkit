@@ -1,3 +1,15 @@
+//
+//  MyCharacterViewTableViewHeaderCell.swift
+//  LampUIKit
+//
+//  Created by 김윤석 on 2022/07/29.
+//
+
+import UIKit
+
+class MyCharacterViewTableViewHeaderCell: UITableViewHeaderFooterView {
+    static let identifier = "MyCharacterViewTableViewHeaderCell"
+    
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         setupUI()
