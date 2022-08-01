@@ -27,7 +27,7 @@ extension UIColor {
 }
 
 extension UIImage {
-    static let camera = UIImage(systemName: "camera")
+    static let camera = UIImage(named: "ARCamera")
     static let bell = UIImage(systemName: "bell")
     static let magnify = UIImage(systemName: "magnifyingglass")
     static let gear = UIImage(systemName: "gear")
