@@ -70,6 +70,15 @@ extension UIButton {
         configuration.imagePlacement = placement
         configuration.imagePadding = imagePadding
         configuration.subtitle = subTitle
+        
+        let transformer = UIConfigurationTextAttributesTransformer { incoming in
+            var outgoing = incoming
+            outgoing.foregroundColor = subTitleColor
+            outgoing.font = .robotoMedium(subTitleSize)
+            return outgoing
+        }
+        
+        configuration.subtitleTextAttributesTransformer = transformer
         configuration.preferredSymbolConfigurationForImage = UIImage.SymbolConfiguration(pointSize: 20)
         
         let bt = UIButton(configuration: configuration)
