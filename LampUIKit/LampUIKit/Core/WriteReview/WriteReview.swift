@@ -4,6 +4,8 @@
 //
 //  Created by 김윤석 on 2022/07/20.
 //
+import SwiftUI
+import AxisRatingBar
 import AARatingBar
 import CombineCocoa
 import Combine
@@ -36,10 +38,13 @@ class WriteReviewView: BaseWhiteView {
     
     private let dividerView1 = DividerView()
     
-    private lazy var starRatingView: AARatingBar = {
-        let uv = AARatingBar(frame: .zero)
-        uv.color = .midNavy
-        uv.heightAnchor.constraint(equalToConstant: 60).isActive = true
+    
+    
+    private lazy var starRatingView: UIView = {
+        guard
+            let uv = UIHostingController(rootView: CustomRatingBar(axisMode: .horizontal)).view
+        else {return UIView()}
+        uv.backgroundColor = .greyshWhite
         return uv
     }()
     
