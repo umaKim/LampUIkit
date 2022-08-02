@@ -51,7 +51,8 @@ class StartPageViewController: UIViewController {
             
             if AuthApi.hasToken() {
                 UserApi.shared.me { user, error in
-                    self.present(MainTabBarViewController(with: "\(user?.id)"),
+                    guard let id = user?.id else { return }
+                    self.present(MainTabBarViewController(with: "\(id)"),
                                  transitionType: .fromTop,
                                  animated: true,
                                  pushing: true)
