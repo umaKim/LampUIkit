@@ -9,7 +9,7 @@ import ARCL
 import CoreLocation
 import UIKit
 
-final class ARView: UIView {
+final class ARView: BaseView {
     private(set) var sceneLocationView = SceneLocationView()
     
     private let dismissButton: UIButton = {

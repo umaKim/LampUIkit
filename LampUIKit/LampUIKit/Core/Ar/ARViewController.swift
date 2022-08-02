@@ -52,7 +52,9 @@ class ARViewController: UIViewController {
 
         let annotationNode2 = LocationAnnotationNode(location: location2, image: image2)
         
-        contentView.sceneLocationView.addLocationNodesWithConfirmedLocation(locationNodes: [annotationNode, annotationNode2])
+        contentView
+            .sceneLocationView
+            .addLocationNodesWithConfirmedLocation(locationNodes: [annotationNode, annotationNode2])
     }
 }
 
