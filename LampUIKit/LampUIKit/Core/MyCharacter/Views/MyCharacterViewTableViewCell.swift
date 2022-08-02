@@ -1,4 +1,24 @@
+//
+//  MyCharacterViewTableViewCell.swift
+//  LampUIKit
+//
+//  Created by 김윤석 on 2022/07/29.
+//
+
+import UIKit
+
+class MyCharacterViewTableViewCell: UITableViewCell {
+    static let identifier = "MyCharacterViewTableViewCell"
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private lazy var titleLabel: UILabel = {
        let lb = UILabel()
         lb.font = .robotoBold(15)
@@ -38,3 +58,4 @@
             sv.topAnchor.constraint(equalTo: topAnchor, constant: 8)
         ])
     }
+}
