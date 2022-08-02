@@ -46,7 +46,10 @@ class LocationDetailViewHeaderCellButtonStackView: UIView {
                             subTitle: "공유하기")
     }()
     
-    init() {
+    private var isSaved: Bool
+    
+    init(_ isSaved: Bool) {
+        self.isSaved = isSaved
         self.cancellables = .init()
         super.init(frame: .zero)
         
