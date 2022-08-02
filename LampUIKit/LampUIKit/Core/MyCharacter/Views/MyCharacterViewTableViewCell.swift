@@ -38,6 +38,10 @@ class MyCharacterViewTableViewCell: UITableViewCell {
     
     private lazy var seperateView = DividerView()
     
+    public func configure(with data: GaugeData) {
+        self.barView.setProgress(20/100, animated: true)
+    }
+    
     private func setupUI() {
         backgroundColor = .greyshWhite
         
