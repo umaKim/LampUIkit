@@ -17,7 +17,7 @@ protocol LocationDetailViewHeaderCellDelegate: AnyObject {
 
 class LocationDescriptionView: UIView {
     private lazy var titleLabel: UILabel = {
-       let lb = UILabel()
+        let lb = UILabel()
         lb.textColor = .midNavy
         lb.font = .robotoMedium(14)
         lb.heightAnchor.constraint(equalToConstant: 20).isActive = true
@@ -25,7 +25,7 @@ class LocationDescriptionView: UIView {
     }()
     
     private lazy var descriptionLabel: UILabel = {
-       let lb = UILabel()
+        let lb = UILabel()
         lb.textColor = .black
         lb.numberOfLines = 0
         lb.lineBreakMode = .byWordWrapping
@@ -73,7 +73,7 @@ class LocationDetailViewHeaderCell: UICollectionReusableView {
     static let identifier = "LocationDetailViewHeaderCell"
     
     private lazy var locationImageView: UIImageView = {
-       let uv = UIImageView()
+        let uv = UIImageView()
         uv.image = UIImage(systemName: "person")
         uv.backgroundColor = .systemOrange
         return uv
@@ -84,14 +84,14 @@ class LocationDetailViewHeaderCell: UICollectionReusableView {
     private let dividerView = DividerView()
     
     private let timeLabel: LocationDescriptionView = {
-       let uv = LocationDescriptionView("관람시간", description: "09:00~18:30 (입장마감은 17:30)")
+        let uv = LocationDescriptionView("관람시간", description: "09:00~18:30 (입장마감은 17:30)")
         uv.heightAnchor.constraint(equalToConstant: 20).isActive = true
         return uv
     }()
     
     private let priceLabel: LocationDescriptionView = {
-       let uv = LocationDescriptionView("관람요금",
-                                        description: "성인 : 3,000원 (개인) |  2,400원 (단체) \n만 65세 이상 / 만 6세 이하  : 무료\n소인 : 1,500원 (개인) | 1,200원 (단체)")
+        let uv = LocationDescriptionView("관람요금",
+                                         description: "성인 : 3,000원 (개인) |  2,400원 (단체) \n만 65세 이상 / 만 6세 이하  : 무료\n소인 : 1,500원 (개인) | 1,200원 (단체)")
         uv.heightAnchor.constraint(equalToConstant: 100).isActive = true
         return uv
     }()
@@ -111,22 +111,24 @@ class LocationDetailViewHeaderCell: UICollectionReusableView {
     private var cancellables: Set<AnyCancellable>
     
     private func bind() {
-        buttonSv.actionPublisher.sink { action in
-            switch action {
-            case .save:
-                self.delegate?.locationDetailViewHeaderCellDidTapSave()
-                
-            case .ar:
-                self.delegate?.locationDetailViewHeaderCellDidTapAr()
-                
-            case .review:
-                self.delegate?.locationDetailViewHeaderCellDidTapReview()
-                
-            case .share:
-                self.delegate?.locationDetailViewHeaderCellDidTapShare()
+        buttonSv
+            .actionPublisher
+            .sink { action in
+                switch action {
+                case .save:
+                    self.delegate?.locationDetailViewHeaderCellDidTapSave()
+                    
+                case .ar:
+                    self.delegate?.locationDetailViewHeaderCellDidTapAr()
+                    
+                case .review:
+                    self.delegate?.locationDetailViewHeaderCellDidTapReview()
+                    
+                case .share:
+                    self.delegate?.locationDetailViewHeaderCellDidTapShare()
+                }
             }
-        }
-        .store(in: &cancellables)
+            .store(in: &cancellables)
     }
     
     private func setupUI() {
