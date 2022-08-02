@@ -40,7 +40,7 @@ class RecommendationCollectionViewCell: UICollectionViewCell, UICollectionViewDe
     private let titleLabel:UILabel = {
        let lb = UILabel()
         lb.text = "당신에게 추천하는 여행지"
-        lb.font = .systemFont(ofSize: 20, weight: .semibold)
+        lb.font = .robotoBold(20)
         lb.textColor = .black
         return lb
     }()
