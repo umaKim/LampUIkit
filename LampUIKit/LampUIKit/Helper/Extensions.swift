@@ -62,7 +62,9 @@ extension UIButton {
         image: UIImage?,
         placement: NSDirectionalRectEdge = .top,
         imagePadding: CGFloat,
-        subTitle: String
+        subTitle: String,
+        subTitleSize: CGFloat = 14,
+        subTitleColor: UIColor = .gray
     ) -> UIButton {
         
         var configuration = UIButton.Configuration.plain()
