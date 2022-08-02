@@ -75,7 +75,9 @@ class LocationDetailViewHeaderCell: UICollectionReusableView {
     private lazy var locationImageView: UIImageView = {
         let uv = UIImageView()
         uv.image = UIImage(systemName: "person")
-        uv.backgroundColor = .systemOrange
+        uv.backgroundColor = .midNavy
+        uv.layer.cornerRadius = 6
+        uv.clipsToBounds = true
         return uv
     }()
     
