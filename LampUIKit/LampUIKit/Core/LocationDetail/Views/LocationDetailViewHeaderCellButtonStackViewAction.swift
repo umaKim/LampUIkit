@@ -59,7 +59,13 @@ class LocationDetailViewHeaderCellButtonStackView: UIView {
     
     private func bind() {
         saveButton.tapPublisher.sink { _ in
-            self.actionSubject.send(.save)
+            self.isSaved.toggle()
+            if self.isSaved {
+                self.saveButton.setImage(UIImage(named: "favorite_saved"), for: .normal)
+                self.actionSubject.send(.save)
+            } else {
+                self.saveButton.setImage(UIImage(named: "detailSave"), for: .normal)
+            }
         }
         .store(in: &cancellables)
         
