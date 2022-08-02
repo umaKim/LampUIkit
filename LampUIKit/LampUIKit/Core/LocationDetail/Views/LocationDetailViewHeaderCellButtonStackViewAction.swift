@@ -31,7 +31,7 @@ class LocationDetailViewHeaderCellButtonStackView: UIView {
     private let arButton: UIButton = {
         return .buttonMaker(image: .camera,
                             imagePadding: 12,
-                            subTitle: "AR모험지도")
+                            subTitle: "AR")
     }()
     
     private let reviewButton: UIButton = {
