@@ -11,27 +11,6 @@ protocol RecommendationCollectionViewCellDelegate: AnyObject {
     func recommendationCollectionViewCellDidSelect(itemAt indexPath: IndexPath)
 }
 
-class RecommendationCollectionViewCell: UICollectionViewCell, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        models?.count ?? 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendedLocationCell.identifier, for: indexPath) as? RecommendedLocationCell else {return UICollectionViewCell()}
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.recommendationCollectionViewCellDidSelect(itemAt: indexPath)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: UIScreen.main.width / 4, height: UIScreen.main.width / 4)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        .init(top: 0, left: 16, bottom: 0, right: 16)
-    }
     
     weak var delegate: RecommendationCollectionViewCellDelegate?
     
@@ -95,6 +74,34 @@ class RecommendationCollectionViewCell: UICollectionViewCell, UICollectionViewDe
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension RecommendationCollectionViewCell: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        models?.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendedLocationCell.identifier, for: indexPath) as? RecommendedLocationCell
+        else {return UICollectionViewCell()}
+        cell.backgroundColor = .midNavy
+        return cell
+    }
+}
+
+extension RecommendationCollectionViewCell: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        delegate?.recommendationCollectionViewCellDidSelect(itemAt: indexPath)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return .init(width: UIScreen.main.width / 4, height: UIScreen.main.width / 4)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        .init(top: 0, left: 16, bottom: 0, right: 16)
     }
 }
 
