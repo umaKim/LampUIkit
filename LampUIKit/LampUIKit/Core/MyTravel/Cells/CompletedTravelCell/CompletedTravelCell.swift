@@ -19,3 +19,13 @@ final class CompletedTravelHeaderCell: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+final class CompletedTravelCellCollectionViewCell: UICollectionViewCell {
+    static let identifier = "CompletedTravelCellCollectionViewCell"
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
