@@ -73,6 +73,10 @@ final class CompletedTravelCellCollectionViewCell: UICollectionViewCell {
     }
 }
 
+    private typealias DataSource = UICollectionViewDiffableDataSource<Section, MyTravelLocations>
+    private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, MyTravelLocations>
+    
+    enum Section { case main }
     private lazy var collectionView: UICollectionView = {
         let cl = UICollectionViewFlowLayout()
         cl.scrollDirection = .vertical
@@ -91,6 +95,39 @@ final class CompletedTravelCellCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    private func updateSections() {
+        var snapshot = Snapshot()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(models)
+        dataSource?.apply(snapshot, animatingDifferences: true, completion: {
+            self.dataSource?.applySnapshotUsingReloadData(snapshot)
+        })
+    }
+    
+    private func configureCollectionView() {
+        collectionView.delegate = self
+        
+        dataSource = DataSource(collectionView: collectionView) { collectionView, indexPath, model in
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: CompletedTravelCellCollectionViewCell.identifier,
+                for: indexPath) as? CompletedTravelCellCollectionViewCell else { return nil }
+//            cell.delegate = self
+            cell.tag = indexPath.item
+//            cell.configure(self.models[indexPath.item])
+//            cell.showDeleButton = self.showDeleteButton
+            cell.configure(self.models[indexPath.item])
+            return cell
+        }
+        
+        dataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
+            guard kind == UICollectionView.elementKindSectionHeader else { return nil }
+            let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CompletedTravelHeaderCell.identifier, for: indexPath) as? CompletedTravelHeaderCell
+//            view?.delegate = self
+            return view
+        }
+    }
+    
     private func setupUI() {
         configureCollectionView()
         
