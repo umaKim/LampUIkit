@@ -68,6 +68,11 @@ final class CompletedTravelCellCollectionViewCell: UICollectionViewCell {
         locationNameLabel.text = model.name
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
     private lazy var collectionView: UICollectionView = {
         let cl = UICollectionViewFlowLayout()
         cl.scrollDirection = .vertical
