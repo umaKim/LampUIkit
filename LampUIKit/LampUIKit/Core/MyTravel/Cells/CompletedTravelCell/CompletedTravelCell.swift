@@ -62,6 +62,12 @@ final class CompletedTravelCellCollectionViewCell: UICollectionViewCell {
             locationNameLabel.topAnchor.constraint(equalTo: visitiedDateLabel.bottomAnchor, constant: 20),
         ])
     }
+    
+    public func configure(_ model: MyTravelLocations) {
+        visitiedDateLabel.text = model.visitedDate
+        locationNameLabel.text = model.name
+    }
+    
     private lazy var collectionView: UICollectionView = {
         let cl = UICollectionViewFlowLayout()
         cl.scrollDirection = .vertical
