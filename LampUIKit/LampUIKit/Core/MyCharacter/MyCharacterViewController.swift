@@ -85,6 +85,27 @@ extension MyCharacterViewController: UITableViewDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        setupUI()
+    private func setupUI() {
+        let headerSv = UIStackView(arrangedSubviews: [titleLabel, numberLabel])
+        headerSv.axis = .horizontal
+        headerSv.distribution = .fill
+        headerSv.alignment = .fill
+        
+        let totalSv = UIStackView(arrangedSubviews: [headerSv, graphView])
+        totalSv.axis = .vertical
+        totalSv.distribution = .equalSpacing
+        totalSv.alignment = .fill
+        
+        totalSv.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(totalSv)
+        
+        NSLayoutConstraint.activate([
+            totalSv.leadingAnchor.constraint(equalTo: leadingAnchor),
+            totalSv.trailingAnchor.constraint(equalTo: trailingAnchor),
+            totalSv.bottomAnchor.constraint(equalTo: bottomAnchor),
+            totalSv.topAnchor.constraint(equalTo: topAnchor)
+        ])
     }
     */
 

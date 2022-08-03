@@ -73,6 +73,9 @@ final class CompletedTravelCellCollectionViewCell: UICollectionViewCell {
     }
 }
 
+final class CompletedTravelCell: UICollectionViewCell {
+    static let identifier = "CompletedTravelCell"
+    
     private typealias DataSource = UICollectionViewDiffableDataSource<Section, MyTravelLocations>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, MyTravelLocations>
     
@@ -92,6 +95,7 @@ final class CompletedTravelCellCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
