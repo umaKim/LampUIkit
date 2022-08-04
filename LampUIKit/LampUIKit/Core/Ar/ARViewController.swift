@@ -41,14 +41,14 @@ class ARViewController: UIViewController {
 //        37.551170, 126.988290
         let coordinate = CLLocationCoordinate2D(latitude: 37.551170, longitude: 126.988290)
         let location = CLLocation(coordinate: coordinate, altitude: 300)
-        let image = UIImage(systemName: "person")!
+        let image = UIImage(named: "tower")!.resize(newWidth: 100)
 
         let annotationNode = LocationAnnotationNode(location: location, image: image)
         
 //        37.477526,127.036416
         let coordinate2 = CLLocationCoordinate2D(latitude: 37.477526, longitude: 127.036416)
         let location2 = CLLocation(coordinate: coordinate2, altitude: 300)
-        let image2 = UIImage(systemName: "house")!
+        let image2 = UIImage(named: "house")!.resize(newWidth: 100)
 
         let annotationNode2 = LocationAnnotationNode(location: location2, image: image2)
         
@@ -68,3 +68,20 @@ extension ARViewController: LNTouchDelegate {
     }
 }
     
+extension UIImage {
+    func resize(newWidth: CGFloat) -> UIImage {
+        let scale = newWidth / self.size.width
+        let newHeight = self.size.height * scale
+
+        let size = CGSize(width: newWidth, height: newHeight)
+        let render = UIGraphicsImageRenderer(size: size)
+        let renderImage = render.image { context in
+            self.draw(in: CGRect(origin: .zero, size: size))
+        }
+        
+        print("화면 배율: \(UIScreen.main.scale)")// 배수
+        print("origin: \(self), resize: \(renderImage)")
+//        printDataSize(renderImage)
+        return renderImage
+    }
+}
