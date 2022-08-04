@@ -1,5 +1,12 @@
+
+protocol FavoriteCellCollectionViewCellDelegate: AnyObject {
+    func favoriteCellCollectionViewCellDidTapDelete(at index: Int)
+}
+
 final class FavoriteCellCollectionViewCell: UICollectionViewCell {
     static let identifier = "FavoriteCellCollectionViewCell"
+    
+    weak var delegate: FavoriteCellCollectionViewCellDelegate?
     
     override init(frame: CGRect) {
     }
