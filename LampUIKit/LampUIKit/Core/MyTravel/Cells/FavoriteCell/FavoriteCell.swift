@@ -90,9 +90,13 @@ extension FavoriteCell {
         }
         
         dataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
-            guard kind == UICollectionView.elementKindSectionHeader else { return nil }
-            let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FavoriteCellHeaderCell.identifier, for: indexPath) as? FavoriteCellHeaderCell
-            view?.delegate = self
+            guard
+                kind == UICollectionView.elementKindSectionHeader,
+                let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                           withReuseIdentifier: FavoriteCellHeaderCell.identifier,
+                                                                           for: indexPath) as? FavoriteCellHeaderCell
+            else { return nil }
+            view.delegate = self
             return view
         }
     }
