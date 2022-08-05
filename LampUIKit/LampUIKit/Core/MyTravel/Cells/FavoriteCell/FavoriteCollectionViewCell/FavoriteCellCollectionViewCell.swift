@@ -46,6 +46,21 @@ final class FavoriteCellCollectionViewCell: UICollectionViewCell {
         lb.font = .systemFont(ofSize: 14, weight: .semibold)
         return lb
     }()
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        titleLabel.text = nil
+        favoriteButton.setImage(nil, for: .normal)
+        timeLabel.text = nil
+        addressLabel.text = nil
+    }
+    
+    public func configure(_ model: MyTravelLocations) {
+        titleLabel.text = model.name
+        favoriteButton.setImage(UIImage(named: "favorite_saved"), for: .normal)
+        timeLabel.text = model.visitableTime
+        addressLabel.text = model.address
+    }
+    
     override init(frame: CGRect) {
     private func bind() {
         favoriteButton
@@ -62,6 +77,10 @@ final class FavoriteCellCollectionViewCell: UICollectionViewCell {
             }
             .store(in: &cancellables)
     }
+    
+    private func setupUI() {
+        configureShadow(0.4)
+        
         let totalSv = UIStackView(arrangedSubviews: [titleLabel, timeLabel, addressLabel])
         totalSv.axis = .vertical
         totalSv.alignment = .fill
