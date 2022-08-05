@@ -1,3 +1,11 @@
+//
+//  FavoriteCellCollectionViewCell.swift
+//  LampUIKit
+//
+//  Created by 김윤석 on 2022/07/28.
+//
+import Combine
+import UIKit
 
 protocol FavoriteCellCollectionViewCellDelegate: AnyObject {
     func favoriteCellCollectionViewCellDidTapDelete(at index: Int)
