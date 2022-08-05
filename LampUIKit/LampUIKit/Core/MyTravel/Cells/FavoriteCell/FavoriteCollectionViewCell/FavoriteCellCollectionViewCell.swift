@@ -47,6 +47,21 @@ final class FavoriteCellCollectionViewCell: UICollectionViewCell {
         return lb
     }()
     override init(frame: CGRect) {
+    private func bind() {
+        favoriteButton
+            .tapPublisher
+            .sink { _ in
+                self.isSaveButtonTapped.toggle()
+                
+                if self.isSaveButtonTapped {
+                    self.favoriteButton.setImage(UIImage(named: "favorite_saved"), for: .normal)
+                } else {
+                    self.favoriteButton.setImage(UIImage(named: "favorite_unsaved"), for: .normal)
+                    self.delegate?.favoriteCellCollectionViewCellDidTapDelete(at: self.tag)
+                }
+            }
+            .store(in: &cancellables)
+    }
         let totalSv = UIStackView(arrangedSubviews: [titleLabel, timeLabel, addressLabel])
         totalSv.axis = .vertical
         totalSv.alignment = .fill
