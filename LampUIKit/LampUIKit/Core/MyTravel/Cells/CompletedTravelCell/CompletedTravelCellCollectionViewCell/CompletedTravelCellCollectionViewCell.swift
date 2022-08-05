@@ -52,6 +52,13 @@ final class CompletedTravelCellCollectionViewCell: UICollectionViewCell {
             locationNameLabel.leadingAnchor.constraint(equalTo: visitiedDateLabel.leadingAnchor),
             locationNameLabel.topAnchor.constraint(equalTo: visitiedDateLabel.bottomAnchor, constant: 20),
         ])
+    }
+    
+    public func configure(_ model: MyTravelLocations) {
+        visitiedDateLabel.text = model.visitedDate
+        locationNameLabel.text = model.name
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
