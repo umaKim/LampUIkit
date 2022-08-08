@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+class MapViewModel: BaseViewModel {
+    
+    override init() {
+        super.init()
+    }
+}
