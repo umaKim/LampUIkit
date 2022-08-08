@@ -10,6 +10,15 @@
       }
     },
     {
+      "identity" : "axisratingbar",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jasudev/AxisRatingBar.git",
+      "state" : {
+        "revision" : "edc48620a2cd9f6b3cec0642ebcac4a6cf6d0e56",
+        "version" : "0.5.0"
+      }
+    },
+    {
       "identity" : "combinecocoa",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/CombineCommunity/CombineCocoa.git",
