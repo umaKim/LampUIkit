@@ -1,5 +1,4 @@
 ${PODS_ROOT}/Target Support Files/Pods-LampUIKit-LampUIKitUITests/Pods-LampUIKit-LampUIKitUITests-frameworks.sh
-${BUILT_PRODUCTS_DIR}/AARatingBar/AARatingBar.framework
 ${BUILT_PRODUCTS_DIR}/ARCL/ARCL.framework
 ${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
 ${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework

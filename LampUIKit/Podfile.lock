@@ -1,5 +1,4 @@
 PODS:
-  - AARatingBar (1.2)
   - Alamofire (5.6.1)
   - AppAuth (1.5.0):
     - AppAuth/Core (= 1.5.0)
@@ -76,7 +75,6 @@ PODS:
   - PromisesObjC (2.1.0)
 
 DEPENDENCIES:
-  - AARatingBar
   - ARCL
   - Firebase/Auth
   - GoogleSignIn
@@ -86,7 +84,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - AARatingBar
     - Alamofire
     - AppAuth
     - ARCL
@@ -107,7 +104,6 @@ SPEC REPOS:
     - PromisesObjC
 
 SPEC CHECKSUMS:
-  AARatingBar: dc54d24687ae97688ffdb29738332d0bc5c0c09f
   Alamofire: 87bd8c952f9a4454320fce00d9cc3de57bcadaf5
   AppAuth: 80317d99ac7ff2801a2f18ff86b48cd315ed465d
   ARCL: db48b6927d6f3f49f29568295ed91c94ab8d4aab
@@ -127,6 +123,6 @@ SPEC CHECKSUMS:
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: 99b6f43f9e1044bd87a95a60beff28c2c44ddb72
 
-PODFILE CHECKSUM: ae1eb640f7b1c4507ca16ee6300022c01571203c
+PODFILE CHECKSUM: 76bb1469a7593a67b6349381ef7c0af8f5e63640
 
 COCOAPODS: 1.11.0.beta.2
