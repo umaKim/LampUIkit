@@ -34,6 +34,10 @@ final class LocationDetailViewController: BaseViewContronller {
         
         navigationItem.leftBarButtonItems = [contentView.backButton]
         
+        bind()
+    }
+    
+    private func bind() {
         contentView
             .actionPublisher
             .sink { action in
