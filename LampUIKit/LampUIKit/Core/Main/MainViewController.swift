@@ -1,0 +1,77 @@
+//
+//  MainViewController.swift
+//  LampUIKit
+//
+//  Created by 김윤석 on 2022/08/09.
+//
+
+import UIKit
+
+class MainViewController: BaseViewContronller  {
+
+    private let contentView: MainView = MainView()
+    
+    init(_ vm: MainViewModel) {
+        super.init()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func loadView() {
+        super.loadView()
+        
+        view = contentView
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        contentView.mapView.delegate = self
+        
+        // 현재 위치 트래킹
+        contentView.mapView.currentLocationTrackingMode = .onWithoutHeading
+        contentView.mapView.showCurrentLocationMarker = true
+        
+        bind()
+        
+        let pt1 = MTMapPOIItem()
+        pt1.itemName = "광화문"
+        pt1.mapPoint = MTMapPoint(geoCoord: MTMapPointGeo(latitude: 37.57592607767667,
+                                                          longitude: 126.9767190147726))
+       
+        pt1.customImage = UIImage(named: "castle")?.resize(newWidth: 50)
+        pt1.markerType = .customImage
+        
+        contentView.mapView.addPOIItems([pt1])
+    }
+    
+    private func bind() {
+        contentView
+            .actionPublisher
+            .sink {[unowned self] action in
+                switch action {
+                case .search:
+                    let vc = SearchViewController(vm: SearchViewModel())
+                    let nav = UINavigationController(rootViewController: vc)
+                    present(nav, animated: true)
+                
+                case .myTravel:
+                    let vc = MyTravelViewController(vm: MyTravelViewModel())
+                    let nav = UINavigationController(rootViewController: vc)
+                    present(nav, animated: true)
+                    
+                case .myCharacter:
+                    let vc = MyCharacterViewController(vm: MyCharacterViewModel())
+                    let nav = UINavigationController(rootViewController: vc)
+                    present(nav, animated: true)
+                }
+            }
+            .store(in: &cancellables)
+    }
+}
+
+extension MainViewController: MTMapViewDelegate {
+    
+}
