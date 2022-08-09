@@ -74,6 +74,7 @@ class KeywordSearchXMLService: BaseXMLService, XMLParserDelegate {
 }
 
 struct LocationItem: Decodable, Hashable {
+    var uuid = UUID()
     var areaCode: String
     var title: String
     var firstimage: String
