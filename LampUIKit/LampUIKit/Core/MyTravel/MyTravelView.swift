@@ -14,8 +14,8 @@ enum MenuTabBarButtonType: Int {
 }
 
 enum MyTravelViewAction {
-    case ar
     case gear
+    case dismiss
 }
 
 class MyTravelView: UIView {
@@ -23,13 +23,14 @@ class MyTravelView: UIView {
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<MyTravelViewAction, Never>()
     
-    private(set) var arButton: UIBarButtonItem = {
-        let bt = UIBarButtonItem(image: .camera, style: .done, target: nil, action: nil)
+    private(set) var gearButton : UIBarButtonItem = {
+        let bt = UIBarButtonItem(image: .gear, style: .done, target: nil, action: nil)
         bt.tintColor = .black
         return bt
     }()
-    private(set) var gearButton : UIBarButtonItem = {
-        let bt = UIBarButtonItem(image: .gear, style: .done, target: nil, action: nil)
+    
+    private(set) var dismissButton: UIBarButtonItem = {
+        let bt = UIBarButtonItem(image: .xmark, style: .done, target: nil, action: nil)
         bt.tintColor = .black
         return bt
     }()
@@ -61,13 +62,13 @@ class MyTravelView: UIView {
         self.cancellables = .init()
         super.init(frame: .zero)
         
-        arButton.tapPublisher.sink { _ in
-            self.actionSubject.send(.ar)
+        gearButton.tapPublisher.sink { _ in
+            self.actionSubject.send(.gear)
         }
         .store(in: &cancellables)
         
-        gearButton.tapPublisher.sink { _ in
-            self.actionSubject.send(.gear)
+        dismissButton.tapPublisher.sink { _ in
+            self.actionSubject.send(.dismiss)
         }
         .store(in: &cancellables)
         
