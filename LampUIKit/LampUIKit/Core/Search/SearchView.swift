@@ -14,7 +14,7 @@ enum SearchViewAction {
     case travel
     case notVisit
     
-    case ar
+    case dismiss
     
     case searchTextDidChange(String)
 }
@@ -27,7 +27,8 @@ class SearchView: UIView {
     private(set) var searchBar = UISearchBar()
     
     private(set) var arButton: UIBarButtonItem = {
-        let bt = UIBarButtonItem(image: .camera, style: .done, target: nil, action: nil)
+    private(set) var dismissButton: UIBarButtonItem = {
+        let bt = UIBarButtonItem(image: .xmark, style: .done, target: nil, action: nil)
         bt.tintColor = .black
         return bt
     }()
@@ -64,6 +65,11 @@ class SearchView: UIView {
             .debounce(for: 1, scheduler: RunLoop.main)
             .sink { text in
             self.actionSubject.send(.searchTextDidChange(text))
+        }
+        .store(in: &cancellables)
+        
+        dismissButton.tapPublisher.sink { _ in
+            self.actionSubject.send(.dismiss)
         }
         .store(in: &cancellables)
         
