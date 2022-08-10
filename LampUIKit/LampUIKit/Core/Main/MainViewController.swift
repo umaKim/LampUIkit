@@ -63,16 +63,19 @@ class MainViewController: BaseViewContronller  {
                 switch action {
                 case .search:
                     let vc = SearchViewController(vm: SearchViewModel())
+                    vc.delegate = self
                     let nav = UINavigationController(rootViewController: vc)
                     present(nav, animated: true)
                 
                 case .myTravel:
                     let vc = MyTravelViewController(vm: MyTravelViewModel())
+                    vc.delegate = self
                     let nav = UINavigationController(rootViewController: vc)
                     present(nav, animated: true)
                     
                 case .myCharacter:
                     let vc = MyCharacterViewController(vm: MyCharacterViewModel())
+                    vc.delegate = self
                     let nav = UINavigationController(rootViewController: vc)
                     present(nav, animated: true)
                     
@@ -82,8 +85,28 @@ class MainViewController: BaseViewContronller  {
             }
             .store(in: &cancellables)
     }
+    
+    private func dismiss() {
+        self.dismiss(animated: true)
+    }
 }
 
 extension MainViewController: MTMapViewDelegate {
     
+extension MainViewController: SearchViewControllerDelegate {
+    func searchViewControllerDidTapDismiss() {
+        dismiss()
+    }
+}
+
+extension MainViewController: MyTravelViewControllerDelegate {
+    func myTravelViewControllerDidTapDismiss() {
+        dismiss()
+    }
+}
+
+extension MainViewController: MyCharacterViewControllerDelegate {
+    func myCharacterViewControllerDidTapDismiss() {
+        dismiss()
+    }
 }
