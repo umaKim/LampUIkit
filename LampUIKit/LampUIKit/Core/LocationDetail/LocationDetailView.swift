@@ -15,8 +15,7 @@ enum LocationDetailViewAction {
 final class LocationDetailView: BaseWhiteView {
     
     private(set) lazy var backButton: UIBarButtonItem = {
-        let image = UIImage(named:"back")?.withTintColor(.midNavy, renderingMode: .alwaysOriginal)
-        let bt = UIBarButtonItem(image: image, style: .done, target: nil, action: nil)
+        let bt = UIBarButtonItem(image: .back, style: .done, target: nil, action: nil)
         return bt
     }()
     
