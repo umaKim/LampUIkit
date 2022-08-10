@@ -7,13 +7,17 @@
 
 import UIKit
 
-final
+protocol MyTravelViewControllerDelegate: AnyObject {
+    func myTravelViewControllerDidTapDismiss()
+}
 
-class MyTravelViewController: BaseViewContronller {
+final class MyTravelViewController: BaseViewContronller {
 
     private let contentView = MyTravelView()
     
     private let viewModel: MyTravelViewModel
+    
+    weak var delegate: MyTravelViewControllerDelegate?
     
     override func loadView() {
         super.loadView()
@@ -39,7 +43,8 @@ class MyTravelViewController: BaseViewContronller {
         contentView.collectionView.dataSource = self
         contentView.collectionView.delegate = self
         
-        navigationItem.rightBarButtonItems = [contentView.gearButton, contentView.arButton]
+        navigationItem.rightBarButtonItems = [contentView.dismissButton]
+        navigationItem.leftBarButtonItems = [contentView.gearButton]
         navigationController?.setLargeTitleColor(.midNavy)
         
         bind()
@@ -50,15 +55,13 @@ class MyTravelViewController: BaseViewContronller {
             .actionPublisher
             .sink { action in
                 switch action {
-                case .ar:
-                    let vm = ARViewModel()
-                    let vc = ARViewController(vm: vm)
-                    self.present(vc, animated: true)
-                    
                 case .gear:
                     let vm = MyPageViewModel()
                     let vc = MyPageViewController(vm: vm)
                     self.navigationController?.pushViewController(vc, animated: true)
+                    
+                case .dismiss:
+                    self.delegate?.myTravelViewControllerDidTapDismiss()
                 }
             }
             .store(in: &cancellables)

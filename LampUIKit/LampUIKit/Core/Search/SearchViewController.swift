@@ -8,6 +8,10 @@
 import Combine
 import UIKit
 
+protocol SearchViewControllerDelegate: AnyObject {
+    func searchViewControllerDidTapDismiss()
+}
+
 class SearchViewController: BaseViewContronller {
     
     private typealias DataSource = UICollectionViewDiffableDataSource<Section, LocationItem>
@@ -16,6 +20,8 @@ class SearchViewController: BaseViewContronller {
     enum Section { case main }
     
     private var dataSource: DataSource?
+    
+    weak var delegate: SearchViewControllerDelegate?
     
     private let contentView = SearchView()
     
@@ -41,7 +47,7 @@ class SearchViewController: BaseViewContronller {
         contentView.searchBar.placeholder = "검색어 입력"
         navigationItem.titleView = contentView.searchBar
         
-        navigationItem.rightBarButtonItems = [contentView.arButton]
+        navigationItem.rightBarButtonItems = [contentView.dismissButton]
         contentView.collectionView.delegate = self
 //        contentView.collectionView.dataSource = self
         
@@ -70,9 +76,8 @@ class SearchViewController: BaseViewContronller {
                     //Reload
                     break
                     
-                case .ar:
-                    //Present AR
-                    break
+                case .dismiss:
+                    self.delegate?.searchViewControllerDidTapDismiss()
                     
                 case .searchTextDidChange(let text):
                     self.viewModel.search(text)
