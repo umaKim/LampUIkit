@@ -6,7 +6,6 @@
 //
 import SwiftUI
 import AxisRatingBar
-import AARatingBar
 import CombineCocoa
 import Combine
 import UIKit
@@ -37,8 +36,6 @@ class WriteReviewView: BaseWhiteView {
     }()
     
     private let dividerView1 = DividerView()
-    
-    
     
     private lazy var starRatingView: UIView = {
         guard
@@ -119,10 +116,6 @@ class WriteReviewView: BaseWhiteView {
     private let contentView = UIView()
     
     private func bind() {
-        starRatingView.ratingDidChange = {
-            self.actionSubject.send(.updateStarRating($0))
-        }
-        
         satisfactionEvaluationView.actionPublisher.sink { action in
             switch action {
             case .updateElement(let model):
