@@ -13,6 +13,7 @@ enum MainViewAction {
     case search
     case myTravel
     case myCharacter
+    case myLocation
 }
 
 class MainView: BaseView {
@@ -56,6 +57,17 @@ class MainView: BaseView {
         return bt
     }()
     
+    private lazy var myLocationButton: UIButton = {
+       let bt = UIButton()
+        bt.setImage(UIImage(systemName: "person"), for: .normal)
+        let length: CGFloat = 60
+        bt.layer.cornerRadius = length / 2
+        bt.heightAnchor.constraint(equalToConstant: length).isActive = true
+        bt.widthAnchor.constraint(equalToConstant: length).isActive = true
+        bt.backgroundColor = .darkNavy
+        return bt
+    }()
+    
     override init() {
         super.init()
         
@@ -82,10 +94,15 @@ class MainView: BaseView {
             self.actionSubject.send(.myCharacter)
         }
         .store(in: &cancellables)
+        
+        myLocationButton.tapPublisher.sink { _ in
+            self.actionSubject.send(.myLocation)
+        }
+        .store(in: &cancellables)
     }
     
     private func setupUI() {
-        [mapView, searchButton, myTravelButton, myCharacterButton].forEach { uv in
+        [mapView, myLocationButton, searchButton, myTravelButton, myCharacterButton].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
             addSubview(uv)
         }
@@ -100,6 +117,8 @@ class MainView: BaseView {
             myCharacterButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
             myCharacterButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -16),
             
+            myLocationButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            myLocationButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
             
             mapView.leadingAnchor.constraint(equalTo: leadingAnchor),
             mapView.trailingAnchor.constraint(equalTo: trailingAnchor),

@@ -4,12 +4,15 @@
 //
 //  Created by 김윤석 on 2022/08/09.
 //
-
+import CoreLocation
 import UIKit
 
 class MainViewController: BaseViewContronller  {
 
     private let contentView: MainView = MainView()
+    
+    
+    private let locationManager = CLLocationManager()
     
     init(_ vm: MainViewModel) {
         super.init()
@@ -28,7 +31,11 @@ class MainViewController: BaseViewContronller  {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        locationManager.delegate = self
+        locationManager.requestLocation()
+        
         contentView.mapView.delegate = self
+        
         
         // 현재 위치 트래킹
         contentView.mapView.currentLocationTrackingMode = .onWithoutHeading
@@ -45,6 +52,8 @@ class MainViewController: BaseViewContronller  {
         pt1.markerType = .customImage
         
         contentView.mapView.addPOIItems([pt1])
+        setMapToMyLocation()
+        viewModel.fetchItems()
     }
     
     private func bind() {
@@ -66,6 +75,9 @@ class MainViewController: BaseViewContronller  {
                     let vc = MyCharacterViewController(vm: MyCharacterViewModel())
                     let nav = UINavigationController(rootViewController: vc)
                     present(nav, animated: true)
+                    
+                case .myLocation:
+                    self.setMapToMyLocation()
                 }
             }
             .store(in: &cancellables)
