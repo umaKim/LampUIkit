@@ -4,6 +4,7 @@
 //
 //  Created by 김윤석 on 2022/07/24.
 //
+import SwiftUI
 import Combine
 import UIKit
 
@@ -80,15 +81,12 @@ class DetailReviewCollectionViewHeader: UICollectionReusableView {
         return uv
     }()
     
-    private let starRatingView: UIStackView = {
-        let sv = UIStackView()
-        for _ in 0..<5 {
-            sv.addArrangedSubview(UIImageView(image: UIImage(systemName: "star")))
-        }
-        sv.distribution = .fillEqually
-        sv.alignment = .fill
-        sv.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        return sv
+    private lazy var starRatingView: UIView = {
+        guard
+            let uv = UIHostingController(rootView: CustomRatingBar(axisMode: .horizontal, interactionable: false)).view
+        else {return UIView()}
+        uv.backgroundColor = .greyshWhite
+        return uv
     }()
     
     private lazy var satisfyView: ReviewLabel = {
