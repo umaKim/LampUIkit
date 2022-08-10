@@ -10,7 +10,13 @@ import SwiftUI
 
 struct CustomRatingBar: View {
     
-    let axisMode: ARAxisMode
+    private let axisMode: ARAxisMode
+    private let interactionable: Bool
+    
+    init(axisMode: ARAxisMode, interactionable: Bool = true) {
+        self.axisMode = axisMode
+        self.interactionable = interactionable
+    }
     
     @State private var starCount: CGFloat = 5
     @State private var innerRatio: CGFloat = 1
@@ -25,7 +31,8 @@ struct CustomRatingBar: View {
                                    spacing: spacing,
                                    fillMode: fillMode,
                                    axisMode: axisMode,
-                                   valueMode: .point)
+                                   valueMode: .point,
+                                   disabled: !interactionable)
         return
             Group {
                 VStack {
