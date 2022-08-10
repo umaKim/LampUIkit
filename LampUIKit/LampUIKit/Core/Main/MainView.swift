@@ -25,7 +25,6 @@ class MainView: BaseView {
     
     private lazy var searchButton: UIButton = {
        let bt = UIButton()
-//        bt.setTitle("검색", for: .normal)
         bt.setImage(UIImage(named: "lampSpot_unselected"), for: .normal)
         let length: CGFloat = 60
         bt.layer.cornerRadius = length / 2

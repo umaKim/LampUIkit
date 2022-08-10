@@ -159,7 +159,6 @@ class RecommendedLocationCell: UICollectionViewCell {
         super.init(frame: frame)
 
         layer.cornerRadius = 16
-        backgroundColor = .orange
     }
 
     required init?(coder: NSCoder) {

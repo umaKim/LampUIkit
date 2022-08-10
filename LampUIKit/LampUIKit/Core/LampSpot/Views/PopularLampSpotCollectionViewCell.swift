@@ -37,12 +37,7 @@ class PopularLampSpotCollectionViewCell: UICollectionViewCell {
         delegate?.popularLampSpotCollectionViewCellDidTap()
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
         backgroundColor = .greyshWhite
-        
-        let tap = UITapGestureRecognizer(target: self, action: #selector(tapHandler))
-        mapImageView.addGestureRecognizer(tap)
         
         let labelStackView = UIStackView(arrangedSubviews: [titleLabel, mapImageView])
         labelStackView.axis = .vertical

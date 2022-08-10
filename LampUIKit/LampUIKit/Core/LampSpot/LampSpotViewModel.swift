@@ -13,7 +13,6 @@ class LampSpotViewModel {
     init() {
         guard let location = LampLocationManager.shared.location else { return }
         print(location)
-        NetworkService.shared.fetchRecommendation(location)
     }
 }
 
