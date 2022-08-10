@@ -54,6 +54,9 @@ final class FavoriteCellCollectionViewCell: UICollectionViewCell {
         lb.font = .systemFont(ofSize: 14, weight: .semibold)
         return lb
     }()
+    
+    private var cancellables: Set<AnyCancellable>
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         titleLabel.text = nil
@@ -70,6 +73,7 @@ final class FavoriteCellCollectionViewCell: UICollectionViewCell {
     }
     
     override init(frame: CGRect) {
+        bind()
     private func bind() {
         favoriteButton
             .tapPublisher
