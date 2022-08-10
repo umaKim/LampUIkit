@@ -119,17 +119,6 @@ final class FavoriteCellCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-    }
-    
-//    var showDeleButton: Bool? {
-//        didSet{
-//            deleteButton.isHidden = !(showDeleButton ?? false)
-//        }
-//    }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
