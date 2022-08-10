@@ -31,6 +31,7 @@ extension UIImage {
     static let bell = UIImage(systemName: "bell")
     static let magnify = UIImage(systemName: "magnifyingglass")
     static let gear = UIImage(systemName: "gear")
+    static let xmark = UIImage(systemName: "xmark")
 }
 
 extension UIViewController {
@@ -55,7 +56,6 @@ extension UIViewController {
         }
     }
 }
-
 
 extension UIButton {
     static func buttonMaker(
@@ -86,6 +86,10 @@ extension UIButton {
         let bt = UIButton(configuration: configuration)
         return bt
     }
+}
+
+extension UIImage {
+    static let back = UIImage(named:"back")?.withTintColor(.midNavy, renderingMode: .alwaysOriginal)
 }
 
 extension UIView {
