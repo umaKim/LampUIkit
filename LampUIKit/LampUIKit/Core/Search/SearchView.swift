@@ -26,7 +26,6 @@ class SearchView: UIView {
     
     private(set) var searchBar = UISearchBar()
     
-    private(set) var arButton: UIBarButtonItem = {
     private(set) var dismissButton: UIBarButtonItem = {
         let bt = UIBarButtonItem(image: .xmark, style: .done, target: nil, action: nil)
         bt.tintColor = .black
