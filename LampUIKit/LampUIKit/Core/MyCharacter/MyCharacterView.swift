@@ -4,11 +4,25 @@
 //
 //  Created by 김윤석 on 2022/07/22.
 //
-
+import CombineCocoa
+import Combine
 import UIKit
 
-class MyCharacterView: BaseWhiteView {
+enum MyCharacterViewAction {
+    case dismiss
+}
 
+class MyCharacterView: BaseWhiteView {
+    
+    private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
+    private let actionSubject = PassthroughSubject<MyCharacterViewAction, Never>()
+
+    private(set) var dismissButton: UIBarButtonItem = {
+        let bt = UIBarButtonItem(image: .xmark, style: .done, target: nil, action: nil)
+        bt.tintColor = .black
+        return bt
+    }()
+    
     private(set) lazy var tableView: UITableView = {
       let tv = UITableView()
         tv.register(MyCharacterViewTableViewHeaderCell.self, forHeaderFooterViewReuseIdentifier: MyCharacterViewTableViewHeaderCell.identifier)
@@ -22,6 +36,11 @@ class MyCharacterView: BaseWhiteView {
     
     override init() {
         super.init()
+        
+        dismissButton.tapPublisher.sink { _ in
+            self.actionSubject.send(.dismiss)
+        }
+        .store(in: &cancellables)
         
         setupUI()
     }

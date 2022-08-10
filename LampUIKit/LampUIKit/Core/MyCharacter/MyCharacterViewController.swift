@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol MyCharacterViewControllerDelegate: AnyObject {
+    func myCharacterViewControllerDidTapDismiss()
+}
+
 class MyCharacterViewController: BaseViewContronller {
 
     private typealias DataSource = UITableViewDiffableDataSource<Section, GaugeData>
@@ -35,10 +39,24 @@ class MyCharacterViewController: BaseViewContronller {
         fatalError("init(coder:) has not been implemented")
     }
     
+    weak var delegate: MyCharacterViewControllerDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupDataSource()
         updateSections()
+        
+        navigationItem.rightBarButtonItems = [contentView.dismissButton]
+        
+        contentView
+            .actionPublisher
+            .sink { action in
+                switch action {
+                case .dismiss:
+                    self.delegate?.myCharacterViewControllerDidTapDismiss()
+                }
+            }
+            .store(in: &cancellables)
         
         viewModel
             .notifyPublisher
