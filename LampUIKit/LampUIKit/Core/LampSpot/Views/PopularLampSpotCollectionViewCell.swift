@@ -32,7 +32,18 @@ class PopularLampSpotCollectionViewCell: UICollectionViewCell {
         return uv
     }()
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        configureTapGesture()
         setupUI()
+    }
+    
+    private func configureTapGesture() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapHandler))
+        mapImageView.addGestureRecognizer(tap)
+    }
+
     @objc
     private func tapHandler() {
         delegate?.popularLampSpotCollectionViewCellDidTap()
