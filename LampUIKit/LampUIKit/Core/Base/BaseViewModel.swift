@@ -8,8 +8,8 @@
 import Combine
 import Foundation
 
-class BaseViewModel {
-    init() {
+class BaseViewModel: NSObject {
+    override init() {
         self.cancellables = .init()
     }
     
