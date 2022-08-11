@@ -64,13 +64,13 @@ class MyPageViewController: BaseViewContronller {
     }
     
     private var logoutAction: UIAlertAction {
-        return .init(title: "로그아웃", style: .default, handler: {action in
+        return .init(title: "로그아웃", style: .default, handler: {[unowned self] action in
             self.viewModel.logout()
         })
     }
     
     private var deleteAccountAction: UIAlertAction {
-        return .init(title: "계정 삭제", style: .default, handler: {action in
+        return .init(title: "계정 삭제", style: .default, handler: {[unowned self] action in
             self.viewModel.deleteAccount()
         })
     }
