@@ -32,11 +32,13 @@ class PopularLampSpotCollectionViewCell: UICollectionViewCell {
         return uv
     }()
     
+        setupUI()
     @objc
     private func tapHandler() {
         delegate?.popularLampSpotCollectionViewCellDidTap()
     }
     
+    private func setupUI() {
         backgroundColor = .greyshWhite
         
         let labelStackView = UIStackView(arrangedSubviews: [titleLabel, mapImageView])
