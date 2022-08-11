@@ -18,6 +18,9 @@ class MainViewModel: BaseViewModel  {
     private(set) lazy var notifyPublisher = notifySubject.eraseToAnyPublisher()
     private let notifySubject = PassthroughSubject<MainViewModelNotification, Never>()
     
+    private(set) var latitude: Double = 0
+    private(set) var longitude: Double = 0
+    
     private let network = NetworkService.shared
     
     private let uid: String
@@ -25,6 +28,15 @@ class MainViewModel: BaseViewModel  {
         self.uid = uid
         super.init()
         
+        locationManager.delegate = self
+        locationManager.requestLocation()
+        
+        guard let coord = locationManager.location?.coordinate else { return }
+        self.setLocation(with: coord.latitude, coord.longitude)
+    
+    private func setLocation(with latitude: Double, _ longitude: Double) {
+        self.latitude = latitude
+        self.longitude = longitude
     }
     
     public func fetchItems() {
