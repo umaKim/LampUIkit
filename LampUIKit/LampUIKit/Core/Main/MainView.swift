@@ -79,25 +79,33 @@ class MainView: BaseView {
     }
     
     private func bind() {
-        searchButton.tapPublisher.sink {[unowned self] _ in
-            self.actionSubject.send(.search)
-        }
-        .store(in: &cancellables)
+        searchButton
+            .tapPublisher
+            .sink {[unowned self] _ in
+                self.actionSubject.send(.search)
+            }
+            .store(in: &cancellables)
         
-        myTravelButton.tapPublisher.sink { [unowned self] _ in
-            self.actionSubject.send(.myTravel)
-        }
-        .store(in: &cancellables)
+        myTravelButton
+            .tapPublisher
+            .sink { [unowned self] _ in
+                self.actionSubject.send(.myTravel)
+            }
+            .store(in: &cancellables)
         
-        myCharacterButton.tapPublisher.sink { [unowned self] _ in
-            self.actionSubject.send(.myCharacter)
-        }
-        .store(in: &cancellables)
+        myCharacterButton
+            .tapPublisher
+            .sink { [unowned self] _ in
+                self.actionSubject.send(.myCharacter)
+            }
+            .store(in: &cancellables)
         
-        myLocationButton.tapPublisher.sink { _ in
-            self.actionSubject.send(.myLocation)
-        }
-        .store(in: &cancellables)
+        myLocationButton
+            .tapPublisher
+            .sink {[unowned self] _ in
+                self.actionSubject.send(.myLocation)
+            }
+            .store(in: &cancellables)
     }
     
     private func setupUI() {
