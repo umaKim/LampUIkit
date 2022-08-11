@@ -19,7 +19,7 @@ class PopularLampSpotCollectionViewCell: UICollectionViewCell {
     private let titleLabel:UILabel = {
        let lb = UILabel()
         lb.text = "지금 인기 있는 램프 스팟"
-        lb.font = .systemFont(ofSize: 20, weight: .semibold)
+        lb.font = .robotoBold(20)
         lb.textColor = .black
         return lb
     }()
