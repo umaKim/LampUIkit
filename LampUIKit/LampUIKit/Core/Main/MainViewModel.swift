@@ -9,8 +9,14 @@ import Alamofire
 import Foundation
 import Combine
 
+enum MainViewModelNotification {
+    case recommendedLocations([RecommendedLocation])
+}
+
 class MainViewModel: BaseViewModel  {
     
+    private(set) lazy var notifyPublisher = notifySubject.eraseToAnyPublisher()
+    private let notifySubject = PassthroughSubject<MainViewModelNotification, Never>()
     private let uid: String
     init(_ uid: String) {
         self.uid = uid
