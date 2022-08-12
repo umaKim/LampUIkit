@@ -69,6 +69,11 @@ class MainView: BaseView {
     }
     
     private func setupUI() {
+        let sv = UIStackView(arrangedSubviews: [recommendationButton, destinationButton, completeButton])
+        sv.axis = .horizontal
+        sv.distribution = .equalSpacing
+        sv.alignment = .fill
+        sv.spacing = 16
             uv.translatesAutoresizingMaskIntoConstraints = false
             addSubview(uv)
         }
@@ -76,6 +81,8 @@ class MainView: BaseView {
         NSLayoutConstraint.activate([
             searchButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
             searchButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            sv.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
+            sv.centerXAnchor.constraint(equalTo: centerXAnchor),
             
             myTravelButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
             myTravelButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 16),
