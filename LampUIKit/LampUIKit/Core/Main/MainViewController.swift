@@ -79,6 +79,11 @@ class MainViewController: BaseViewContronller  {
                     let nav = UINavigationController(rootViewController: vc)
                     present(nav, animated: true)
                     
+                case .zoomIn:
+                    self.zoomIn()
+                    
+                case .zoomOut:
+                    self.zoomOut()
                 }
             }
             .store(in: &cancellables)
@@ -86,6 +91,14 @@ class MainViewController: BaseViewContronller  {
     
     private func dismiss() {
         self.dismiss(animated: true)
+    }
+    
+    private func zoomIn() {
+        contentView.mapView.zoomIn(animated: true)
+    }
+    
+    private func zoomOut() {
+        contentView.mapView.zoomOut(animated: true)
     }
 }
 
