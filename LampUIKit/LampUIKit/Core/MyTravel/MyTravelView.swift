@@ -62,19 +62,27 @@ class MyTravelView: UIView {
         self.cancellables = .init()
         super.init(frame: .zero)
         
-        gearButton.tapPublisher.sink { _ in
-            self.actionSubject.send(.gear)
-        }
-        .store(in: &cancellables)
+        bind()
+        setupUI()
+    }
+    
+    private func bind() {
+        gearButton
+            .tapPublisher
+            .sink { _ in
+                self.actionSubject.send(.gear)
+            }
+            .store(in: &cancellables)
         
-        dismissButton.tapPublisher.sink { _ in
-            self.actionSubject.send(.dismiss)
-        }
-        .store(in: &cancellables)
+        dismissButton
+            .tapPublisher
+            .sink { _ in
+                self.actionSubject.send(.dismiss)
+            }
+            .store(in: &cancellables)
         
-        categoryButton.selectItem(at: 0)
-        
-        categoryButton.actionPublisher
+        categoryButton
+            .actionPublisher
             .sink {[weak self] action in
                 switch action {
                 case .didTapMyTravel:
@@ -88,7 +96,9 @@ class MyTravelView: UIView {
                 }
             }
             .store(in: &cancellables)
-        
+    }
+    
+    private func setupUI() {
         [categoryButton, collectionView].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
             addSubview(uv)
