@@ -9,7 +9,17 @@ import CombineCocoa
 import Combine
 import UIKit
 
+enum LoginViewAction {
+    case kakao
+    case gmail
+    case apple
+    case logout
+}
+
 class LoginView: UIView {
+    
+    private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
+    private let actionSubject = PassthroughSubject<LoginViewAction, Never>()
     
     private let titleImage: UIImageView = {
        let uv = UIImageView()
@@ -46,12 +56,29 @@ class LoginView: UIView {
         lb.font = .systemFont(ofSize: 14, weight: .regular)
         return lb
     }()
+    
+    private var cancellables: Set<AnyCancellable>
+    
     init() {
         self.cancellables = .init()
         super.init(frame: .zero)
         
         backgroundColor = .darkNavy
         
+        kakao.tapPublisher.sink { _ in
+            self.actionSubject.send(.kakao)
+        }
+        .store(in: &cancellables)
+        
+        gmail.tapPublisher.sink { _ in
+            self.actionSubject.send(.gmail)
+        }
+        .store(in: &cancellables)
+        
+        apple.tapPublisher.sink { _ in
+            self.actionSubject.send(.apple)
+        }
+        .store(in: &cancellables)
         
         let stackView = UIStackView(arrangedSubviews: [kakao, gmail, apple])
         stackView.axis = .vertical
