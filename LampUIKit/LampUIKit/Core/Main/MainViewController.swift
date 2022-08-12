@@ -114,6 +114,11 @@ class MainViewController: BaseViewContronller  {
 
 extension MainViewController: MTMapViewDelegate {
     
+    func mapView(_ mapView: MTMapView!, selectedPOIItem poiItem: MTMapPOIItem!) -> Bool {
+        return false
+    }
+}
+
 extension MainViewController: SearchViewControllerDelegate {
     func searchViewControllerDidTapDismiss() {
         dismiss()
