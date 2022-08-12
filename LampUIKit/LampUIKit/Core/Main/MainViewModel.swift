@@ -24,6 +24,8 @@ class MainViewModel: BaseViewModel  {
     private let network = NetworkService.shared
     
     private let uid: String
+    private let locationManager = CLLocationManager()
+    
     init(_ uid: String) {
         self.uid = uid
         super.init()
@@ -54,5 +56,19 @@ class MainViewModel: BaseViewModel  {
     }
     
 }
+
+extension MainViewModel: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            print("Found user's location: \(location)")
+        }
+
+//        print("Coordinate")
+//        print(locationManager.location?.coordinate)
+    }
+
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("didFailWithError")
+        print(error)
     }
 }

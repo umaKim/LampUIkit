@@ -12,8 +12,6 @@ class MainViewController: BaseViewContronller  {
     private let contentView: MainView = MainView()
     
     
-    private let locationManager = CLLocationManager()
-    
     init(_ vm: MainViewModel) {
         super.init()
     }
@@ -31,11 +29,7 @@ class MainViewController: BaseViewContronller  {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        locationManager.delegate = self
-        locationManager.requestLocation()
-        
         contentView.mapView.delegate = self
-        
         
         // 현재 위치 트래킹
         contentView.mapView.currentLocationTrackingMode = .onWithoutHeading
@@ -56,6 +50,12 @@ class MainViewController: BaseViewContronller  {
         viewModel.fetchItems()
     }
     
+    private lazy var mePt1: MTMapLocationMarkerItem = {
+       let pt = MTMapLocationMarkerItem()
+        pt.customTrackingImageName = "star_filled"
+//        pt.customTrackingImageAnchorPointOffset = MTMapImageOffset(offsetX: 1,offsetY: 1)
+        return pt
+    }()
     private func bind() {
         contentView
             .actionPublisher
