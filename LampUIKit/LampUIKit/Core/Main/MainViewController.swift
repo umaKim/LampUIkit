@@ -79,8 +79,6 @@ class MainViewController: BaseViewContronller  {
                     let nav = UINavigationController(rootViewController: vc)
                     present(nav, animated: true)
                     
-                case .myLocation:
-                    self.setMapToMyLocation()
                 }
             }
             .store(in: &cancellables)
