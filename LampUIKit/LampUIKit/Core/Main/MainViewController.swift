@@ -37,15 +37,7 @@ class MainViewController: BaseViewContronller  {
         
         bind()
         
-        let pt1 = MTMapPOIItem()
-        pt1.itemName = "광화문"
-        pt1.mapPoint = MTMapPoint(geoCoord: MTMapPointGeo(latitude: 37.57592607767667,
-                                                          longitude: 126.9767190147726))
-       
-        pt1.customImage = UIImage(named: "castle")?.resize(newWidth: 50)
-        pt1.markerType = .customImage
         
-        contentView.mapView.addPOIItems([pt1])
         setMapToMyLocation()
         viewModel.fetchItems()
     }
