@@ -13,6 +13,9 @@ enum MainViewAction {
     case search
     case myTravel
     case myCharacter
+    
+    case zoomIn
+    case zoomOut
 }
 
 class MainView: BaseView {
@@ -46,6 +49,17 @@ class MainView: BaseView {
     }
     
     private func bind() {
+        
+        zoomInButton.tapPublisher.sink { _ in
+            self.actionSubject.send(.zoomIn)
+        }
+        .store(in: &cancellables)
+        
+        zoomOutButton.tapPublisher.sink { _ in
+            self.actionSubject.send(.zoomOut)
+        }
+        .store(in: &cancellables)
+        
         searchButton
             .tapPublisher
             .sink {[unowned self] _ in
@@ -74,6 +88,15 @@ class MainView: BaseView {
         sv.distribution = .equalSpacing
         sv.alignment = .fill
         sv.spacing = 16
+        
+        let zoomSv = UIStackView(arrangedSubviews: [zoomInButton, zoomOutButton])
+        zoomSv.axis = .vertical
+        zoomSv.distribution = .fillEqually
+        zoomSv.alignment = .fill
+        zoomSv.layer.cornerRadius = 20
+        zoomSv.clipsToBounds = true
+        
+        [mapView, sv, zoomSv, searchButton, myTravelButton, myCharacterButton].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
             addSubview(uv)
         }
@@ -86,6 +109,8 @@ class MainView: BaseView {
             
             myTravelButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
             myTravelButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            zoomSv.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            zoomSv.centerYAnchor.constraint(equalTo: centerYAnchor),
             
             myCharacterButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
             myCharacterButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -16),
