@@ -23,49 +23,17 @@ class MainView: BaseView {
     
     private(set) var mapView = MTMapView()
     
-    private lazy var searchButton: UIButton = {
-       let bt = UIButton()
-        bt.setImage(UIImage(named: "lampSpot_unselected"), for: .normal)
-        let length: CGFloat = 60
-        bt.layer.cornerRadius = length / 2
-        bt.heightAnchor.constraint(equalToConstant: length).isActive = true
-        bt.widthAnchor.constraint(equalToConstant: length).isActive = true
-        bt.backgroundColor = .darkNavy
-        return bt
-    }()
+    private lazy var recommendationButton = EllipseButton(image: UIImage(systemName: "person"))
+    private lazy var destinationButton = EllipseButton(image: UIImage(systemName: "house"))
+    private lazy var completeButton = EllipseButton(image: UIImage(systemName: "gear"))
     
-    private lazy var myTravelButton: UIButton = {
-       let bt = UIButton()
-        bt.setImage(UIImage(named: "myTravel_unselected"), for: .normal)
-        let length: CGFloat = 60
-        bt.layer.cornerRadius = length / 2
-        bt.heightAnchor.constraint(equalToConstant: length).isActive = true
-        bt.widthAnchor.constraint(equalToConstant: length).isActive = true
-        bt.backgroundColor = .darkNavy
-        return bt
-    }()
+    private lazy var zoomInButton = SquareButton(UIImage(systemName: "plus"))
+    private lazy var zoomOutButton = SquareButton(UIImage(systemName: "minus"))
     
-    private lazy var myCharacterButton: UIButton = {
-       let bt = UIButton()
-        bt.setImage(UIImage(named: "myCharacter_unselected"), for: .normal)
-        let length: CGFloat = 60
-        bt.layer.cornerRadius = length / 2
-        bt.heightAnchor.constraint(equalToConstant: length).isActive = true
-        bt.widthAnchor.constraint(equalToConstant: length).isActive = true
-        bt.backgroundColor = .darkNavy
-        return bt
-    }()
-    
-    private lazy var myLocationButton: UIButton = {
-       let bt = UIButton()
-        bt.setImage(UIImage(systemName: "person"), for: .normal)
-        let length: CGFloat = 60
-        bt.layer.cornerRadius = length / 2
-        bt.heightAnchor.constraint(equalToConstant: length).isActive = true
-        bt.widthAnchor.constraint(equalToConstant: length).isActive = true
-        bt.backgroundColor = .darkNavy
-        return bt
-    }()
+    private lazy var searchButton = CircleButton(UIImage(named: "lampSpot_unselected"), .darkNavy)
+    private lazy var myTravelButton = CircleButton(UIImage(named: "myTravel_unselected"), .darkNavy)
+    private lazy var myCharacterButton = CircleButton(UIImage(named: "myCharacter_unselected"), .darkNavy)
+    private lazy var myLocationButton = CircleButton(UIImage(systemName: "person"), .darkNavy)
     
     override init() {
         super.init()
