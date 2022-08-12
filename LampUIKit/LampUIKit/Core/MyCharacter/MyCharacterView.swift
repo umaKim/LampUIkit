@@ -37,16 +37,21 @@ class MyCharacterView: BaseWhiteView {
     override init() {
         super.init()
         
-        dismissButton.tapPublisher.sink { _ in
-            self.actionSubject.send(.dismiss)
-        }
-        .store(in: &cancellables)
-        
+        bind()
         setupUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func bind() {
+        dismissButton
+            .tapPublisher
+            .sink { _ in
+                self.actionSubject.send(.dismiss)
+            }
+            .store(in: &cancellables)
     }
     
     private func setupUI() {
