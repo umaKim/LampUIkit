@@ -87,6 +87,16 @@ class MainViewController: BaseViewContronller  {
                 }
             }
             .store(in: &cancellables)
+        
+        viewModel
+            .notifyPublisher
+            .sink {[unowned self] noti in
+                switch noti {
+                case .recommendedLocations(let locations):
+                    self.addMarkers(of: locations)
+                }
+            }
+            .store(in: &cancellables)
     }
     
     private func dismiss() {
