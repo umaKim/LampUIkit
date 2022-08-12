@@ -14,6 +14,8 @@ protocol MyTravelCellCollectionViewCellDelegate: AnyObject {
 final class MyTravelCellCollectionViewCell: UICollectionViewCell {
     static let identifier = "MyTravelCellCollectionViewCell"
     
+    weak var delegate: MyTravelCellCollectionViewCellDelegate?
+    
     private let containerView: UIView = {
         let uv = UIView()
         uv.layer.cornerRadius = 6
@@ -63,6 +65,9 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell {
         bt.isHidden = true
         return bt
     }()
+    
+    private var cancellables: Set<AnyCancellable>
+    
         configureShadow(0.4)
         
         let totalSv = UIStackView(arrangedSubviews: [titleLabel, timeLabel, addressLabel])
@@ -89,6 +94,12 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell {
             deleteButton.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16),
             deleteButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
         ])
+        
+        deleteButton.tapPublisher.sink { _ in
+            self.delegate?.myTravelCellCollectionViewCellDidTapDelete(at: self.tag)
+        }
+        .store(in: &cancellables)
+    }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
