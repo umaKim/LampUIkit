@@ -13,7 +13,6 @@ enum MainViewAction {
     case search
     case myTravel
     case myCharacter
-    case myLocation
 }
 
 class MainView: BaseView {
@@ -67,17 +66,9 @@ class MainView: BaseView {
                 self.actionSubject.send(.myCharacter)
             }
             .store(in: &cancellables)
-        
-        myLocationButton
-            .tapPublisher
-            .sink {[unowned self] _ in
-                self.actionSubject.send(.myLocation)
-            }
-            .store(in: &cancellables)
     }
     
     private func setupUI() {
-        [mapView, myLocationButton, searchButton, myTravelButton, myCharacterButton].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
             addSubview(uv)
         }
@@ -92,8 +83,6 @@ class MainView: BaseView {
             myCharacterButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
             myCharacterButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -16),
             
-            myLocationButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            myLocationButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
             
             mapView.leadingAnchor.constraint(equalTo: leadingAnchor),
             mapView.trailingAnchor.constraint(equalTo: trailingAnchor),
