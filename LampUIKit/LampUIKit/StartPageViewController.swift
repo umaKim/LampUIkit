@@ -44,6 +44,12 @@ class StartPageViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func presentMain(with uid: String) {
+        present(MainViewController(MainViewModel(uid)),
+                transitionType: .fromTop,
+                animated: true, pushing: true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -52,17 +58,11 @@ class StartPageViewController: UIViewController {
             if AuthApi.hasToken() {
                 UserApi.shared.me { user, error in
                     guard let id = user?.id else { return }
-                    self.present(MainTabBarViewController(with: "\(id)"),
-                                 transitionType: .fromTop,
-                                 animated: true,
-                                 pushing: true)
+                    self.presentMain(with: "\(id)")
                 }
             }
             else if let uid = Auth.auth().currentUser?.uid {
-                self.present(MainTabBarViewController(with: uid),
-                             transitionType: .fromTop,
-                             animated: true,
-                             pushing: true)
+                self.presentMain(with: uid)
             } else {
                 self.present(LoginViewController(vm: LoginViewModel()),
                              transitionType: .fromTop,
