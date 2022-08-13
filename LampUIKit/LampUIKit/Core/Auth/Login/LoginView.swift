@@ -13,7 +13,6 @@ enum LoginViewAction {
     case kakao
     case gmail
     case apple
-    case logout
 }
 
 class LoginView: UIView {
