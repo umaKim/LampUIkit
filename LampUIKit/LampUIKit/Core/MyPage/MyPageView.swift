@@ -9,29 +9,6 @@ import CombineCocoa
 import Combine
 import UIKit
 
-class MyPageTableViewHeaderCell: UITableViewHeaderFooterView {
-    static let identifier = "MyPageTableViewHeaderCell"
-    
-    private lazy var titleLabel: UILabel = {
-       let lb = UILabel()
-        return lb
-    }()
-    
-    private lazy var emailLabel: UILabel = {
-       let lb = UILabel()
-        return lb
-    }()
-    
-    override init(reuseIdentifier: String?) {
-        super.init(reuseIdentifier: reuseIdentifier)
-        
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
 class MyPageTableViewCell: UITableViewCell {
     static let identifier = "MyPageTableViewCell"
     
