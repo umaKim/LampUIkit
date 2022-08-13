@@ -29,3 +29,13 @@ extension UIViewController {
         }
     }
 }
+
+extension UIViewController {
+    func changeRoot(_ viewController: UIViewController) {
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(viewController)
+    }
+    
+    func isInitialSettingDone(_ bool: Bool) {
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.isInitialSettingDone = bool
+    }
+}
