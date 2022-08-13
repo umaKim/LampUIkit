@@ -45,7 +45,7 @@ class StartPageViewController: UIViewController {
     }
     
     private func presentMain(with uid: String) {
-        present(MainViewController(MainViewModel(uid)),
+        present(MainViewController(MainViewModel()),
                 transitionType: .fromTop,
                 animated: true, pushing: true)
     }
