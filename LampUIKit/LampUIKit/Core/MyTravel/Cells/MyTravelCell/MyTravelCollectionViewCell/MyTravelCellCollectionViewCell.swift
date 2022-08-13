@@ -68,6 +68,10 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell {
     
     private var cancellables: Set<AnyCancellable>
     
+    override init(frame: CGRect) {
+        self.cancellables = .init()
+        super.init(frame: frame)
+        
         configureShadow(0.4)
         
         let totalSv = UIStackView(arrangedSubviews: [titleLabel, timeLabel, addressLabel])
