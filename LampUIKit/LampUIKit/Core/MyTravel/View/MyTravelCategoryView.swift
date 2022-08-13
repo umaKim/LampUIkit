@@ -57,6 +57,11 @@ final class MyTravelCategoryView: BaseWhiteView {
         self.cancellable = .init()
         super.init()
         
+        bind()
+        setupUI()
+    }
+    
+    private func bind() {
         myTravelButton.tapPublisher.sink {[weak self] _ in
             self?.actionSubject.send(.didTapMyTravel)
         }
@@ -71,7 +76,9 @@ final class MyTravelCategoryView: BaseWhiteView {
             self?.actionSubject.send(.didTapCompletedTravel)
         }
         .store(in: &cancellable)
-        
+    }
+    
+    private func setupUI() {
         let sv = UIStackView(arrangedSubviews: [myTravelButton, favoritePlaceButton, completedTravelButton])
         sv.axis = .horizontal
         sv.distribution = .fillEqually
