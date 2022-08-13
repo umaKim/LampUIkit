@@ -39,7 +39,15 @@ class MyPageTableViewHeaderView: UIView {
     
     init(_ name: String, email: String) {
         super.init(frame: .zero)
+        
+        nameLabel.text = name + " 님 \n안녕하세요"
+        emailLabel.text = email
+        
+        visitedTravelLabel.text = "내가 갔다온 여행 7개"
+        writtenLabel.text = "작성한 여행 후기 1개"
+        
         setupUI()
+    }
     
     private func setupUI() {
         backgroundColor = .greyshWhite
@@ -69,5 +77,8 @@ class MyPageTableViewHeaderView: UIView {
             rightSv.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
         ])
     }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
