@@ -36,7 +36,33 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This occurs shortly after the scene enters the background, or when its session is discarded.
         // Release any resources associated with this scene that can be re-created the next time the scene connects.
         // The scene may re-connect later, as its session was not necessarily discarded (see `application:didDiscardSceneSessions` instead).
+        
+        print("sceneDidDisconnect")
+        
+        guard let isInitialSettingDone = isInitialSettingDone else { return }
+        
+        if !isInitialSettingDone {
+            //TODO: - signout everything
+            
+            do {
+               try Auth.auth().signOut()
+                
+            } catch {
+                print(error)
+            }
+            
+            UserApi.shared.logout {(error) in
+                if let error = error {
+                    print(error)
+                }
+                else {
+                    print("logout() success.")
+                }
+            }
+        }
     }
+    
+    var isInitialSettingDone: Bool?
 
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called when the scene has moved from an inactive state to an active state.
