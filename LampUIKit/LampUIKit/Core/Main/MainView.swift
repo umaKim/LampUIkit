@@ -25,16 +25,47 @@ class MainView: BaseView {
     
     private(set) var mapView = MTMapView()
     
-    private lazy var recommendationButton = EllipseButton(image: UIImage(systemName: "person"))
-    private lazy var destinationButton = EllipseButton(image: UIImage(systemName: "house"))
-    private lazy var completeButton = EllipseButton(image: UIImage(systemName: "gear"))
+//    private lazy var recommendationButton = EllipseButton(image: UIImage(systemName: "person"))
+    private lazy var recommendationButton: UIButton = {
+       let bt = UIButton()
+        bt.setImage(UIImage(named: "recommended_selected"), for: .normal)
+        return bt
+    }()
+    
+    private lazy var destinationButton: UIButton = {
+        let bt = UIButton()
+         bt.setImage(UIImage(named: "destination_selected"), for: .normal)
+         return bt
+     }()
+    
+    private lazy var completeButton: UIButton = {
+        let bt = UIButton()
+        bt.setImage(UIImage(named: "completed_selected"), for: .normal)
+         return bt
+     }()
     
     private lazy var zoomInButton = SquareButton(UIImage(systemName: "plus"))
     private lazy var zoomOutButton = SquareButton(UIImage(systemName: "minus"))
     
-    private lazy var searchButton = CircleButton(UIImage(named: "lampSpot_unselected"), .darkNavy)
-    private lazy var myTravelButton = CircleButton(UIImage(named: "myTravel_unselected"), .darkNavy)
-    private lazy var myCharacterButton = CircleButton(UIImage(named: "myCharacter_unselected"), .darkNavy)
+    private lazy var searchButton: UIButton = {
+       let bt = UIButton()
+        bt.setImage(UIImage(named: "Search"), for: .normal)
+        return bt
+    }()
+//    = CircleButton(UIImage(named: "lampSpot_unselected"), .darkNavy)
+//    private lazy var myTravelButton = CircleButton(UIImage(named: "myTravel"), .darkNavy)
+    private lazy var myTravelButton: UIButton = {
+       let bt = UIButton()
+        bt.setImage(UIImage(named: "myTravel"), for: .normal)
+        return bt
+    }()
+    private lazy var myCharacterButton: UIButton = {
+       let bt = UIButton()
+        bt.setImage(UIImage(named: "myCharacter"), for: .normal)
+        return bt
+    }()
+    
+//    = CircleButton(UIImage(named: "myCharacter_unselected"), .darkNavy)
     private lazy var myLocationButton = CircleButton(UIImage(systemName: "person"), .darkNavy)
     
     override init() {
