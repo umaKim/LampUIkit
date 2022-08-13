@@ -10,6 +10,7 @@ import UIKit
 
 protocol SearchViewControllerDelegate: AnyObject {
     func searchViewControllerDidTapDismiss()
+    func searchViewControllerDidTapMapPin()
 }
 
 class SearchViewController: BaseViewContronller {
@@ -104,7 +105,8 @@ extension SearchViewController: SearchRecommendationCollectionViewCellDelegate {
     }
     
     func didTapMapPin() {
-        
+        contentView.searchBar.endEditing(true)
+        delegate?.searchViewControllerDidTapMapPin()
     }
     
     func didTapFavoriteButton(at index: Int, _ isFavorite: Bool) {
