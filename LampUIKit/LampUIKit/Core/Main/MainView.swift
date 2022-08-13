@@ -25,7 +25,6 @@ class MainView: BaseView {
     
     private(set) var mapView = MTMapView()
     
-//    private lazy var recommendationButton = EllipseButton(image: UIImage(systemName: "person"))
     private lazy var recommendationButton: UIButton = {
        let bt = UIButton()
         bt.setImage(UIImage(named: "recommended_selected"), for: .normal)
@@ -52,8 +51,6 @@ class MainView: BaseView {
         bt.setImage(UIImage(named: "Search"), for: .normal)
         return bt
     }()
-//    = CircleButton(UIImage(named: "lampSpot_unselected"), .darkNavy)
-//    private lazy var myTravelButton = CircleButton(UIImage(named: "myTravel"), .darkNavy)
     private lazy var myTravelButton: UIButton = {
        let bt = UIButton()
         bt.setImage(UIImage(named: "myTravel"), for: .normal)
