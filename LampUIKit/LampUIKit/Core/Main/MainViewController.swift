@@ -86,6 +86,13 @@ class MainViewController: BaseViewContronller  {
                 switch noti {
                 case .recommendedLocations(let locations):
                     self.addMarkers(of: locations)
+
+                case .startLoading:
+                    self.showLoadingView()
+
+                case .endLoading:
+                    self.dismissLoadingView()
+                    break
                 }
             }
             .store(in: &cancellables)
