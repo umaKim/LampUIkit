@@ -42,7 +42,7 @@ struct CustomRatingBar: View {
                             .fill(Color.gray)
                     } foreground: {
                         ARStar(count: round(starCount), innerRatio: innerRatio)
-                            .fill(Color.accentColor)
+                            .fill(Color.yellow)
                     }
                     
                     Text("\(value1, specifier: "%.2f")")
