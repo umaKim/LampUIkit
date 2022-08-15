@@ -163,6 +163,10 @@ class WriteReviewView: BaseWhiteView {
         
         contentScrollView.translatesAutoresizingMaskIntoConstraints = false
         contentView.translatesAutoresizingMaskIntoConstraints = false
+        
+        bind()
+        setupUI()
+        configureDataSource()
         updateSections()
         
     
@@ -257,6 +261,7 @@ extension WriteReviewView {
 }
 
 //MARK: - set up UI
+extension WriteReviewView {
     private func configureDataSource() {
         dataSource = DataSource(collectionView: imageCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
             guard
@@ -276,6 +281,7 @@ extension WriteReviewView {
             return view
         }
     }
+    
     
     private func setupUI() {
         let evaluationStackView = UIStackView(arrangedSubviews: [satisfactionEvaluationView,
@@ -323,11 +329,11 @@ extension WriteReviewView {
             contentView.bottomAnchor.constraint(equalTo: contentScrollView.bottomAnchor),
             
             contentView.widthAnchor.constraint(equalTo: contentScrollView.widthAnchor),
-            contentView.heightAnchor.constraint(equalToConstant: UIScreen.main.height * 1.00005),
+            contentView.heightAnchor.constraint(equalToConstant: UIScreen.main.height * 1.3),
             
             totalStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             totalStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            totalStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+//            totalStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             totalStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
             
             starRatingView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
