@@ -38,7 +38,7 @@
  * MTMapLocationMarkerItem 객체를 생성한다. autorelease 상태로 MTMapLocationMarkerItem 객체를 생성하여 리턴한다.
  */
 
-+ (instancetype)mapLocationMarkerItem;
++ (instancetype) mapLocationMarkerItem;
 
 /**
  * 기본 제공되는 Map Location Marker 아이콘 이미지를 사용하지 않고, 개발자가 지정한 Custom 이미지를 사용하고자 하는 경우에
