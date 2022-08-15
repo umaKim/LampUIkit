@@ -9,7 +9,21 @@ import Combine
 import UIKit
 
 class ImageCollectionHeaderView: UICollectionReusableView {
+    private lazy var button: UIButton = {
+       let bt = UIButton()
+        bt.setImage(UIImage(named: "newImageButton"), for: .normal)
+        bt.widthAnchor.constraint(equalToConstant: 84).isActive = true
+        bt.heightAnchor.constraint(equalToConstant: 84).isActive = true
+        return bt
+    }()
     override init(frame: CGRect) {
+        addSubview(button)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            button.centerYAnchor.constraint(equalTo: centerYAnchor),
+            button.centerXAnchor.constraint(equalTo: centerXAnchor)
+        ])
     }
     
     required init?(coder: NSCoder) {
