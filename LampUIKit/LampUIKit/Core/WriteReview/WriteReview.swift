@@ -23,6 +23,14 @@ class WriteReviewView: BaseWhiteView {
 
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<WriteReviewViewAction, Never>()
+
+    private typealias DataSource = UICollectionViewDiffableDataSource<Section, UIImage>
+    private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, UIImage>
+    
+    enum Section { case main }
+    
+    private var dataSource: DataSource?
+    
     
     private let contentScrollView: UIScrollView = {
        let sv = UIScrollView()
@@ -127,6 +135,15 @@ class WriteReviewView: BaseWhiteView {
     
     private let contentView = UIView()
     
+        updateSections()
+        
+        updateSections()
+    private func updateSections() {
+        var snapshot = Snapshot()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(photos)
+        dataSource?.apply(snapshot, animatingDifferences: true)
+    }
     private func bind() {
         satisfactionEvaluationView.actionPublisher.sink { action in
             switch action {
@@ -183,8 +200,24 @@ class WriteReviewView: BaseWhiteView {
     
     public func ableCompleteButton(_ isAble: Bool) {
         self.completeButton.isEnabled = isAble
+    private func configureDataSource() {
+        dataSource = DataSource(collectionView: imageCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
+            guard
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: indexPath) as? ImageCollectionViewCell
+            else { return UICollectionViewCell() }
+            cell.configure(self.photos[indexPath.item])
+            cell.backgroundColor = .blue
+            cell.layer.cornerRadius = 16
+            cell.clipsToBounds = true
+            return cell
+        })
         
-        completeButton.setImage(UIImage(named: self.completeButton.isEnabled ? "completeWriting_able" : "completeWriting_disable"), for: .normal)
+        dataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
+            guard kind == UICollectionView.elementKindSectionHeader else { return nil }
+            let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ImageCollectionHeaderView.identifier, for: indexPath) as? ImageCollectionHeaderView
+            view?.delegate = self
+            return view
+        }
     }
     
     private func setupUI() {
