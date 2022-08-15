@@ -13,6 +13,8 @@ protocol LocationDetailViewHeaderCellDelegate: AnyObject {
     func locationDetailViewHeaderCellDidTapReview()
     func locationDetailViewHeaderCellDidTapAr()
     func locationDetailViewHeaderCellDidTapShare()
+    func locationDetailViewHeaderCellDidTapAddToMyTrip()
+    func locationDetailViewHeaderCellDidTapRemoveFromMyTrip()
 }
 
 class LocationDescriptionView: UIView {
@@ -98,7 +100,7 @@ class LocationDetailViewHeaderCell: UICollectionReusableView {
         return uv
     }()
     
-    private let addToMyTravelButton = RectangleTextButton("내 여행지로 추가", background: .midNavy, textColor: .white, fontSize: 17)
+    private lazy var addToMyTravelButton = RectangleTextButton("내 여행지로 추가", background: .midNavy, textColor: .white, fontSize: 17)
     
     weak var delegate: LocationDetailViewHeaderCellDelegate?
     
@@ -131,6 +133,22 @@ class LocationDetailViewHeaderCell: UICollectionReusableView {
                 }
             }
             .store(in: &cancellables)
+        
+        addToMyTravelButton
+            .tapPublisher
+            .sink { _ in
+                self.addToMyTravelButton.isSelected.toggle()
+                
+                if self.addToMyTravelButton.isSelected {
+                    self.addToMyTravelButton.update("내여행지로 추가 취소", background: .systemGray, textColor: .white)
+                    self.delegate?.locationDetailViewHeaderCellDidTapAddToMyTrip()
+                } else {
+                    self.addToMyTravelButton.update("내여행지로 추가", background: .midNavy, textColor: .white)
+                    self.delegate?.locationDetailViewHeaderCellDidTapRemoveFromMyTrip()
+                }
+            }
+            .store(in: &cancellables)
+    }
     }
     
     private func setupUI() {
