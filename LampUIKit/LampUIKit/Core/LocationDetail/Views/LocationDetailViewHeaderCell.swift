@@ -83,6 +83,13 @@ class LocationDescriptionView: UIView {
             imageView.topAnchor.constraint(equalTo: topAnchor),
             imageView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
 class LocationDetailViewHeaderCell: UICollectionReusableView {
     
     static let identifier = "LocationDetailViewHeaderCell"
