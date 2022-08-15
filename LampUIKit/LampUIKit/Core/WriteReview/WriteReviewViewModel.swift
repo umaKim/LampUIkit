@@ -16,19 +16,19 @@ class WriteReviewViewModel: BaseViewModel {
     private(set) lazy var notifyPublisher = notifySubject.eraseToAnyPublisher()
     private let notifySubject = PassthroughSubject<WriteReviewViewModelNotify, Never>()
     
-    private var starRating: CGFloat = 0
-    private var comfortRating: String = ""
-    private var atmosphereRating: String = ""
-    private var surroundingRating: String = ""
-    private var foodRating: String = ""
+    private var starRating: CGFloat = 2.5
+    private var comfortRating: Int?
+    private var atmosphereRating: Int?
+    private var surroundingRating: Int?
+    private var foodRating: Int?
     private var comments: String = ""
     
     private var ableCompleteButton: Bool {
         starRating != 0 &&
-        comfortRating != "" &&
-        atmosphereRating != "" &&
-        surroundingRating != "" &&
-        foodRating != "" &&
+        comfortRating != nil &&
+        atmosphereRating != nil &&
+        surroundingRating != nil &&
+        foodRating != nil &&
         comments != ""
     }
     
