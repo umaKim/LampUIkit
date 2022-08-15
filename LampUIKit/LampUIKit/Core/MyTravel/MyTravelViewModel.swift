@@ -7,7 +7,9 @@
 
 import Foundation
 
-class MyTravelViewModel {
+enum MyTravelViewModelNotify {
+    case reload
+}
     private(set) var model: MyTravelDataSet
     
     init() {

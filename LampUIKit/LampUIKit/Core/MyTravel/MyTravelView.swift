@@ -66,6 +66,10 @@ class MyTravelView: UIView {
         setupUI()
     }
     
+    public func reload() {
+        collectionView.reloadData()
+    }
+    
     private func bind() {
         gearButton
             .tapPublisher
