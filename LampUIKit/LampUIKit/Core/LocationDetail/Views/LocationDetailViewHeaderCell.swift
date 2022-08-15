@@ -70,10 +70,14 @@ class LocationDescriptionView: UIView {
     }
 }
 
+class ImageCollectionViewCell: UICollectionViewCell {
     private lazy var imageView: UIImageView = {
        let uv = UIImageView()
         return uv
     }()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
         addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -152,6 +156,8 @@ class LocationDetailViewHeaderCell: UICollectionReusableView {
         
         configureImageViewCollecitonView()
         updateSections()
+    }
+    
     private func configureImageViewCollecitonView() {
         dataSource = DataSource(collectionView: locationImageView,
                                 cellProvider: { collectionView, indexPath, itemIdentifier in
