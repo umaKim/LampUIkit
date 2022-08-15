@@ -102,6 +102,18 @@ class WriteReviewView: BaseWhiteView {
         return ut
     }()
     
+    private lazy var characterCounter: UILabel = {
+       let lb = UILabel()
+        lb.textColor = .lightGray
+        lb.text = "0/300"
+        lb.font = .robotoLight(13)
+        return lb
+    }()
+    
+    public func setCharacterCounter(_ count: Int) {
+        characterCounter.text = "\(count)/300"
+    }
+    
     private let dividerView2 = DividerView()
     
     private let dividerView3 = DividerView()
@@ -185,11 +197,16 @@ class WriteReviewView: BaseWhiteView {
         evaluationStackView.alignment = .fill
         evaluationStackView.spacing = 16
         
+        let characterCounterSv = UIStackView(arrangedSubviews: [UIView(), characterCounter])
+        characterCounterSv.alignment = .trailing
+        characterCounterSv.distribution = .fill
+        
         let totalStackView = UIStackView(arrangedSubviews: [profileView,
                                                             dividerView1,
                                                             starRatingView,
                                                             evaluationStackView,
                                                             textContextView,
+                                                            characterCounterSv,
                                                             dividerView2,
                                                             dividerView3,
                                                             completeButton])

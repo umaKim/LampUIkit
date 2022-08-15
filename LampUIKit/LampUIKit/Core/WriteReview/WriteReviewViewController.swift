@@ -27,6 +27,13 @@ class WriteReviewViewController: BaseViewContronller {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    private func checkMaxLength(_ textView: UITextView, maxLength: Int = 300) {
+        if textView.text.count > maxLength {
+            textView.deleteBackward()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
