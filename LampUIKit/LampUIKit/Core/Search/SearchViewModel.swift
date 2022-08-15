@@ -10,6 +10,8 @@ import Foundation
 
 enum SearchViewModelNotify {
     case reload
+    case startLoading
+    case endLoading
 }
 
 class SearchViewModel {
@@ -46,5 +48,7 @@ class SearchViewModel {
     
     public func search(_ text: String) {
         service.fetch(about: text)
+        notifySubject.send(.startLoading)
+            self.notifySubject.send(.endLoading)
     }
 }

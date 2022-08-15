@@ -93,6 +93,12 @@ class SearchViewController: BaseViewContronller {
                 case .reload:
                     //                    self.contentView.reload()
                     self.updateSections()
+                    
+                case .startLoading:
+                    self.showLoadingView()
+                    
+                case .endLoading:
+                    self.dismissLoadingView()
                 }
             }
             .store(in: &cancellables)
