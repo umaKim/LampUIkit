@@ -190,6 +190,12 @@ class WriteReviewView: BaseWhiteView {
         completeButton.setImage(UIImage(named: self.completeButton.isEnabled ? "completeWriting_able" : "completeWriting_disable"), for: .normal)
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+//MARK: - ImageCollectionHeaderViewDelegate
 extension WriteReviewView: ImageCollectionHeaderViewDelegate {
     func imageCollectionHeaderViewDidTapAdd() {
         actionSubject.send(.addPhoto)
