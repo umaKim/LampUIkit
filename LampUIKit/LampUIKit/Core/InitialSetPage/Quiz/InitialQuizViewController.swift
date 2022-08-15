@@ -59,14 +59,20 @@ class InitialQuizViewController: BaseViewContronller {
             .notifyPublisher
             .sink { noti in
                 switch noti {
-                case .question(let text):
-                    print(text)
                 case .index(let index):
                     print(index)
-                case .answers(let answer1, let answer2, let answer3):
-                    print(answer1)
-                    print(answer2)
-                    print(answer3)
+                    
+                case .quizData(let data):
+                    self.contentView.setQuizData(data)
+                    
+                case .setCharacter(let data):
+                    self.contentView.setCharacterData(data)
+                    
+                case .finishInitialQuiz:
+                    self.present(CreateNickNameViewController(CreateNickNameViewModel()), transitionType: .fromTop, animated: true, pushing: true)
+                    
+                case .setInitialSetting(let bool):
+                    self.isInitialSettingDone(bool)
                 }
             }
             .store(in: &cancellables)
