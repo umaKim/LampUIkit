@@ -155,6 +155,10 @@ extension LocationDetailViewHeaderCell: UICollectionViewDelegateFlowLayout {
                      height: UIScreen.main.width-32)
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        0
+    }
+}
     private func setupUI() {
         let labelStackView = UIStackView(arrangedSubviews: [timeLabel, priceLabel])
         labelStackView.alignment = .leading
