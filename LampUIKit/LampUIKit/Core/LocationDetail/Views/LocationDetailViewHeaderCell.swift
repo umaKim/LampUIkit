@@ -81,6 +81,23 @@ class LocationDetailViewHeaderCell: UICollectionReusableView {
         uv.layer.cornerRadius = 6
         uv.clipsToBounds = true
         return uv
+    private typealias DataSource = UICollectionViewDiffableDataSource<Section, String>
+    private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, String>
+    
+    enum Section { case main }
+    
+    private var dataSource: DataSource?
+    
+    private lazy var locationImageView: UICollectionView = {
+        let cl = UICollectionViewFlowLayout()
+        cl.scrollDirection = .horizontal
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: cl)
+        cv.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: ImageCollectionViewCell.identifier)
+        cv.delegate = self
+        cv.backgroundColor = .red
+        cv.isPagingEnabled = true
+        cv.showsHorizontalScrollIndicator = false
+        return cv
     }()
     
     private let buttonSv = LocationDetailViewHeaderCellButtonStackView()
@@ -110,6 +127,25 @@ class LocationDetailViewHeaderCell: UICollectionReusableView {
         
         bind()
         setupUI()
+        
+        configureImageViewCollecitonView()
+        updateSections()
+    private func configureImageViewCollecitonView() {
+        dataSource = DataSource(collectionView: locationImageView,
+                                cellProvider: { collectionView, indexPath, itemIdentifier in
+            guard
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: indexPath) as? ImageCollectionViewCell
+            else { return UICollectionViewCell() }
+            cell.configure("")
+            return cell
+        })
+    }
+        updateSections()
+    private func updateSections() {
+        var snapshot = Snapshot()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(photoUrls)
+        dataSource?.apply(snapshot, animatingDifferences: true)
     }
     
     private var cancellables: Set<AnyCancellable>
