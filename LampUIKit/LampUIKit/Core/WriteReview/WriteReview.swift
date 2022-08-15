@@ -161,6 +161,10 @@ class WriteReviewView: BaseWhiteView {
     
     private let contentView = UIView()
     
+    
+    override init() {
+        super.init()
+        
         addSubview(contentScrollView)
         contentScrollView.addSubview(contentView)
         
@@ -172,6 +176,8 @@ class WriteReviewView: BaseWhiteView {
         configureDataSource()
         updateSections()
         
+        
+    }
     
     public func setImage(with image: UIImage) {
         photos.append(image)
