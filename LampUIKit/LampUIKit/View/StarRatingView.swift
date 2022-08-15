@@ -13,9 +13,12 @@ struct CustomRatingBar: View {
     private let axisMode: ARAxisMode
     private let interactionable: Bool
     
-    init(axisMode: ARAxisMode, interactionable: Bool = true) {
+    @ObservedObject var delegate: ContentViewDelegate
+    
+    init(axisMode: ARAxisMode, interactionable: Bool = true, delegate: ContentViewDelegate? = nil) {
         self.axisMode = axisMode
         self.interactionable = interactionable
+        self.delegate = delegate ?? ContentViewDelegate()
     }
     
     @State private var starCount: CGFloat = 5
@@ -23,7 +26,7 @@ struct CustomRatingBar: View {
     @State private var spacing: CGFloat = 6
     @State private var fillMode: ARFillMode = .half
     
-    @State private var value1: CGFloat = 1.50
+    @State private(set) var value1: CGFloat = 1.50
     
     private var content: some View {
         let constant1 = ARConstant(rating: 5,
@@ -36,7 +39,7 @@ struct CustomRatingBar: View {
         return
             Group {
                 VStack {
-                    AxisRatingBar(value: $value1, constant: constant1) {
+                    AxisRatingBar(value: $delegate.starValue, constant: constant1) {
                         ARStar(count: round(starCount), innerRatio: innerRatio)
                             .stroke()
                             .fill(Color.gray)
@@ -45,8 +48,9 @@ struct CustomRatingBar: View {
                             .fill(Color.yellow)
                     }
                     
-                    Text("\(value1, specifier: "%.2f")")
-                        .foregroundColor(.black)
+//                    Text("\(value1, specifier: "%.2f")")
+//                        .foregroundColor(.black)
+//                        
                 }
             }
     }
