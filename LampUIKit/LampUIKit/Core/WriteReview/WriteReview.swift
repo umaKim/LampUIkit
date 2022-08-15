@@ -154,6 +154,7 @@ extension WriteReviewView: ImageCollectionHeaderViewDelegate {
         actionSubject.send(.addPhoto)
     }
 }
+extension WriteReviewView {
     private func bind() {
         delegate
             .$starValue
@@ -200,23 +201,15 @@ extension WriteReviewView: ImageCollectionHeaderViewDelegate {
             self.actionSubject.send(.updateComment(text))
         }
         .store(in: &cancellables)
+        
+        completeButton.tapPublisher.sink { _ in
+            self.actionSubject.send(.complete)
+        }
+        .store(in: &cancellables)
     }
-    
-    override init() {
-        super.init()
-        
-        addSubview(contentScrollView)
-        contentScrollView.addSubview(contentView)
-        
-        contentScrollView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        
-        bind()
-        setupUI()
-    }
-    
-    public func ableCompleteButton(_ isAble: Bool) {
-        self.completeButton.isEnabled = isAble
+}
+
+//MARK: - set up UI
     private func configureDataSource() {
         dataSource = DataSource(collectionView: imageCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
             guard
