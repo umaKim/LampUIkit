@@ -17,6 +17,7 @@ enum WriteReviewViewAction {
     case updateSurroundingModel(EvaluationModel)
     case updateFoodModel(EvaluationModel)
     case updateComment(String)
+    case addPhoto
 }
 
 class ContentViewDelegate: ObservableObject {
@@ -148,6 +149,11 @@ class ContentViewDelegate: ObservableObject {
         snapshot.appendItems(photos)
         dataSource?.apply(snapshot, animatingDifferences: true)
     }
+extension WriteReviewView: ImageCollectionHeaderViewDelegate {
+    func imageCollectionHeaderViewDidTapAdd() {
+        actionSubject.send(.addPhoto)
+    }
+}
     private func bind() {
         delegate
             .$starValue

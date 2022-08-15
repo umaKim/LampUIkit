@@ -56,6 +56,15 @@ class WriteReviewViewController: BaseViewContronller {
                 
             case .updateComment(let text):
                 self.viewModel.setComments(text)
+                
+            case .addPhoto:
+                print("addphoto")
+                let vc = UIImagePickerController()
+                vc.sourceType = .photoLibrary
+                vc.delegate = self
+                vc.allowsEditing = true
+                self.present(vc, animated: true)
+                
             }
         }
         .store(in: &cancellables)
