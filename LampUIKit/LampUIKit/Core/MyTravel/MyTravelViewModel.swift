@@ -10,6 +10,8 @@ import Foundation
 enum MyTravelViewModelNotify {
     case reload
 }
+
+class MyTravelViewModel: BaseViewModel {
     private(set) var model: MyTravelDataSet
     
     init() {
@@ -97,6 +99,7 @@ enum MyTravelViewModelNotify {
                                         ]
         )
     }
+    
 }
 
 struct MyTravelDataSet: Codable {
