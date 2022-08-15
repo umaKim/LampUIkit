@@ -183,6 +183,12 @@ class WriteReviewView: BaseWhiteView {
         snapshot.appendItems(photos)
         dataSource?.apply(snapshot, animatingDifferences: true)
     }
+    
+    public func ableCompleteButton(_ isAble: Bool) {
+        self.completeButton.isEnabled = isAble
+        completeButton.setImage(UIImage(named: self.completeButton.isEnabled ? "completeWriting_able" : "completeWriting_disable"), for: .normal)
+    }
+    
 extension WriteReviewView: ImageCollectionHeaderViewDelegate {
     func imageCollectionHeaderViewDidTapAdd() {
         actionSubject.send(.addPhoto)
