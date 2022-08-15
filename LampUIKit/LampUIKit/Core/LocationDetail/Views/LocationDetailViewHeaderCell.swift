@@ -74,13 +74,15 @@ class LocationDetailViewHeaderCell: UICollectionReusableView {
     
     static let identifier = "LocationDetailViewHeaderCell"
     
-    private lazy var locationImageView: UIImageView = {
-        let uv = UIImageView()
-        uv.image = UIImage(systemName: "person")
-        uv.backgroundColor = .midNavy
-        uv.layer.cornerRadius = 6
-        uv.clipsToBounds = true
-        return uv
+//    private lazy var locationImageView: UIImageView = {
+//        let uv = UIImageView()
+//        uv.image = UIImage(systemName: "person")
+//        uv.backgroundColor = .midNavy
+//        uv.layer.cornerRadius = 6
+//        uv.clipsToBounds = true
+//        return uv
+//    }()
+    
     private typealias DataSource = UICollectionViewDiffableDataSource<Section, String>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, String>
     
@@ -232,9 +234,4 @@ extension LocationDetailViewHeaderCell: UICollectionViewDelegateFlowLayout {
             addToMyTravelButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -60)
         ])
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 }
-
