@@ -23,6 +23,13 @@ class WriteReviewViewModel: BaseViewModel {
     private var foodRating: Int?
     private var comments: String = ""
     
+    private let location: RecommendedLocation
+    
+    init(_ location: RecommendedLocation) {
+        self.location = location
+        super.init()
+    }
+    
     private var ableCompleteButton: Bool {
         starRating != 0 &&
         comfortRating != nil &&
