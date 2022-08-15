@@ -12,6 +12,8 @@
 	<string>Location access permission is required to use AR service</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Location access permission is required to use AR service</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>please allow photo access for adding photos</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Roboto-Bold.ttf</string>
