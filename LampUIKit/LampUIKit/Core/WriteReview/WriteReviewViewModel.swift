@@ -61,4 +61,31 @@ class WriteReviewViewModel: BaseViewModel {
         self.comments = comments
         self.notifySubject.send(.ableCompleteButton(ableCompleteButton))
     }
+    
+    public func completeButton() {
+        guard
+//            let contentId = location.contentId,
+            let atmosphereRating = atmosphereRating,
+            let surroundingRating = surroundingRating,
+            let foodRating = foodRating
+        else { return }
+        print(location.contentId)
+        let model = ReviewPostData(token: "", contentId: location.contentId, starRate: starRating, mood: atmosphereRating, surround: surroundingRating, foodArea: foodRating, content: comments)
+        NetworkService.shared.postReview(model) { result in
+            switch result {
+            case .success(let response):
+                print(response)
+                print(response.message)
+                if response.isSuccess ?? false {
+                   
+                } else {
+                    response.message
+                    //TODO: - send message to alert
+                }
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
 }

@@ -65,6 +65,8 @@ class WriteReviewViewController: BaseViewContronller {
                 vc.allowsEditing = true
                 self.present(vc, animated: true)
                 
+            case .complete:
+                self.viewModel.completeButton()
             }
         }
         .store(in: &cancellables)

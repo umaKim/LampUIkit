@@ -18,6 +18,7 @@ enum WriteReviewViewAction {
     case updateFoodModel(EvaluationModel)
     case updateComment(String)
     case addPhoto
+    case complete
 }
 
 class ContentViewDelegate: ObservableObject {
