@@ -65,10 +65,14 @@ class LoginViewController: UIViewController {
     }
     
     private func checkIfUserAlreadyExist(with uid: String) {
-        NetworkService.shared.checkUserExist(uid) { isSuccess in
-            if isSuccess {
+        NetworkService.shared.checkUserExist(uid) { res in
+            if res.isSuccess {
                 //TODO: - move to mainView
-                self.changeRootViewcontroller(with: uid)
+                if res.nicknameExist ?? false {
+                    self.changeRootViewcontroller(with: uid)
+                } else {
+                    self.present(CreateNickNameViewController(CreateNickNameViewModel()), transitionType: .fromTop, animated: true, pushing: true)
+                }
                 
             } else {
                 //TODO: - move to QuizView
