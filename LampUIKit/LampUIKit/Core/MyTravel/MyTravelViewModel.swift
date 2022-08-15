@@ -14,90 +14,43 @@ enum MyTravelViewModelNotify {
 class MyTravelViewModel: BaseViewModel {
     private(set) var model: MyTravelDataSet
     
-    init() {
-        self.model = MyTravelDataSet(myTravel:
-                                        [
-                                            MyTravelLocations(name: "경복궁",
-                                                              category: "",
-                                                              visitableTime: "",
-                                                              address: "", visitedDate: ""),
-                                            MyTravelLocations(name: "경복궁2",
-                                                              category: "",
-                                                              visitableTime: "",
-                                                              address: "", visitedDate: ""),
-                                            MyTravelLocations(name: "경복궁3",
-                                                              category: "",
-                                                              visitableTime: "",
-                                                              address: "", visitedDate: ""),
-                                            MyTravelLocations(name: "경복궁4",
-                                                              category: "",
-                                                              visitableTime: "",
-                                                              address: "", visitedDate: ""),
-                                            MyTravelLocations(name: "경복궁5",
-                                                              category: "",
-                                                              visitableTime: "",
-                                                              address: "", visitedDate: ""),
-                                            MyTravelLocations(name: "경복궁6",
-                                                              category: "",
-                                                              visitableTime: "",
-                                                              address: "", visitedDate: "")
-                                        ],
-                                     favoriteTravel:
-                                        [
-                                            MyTravelLocations(name: "경복궁",
-                                                              category: "",
-                                                              visitableTime: "",
-                                                              address: "", visitedDate: ""),
-                                            MyTravelLocations(name: "경복궁2",
-                                                              category: "",
-                                                              visitableTime: "",
-                                                              address: "", visitedDate: ""),
-                                            MyTravelLocations(name: "경복궁3",
-                                                              category: "",
-                                                              visitableTime: "",
-                                                              address: "", visitedDate: ""),
-                                            MyTravelLocations(name: "경복궁4",
-                                                              category: "",
-                                                              visitableTime: "",
-                                                              address: "", visitedDate: ""),
-                                            MyTravelLocations(name: "경복궁5",
-                                                              category: "",
-                                                              visitableTime: "",
-                                                              address: "", visitedDate: ""),
-                                            MyTravelLocations(name: "경복궁6",
-                                                              category: "",
-                                                              visitableTime: "",
-                                                              address: "", visitedDate: ""),
-                                        ],
-                                     completedTravel:
-                                        [
-                                            MyTravelLocations(name: "경복궁1",
-                                                              category: "",
-                                                              visitableTime: "",
-                                                              address: "",
-                                                              visitedDate: "2022년 6월 30일"),
-                                            MyTravelLocations(name: "경복궁2",
-                                                              category: "",
-                                                              visitableTime: "",
-                                                              address: "",
-                                                              visitedDate: "2022년 6월 30일"),
-                                            MyTravelLocations(name: "경복궁3",
-                                                              category: "",
-                                                              visitableTime: "",
-                                                              address: "",
-                                                              visitedDate: "2022년 6월 30일"),
-                                            MyTravelLocations(name: "경복궁4",
-                                                              category: "",
-                                                              visitableTime: "",
-                                                              address: "",
-                                                              visitedDate: "2022년 6월 30일"),
-                                            MyTravelLocations(name: "경복궁5",
-                                                              category: "",
-                                                              visitableTime: "",
-                                                              address: "",
-                                                              visitedDate: "2022년 6월 30일")
-                                        ]
-        )
+    override init() {
+        self.model = MyTravelDataSet(myTravel: [],
+                                     favoriteTravel: [],
+                                     completedTravel: [])
+        super.init()
+        
+        fetchMyTravel()
+        fetchSavedTravel()
+        fetchCompletedTravel()
+    }
+    
+    private func fetchMyTravel() {
+        NetworkService.shared.fetchMyTravel { result in
+            switch result {
+            case .success(let locations):
+                self.model.myTravel = locations
+                self.notifySubject.send(.reload)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    private func fetchSavedTravel() {
+        
+    }
+    
+    private func fetchCompletedTravel() {
+        NetworkService.shared.fetchCompletedTravel { result in
+            switch result {
+            case .success(let locations):
+                self.model.completedTravel = locations
+                self.notifySubject.send(.reload)
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
 }
