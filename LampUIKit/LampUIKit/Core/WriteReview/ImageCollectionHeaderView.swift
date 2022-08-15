@@ -8,7 +8,15 @@ import CombineCocoa
 import Combine
 import UIKit
 
+protocol ImageCollectionHeaderViewDelegate: AnyObject {
+    func imageCollectionHeaderViewDidTapAdd()
+}
+
 class ImageCollectionHeaderView: UICollectionReusableView {
+    static let identifier = "ImageCollectionHeaderView"
+    
+    weak var delegate: ImageCollectionHeaderViewDelegate?
+    
     private lazy var button: UIButton = {
        let bt = UIButton()
         bt.setImage(UIImage(named: "newImageButton"), for: .normal)
@@ -21,6 +29,7 @@ class ImageCollectionHeaderView: UICollectionReusableView {
     
     override init(frame: CGRect) {
         cancellables = .init()
+        super.init(frame: frame)
         
         button.tapPublisher.sink { _ in
             self.delegate?.imageCollectionHeaderViewDidTapAdd()
