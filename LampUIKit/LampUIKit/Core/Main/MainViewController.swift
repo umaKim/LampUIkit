@@ -124,6 +124,14 @@ extension MainViewController: MTMapViewDelegate {
 }
 
 extension MainViewController: SearchViewControllerDelegate {
+    func searchViewControllerDidTapMapPin() {
+        if let sheet = nav?.sheetPresentationController {
+            sheet.selectedDetentIdentifier = .medium
+        }
+        
+        setMapToMyLocation()
+    }
+    
     func searchViewControllerDidTapDismiss() {
         dismiss()
     }

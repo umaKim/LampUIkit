@@ -70,6 +70,19 @@ class LocationDescriptionView: UIView {
     }
 }
 
+    private lazy var imageView: UIImageView = {
+       let uv = UIImageView()
+        return uv
+    }()
+        addSubview(imageView)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            imageView.topAnchor.constraint(equalTo: topAnchor),
+            imageView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
 class LocationDetailViewHeaderCell: UICollectionReusableView {
     
     static let identifier = "LocationDetailViewHeaderCell"
