@@ -158,6 +158,11 @@ class WriteReviewView: BaseWhiteView {
     
     private let contentView = UIView()
     
+        addSubview(contentScrollView)
+        contentScrollView.addSubview(contentView)
+        
+        contentScrollView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.translatesAutoresizingMaskIntoConstraints = false
         updateSections()
         
     
