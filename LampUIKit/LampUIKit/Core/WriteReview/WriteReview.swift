@@ -12,10 +12,10 @@ import UIKit
 
 enum WriteReviewViewAction {
     case updateStarRating(CGFloat)
-    case updateSatisfactionModel(EvaluationModel)
-    case updateAtmosphereModel(EvaluationModel)
-    case updateSurroundingModel(EvaluationModel)
-    case updateFoodModel(EvaluationModel)
+    case updateSatisfactionModel(Int)
+    case updateAtmosphereModel(Int)
+    case updateSurroundingModel(Int)
+    case updateFoodModel(Int)
     case updateComment(String)
     case addPhoto
     case complete
