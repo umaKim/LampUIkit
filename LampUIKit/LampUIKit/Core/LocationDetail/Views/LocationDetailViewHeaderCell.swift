@@ -200,6 +200,12 @@ class LocationDetailViewHeaderCell: UICollectionReusableView {
             }
             .store(in: &cancellables)
     }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
 extension LocationDetailViewHeaderCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return .init(width: UIScreen.main.width-32,
