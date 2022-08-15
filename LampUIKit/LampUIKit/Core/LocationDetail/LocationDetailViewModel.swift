@@ -61,6 +61,23 @@ final class LocationDetailViewModel: BaseViewModel {
             }
         }
     }
+    
+    private func deleteFromMyTrip() {
+        guard let planIdx = locationDetail?.planExist?.planIdx else { return }
+        NetworkService.shared.deleteFromMyTravel("\(planIdx)") { result  in
+            switch result {
+            case .success(let response):
+                print(response)
+                //MARK: - show alert
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    //MARK: - Public
+    
     public func addToMyTrip() {
         postAddToMyTrip()
     }
