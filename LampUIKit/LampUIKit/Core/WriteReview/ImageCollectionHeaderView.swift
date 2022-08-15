@@ -16,7 +16,17 @@ class ImageCollectionHeaderView: UICollectionReusableView {
         bt.heightAnchor.constraint(equalToConstant: 84).isActive = true
         return bt
     }()
+    
+    private var cancellables: Set<AnyCancellable>
+    
     override init(frame: CGRect) {
+        cancellables = .init()
+        
+        button.tapPublisher.sink { _ in
+            self.delegate?.imageCollectionHeaderViewDidTapAdd()
+        }
+        .store(in: &cancellables)
+        
         addSubview(button)
         button.translatesAutoresizingMaskIntoConstraints = false
         
