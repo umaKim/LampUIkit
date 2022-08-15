@@ -108,14 +108,16 @@ class WriteReviewView: BaseWhiteView {
         return uv
     }()
     
-    private(set) lazy var textContextView: UITextView = {
-        let ut = UITextView(frame: .zero)
-        ut.layer.borderWidth = 1
-        ut.layer.borderColor = UIColor.gray.cgColor
-        ut.layer.cornerRadius = 5
-        ut.backgroundColor = .white
-        ut.textColor = .black
-        return ut
+    private(set) lazy var textContextView: InputTextView = {
+       let tv = InputTextView()
+        tv.placeholderText = "내용을 입력하세요."
+        tv.font = .robotoMedium(16)
+        tv.backgroundColor = .greyshWhite
+        tv.layer.cornerRadius = 6
+        tv.layer.borderWidth = 1
+        tv.layer.borderColor = UIColor.systemGray.cgColor
+        tv.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        return tv
     }()
     
     private lazy var characterCounter: UILabel = {
