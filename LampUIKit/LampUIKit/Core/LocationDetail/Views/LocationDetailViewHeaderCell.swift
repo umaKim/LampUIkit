@@ -149,6 +149,10 @@ class LocationDetailViewHeaderCell: UICollectionReusableView {
             }
             .store(in: &cancellables)
     }
+extension LocationDetailViewHeaderCell: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return .init(width: UIScreen.main.width-32,
+                     height: UIScreen.main.width-32)
     }
     
     private func setupUI() {
