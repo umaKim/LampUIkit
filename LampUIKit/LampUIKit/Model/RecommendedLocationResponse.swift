@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct RecommendedLocationResponse: Codable {
+struct RecommendedLocationResponse: Codable, Hashable {
     let result: [RecommendedLocation]
 }
 
-struct RecommendedLocation: Codable {
+struct RecommendedLocation: Codable, Hashable {
     let image: String
     let contentId: String
     let title: String
