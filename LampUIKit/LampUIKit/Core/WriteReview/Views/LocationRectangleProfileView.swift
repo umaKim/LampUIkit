@@ -19,15 +19,15 @@ final class LocationRectangleProfileView: UIView {
         let lb = UILabel()
         lb.text = "경복궁"
         lb.textColor = .black
-        lb.font = .systemFont(ofSize: 15, weight: .semibold)
+        lb.font = .robotoBold(15)
         return lb
     }()
     
     private lazy var addrLabel: UILabel = {
         let lb = UILabel()
         lb.text = "서울시 종로구 시작로 191"
-        lb.textColor = .black
-        lb.font = .systemFont(ofSize: 12, weight: .semibold)
+        lb.textColor = .darkNavy
+        lb.font = .robotoBold(12)
         return lb
     }()
     
