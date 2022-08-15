@@ -25,5 +25,9 @@ class InitialQuizViewModel: BaseViewModel {
     
     private func fetch() {
         //TODO: Bind with network
+    public func answerChoice(_ answer: Int) {
+        answers.removeAll(where: {$0.questionId == self.currentIndex})
+        answers.append(.init(questionId: currentIndex, answer: answer))
+    }
     }
 }

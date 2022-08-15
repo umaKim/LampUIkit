@@ -35,13 +35,22 @@ class InitialQuizViewController: BaseViewContronller {
             .sink { action in
                 switch action {
                 case .button1:
-                    break
+                    self.viewModel.answerChoice(1)
                     
                 case .button2:
-                    break
+                    self.viewModel.answerChoice(2)
                     
                 case .button3:
-                    break
+                    self.viewModel.answerChoice(3)
+                    
+                case .button4:
+                    self.viewModel.answerChoice(4)
+                    
+                case .button5:
+                    self.viewModel.answerChoice(5)
+                    
+                case .next:
+                    self.viewModel.next()
                 }
             }
             .store(in: &cancellables)
