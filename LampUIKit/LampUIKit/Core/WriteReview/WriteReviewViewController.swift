@@ -40,16 +40,16 @@ class WriteReviewViewController: BaseViewContronller {
         contentView.actionPublisher.sink { action in
             switch action {
             case .updateSatisfactionModel(let satisfactionRatings):
-                self.viewModel.setComfortRating(satisfactionRatings.title)
+                self.viewModel.setComfortRating(satisfactionRatings)
             
             case .updateAtmosphereModel(let atmosphereRatings):
-                self.viewModel.setAtmosphereRating(atmosphereRatings.title)
+                self.viewModel.setAtmosphereRating(atmosphereRatings)
             
             case .updateSurroundingModel(let surroundingRatings):
-                self.viewModel.setSurroundingRating(surroundingRatings.title)
+                self.viewModel.setSurroundingRating(surroundingRatings)
             
             case .updateFoodModel(let foodRatings):
-                self.viewModel.setFoodRating(foodRatings.title)
+                self.viewModel.setFoodRating(foodRatings)
                 
             case .updateStarRating(let starRating):
                 self.viewModel.setStarRating(starRating)
