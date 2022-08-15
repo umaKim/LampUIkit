@@ -37,6 +37,12 @@ final class LocationDetailViewController: BaseViewContronller {
         bind()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        viewModel.fetchLocationDetail()
+    }
+    
     private func bind() {
         contentView
             .actionPublisher
