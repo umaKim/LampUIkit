@@ -67,7 +67,10 @@ class DetailReviewViewController: BaseViewContronller {
         
         dataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
             guard kind == UICollectionView.elementKindSectionHeader else { return nil }
-            let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: DetailReviewCollectionViewHeader.identifier, for: indexPath) as? DetailReviewCollectionViewHeader
+            let view = collectionView.dequeueReusableSupplementaryView(
+                ofKind: kind,
+                withReuseIdentifier: DetailReviewCollectionViewHeader.identifier,
+                for: indexPath) as? DetailReviewCollectionViewHeader
             return view
         }
     }
