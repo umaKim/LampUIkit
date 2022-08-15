@@ -24,6 +24,8 @@ class ContentViewDelegate: ObservableObject {
     @Published var starValue: CGFloat = 2.5
 }
 
+class WriteReviewView: BaseWhiteView {
+    
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<WriteReviewViewAction, Never>()
 
