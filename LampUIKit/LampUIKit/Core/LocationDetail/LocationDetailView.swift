@@ -37,6 +37,10 @@ final class LocationDetailView: BaseWhiteView {
         return cv
     }()
     
+    public func reload() {
+        collectionView.reloadData()
+    }
+    
     override init() {
         super.init()
         

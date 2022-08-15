@@ -47,6 +47,22 @@ final class LocationDetailViewController: BaseViewContronller {
                 }
             }
             .store(in: &cancellables)
+        
+        viewModel
+            .notifyPublisher
+            .sink {[unowned self] noti in
+                switch noti {
+                case .reload:
+                    self.contentView.reload()
+                    
+                case .startLoading:
+                    self.showLoadingView()
+                    
+                case .endLoading:
+                    self.dismissLoadingView()
+                }
+            }
+            .store(in: &cancellables)
     }
     
     required init?(coder: NSCoder) {
@@ -82,6 +98,14 @@ extension LocationDetailViewController: LocationDetailViewHeaderCellDelegate {
         present(vc, animated: true) {
             //TODO: end loading image
         }
+    }
+    
+    func locationDetailViewHeaderCellDidTapAddToMyTrip() {
+        viewModel.addToMyTrip()
+    }
+    
+    func locationDetailViewHeaderCellDidTapRemoveFromMyTrip() {
+        viewModel.removeFromMyTrip()
     }
 }
 
