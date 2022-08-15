@@ -19,7 +19,9 @@ enum WriteReviewViewAction {
     case updateComment(String)
 }
 
-class WriteReviewView: BaseWhiteView {
+class ContentViewDelegate: ObservableObject {
+    @Published var starValue: CGFloat = 2.5
+}
 
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<WriteReviewViewAction, Never>()
@@ -31,6 +33,7 @@ class WriteReviewView: BaseWhiteView {
     
     private var dataSource: DataSource?
     
+    private var delegate: ContentViewDelegate = ContentViewDelegate()
     
     private let contentScrollView: UIScrollView = {
        let sv = UIScrollView()
@@ -46,8 +49,9 @@ class WriteReviewView: BaseWhiteView {
     private let dividerView1 = DividerView()
     
     private lazy var starRatingView: UIView = {
+        let view = CustomRatingBar(axisMode: .horizontal, delegate: delegate)
         guard
-            let uv = UIHostingController(rootView: CustomRatingBar(axisMode: .horizontal)).view
+            let uv = UIHostingController(rootView: view).view
         else {return UIView()}
         uv.backgroundColor = .greyshWhite
         return uv
@@ -145,6 +149,13 @@ class WriteReviewView: BaseWhiteView {
         dataSource?.apply(snapshot, animatingDifferences: true)
     }
     private func bind() {
+        delegate
+            .$starValue
+            .sink { value in
+                self.actionSubject.send(.updateStarRating(value))
+            }
+            .store(in: &cancellables)
+        
         satisfactionEvaluationView.actionPublisher.sink { action in
             switch action {
             case .updateElement(let model):
