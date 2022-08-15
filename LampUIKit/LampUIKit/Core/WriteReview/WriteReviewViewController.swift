@@ -37,6 +37,8 @@ class WriteReviewViewController: BaseViewContronller {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        hideKeyboardWhenTappedAround()
+        
         contentView.actionPublisher.sink { action in
             switch action {
             case .updateSatisfactionModel(let satisfactionRatings):
