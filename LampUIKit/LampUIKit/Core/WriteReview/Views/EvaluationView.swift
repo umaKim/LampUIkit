@@ -9,7 +9,7 @@ import Combine
 import UIKit
 
 enum EvaluationViewAction {
-    case updateElement(EvaluationModel)
+    case updateElement(Int)
 }
 
 struct EvaluationModel {
@@ -98,7 +98,7 @@ extension EvaluationView: UICollectionViewDelegate {
         clearPreviouslySelectedItem()
         elements[indexPath.item].isSelected.toggle()
         if elements[indexPath.item].isSelected {
-            actionSubject.send(.updateElement(elements[indexPath.item]))
+            actionSubject.send(.updateElement(indexPath.item))
             collectionView.reloadData()
         }
     }
