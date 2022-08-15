@@ -129,6 +129,22 @@ class ContentViewDelegate: ObservableObject {
     
     private let dividerView2 = DividerView()
     
+    private lazy var imageCollectionView: UICollectionView = {
+        let cl = UICollectionViewFlowLayout()
+        cl.scrollDirection = .horizontal
+        cl.sectionInset = .init(top: 0, left: 8, bottom: 0, right: 0)
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: cl)
+        cv.register(ImageCollectionHeaderView.self,
+                    forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                    withReuseIdentifier: ImageCollectionHeaderView.identifier)
+        cv.register(ImageCollectionViewCell.self,
+                    forCellWithReuseIdentifier: ImageCollectionViewCell.identifier)
+        cv.delegate = self
+        cv.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        cv.backgroundColor = .greyshWhite
+        return cv
+    }()
+    
     private let dividerView3 = DividerView()
     
     private(set) lazy var completeButton: UIButton = {
@@ -142,7 +158,14 @@ class ContentViewDelegate: ObservableObject {
     
         updateSections()
         
+    
+    public func setImage(with image: UIImage) {
+        photos.append(image)
         updateSections()
+    }
+    
+    private var photos: [UIImage] = []
+    
     private func updateSections() {
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
@@ -154,6 +177,23 @@ extension WriteReviewView: ImageCollectionHeaderViewDelegate {
         actionSubject.send(.addPhoto)
     }
 }
+
+//MARK: - UICollectionViewDelegateFlowLayout
+extension WriteReviewView: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        .init(width: 84, height: 84)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        .init(width: 84, height: 84)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        8
+    }
+}
+
+//MARK: - Bind
 extension WriteReviewView {
     private func bind() {
         delegate
@@ -251,6 +291,7 @@ extension WriteReviewView {
                                                             textContextView,
                                                             characterCounterSv,
                                                             dividerView2,
+                                                            imageCollectionView,
                                                             dividerView3,
                                                             completeButton])
         totalStackView.axis = .vertical
