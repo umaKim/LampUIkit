@@ -35,6 +35,32 @@ final class LocationDetailViewModel: BaseViewModel {
         }
     }
     
+    private func postAddToMyTrip() {
+        guard
+            let location = location
+        else { return }
+
+        let data = PostAddToMyTripData(
+            token: "",
+            contentId: location.contentId,
+            contentTypeId: location.contentTypeId,
+            contentInfo: location.title,
+            contentAddress: location.addr,
+            userMemo: "",
+            mapX: location.mapX,
+            mapY: location.mapY
+        )
+        
+        NetworkService.shared.postAddToMyTravel(data) { result in
+            switch result {
+            case .success(let response):
+                print(response)
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
     public func addToMyTrip() {
         postAddToMyTrip()
     }
