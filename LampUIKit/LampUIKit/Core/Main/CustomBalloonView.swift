@@ -51,8 +51,12 @@ class CustomBalloonView: UIView {
         
         let labelSv = UIStackView(arrangedSubviews: [titleLabel, addrLabel])
         labelSv.axis = .vertical
-        labelSv.alignment = .fill
+        labelSv.alignment = .center
         labelSv.distribution = .fillProportionally
+        labelSv.frame = .init(x: 8,
+                         y: 8,
+                         width: frame.width - 16,
+                         height: frame.height - 32)
         
         [labelSv].forEach { uv in
             sv.addArrangedSubview(uv)
