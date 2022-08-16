@@ -73,10 +73,11 @@ class CreateNickNameView: BaseView {
             nickNameTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             nickNameTextField.heightAnchor.constraint(equalToConstant: 60),
             
+            createAccountButton.topAnchor.constraint(equalTo: nickNameTextField.bottomAnchor, constant: 64),
             createAccountButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            createAccountButton.widthAnchor.constraint(equalToConstant: UIScreen.main.width - 32),
-            createAccountButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
-            createAccountButton.heightAnchor.constraint(equalToConstant: 60),
+            createAccountButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            createAccountButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            createAccountButton.heightAnchor.constraint(equalToConstant: 60)
             
         ])
     }
