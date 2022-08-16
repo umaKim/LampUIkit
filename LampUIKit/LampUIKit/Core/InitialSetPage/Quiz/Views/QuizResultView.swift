@@ -61,7 +61,7 @@ class QuizResultView: BaseView {
     
     private lazy var nextButton: UIButton = {
         let bt = UIButton()
-        bt.setImage(UIImage(named: "quizNextButton"), for: .normal)
+        bt.setImage(UIImage(named: "next_downArrow"), for: .normal)
         return bt
     }()
     
