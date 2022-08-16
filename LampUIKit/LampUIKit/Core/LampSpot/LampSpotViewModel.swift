@@ -63,7 +63,7 @@ extension LampLocationManager: CLLocationManagerDelegate {
             let latitude = location.coordinate.latitude.magnitude
             let longitude = location.coordinate.longitude.magnitude
             
-            self.location = .init(mapX: latitude, mapY: longitude)
+            self.location = .init(lat: latitude, long: longitude)
         }
     }
     
