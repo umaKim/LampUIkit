@@ -58,18 +58,9 @@ class CustomBalloonView: UIView {
                          width: frame.width - 16,
                          height: frame.height - 32)
         
-        [labelSv].forEach { uv in
-            sv.addArrangedSubview(uv)
-        }
-        
-        [backgroundImageView, sv].forEach { uv in
+        [backgroundImageView, labelSv].forEach { uv in
             addSubview(uv)
         }
-        
-        sv.frame = .init(x: 8,
-                         y: 4,
-                         width: frame.width - 16,
-                         height: frame.height - 32)
         
         backgroundImageView.frame = frame
     }
