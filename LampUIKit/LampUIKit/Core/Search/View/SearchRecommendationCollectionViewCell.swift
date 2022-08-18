@@ -164,13 +164,22 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func configure(with location: LocationItem) {
+    public func configure(with location: RecommendedLocation) {
+        self.location = location
+        
         titleLabel.text = location.title
         
-        guard let url = URL(string: location.firstimage) else {return}
+        if location.image == "" {
+            locationImageView.image = UIImage(named: "placeholder")
+        }
+        guard let url = URL(string: location.image) else {return}
         locationImageView.sd_setImage(with: url)
         
-        starRatingView.configure(with: 3)
+        isFavorite = location.bookMark
+        
+        starRatingView.configure(with: Double(location.rate) ?? 0.0)
+        
+        descriptionLabel.text = location.addr
     }
     
     override func prepareForReuse() {
