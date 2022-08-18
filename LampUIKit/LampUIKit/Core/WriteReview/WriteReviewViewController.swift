@@ -39,7 +39,13 @@ class WriteReviewViewController: BaseViewContronller {
 
         hideKeyboardWhenTappedAround()
         
-        contentView.actionPublisher.sink { action in
+        contentView.textContextView.delegate = self
+        
+        contentView.configure(viewModel.location)
+        
+        contentView
+            .actionPublisher
+            .sink { action in
             switch action {
             case .updateSatisfactionModel(let satisfactionRatings):
                 self.viewModel.setComfortRating(satisfactionRatings)
@@ -67,6 +73,9 @@ class WriteReviewViewController: BaseViewContronller {
                 vc.allowsEditing = true
                 self.present(vc, animated: true)
                 
+            case .removeImage(let index):
+                self.viewModel.removeImage(at: index)
+                
             case .complete:
                 self.viewModel.completeButton()
             }
@@ -77,6 +86,19 @@ class WriteReviewViewController: BaseViewContronller {
             switch noti {
             case .ableCompleteButton(let isAble):
                 self.contentView.ableCompleteButton(isAble)
+                
+            case .dismiss:
+                self.dismiss(animated: true)
+                
+            case .showMessage(let message):
+                self.presentUmaDefaultAlert(title: message)
+                
+            case .startLoading:
+                self.showLoadingView()
+                
+            case .endLoading:
+                self.dismissLoadingView()
+                
             }
         }
         .store(in: &cancellables)
