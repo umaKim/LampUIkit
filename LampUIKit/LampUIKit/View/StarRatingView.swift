@@ -8,6 +8,10 @@
 import AxisRatingBar
 import SwiftUI
 
+class ContentViewDelegate: ObservableObject {
+    @Published var starValue: CGFloat = 2.5
+}
+
 struct CustomRatingBar: View {
     
     private let axisMode: ARAxisMode
