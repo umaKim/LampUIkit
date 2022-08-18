@@ -45,6 +45,7 @@ class StartPageViewController: UIViewController {
     }
     
     private func presentMain(with uid: String) {
+        NetworkService.shared.setToken(uid)
         present(MainViewController(MainViewModel()),
                 transitionType: .fromTop,
                 animated: true, pushing: true)
@@ -54,7 +55,6 @@ class StartPageViewController: UIViewController {
         super.viewDidLoad()
         
         startButton.tapPublisher.sink { _ in
-            
             if AuthApi.hasToken() {
                 UserApi.shared.me { user, error in
                     guard let id = user?.id else { return }
