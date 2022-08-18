@@ -10,12 +10,16 @@ import Combine
 import UIKit
 
 enum MainViewAction {
+    case myLocation
+    
     case search
     case myTravel
     case myCharacter
     
     case zoomIn
     case zoomOut
+    
+    case refresh
 }
 
 class MainView: BaseView {
@@ -46,6 +50,12 @@ class MainView: BaseView {
     private lazy var zoomInButton = SquareButton(UIImage(systemName: "plus"))
     private lazy var zoomOutButton = SquareButton(UIImage(systemName: "minus"))
     
+    private lazy var myLocationButton: UIButton = {
+       let bt = UIButton()
+        bt.setImage(UIImage(named: "myCurrentLocation"), for: .normal)
+        return bt
+    }()
+    
     private lazy var searchButton: UIButton = {
        let bt = UIButton()
         bt.setImage(UIImage(named: "Search"), for: .normal)
@@ -62,8 +72,12 @@ class MainView: BaseView {
         return bt
     }()
     
-//    = CircleButton(UIImage(named: "myCharacter_unselected"), .darkNavy)
-    private lazy var myLocationButton = CircleButton(UIImage(systemName: "person"), .darkNavy)
+    private lazy var refreshButton: UIButton = {
+        let bt = UIButton()
+        bt.backgroundColor = .red
+        bt.setImage(UIImage(systemName: "arrow.clockwise"), for: .normal)
+        return bt
+    }()
     
     override init() {
         super.init()
@@ -108,6 +122,22 @@ class MainView: BaseView {
                 self.actionSubject.send(.myCharacter)
             }
             .store(in: &cancellables)
+        
+        refreshButton
+            .tapPublisher
+            .sink { [unowned self] _ in
+                self.actionSubject.send(.refresh)
+            }
+            .store(in: &cancellables)
+        
+        myLocationButton
+            .tapPublisher
+            .sink { _ in
+                self.actionSubject.send(.myLocation)
+            }
+            .store(in: &cancellables)
+    }
+    
     }
     
     private func setupUI() {

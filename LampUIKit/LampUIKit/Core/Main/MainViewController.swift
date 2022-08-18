@@ -81,6 +81,12 @@ class MainViewController: BaseViewContronller  {
                     
                 case .zoomOut:
                     self.zoomOut()
+                    
+                case .refresh:
+                    self.viewModel.fetchItems()
+                    
+                case .myLocation:
+                    self.viewModel.setMyLocation()
                 }
             }
             .store(in: &cancellables)

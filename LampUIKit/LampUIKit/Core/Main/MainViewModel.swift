@@ -57,6 +57,11 @@ class MainViewModel: BaseViewModel  {
         }
     }
     
+    public func setMyLocation() {
+        guard let coord = locationManager.location?.coordinate else { return }
+        self.setLocation(with: coord.latitude, coord.longitude)
+        self.notifySubject.send(.myLocation(coord))
+    }
 }
 
 extension MainViewModel: CLLocationManagerDelegate {
