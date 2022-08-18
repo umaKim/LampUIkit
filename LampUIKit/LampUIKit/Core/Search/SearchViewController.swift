@@ -15,8 +15,8 @@ protocol SearchViewControllerDelegate: AnyObject {
 
 class SearchViewController: BaseViewContronller {
     
-    private typealias DataSource = UICollectionViewDiffableDataSource<Section, LocationItem>
-    private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, LocationItem>
+    private typealias DataSource = UICollectionViewDiffableDataSource<Section, RecommendedLocation>
+    private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, RecommendedLocation>
     
     enum Section { case main }
     
