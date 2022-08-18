@@ -146,3 +146,14 @@ final class LocationDetailView: BaseWhiteView {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+extension LocationDetailView: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return .init(width: UIScreen.main.width-32,
+                     height: UIScreen.main.width-32)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        0
+    }
+}
