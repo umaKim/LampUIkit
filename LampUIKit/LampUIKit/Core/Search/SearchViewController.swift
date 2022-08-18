@@ -125,7 +125,7 @@ extension SearchViewController {
     private func updateSections() {
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
-        snapshot.appendItems(viewModel.items)
+        snapshot.appendItems(viewModel.locations)
         dataSource?.apply(snapshot, animatingDifferences: true)
     }
     
@@ -136,7 +136,7 @@ extension SearchViewController {
                                 cellProvider: { collectionView, indexPath, itemIdentifier in
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchRecommendationCollectionViewCell.identifier, for: indexPath) as? SearchRecommendationCollectionViewCell else { return UICollectionViewCell() }
             cell.tag = indexPath.item
-            cell.configure(with: self.viewModel.items[indexPath.item])
+            cell.configure(with: self.viewModel.locations[indexPath.item])
             cell.delegate = self
             return cell
         })
