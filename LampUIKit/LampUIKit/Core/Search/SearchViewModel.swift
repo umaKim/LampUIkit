@@ -14,40 +14,22 @@ enum SearchViewModelNotify {
     case endLoading
 }
 
-class SearchViewModel {
+class SearchViewModel: BaseViewModel {
     
     private(set) lazy var notifyPublisher = notifySubject.eraseToAnyPublisher()
     private let notifySubject = PassthroughSubject<SearchViewModelNotify, Never>()
     
-    private let service: KeywordSearchXMLService
+    private let service: NetworkService
     
-    private(set) var items = [LocationItem]()
+    private(set) var locations = [RecommendedLocation]()
     
-    init(_ service: KeywordSearchXMLService = KeywordSearchXMLService.shared) {
-        self.cancellables = .init()
+    init(_ service: NetworkService = NetworkService.shared) {
         self.service = service
-        
-        service.$items
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .finished:
-                    print("finished")
-                    break
-                    
-                case .failure(let error):
-                    print(error)
-                }
-            }, receiveValue: {[weak self] items in
-                self?.items = items
-                self?.notifySubject.send(.reload)
-            })
-            .store(in: &cancellables)
+        super.init()
+       
     }
     
-    private var cancellables: Set<AnyCancellable>
-    
     public func search(_ text: String) {
-        service.fetch(about: text)
         notifySubject.send(.startLoading)
             self.notifySubject.send(.endLoading)
     }
