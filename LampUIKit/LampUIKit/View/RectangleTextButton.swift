@@ -29,6 +29,16 @@ class RectangleTextButton: UIButton {
         }
     }
     
+    public func update(
+        _ title: String,
+        background: UIColor,
+        textColor: UIColor = .black
+    ) {
+        self.setTitle(title, for: .normal)
+        self.setTitleColor(textColor, for: .normal)
+        self.backgroundColor = background
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
