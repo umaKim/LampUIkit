@@ -10,6 +10,9 @@ import Foundation
 struct Response: Codable {
     let isSuccess: Bool?
     let message: String?
+    let characterChosen: Int?
+}
+
 struct UserExistCheckResponse: Codable {
     let isSuccess: Bool
     let nicknameExist: Bool?
