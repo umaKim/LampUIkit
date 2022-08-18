@@ -52,22 +52,22 @@ extension UIViewController {
     }
 }
 
-fileprivate var containerView: UIView!
+fileprivate var containerView: UIView?
 
 extension UIViewController {
     func showLoadingView() {
         containerView = UIView(frame: view.bounds)
-        view.addSubview(containerView)
+        view.addSubview(containerView ?? UIView())
         
-        containerView.backgroundColor = .systemBackground
-        containerView.alpha = 0
+        containerView?.backgroundColor = .systemBackground
+        containerView?.alpha = 0
         
-        UIView.animate(withDuration: 0.25, animations: {containerView.alpha = 0.8})
+        UIView.animate(withDuration: 0.25, animations: {containerView?.alpha = 0.8})
         
         let activityIndicator = UIActivityIndicatorView(style: .large)
 //        activityIndicator.tintColor = .red
         
-        containerView.addSubview(activityIndicator)
+        containerView?.addSubview(activityIndicator)
         
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         
@@ -81,7 +81,7 @@ extension UIViewController {
     
     func dismissLoadingView() {
         DispatchQueue.main.async {
-            containerView.removeFromSuperview()
+            containerView?.removeFromSuperview()
             containerView = nil
         }
     }
