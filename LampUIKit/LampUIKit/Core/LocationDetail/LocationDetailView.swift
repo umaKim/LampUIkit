@@ -64,6 +64,8 @@ final class LocationDetailView: BaseWhiteView {
     override init() {
         super.init()
         
+        bind()
+    private func bind() {
         backButton
             .tapPublisher
             .sink { _ in
@@ -71,7 +73,62 @@ final class LocationDetailView: BaseWhiteView {
             }
             .store(in: &cancellables)
         
-        [collectionView].forEach { uv in
+        dismissButton.tapPublisher.sink { _ in
+            self.actionSubject.send(.dismiss)
+        }
+        .store(in: &cancellables)
+        
+        buttonSv
+            .actionPublisher
+            .sink { action in
+                switch action {
+                case .save:
+                    self.actionSubject.send(.save)
+                    break
+                    
+                case .ar:
+                    self.actionSubject.send(.ar)
+                    break
+                    
+                case .review:
+                    self.actionSubject.send(.review)
+                    break
+                    
+                case .share:
+                    self.actionSubject.send(.share)
+                    break
+                }
+            }
+            .store(in: &cancellables)
+        
+        addToMyTravelButton
+            .tapPublisher
+            .sink { _ in
+                self.addToMyTravelButton.isSelected.toggle()
+                
+                if self.addToMyTravelButton.isSelected {
+                    self.addToMyTravelButton.update("내여행지로 추가 취소", background: .systemGray, textColor: .white)
+//                    self.delegate?.locationDetailViewHeaderCellDidTapAddToMyTrip()
+                    self.actionSubject.send(.addToMyTrip)
+                } else {
+                    self.addToMyTravelButton.update("내여행지로 추가", background: .midNavy, textColor: .white)
+//                    self.delegate?.locationDetailViewHeaderCellDidTapRemoveFromMyTrip()
+                    self.actionSubject.send(.removeFromMyTrip)
+                }
+            }
+            .store(in: &cancellables)
+        
+        totalTravelReviewView
+            .actionPublisher
+            .sink { action in
+                switch action {
+                case .showDetail:
+                    self.actionSubject.send(.showDetailReview)
+                }
+            }
+            .store(in: &cancellables)
+    }
+    
     private func setupUI() {
         addSubview(contentScrollView)
         contentScrollView.addSubview(contentView)
