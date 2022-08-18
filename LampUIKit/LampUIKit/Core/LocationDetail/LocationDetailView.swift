@@ -10,6 +10,17 @@ import UIKit
 
 enum LocationDetailViewAction {
     case back
+    case dismiss
+    
+    case save
+    case ar
+    case review
+    case share
+    
+    case addToMyTrip
+    case removeFromMyTrip
+    
+    case showDetailReview
 }
 
 final class LocationDetailView: BaseWhiteView {

@@ -50,6 +50,41 @@ final class LocationDetailViewController: BaseViewContronller {
                 switch action {
                 case .back:
                     self.navigationController?.popViewController(animated: true)
+                    
+                case .dismiss:
+                    self.dismiss(animated: true)
+                    
+                case .save:
+                    self.viewModel.save()
+                    
+                case .ar:
+                    let vm = ARViewModel()
+                    let vc = ARViewController(vm: vm)
+                    self.present(vc, animated: true)
+                    
+                case .review:
+                    guard let location = self.viewModel.location else {return }
+                    let vm = WriteReviewViewModel(location)
+                    let vc = WriteReviewViewController(vm)
+                    self.navigationController?.pushViewController(vc, animated: true)
+                
+                case .share:
+                    let vc = UIActivityViewController(
+                        activityItems: [],
+                        applicationActivities: nil)
+                    
+                    self.present(vc, animated: true)
+                    
+                case .addToMyTrip:
+                    self.viewModel.addToMyTrip()
+                    
+                case .removeFromMyTrip:
+                    self.viewModel.removeFromMyTrip()
+                    
+                case .showDetailReview:
+                    let vm = DetailReviewViewModel()
+                    let vc = DetailReviewViewController(vm: vm)
+                    self.navigationController?.pushViewController(vc, animated: true)
                 }
             }
             .store(in: &cancellables)
@@ -66,6 +101,15 @@ final class LocationDetailViewController: BaseViewContronller {
                     
                 case .endLoading:
                     self.dismissLoadingView()
+                    
+                case .sendLocationDetail(let data):
+                    if let data = data {
+                        self.contentView.configure(data)
+                        self.contentView.configureDetailInfo(data)
+                    }
+                    
+                case .locationDetailImages(let images):
+                    self.contentView.configure(with: images)
                 }
             }
             .store(in: &cancellables)

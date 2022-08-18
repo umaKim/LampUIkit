@@ -11,11 +11,15 @@ enum LocationDetailViewModelNotify {
     case reload
     case startLoading
     case endLoading
+    
+    case sendLocationDetail(LocationDetailData?)
+    case locationDetailImages([String])
 }
 
 final class LocationDetailViewModel: BaseViewModel {
     private(set) lazy var notifyPublisher = notifySubject.eraseToAnyPublisher()
     private let notifySubject = PassthroughSubject<LocationDetailViewModelNotify, Never>()
+            self.notifySubject.send(.endLoading)
     //MARK: - Private
     
     public func fetchLocationDetail() {
@@ -25,14 +29,14 @@ final class LocationDetailViewModel: BaseViewModel {
             switch result {
             case .success(let locationDetail):
                 self.locationDetail = locationDetail.result
-                self.notifySubject.send(.reload)
-                
+                self.notifySubject.send(.sendLocationDetail(self.locationDetail))
             case .failure(let error):
                 print(error)
             }
             
             self.notifySubject.send(.endLoading)
         }
+                self.notifySubject.send(.locationDetailImages(images))
     }
     
     private func postAddToMyTrip() {
