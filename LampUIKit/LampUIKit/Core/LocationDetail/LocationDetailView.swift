@@ -43,6 +43,54 @@ final class LocationDetailView: BaseWhiteView {
     
     public func reload() {
         collectionView.reloadData()
+    public func configureDetailInfo(_ locationDetail: LocationDetailData) {
+        
+        if locationDetail.contentTypeId == "12" {
+            label1.configure("문의 안내", locationDetail.datailInfo?.infocenter ?? "")
+            label2.configure("주차", locationDetail.datailInfo?.parking ?? "")
+            label3.configure("쉬는 날", locationDetail.datailInfo?.restdate ?? "")
+            label4.configure("운영시기", locationDetail.datailInfo?.useseason ?? "")
+            label5.configure("운영시간", locationDetail.datailInfo?.usetime ?? "")
+            return
+        }
+        
+        if locationDetail.contentTypeId == "14" {
+            label1.configure("할인정보", locationDetail.datailInfo?.discountinfo ?? "")
+            label2.configure("문의 안내", locationDetail.datailInfo?.infocenterculture ?? "")
+            label3.configure("쉬는 날", locationDetail.datailInfo?.restdateculture ?? "")
+            label4.configure("비용", locationDetail.datailInfo?.usefee ?? "")
+            label5.configure("운영 시간", locationDetail.datailInfo?.usetimeculture ?? "")
+            return
+        }
+        
+        if locationDetail.contentTypeId == "15" {
+            label1.configure("행사 장소", locationDetail.datailInfo?.eventplace ?? "")
+            label2.configure("행사 기간", locationDetail.datailInfo?.eventstartdate ?? "")
+            label3.configure("행사 위치 안내", locationDetail.datailInfo?.placeinfo ?? "")
+            label4.configure("공연 시간", locationDetail.datailInfo?.playtime ?? "")
+            label5.configure("비용", locationDetail.datailInfo?.usetimefestival ?? "")
+            return
+        }
+        
+        if locationDetail.contentTypeId == "28" {
+            label1.configure("문의 안내", locationDetail.datailInfo?.infocenterleports ?? "")
+            label2.configure("개장 기간", locationDetail.datailInfo?.openperiod ?? "")
+            label3.configure("쉬는 날", locationDetail.datailInfo?.restdateleports ?? "")
+            label4.configure("이용 요금", locationDetail.datailInfo?.usefeeleports ?? "")
+            label5.configure("이용 시간", locationDetail.datailInfo?.usetimeleports ?? "")
+            return
+        }
+        
+        if locationDetail.contentTypeId == "39" {
+            label1.configure("문의 안내", locationDetail.datailInfo?.infocenterfood ?? "")
+            label2.configure("대표 메뉴", locationDetail.datailInfo?.firstmenu ?? "")
+            label3.configure("운영 시간", locationDetail.datailInfo?.opentimefood ?? "")
+            label4.configure("쉬는 날", locationDetail.datailInfo?.restdatefood ?? "")
+            label5.isHidden = true
+            return
+        }
+    }
+    
     private func configureImageViewCollecitonView() {
         dataSource = DataSource(collectionView: locationImageView,
                                 cellProvider: { collectionView, indexPath, itemIdentifier in
