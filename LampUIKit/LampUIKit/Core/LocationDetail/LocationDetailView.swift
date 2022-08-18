@@ -19,6 +19,11 @@ final class LocationDetailView: BaseWhiteView {
         return bt
     }()
     
+    private(set) lazy var dismissButton: UIBarButtonItem = {
+        let bt = UIBarButtonItem(image: .xmark, style: .done, target: nil, action: nil)
+        return bt
+    }()
+    
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<LocationDetailViewAction, Never>()
     
@@ -43,6 +48,23 @@ final class LocationDetailView: BaseWhiteView {
     
     public func reload() {
         collectionView.reloadData()
+    private let contentScrollView: UIScrollView = {
+       let sv = UIScrollView()
+        sv.showsVerticalScrollIndicator = false
+        return sv
+    }()
+    
+    private let contentView = UIView()
+    private let buttonSv = LocationDetailViewHeaderCellButtonStackView()
+    
+    private let dividerView = DividerView()
+    
+    private let label1: LocationDescriptionView = LocationDescriptionView("", description: "")
+    private let label2: LocationDescriptionView = LocationDescriptionView("", description: "")
+    private let label3: LocationDescriptionView = LocationDescriptionView("", description: "")
+    private let label4: LocationDescriptionView = LocationDescriptionView("", description: "")
+    private let label5: LocationDescriptionView = LocationDescriptionView("", description: "")
+    
     public func configureDetailInfo(_ locationDetail: LocationDetailData) {
         
         if locationDetail.contentTypeId == "12" {
@@ -107,6 +129,11 @@ final class LocationDetailView: BaseWhiteView {
         snapshot.appendItems(photoUrls)
         dataSource?.apply(snapshot, animatingDifferences: true)
     }
+    
+    private lazy var addToMyTravelButton = RectangleTextButton("내 여행지로 추가", background: .midNavy, textColor: .white, fontSize: 17)
+    
+    private lazy var totalTravelReviewView = TotalTravelReviewView()
+    
     }
     
     override init() {
