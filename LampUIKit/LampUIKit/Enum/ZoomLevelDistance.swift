@@ -8,13 +8,19 @@
 import Foundation
 
 enum ZoomLevelDistance {
-    case one, two, three, four, five, six, seven, eight, nine, ten
+    case minusOne, zero, one, two, three, four, five, six, seven, eight, nine, ten, eleven
 
-    typealias Level = Int
+    typealias Level = Int32
     typealias Radius = Int
     
     func getLevel() -> (Level, Radius) {
         switch self {
+        case .minusOne:
+            return (-1, 400)
+            
+        case .zero:
+            return (0, 600)
+            
         case .one:
             return (1, 800)
             
@@ -44,11 +50,20 @@ enum ZoomLevelDistance {
             
         case .ten:
             return (10, 8000)
+            
+        case .eleven:
+            return (11, 8400)
         }
     }
     
     func selfLevelToRadius(with level: Level) -> Self {
         switch level {
+        case -1:
+            return .minusOne
+            
+        case 0:
+            return .zero
+            
         case 1:
             return .one
             
@@ -78,6 +93,9 @@ enum ZoomLevelDistance {
             
         case 10:
             return .ten
+            
+        case 11:
+            return .eleven
             
         default:
             return .one
