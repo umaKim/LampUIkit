@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol FavoriteCellDelegate: AnyObject {
+    func favoriteCellDidTapDelete(at index: Int)
+}
+
 final class FavoriteCell: UICollectionViewCell {
     static let identifier = "FavoriteCell"
     
@@ -16,6 +20,8 @@ final class FavoriteCell: UICollectionViewCell {
     enum Section { case main }
     
     private var dataSource: DataSource?
+    
+    weak var delegate: FavoriteCellDelegate?
     
     private lazy var collectionView: UICollectionView = {
         let cl = UICollectionViewFlowLayout()
@@ -52,6 +58,7 @@ extension FavoriteCell: FavoriteCellCollectionViewCellDelegate {
             self.models.remove(at: index)
             self.updateSections()
         }
+        self.delegate?.favoriteCellDidTapDelete(at: index)
     }
 }
 
