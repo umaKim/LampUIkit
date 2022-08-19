@@ -35,10 +35,6 @@ class MainViewModel: BaseViewModel  {
         
         guard let coord = locationManager.location?.coordinate else { return }
         self.setLocation(with: coord.latitude, coord.longitude)
-    
-    private func setLocation(with latitude: Double, _ longitude: Double) {
-        self.latitude = latitude
-        self.longitude = longitude
     }
     
     public func fetchItems() {
@@ -61,6 +57,11 @@ class MainViewModel: BaseViewModel  {
         guard let coord = locationManager.location?.coordinate else { return }
         self.setLocation(with: coord.latitude, coord.longitude)
         self.notifySubject.send(.myLocation(coord))
+    }
+    
+    public func setLocation(with latitude: Double, _ longitude: Double) {
+        self.latitude = latitude
+        self.longitude = longitude
     }
 }
 
