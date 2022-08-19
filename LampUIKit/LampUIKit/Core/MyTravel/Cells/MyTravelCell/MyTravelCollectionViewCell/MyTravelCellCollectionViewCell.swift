@@ -104,6 +104,18 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell {
         }
         .store(in: &cancellables)
     }
+    
+    public func configure(_ location: MyTravelLocation) {
+        titleLabel.text = location.placeInfo
+        addressLabel.text = location.placeAddress
+    }
+    
+    var showDeleButton: Bool? {
+        didSet{
+            deleteButton.isHidden = !(showDeleButton ?? false)
+        }
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
