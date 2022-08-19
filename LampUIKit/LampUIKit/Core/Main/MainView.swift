@@ -22,7 +22,7 @@ enum MainViewAction {
     case refresh
 }
 
-class MainView: BaseView {
+class MainView: BaseWhiteView {
     
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<MainViewAction, Never>()
