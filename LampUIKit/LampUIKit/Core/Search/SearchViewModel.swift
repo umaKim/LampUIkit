@@ -31,6 +31,16 @@ class SearchViewModel: BaseViewModel {
     
     public func search(_ text: String) {
         notifySubject.send(.startLoading)
+        service.fetchSearchLocations(text) { result in
+            switch result {
+            case .success(let locationResponse):
+                self.locations = locationResponse.result
+                self.notifySubject.send(.reload)
+                
+            case .failure(let error):
+                print(error)
+            }
             self.notifySubject.send(.endLoading)
+        }
     }
 }
