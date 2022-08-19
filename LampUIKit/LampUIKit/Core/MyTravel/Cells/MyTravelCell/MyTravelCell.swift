@@ -10,8 +10,10 @@ import UIKit
 final class MyTravelCell: UICollectionViewCell {
     static let identifier = "MyTravelCell"
     
-    private typealias DataSource = UICollectionViewDiffableDataSource<Section, MyTravelLocations>
-    private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, MyTravelLocations>
+    weak var delegate: MyTravelCellDelegate?
+    
+    private typealias DataSource = UICollectionViewDiffableDataSource<Section, MyTravelLocation>
+    private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, MyTravelLocation>
     
     enum Section { case main }
     
@@ -26,6 +28,7 @@ final class MyTravelCell: UICollectionViewCell {
                     withReuseIdentifier: MyTravelCellHeaderCell.identifier)
         cv.register(MyTravelCellCollectionViewCell.self, forCellWithReuseIdentifier: MyTravelCellCollectionViewCell.identifier)
         cv.backgroundColor = .greyshWhite
+        cv.delegate = self
         return cv
     }()
     
