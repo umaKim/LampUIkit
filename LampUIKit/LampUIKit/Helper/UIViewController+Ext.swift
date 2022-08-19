@@ -5,7 +5,7 @@
 //  Created by 김윤석 on 2022/08/12.
 //
 
-import Foundation
+import UIKit
 
 extension UIViewController {
     open func present(
@@ -18,7 +18,7 @@ extension UIViewController {
         if pushing {
             let transition = CATransition()
             transition.duration = 0.5
-            transition.type = CATransitionType.push
+            transition.type = .push
             transition.subtype = transitionType
             transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
             view.window?.layer.add(transition, forKey: kCATransition)
@@ -65,7 +65,6 @@ extension UIViewController {
         UIView.animate(withDuration: 0.25, animations: {containerView?.alpha = 0.8})
         
         let activityIndicator = UIActivityIndicatorView(style: .large)
-//        activityIndicator.tintColor = .red
         
         containerView?.addSubview(activityIndicator)
         
