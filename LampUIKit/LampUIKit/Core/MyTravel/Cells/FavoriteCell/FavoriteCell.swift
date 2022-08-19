@@ -10,8 +10,8 @@ import UIKit
 final class FavoriteCell: UICollectionViewCell {
     static let identifier = "FavoriteCell"
     
-    private typealias DataSource = UICollectionViewDiffableDataSource<Section, MyTravelLocations>
-    private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, MyTravelLocations>
+    private typealias DataSource = UICollectionViewDiffableDataSource<Section, MyTravelLocation>
+    private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, MyTravelLocation>
     
     enum Section { case main }
     
