@@ -40,9 +40,9 @@ final class FavoriteCell: UICollectionViewCell {
         setupUI()
     }
     
-    private var models: [MyTravelLocations] = []
+    private var models: [MyTravelLocation] = []
     
-    public func configure(models: [MyTravelLocations]) {
+    public func configure(models: [MyTravelLocation]) {
         self.models = models
         self.updateSections()
     }
