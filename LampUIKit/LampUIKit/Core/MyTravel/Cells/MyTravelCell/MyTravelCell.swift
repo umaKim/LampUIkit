@@ -41,10 +41,10 @@ final class MyTravelCell: UICollectionViewCell {
         setupUI()
     }
     
-    private var models: [MyTravelLocations] = []
+    private var models: [MyTravelLocation] = []
     private var showDeleteButton: Bool = false
     
-    public func configure(models: [MyTravelLocations]) {
+    public func configure(models: [MyTravelLocation]) {
         self.models = models
         updateSections()
     }
