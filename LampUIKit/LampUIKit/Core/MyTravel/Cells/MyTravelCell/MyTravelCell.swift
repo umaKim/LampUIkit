@@ -7,6 +7,10 @@
 import Combine
 import UIKit
 
+protocol MyTravelCellDelegate: AnyObject {
+    func myTravelCellDelegateDidTapDelete(at index: Int)
+}
+
 final class MyTravelCell: UICollectionViewCell {
     static let identifier = "MyTravelCell"
     
@@ -66,6 +70,9 @@ extension MyTravelCell: MyTravelCellCollectionViewCellDelegate {
     func myTravelCellCollectionViewCellDidTapDelete(at index: Int) {
         models.remove(at: index)
         updateSections()
+        delegate?.myTravelCellDelegateDidTapDelete(at: index)
+    }
+}
     }
 }
 
