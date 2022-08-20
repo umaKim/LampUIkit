@@ -82,6 +82,12 @@ final class MyTravelViewController: BaseViewContronller {
     }
 }
 
+extension MyTravelViewController: MyTravelCellDelegate {
+    func myTravelCellDelegateDidTapDelete(at index: Int) {
+        viewModel.deleteMyTravel(at: index)
+    }
+}
+
 extension MyTravelViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         3
@@ -93,6 +99,7 @@ extension MyTravelViewController: UICollectionViewDataSource {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyTravelCell.identifier, for: indexPath) as? MyTravelCell
             else { return UICollectionViewCell() }
             cell.configure(models: viewModel.model.myTravel)
+            cell.delegate = self
             return cell
             
         } else if indexPath.item == 1 {
