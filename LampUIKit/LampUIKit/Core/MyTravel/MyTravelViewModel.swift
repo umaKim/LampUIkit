@@ -61,6 +61,11 @@ class MyTravelViewModel: BaseViewModel {
         }
     }
     
+    public func deleteMyTravel(at index: Int) {
+        let targetItem = model.myTravel[index]
+        model.myTravel.remove(at: index)
+        NetworkService.shared.removeMyTravel(targetItem)
+    }
 }
 
 struct MyTravelDataSet: Codable {
