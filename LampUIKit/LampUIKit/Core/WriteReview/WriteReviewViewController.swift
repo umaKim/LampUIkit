@@ -140,6 +140,11 @@ class InputTextView: UITextView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+extension WriteReviewViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        checkMaxLength(textView)
+        let count = textView.text.count
+        contentView.setCharacterCounter(count)
     }
 }
 

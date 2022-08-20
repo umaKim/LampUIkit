@@ -289,6 +289,7 @@ extension WriteReviewView {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: indexPath) as? ImageCollectionViewCell
             else { return UICollectionViewCell() }
             cell.configure(self.photos[indexPath.item])
+            cell.delegate = self
             cell.backgroundColor = .blue
             cell.layer.cornerRadius = 16
             cell.clipsToBounds = true
