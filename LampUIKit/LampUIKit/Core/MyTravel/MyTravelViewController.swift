@@ -12,7 +12,6 @@ protocol MyTravelViewControllerDelegate: AnyObject {
 }
 
 final class MyTravelViewController: BaseViewContronller {
-
     private let contentView = MyTravelView()
     
     private let viewModel: MyTravelViewModel
