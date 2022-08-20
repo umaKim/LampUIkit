@@ -96,4 +96,22 @@ class WriteReviewViewModel: BaseViewModel {
             }
         }
     }
+    
+    private func postReviewImages() {
+        let imageDatum = images.map({$0.sd_imageData(as: .JPEG, compressionQuality: 0.25)}).compactMap({$0})
+        NetworkService.shared.postReviewImages(with: imageDatum, location.contentId) { result in
+            switch result {
+            case .success(let response):
+                print(response)
+                if response.isSuccess ?? false {
+                    self.notifySubject.send(.dismiss)
+                } else {
+                    //TODO: - show message
+                    self.notifySubject.send(.showMessage(response.message ?? ""))
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
 }
