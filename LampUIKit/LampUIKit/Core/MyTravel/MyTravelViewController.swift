@@ -88,6 +88,13 @@ extension MyTravelViewController: MyTravelCellDelegate {
     }
 }
 
+extension MyTravelViewController: FavoriteCellDelegate {
+    func favoriteCellDidTapDelete(at index: Int) {
+        viewModel.deleteMySaveLocations(at: index)
+    }
+}
+    
+
 extension MyTravelViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         3
@@ -107,6 +114,7 @@ extension MyTravelViewController: UICollectionViewDataSource {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FavoriteCell.identifier, for: indexPath) as? FavoriteCell
             else { return UICollectionViewCell() }
             cell.configure(models: viewModel.model.favoriteTravel)
+            cell.delegate = self
             return cell
             
         } else if indexPath.item == 2 {
