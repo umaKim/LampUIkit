@@ -85,5 +85,35 @@ class InitialQuizViewModel: BaseViewModel {
             resultProcess()
         }
     }
+    
+    private func quizProcess() {
+        if currentIndex != 5 {
+            if answers.contains(where: {$0.questionId == self.currentIndex}) {
+                currentIndex += 1
+                notifySubject.send(.quizData(self.questions[currentIndex]))
+            } else {
+                //TODO: show alert
+                print("please choose something")
+            }
+        } else {
+            //MARK: - post answers after answering all questions
+            NetworkService.shared.postAnswers(answers) { result in
+                switch result {
+                case .success(let response):
+                    self.status = .result
+                    
+                    if let image = self.characterImages[response.result.characterChosen ?? 0] {
+                        self.notifySubject.send(.setCharacterImage(image))
+                        self.notifySubject.send(.setTags(response.result.tags))
+                    } else {
+                        self.notifySubject.send(.setCharacterImage(UIImage(named: "placeholder")!))
+                    }
+                    
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+    }
     }
 }
