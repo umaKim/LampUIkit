@@ -36,7 +36,8 @@ class WriteReviewViewModel: BaseViewModel {
         atmosphereRating != nil &&
         surroundingRating != nil &&
         foodRating != nil &&
-        comments != ""
+        comments != "" &&
+        !images.isEmpty
     }
     
     public func setStarRating(_ rating: CGFloat) {
