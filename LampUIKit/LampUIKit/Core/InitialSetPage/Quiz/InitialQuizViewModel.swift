@@ -69,6 +69,18 @@ class InitialQuizViewModel: BaseViewModel {
     
     private func fetch() {
         //TODO: Bind with network
+        NetworkService.shared.fetchQuestions { result in
+            switch result {
+            case .success(let response):
+                self.questions = response
+                self.currentIndex = 0
+                self.notifySubject.send(.quizData(self.questions[self.currentIndex]))
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
     public func answerChoice(_ answer: Int) {
         answers.removeAll(where: {$0.questionId == self.currentIndex})
         answers.append(.init(questionId: currentIndex, answer: answer))
