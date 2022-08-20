@@ -31,6 +31,15 @@ final class LocationRectangleProfileView: UIView {
         return lb
     }()
     
+    public func configure(_ location: RecommendedLocation) {
+        let urlString = location.image
+        let url = URL(string: urlString)
+        profileImageView.sd_setImage(with: url)
+        
+        titleLabel.text = location.title
+        addrLabel.text = location.addr
+    }
+    
     init() {
         super.init(frame: .zero)
         
