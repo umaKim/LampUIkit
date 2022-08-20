@@ -23,13 +23,19 @@ class LampRectangleTextField: UITextField {
         return bounds.inset(by: padding)
     }
     
-    init(placeholder: String) {
+    init(placeholder: String, placeHolderColor: UIColor = .white) {
         super.init(frame: .zero)
         
-        self.placeholder = placeholder
+//        self.placeholder = placeholder
         backgroundColor = .white
         layer.cornerRadius = 5
+        
         textColor = .darkNavy
+        
+        attributedPlaceholder = NSAttributedString(
+            string: placeholder,
+            attributes: [NSAttributedString.Key.foregroundColor: placeHolderColor]
+        )
     }
     
     required init?(coder: NSCoder) {
