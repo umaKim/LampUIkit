@@ -38,7 +38,15 @@ class MyTravelViewModel: BaseViewModel {
     }
     
     private func fetchSavedTravel() {
-        
+        NetworkService.shared.fetchSavedTravel { result in
+            switch result {
+            case .success(let locations):
+                self.model.favoriteTravel = locations
+                self.notifySubject.send(.reload)
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     private func fetchCompletedTravel() {
