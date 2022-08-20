@@ -58,10 +58,12 @@ class StartPageViewController: UIViewController {
             if AuthApi.hasToken() {
                 UserApi.shared.me { user, error in
                     guard let id = user?.id else { return }
+                    NetworkService.shared.setUserAuthType(.kakao)
                     self.presentMain(with: "\(id)")
                 }
             }
             else if let uid = Auth.auth().currentUser?.uid {
+                NetworkService.shared.setUserAuthType(.firebase)
                 self.presentMain(with: uid)
             } else {
                 self.present(LoginViewController(vm: LoginViewModel()),
