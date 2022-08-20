@@ -25,6 +25,30 @@ class MyPageViewModel: BaseViewModel {
             self.notifySubject.send(.goBackToBeforeLoginPage)
         } catch {
             print(error)
+    public func deleteAccount() {
+        NetworkService.shared.deleteUser { result in
+            switch result {
+            case .success(let response):
+                if response.isSuccess ?? false {
+                    
+                    switch NetworkService.shared.userAuthType {
+                    case .kakao:
+                        self.kakaoSignout()
+                        
+                    case .firebase:
+                        Auth.auth().currentUser?.delete(completion: { _ in
+                            self.notifySubject.send(.goBackToBeforeLoginPage)
+                        })
+                        
+                    case .none:
+                        break
+                    }
+                   
+                }
+                
+            case .failure(let error):
+                print(error)
+            }
         }
         
         UserApi.shared.logout {(error) in
