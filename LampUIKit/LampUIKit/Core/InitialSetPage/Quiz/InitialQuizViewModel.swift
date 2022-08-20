@@ -73,5 +73,17 @@ class InitialQuizViewModel: BaseViewModel {
         answers.removeAll(where: {$0.questionId == self.currentIndex})
         answers.append(.init(questionId: currentIndex, answer: answer))
     }
+    
+    public func next() {
+        switch status {
+        case .quiz:
+//            notifySubject.send(.setInitialSetting(false))
+            quizProcess()
+            
+        case .result:
+//            notifySubject.send(.setInitialSetting(false))
+            resultProcess()
+        }
+    }
     }
 }
