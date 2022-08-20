@@ -18,14 +18,16 @@ enum WriteReviewViewAction {
     case updateFoodModel(Int)
     case updateComment(String)
     case addPhoto
+    case removeImage(Int)
     case complete
 }
 
-class ContentViewDelegate: ObservableObject {
-    @Published var starValue: CGFloat = 2.5
-}
-
-class WriteReviewView: BaseWhiteView {
+class WriteReviewView: BaseWhiteView, ImageCollectionViewCellDelegate {
+    func imageCollectionViewCellDidTapDelete(_ index: Int) {
+        actionSubject.send(.removeImage(index))
+        photos.remove(at: index)
+        updateSections()
+    }
     
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<WriteReviewViewAction, Never>()
