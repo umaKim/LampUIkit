@@ -80,6 +80,10 @@ class QuizResultView: BaseView {
     
     public func setupCharacter(_ data: CharacterData) {
         
+    public func setTags(_ tags: [String]) {
+        capsuelLabel1.setText(tags[0])
+        capsuelLabel2.setText(tags[1])
+        capsuelLabel3.setText(tags[2])
     }
     
     private func bind() {
