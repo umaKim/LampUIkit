@@ -28,6 +28,15 @@ extension UIViewController {
             self.present(viewControllerToPresent, animated: flag, completion: completion)
         }
     }
+    
+    func presentWithNav(
+        _ vc: UIViewController,
+        _ modalPresentationStyle: UIModalPresentationStyle = .automatic
+    ) {
+        let nav = UINavigationController(rootViewController: vc)
+        nav.modalPresentationStyle = modalPresentationStyle
+        self.present(nav, animated: true)
+    }
 }
 
 extension UIViewController {
