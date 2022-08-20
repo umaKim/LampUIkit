@@ -73,6 +73,8 @@ class InitialQuizViewController: BaseViewContronller {
                     
                 case .setInitialSetting(let bool):
                     self.isInitialSettingDone(bool)
+                case .setTags(let tags):
+                    self.contentView.setTags(tags)
                 }
             }
             .store(in: &cancellables)

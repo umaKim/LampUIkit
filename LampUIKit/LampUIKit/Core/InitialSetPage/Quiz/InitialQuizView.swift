@@ -129,5 +129,7 @@ class InitialQuizView: BaseView {
         resultView.isHidden = false
         
         resultView.setupCharacter(data)
+    public func setTags(_ tags: [String]) {
+        resultView.setTags(tags)
     }
 }

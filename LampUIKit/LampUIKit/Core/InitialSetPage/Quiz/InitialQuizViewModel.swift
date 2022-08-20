@@ -11,6 +11,7 @@ enum InitialQuizViewModelNotify {
     case question(String)
     case index(String)
     case answers(String, String, String)
+    case setTags([String])
 }
 
 class InitialQuizViewModel: BaseViewModel {
