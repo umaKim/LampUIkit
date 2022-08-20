@@ -20,11 +20,18 @@ class MyPageViewModel: BaseViewModel {
     private(set) var models: [String] = ["로그아웃", "회원탈퇴"]
     
     public func logout() {
-        do {
-           try Auth.auth().signOut()
-            self.notifySubject.send(.goBackToBeforeLoginPage)
-        } catch {
-            print(error)
+        switch NetworkService.shared.userAuthType {
+        case .kakao:
+            kakaoSignout()
+            
+        case .firebase:
+            firebaseSignout()
+            
+        case .none:
+            break
+        }
+    }
+    
     public func deleteAccount() {
         NetworkService.shared.deleteUser { result in
             switch result {
