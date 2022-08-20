@@ -24,7 +24,7 @@ class CreateNickNameView: BaseView {
         return uv
     }()
     
-    private let nickNameTextField = LampRectangleTextField(placeholder: "닉네임을 정해주세요")
+    private let nickNameTextField = LampRectangleTextField(placeholder: "닉네임을 정해주세요", placeHolderColor: .midNavy)
     
     private let createAccountButton = RectangleTextButton("계정 생성 완료하기", background: .systemGray, textColor: .white, fontSize: 17)
     
