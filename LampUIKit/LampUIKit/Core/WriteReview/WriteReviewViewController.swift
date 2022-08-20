@@ -113,6 +113,12 @@ extension WriteReviewViewController: UIImagePickerControllerDelegate & UINavigat
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         if let image = info[UIImagePickerController.InfoKey(rawValue: "UIImagePickerControllerEditedImage")] as? UIImage {
+            if viewModel.images.count < 3 {
+                contentView.setImage(with: image)
+                viewModel.addImage(image)
+            } else {
+                self.presentUmaDefaultAlert(title: "사진은 3개로 제한됩니다.")
+            }
         }
         picker.dismiss(animated: true)
     }
