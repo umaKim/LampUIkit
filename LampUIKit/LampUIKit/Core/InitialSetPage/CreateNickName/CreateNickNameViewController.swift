@@ -62,6 +62,9 @@ class CreateNickNameViewController: BaseViewContronller {
                     
                 case .setInitialSetting(let bool):
                     self.isInitialSettingDone(bool)
+                    
+                case .isEnableConfirmButton(let isEnable):
+                    self.contentView.isEnabledCreateAccountButton = isEnable
                 }
             }
         .store(in: &cancellables)

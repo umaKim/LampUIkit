@@ -12,6 +12,7 @@ enum CreateNickNameViewModelNotify {
     case moveToMain
     case errorMessage(String)
     case setInitialSetting(Bool)
+    case isEnableConfirmButton(Bool)
 }
 
 class CreateNickNameViewModel: BaseViewModel {
@@ -45,5 +46,6 @@ class CreateNickNameViewModel: BaseViewModel {
     
     public func textDidChange(to text: String) {
         self.nickName = text
+        self.notifySubject.send(.isEnableConfirmButton(!nickName.isEmpty))
     }
 }

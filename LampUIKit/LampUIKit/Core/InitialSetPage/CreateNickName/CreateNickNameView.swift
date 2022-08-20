@@ -26,9 +26,10 @@ class CreateNickNameView: BaseView {
     
     private let nickNameTextField = LampRectangleTextField(placeholder: "닉네임을 정해주세요")
     
-    private let createAccountButton = RectangleTextButton("계정 생성 완료하기", background: .midNavy, textColor: .white, fontSize: 17)
+    private let createAccountButton = RectangleTextButton("계정 생성 완료하기", background: .systemGray, textColor: .white, fontSize: 17)
     
     override init() {
+        self.isEnabledCreateAccountButton = false
         super.init()
         
         bind()
@@ -37,6 +38,13 @@ class CreateNickNameView: BaseView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    public var isEnabledCreateAccountButton: Bool {
+        didSet {
+            self.createAccountButton.isEnabled = isEnabledCreateAccountButton
+            self.createAccountButton.backgroundColor = self.createAccountButton.isEnabled ? .midNavy : .systemGray
+        }
     }
     
     private func bind() {
