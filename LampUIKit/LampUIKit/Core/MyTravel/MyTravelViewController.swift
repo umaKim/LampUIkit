@@ -66,13 +66,15 @@ final class MyTravelViewController: BaseViewContronller {
             }
             .store(in: &cancellables)
         
-        viewModel.notifyPublisher.sink { noti in
-            switch noti {
-            case .reload:
-                self.contentView.reload()
+        viewModel
+            .notifyPublisher
+            .sink { noti in
+                switch noti {
+                case .reload:
+                    self.contentView.reload()
+                }
             }
-        }
-        .store(in: &cancellables)
+            .store(in: &cancellables)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
