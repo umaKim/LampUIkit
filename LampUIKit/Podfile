@@ -18,8 +18,10 @@ target 'LampUIKit' do
 
 pod 'Firebase/Auth'
 pod 'GoogleSignIn'
+pod 'GoogleMaps', '7.0.0'
 pod 'KakaoSDKCommon'
 pod 'KakaoSDKAuth'
 pod 'KakaoSDKUser'
 pod 'ARCL'
+
 end
