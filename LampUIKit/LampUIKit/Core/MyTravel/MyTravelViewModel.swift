@@ -92,15 +92,22 @@ class MyTravelViewModel: BaseViewModel {
 }
 
 struct MyTravelDataSet: Codable {
-    let myTravel: [MyTravelLocations]
-    let favoriteTravel: [MyTravelLocations]
-    let completedTravel: [MyTravelLocations]
+    var myTravel: [MyTravelLocation]
+    var favoriteTravel: [MyTravelLocation]
+    var completedTravel: [MyTravelLocation]
 }
 
-struct MyTravelLocations: Codable, Hashable {
-    let name: String
-    let category: String
-    let visitableTime: String
-    let address: String
-    let visitedDate: String?
+struct MyTravelLocation: Codable, Hashable {
+    let planIdx: Int?
+    let travelDate: String?
+    let contentId: Int?
+    let contentTypeId: Int?
+    let placeName: String?
+    let placeInfo: String?
+    let placeAddress: String?
+    let placeAddr: String?
+    let userMemo: String?
+    let mapX: String?
+    let mapY: String?
+    let bookMark: Bool?
 }
