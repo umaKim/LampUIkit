@@ -120,6 +120,24 @@ class MainViewController: BaseViewContronller  {
     
     private func zoomOut() {
         contentView.mapView.zoomOut(animated: true)
+extension MainViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let coord =  manager.location?.coordinate else {return }
+        let userLocationMarker = GMSMarker(position: coord)
+        userLocationMarker.icon = UIImage(named: "userMarker")
+        userLocationMarker.map = contentView.mapView
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("didFailWithError")
+        print(error)
+    }
+    
+    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
+        print("didChange")
+//        print(mapView.camera)
+    }
+}
     }
 }
 
