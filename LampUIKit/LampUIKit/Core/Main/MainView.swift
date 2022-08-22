@@ -8,6 +8,7 @@
 import CombineCocoa
 import Combine
 import UIKit
+import GoogleMaps
 
 enum MainViewAction {
     case myLocation
@@ -27,7 +28,9 @@ class MainView: BaseWhiteView {
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<MainViewAction, Never>()
     
-    private(set) var mapView = MTMapView()
+//    private(set) var mapView = MTMapView()
+    
+    private(set) var mapView = GMSMapView()
     
     private lazy var recommendationButton: UIButton = {
        let bt = UIButton()
