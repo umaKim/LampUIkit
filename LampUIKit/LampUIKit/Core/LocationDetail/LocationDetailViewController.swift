@@ -7,6 +7,11 @@
 import Combine
 import UIKit
 
+protocol LocationDetailViewControllerDelegate: AnyObject {
+    func locationDetailViewControllerDidTapDismissButton()
+    func locationDetailViewControllerDidTapMapButton(_ location: RecommendedLocation)
+}
+
 final class LocationDetailViewController: BaseViewContronller {
     
     private let contentView = LocationDetailView()
@@ -18,6 +23,8 @@ final class LocationDetailViewController: BaseViewContronller {
     }
     
     private let viewModel: LocationDetailViewModel
+    
+    weak var delegate: LocationDetailViewControllerDelegate?
     
     init(vm: LocationDetailViewModel) {
         self.viewModel = vm
@@ -52,7 +59,8 @@ final class LocationDetailViewController: BaseViewContronller {
                     self.navigationController?.popViewController(animated: true)
                     
                 case .dismiss:
-                    self.dismiss(animated: true)
+//                    self.dismiss(animated: true)
+                    self.delegate?.locationDetailViewControllerDidTapDismissButton()
                     
                 case .save:
                     self.viewModel.save()
@@ -61,6 +69,10 @@ final class LocationDetailViewController: BaseViewContronller {
                     let vm = ARViewModel()
                     let vc = ARViewController(vm: vm)
                     self.present(vc, animated: true)
+                    
+                case .map:
+                    guard let location = self.viewModel.location else {return}
+                    self.delegate?.locationDetailViewControllerDidTapMapButton(location)
                     
                 case .review:
                     guard let location = self.viewModel.location else {return }
