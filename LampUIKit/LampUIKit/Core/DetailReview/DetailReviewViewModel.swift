@@ -8,7 +8,10 @@
 import Foundation
 
 class DetailReviewViewModel: BaseViewModel {
-    override init() {
+    private(set) var location: RecommendedLocation
+    private(set) var locationDetail: LocationDetailData
+    private(set) var reviews: [ReviewData] = []
+    
         super.init()
         
     }
