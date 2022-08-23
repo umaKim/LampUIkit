@@ -19,7 +19,23 @@ enum LocationDetailViewModelNotify {
 final class LocationDetailViewModel: BaseViewModel {
     private(set) lazy var notifyPublisher = notifySubject.eraseToAnyPublisher()
     private let notifySubject = PassthroughSubject<LocationDetailViewModelNotify, Never>()
+    public func save() {
+        guard let location = location else {
+            return
+        }
+        notifySubject.send(.startLoading)
+        NetworkService.shared.updateBookMark(of: location.contentId, 
+                                             location.mapX,
+                                             location.mapY,
+                                             placeName: location.title,
+                                             placeAddr: location.addr,
+                                             completion: { result in
+            print("book mark")
+            print(result)
             self.notifySubject.send(.endLoading)
+        })
+    }
+    
     //MARK: - Private
     
     public func fetchLocationDetail() {
