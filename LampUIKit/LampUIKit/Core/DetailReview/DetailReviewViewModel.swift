@@ -13,15 +13,15 @@ class DetailReviewViewModel: BaseViewModel {
         
     }
     
-    private(set) var models: [ReviewModel] = [
-        .init(imageUrl: "1", rating: "", comments: ""),
-        .init(imageUrl: "2", rating: "", comments: ""),
-        .init(imageUrl: "3", rating: "", comments: ""),
-        .init(imageUrl: "4", rating: "", comments: ""),
-        .init(imageUrl: "5", rating: "", comments: ""),
-        .init(imageUrl: "6", rating: "", comments: ""),
-        .init(imageUrl: "7", rating: "", comments: ""),
-        .init(imageUrl: "8", rating: "", comments: ""),
-        .init(imageUrl: "9", rating: "", comments: ""),
-    ]
+    private func fetchReviews() {
+        NetworkService.shared.fetchReviews(location.contentId) { result in
+            switch result {
+            case .success(let reviews):
+                self.reviews = reviews
+                self.notifySubject.send(.reload)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
 }
