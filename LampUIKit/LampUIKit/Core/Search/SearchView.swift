@@ -17,6 +17,7 @@ enum SearchViewAction {
     case dismiss
     
     case searchTextDidChange(String)
+    case searchDidBeginEditing
 }
 
 class SearchView: UIView {
@@ -24,7 +25,7 @@ class SearchView: UIView {
     private(set) lazy var acationPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<SearchViewAction, Never>()
     
-    private(set) var searchBar = UISearchBar()
+    private(set) lazy var searchBar = UISearchBar(frame: .init(x: 0, y: 0, width: self.frame.width, height: 64))
     
     private(set) var dismissButton: UIBarButtonItem = {
         let bt = UIBarButtonItem(image: .xmark, style: .done, target: nil, action: nil)
@@ -50,7 +51,6 @@ class SearchView: UIView {
     init() {
         self.cancellables = .init()
         super.init(frame: .zero)
-        
         bind()
         setupUI()
     }
@@ -63,7 +63,14 @@ class SearchView: UIView {
         searchBar.textDidChangePublisher
             .debounce(for: 1, scheduler: RunLoop.main)
             .sink { text in
-            self.actionSubject.send(.searchTextDidChange(text))
+                print(text)
+                self.actionSubject.send(.searchTextDidChange(text))
+        }
+        .store(in: &cancellables)
+        
+        searchBar.searchTextField.didBeginEditingPublisher.sink { _ in
+           print("didBeginEditingPublisher")
+            self.actionSubject.send(.searchDidBeginEditing)
         }
         .store(in: &cancellables)
         
@@ -90,6 +97,8 @@ class SearchView: UIView {
     private func setupUI() {
         searchBar.searchTextField.textColor = .midNavy
         searchBar.tintColor = .midNavy
+        searchBar.barTintColor = .whiteGrey
+        searchBar.searchBarStyle = .prominent
         
         let sv = UIStackView(arrangedSubviews: [categoryButtons, collectionView])
         sv.alignment = .fill
@@ -105,7 +114,7 @@ class SearchView: UIView {
         NSLayoutConstraint.activate([
             categoryButtons.heightAnchor.constraint(equalToConstant: 30),
             
-            sv.topAnchor.constraint(equalTo: topAnchor),
+            sv.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             sv.leadingAnchor.constraint(equalTo: leadingAnchor),
             sv.trailingAnchor.constraint(equalTo: trailingAnchor),
             sv.bottomAnchor.constraint(equalTo: bottomAnchor)

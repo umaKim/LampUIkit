@@ -17,11 +17,11 @@ class CustomMarkerView: UIView {
     
     private let contentImageView: UIImageView = {
        let uv = UIImageView()
-        uv.contentMode = .scaleToFill
+        uv.contentMode = .scaleAspectFill
         return uv
     }()
     
-    private let width = 60
+    private let width = 55
     private let height = 60
     
     init() {
@@ -35,7 +35,7 @@ class CustomMarkerView: UIView {
         contentImageView.layer.cornerRadius = CGFloat(width/2)
         contentImageView.clipsToBounds = true
         addSubview(contentImageView)
-        contentImageView.frame = .init(x: 0, y: 0, width: width, height: height - 6)
+        contentImageView.frame = .init(x: 0, y: 0, width: width, height: height - 8)
         
         addSubview(outerImageView)
         outerImageView.frame = .init(x: 0, y: 0, width: width, height: height)
@@ -44,6 +44,4 @@ class CustomMarkerView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
 }

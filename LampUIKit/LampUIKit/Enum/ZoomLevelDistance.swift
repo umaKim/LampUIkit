@@ -10,7 +10,7 @@ import Foundation
 enum ZoomLevelDistance {
     case minusOne, zero, one, two, three, four, five, six, seven, eight, nine, ten, eleven
 
-    typealias Level = Int32
+    typealias Level = Int
     typealias Radius = Int
     
     func getLevel() -> (Level, Radius) {
