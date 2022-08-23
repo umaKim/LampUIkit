@@ -12,6 +12,12 @@ class DetailReviewViewModel: BaseViewModel {
     private(set) var locationDetail: LocationDetailData
     private(set) var reviews: [ReviewData] = []
     
+    init(
+        _ location: RecommendedLocation,
+        _ locationDetail: LocationDetailData
+    ) {
+        self.location = location
+        self.locationDetail = locationDetail
         super.init()
         
     }
