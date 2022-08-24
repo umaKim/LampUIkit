@@ -156,7 +156,7 @@ class MainView: BaseWhiteView {
         zoomSv.layer.cornerRadius = 20
         zoomSv.clipsToBounds = true
         
-        [mapView, sv, zoomSv, searchButton, myTravelButton, myCharacterButton].forEach { uv in
+        [mapView, filterSv, refreshButton, myLocationButton, zoomSv, myTravelButton, myCharacterButton].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
             addSubview(uv)
         }
