@@ -89,25 +89,10 @@ class DetailReviewCollectionViewHeader: UICollectionReusableView {
         return uv
     }()
     
-    private lazy var satisfyView: ReviewLabel = {
-        let uv = ReviewLabel(title: "만족도", subTitle: "만족")
-        return uv
-    }()
-    
-    private lazy var atmosphereView: ReviewLabel = {
-        let uv = ReviewLabel(title: "분위기", subTitle: "만족")
-        return uv
-    }()
-    
-    private lazy var surroundingView: ReviewLabel = {
-        let uv = ReviewLabel(title: "주차 및 주변", subTitle: "만족")
-        return uv
-    }()
-    
-    private lazy var foodView: ReviewLabel = {
-        let uv = ReviewLabel(title: "먹거리", subTitle: "만족", setRoundDesign: true)
-        return uv
-    }()
+    private lazy var satisfyView: ReviewLabel = ReviewLabel(title: "만족도", subTitle: "")
+    private lazy var atmosphereView: ReviewLabel = ReviewLabel(title: "분위기", subTitle: "")
+    private lazy var surroundingView: ReviewLabel = ReviewLabel(title: "주차 및 주변", subTitle: "")
+    private lazy var foodView: ReviewLabel = ReviewLabel(title: "먹거리", subTitle: "")
     
     private lazy var dividerView = DividerView()
     
