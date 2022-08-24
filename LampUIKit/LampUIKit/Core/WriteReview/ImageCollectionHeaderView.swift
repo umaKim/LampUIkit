@@ -31,7 +31,7 @@ class ImageCollectionHeaderView: UICollectionReusableView {
         cancellables = .init()
         super.init(frame: frame)
         
-        button.tapPublisher.sink { _ in
+        button.tapPublisher.sink {[unowned self] _ in
             self.delegate?.imageCollectionHeaderViewDidTapAdd()
         }
         .store(in: &cancellables)

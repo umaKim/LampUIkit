@@ -30,7 +30,7 @@ class MyTravelViewModel: BaseViewModel {
     }
     
     private func fetchMyTravel() {
-        NetworkService.shared.fetchMyTravel { result in
+        NetworkService.shared.fetchMyTravel {[unowned self] result in
             switch result {
             case .success(let locations):
                 self.model.myTravel = locations
@@ -42,7 +42,7 @@ class MyTravelViewModel: BaseViewModel {
     }
     
     private func fetchSavedTravel() {
-        NetworkService.shared.fetchSavedTravel { result in
+        NetworkService.shared.fetchSavedTravel {[unowned self] result in
             switch result {
             case .success(let locations):
                 self.model.favoriteTravel = locations
@@ -54,7 +54,7 @@ class MyTravelViewModel: BaseViewModel {
     }
     
     private func fetchCompletedTravel() {
-        NetworkService.shared.fetchCompletedTravel { result in
+        NetworkService.shared.fetchCompletedTravel {[unowned self] result in
             switch result {
             case .success(let locations):
                 self.model.completedTravel = locations

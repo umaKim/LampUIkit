@@ -32,7 +32,7 @@ class InitialQuizViewController: BaseViewContronller {
     private func bind() {
         contentView
             .actionPublisher
-            .sink { action in
+            .sink {[unowned self] action in
                 switch action {
                 case .button1:
                     self.viewModel.answerChoice(1)
@@ -57,7 +57,7 @@ class InitialQuizViewController: BaseViewContronller {
         
         viewModel
             .notifyPublisher
-            .sink { noti in
+            .sink {[unowned self] noti in
                 switch noti {
                 case .index(let index):
                     print(index)

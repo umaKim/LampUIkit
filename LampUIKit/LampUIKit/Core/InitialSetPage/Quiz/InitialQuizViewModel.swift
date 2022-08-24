@@ -70,7 +70,7 @@ class InitialQuizViewModel: BaseViewModel {
     
     private func fetch() {
         //TODO: Bind with network
-        NetworkService.shared.fetchQuestions { result in
+        NetworkService.shared.fetchQuestions {[unowned self] result in
             switch result {
             case .success(let response):
                 self.questions = response
@@ -110,7 +110,7 @@ class InitialQuizViewModel: BaseViewModel {
             }
         } else {
             //MARK: - post answers after answering all questions
-            NetworkService.shared.postAnswers(answers) { result in
+            NetworkService.shared.postAnswers(answers) {[unowned self] result in
                 switch result {
                 case .success(let response):
                     self.status = .result

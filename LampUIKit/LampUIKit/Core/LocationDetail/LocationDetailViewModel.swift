@@ -29,7 +29,7 @@ final class LocationDetailViewModel: BaseViewModel {
                                              location.mapY,
                                              placeName: location.title,
                                              placeAddr: location.addr,
-                                             completion: { result in
+                                             completion: {[unowned self] result in
             print("book mark")
             print(result)
             self.notifySubject.send(.endLoading)
@@ -41,7 +41,9 @@ final class LocationDetailViewModel: BaseViewModel {
     public func fetchLocationDetail() {
         guard let contentId = location?.contentId else { return }
         notifySubject.send(.startLoading)
-        NetworkService.shared.fetchLocationDetail(contentId) { result in
+        
+        NetworkService.shared.fetchLocationDetail(contentId, contentTypeId) {[weak self] result in
+            guard let self = self else {return }
             switch result {
             case .success(let locationDetail):
                 self.locationDetail = locationDetail.result
@@ -53,7 +55,8 @@ final class LocationDetailViewModel: BaseViewModel {
             self.notifySubject.send(.endLoading)
         }
         
-        NetworkService.shared.fetchLocationDetailImage(contentId) { result in
+        NetworkService.shared.fetchLocationDetailImage(contentId) {[weak self] result in
+            guard let self = self else {return }
             switch result {
             case .success(let response):
                 var images = [String]()
@@ -87,7 +90,7 @@ final class LocationDetailViewModel: BaseViewModel {
             mapY: location.mapY
         )
         
-        NetworkService.shared.postAddToMyTravel(data) { result in
+        NetworkService.shared.postAddToMyTravel(data) {[unowned self] result in
             switch result {
             case .success(let response):
                 print(response)
@@ -100,7 +103,7 @@ final class LocationDetailViewModel: BaseViewModel {
     
     private func deleteFromMyTrip() {
         guard let planIdx = locationDetail?.planExist?.planIdx else { return }
-        NetworkService.shared.deleteFromMyTravel("\(planIdx)") { result  in
+        NetworkService.shared.deleteFromMyTravel("\(planIdx)") {[unowned self] result  in
             switch result {
             case .success(let response):
                 print(response)

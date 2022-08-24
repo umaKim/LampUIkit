@@ -123,7 +123,7 @@ extension MyTravelCategoryView {
     }
     
     private func setSelectionBar(at index: Int) {
-        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) { [unowned self] in
             self.selectionBarView.frame.origin.x = (UIScreen.main.width / 3) * CGFloat(index)
         } completion: { _ in }
     }

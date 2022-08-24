@@ -46,8 +46,9 @@ final class CompletedTravelCell: UICollectionViewCell {
     private func configureCollectionView() {
         collectionView.delegate = self
         
-        dataSource = DataSource(collectionView: collectionView) { collectionView, indexPath, model in
-            guard let cell = collectionView.dequeueReusableCell(
+        dataSource = DataSource(collectionView: collectionView) {[unowned self] collectionView, indexPath, model in
+            guard
+                let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: CompletedTravelCellCollectionViewCell.identifier,
                 for: indexPath) as? CompletedTravelCellCollectionViewCell else { return nil }
 //            cell.delegate = self

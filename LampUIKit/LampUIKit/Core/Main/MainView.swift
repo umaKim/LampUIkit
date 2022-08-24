@@ -94,12 +94,12 @@ class MainView: BaseWhiteView {
     
     private func bind() {
         
-        zoomInButton.tapPublisher.sink { _ in
+        zoomInButton.tapPublisher.sink {[unowned self] _ in
             self.actionSubject.send(.zoomIn)
         }
         .store(in: &cancellables)
         
-        zoomOutButton.tapPublisher.sink { _ in
+        zoomOutButton.tapPublisher.sink {[unowned self] _ in
             self.actionSubject.send(.zoomOut)
         }
         .store(in: &cancellables)
@@ -134,7 +134,7 @@ class MainView: BaseWhiteView {
         
         myLocationButton
             .tapPublisher
-            .sink { _ in
+            .sink {[unowned self] _ in
                 self.actionSubject.send(.myLocation)
             }
             .store(in: &cancellables)

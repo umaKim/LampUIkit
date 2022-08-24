@@ -65,7 +65,7 @@ class LocationDetailViewHeaderCellButtonStackView: UIView {
     }
     
     private func bind() {
-        saveButton.tapPublisher.sink { _ in
+        saveButton.tapPublisher.sink {[unowned self] _ in
             self.isSaved.toggle()
             if self.isSaved {
                 self.saveButton.setImage(UIImage(named: "favorite_saved"), for: .normal)
@@ -77,17 +77,17 @@ class LocationDetailViewHeaderCellButtonStackView: UIView {
         }
         .store(in: &cancellables)
         
-        arButton.tapPublisher.sink { _ in
+        arButton.tapPublisher.sink {[unowned self] _ in
             self.actionSubject.send(.ar)
         }
         .store(in: &cancellables)
         
-        mapButton.tapPublisher.sink { _ in
+        mapButton.tapPublisher.sink {[unowned self] _ in
             self.actionSubject.send(.map)
         }
         .store(in: &cancellables)
         
-        reviewButton.tapPublisher.sink { _ in
+        reviewButton.tapPublisher.sink {[unowned self] _ in
             self.actionSubject.send(.review)
         }
         .store(in: &cancellables)

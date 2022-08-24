@@ -43,7 +43,7 @@ class WriteReviewViewController: BaseViewContronller {
         
         contentView
             .actionPublisher
-            .sink { action in
+            .sink {[unowned self] action in
             switch action {
             case .updateSatisfactionModel(let satisfactionRatings):
                 self.viewModel.setComfortRating(satisfactionRatings)
@@ -79,7 +79,7 @@ class WriteReviewViewController: BaseViewContronller {
         }
         .store(in: &cancellables)
         
-        viewModel.notifyPublisher.sink { noti in
+        viewModel.notifyPublisher.sink {[unowned self] noti in
             switch noti {
             case .ableCompleteButton(let isAble):
                 self.contentView.ableCompleteButton(isAble)

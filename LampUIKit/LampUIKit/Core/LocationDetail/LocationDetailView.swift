@@ -126,7 +126,7 @@ final class LocationDetailView: BaseWhiteView {
     
     private func configureImageViewCollecitonView() {
         dataSource = DataSource(collectionView: locationImageView,
-                                cellProvider: { collectionView, indexPath, itemIdentifier in
+                                cellProvider: {[unowned self] collectionView, indexPath, itemIdentifier in
             guard
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: indexPath) as? ImageCollectionViewCell
             else { return UICollectionViewCell() }
@@ -154,19 +154,21 @@ final class LocationDetailView: BaseWhiteView {
     private func bind() {
         backButton
             .tapPublisher
-            .sink { _ in
+            .sink {[unowned self] _ in
                 self.actionSubject.send(.back)
             }
             .store(in: &cancellables)
         
-        dismissButton.tapPublisher.sink { _ in
+        dismissButton
+            .tapPublisher
+            .sink {[unowned self] _ in
             self.actionSubject.send(.dismiss)
         }
         .store(in: &cancellables)
         
         buttonSv
             .actionPublisher
-            .sink { action in
+            .sink {[unowned self] action in
                 switch action {
                 case .save:
                     self.actionSubject.send(.save)
@@ -189,7 +191,7 @@ final class LocationDetailView: BaseWhiteView {
         
         addToMyTravelButton
             .tapPublisher
-            .sink { _ in
+            .sink {[unowned self] _ in
                 self.addToMyTravelButton.isSelected.toggle()
                 
                 if self.addToMyTravelButton.isSelected {
@@ -206,7 +208,7 @@ final class LocationDetailView: BaseWhiteView {
         
         totalTravelReviewView
             .actionPublisher
-            .sink { action in
+            .sink {[unowned self] action in
                 switch action {
                 case .showDetail:
                     self.actionSubject.send(.showDetailReview)

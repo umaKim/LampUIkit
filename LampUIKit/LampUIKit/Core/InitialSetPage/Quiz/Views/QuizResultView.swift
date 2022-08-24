@@ -89,7 +89,7 @@ class QuizResultView: BaseView {
     private func bind() {
         nextButton
             .tapPublisher
-            .sink { _ in
+            .sink {[unowned self] _ in
                 self.actionSubject.send(.next)
             }
             .store(in: &cancellables)

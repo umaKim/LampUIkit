@@ -41,7 +41,7 @@ class MyPageViewController: BaseViewContronller {
     private func bind() {
         contentView
             .actionPublisher
-            .sink { action in
+            .sink {[unowned self] action in
                 switch action {
                 case .logoutActions:
                     self.presentUmaActionAlert(title: "로그아웃 하시겠습니까?",
@@ -58,7 +58,7 @@ class MyPageViewController: BaseViewContronller {
         
         viewModel
             .notifyPublisher
-            .sink { noti in
+            .sink {[unowned self] noti in
                 switch noti {
                 case .goBackToBeforeLoginPage:
                     (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(StartPageViewController())

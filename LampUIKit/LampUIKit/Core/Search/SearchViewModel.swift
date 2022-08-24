@@ -31,7 +31,7 @@ class SearchViewModel: BaseViewModel {
     
     public func search(_ text: String) {
         notifySubject.send(.startLoading)
-        service.fetchSearchLocations(text) { result in
+        service.fetchSearchLocations(text) {[unowned self] result in
             switch result {
             case .success(let locationResponse):
                 self.locations = locationResponse.result

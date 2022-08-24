@@ -66,7 +66,7 @@ class LocationDetailViewBodyCell: UICollectionViewCell {
     }
     
     private func bind() {
-        showDetailButton.tapPublisher.sink { _ in
+        showDetailButton.tapPublisher.sink {[unowned self] _ in
             self.delegate?.locationDetailViewBodyCellDidTapShowDetail()
         }
         .store(in: &cancellables)

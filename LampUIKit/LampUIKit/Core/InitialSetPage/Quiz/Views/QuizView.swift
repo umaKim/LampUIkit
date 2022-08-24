@@ -89,31 +89,31 @@ class QuizView: BaseView {
     }
     
     private func bind() {
-        button1.tapPublisher.sink { _ in
+        button1.tapPublisher.sink {[unowned self] _ in
             self.actionSubject.send(.button1)
             self.buttonToggle(self.button1)
         }
         .store(in: &cancellables)
 
-        button2.tapPublisher.sink { _ in
+        button2.tapPublisher.sink {[unowned self] _ in
             self.actionSubject.send(.button2)
             self.buttonToggle(self.button2)
         }
         .store(in: &cancellables)
 
-        button3.tapPublisher.sink { _ in
+        button3.tapPublisher.sink {[unowned self] _ in
             self.actionSubject.send(.button3)
             self.buttonToggle(self.button3)
         }
         .store(in: &cancellables)
         
-        button4.tapPublisher.sink { _ in
+        button4.tapPublisher.sink {[unowned self] _ in
             self.actionSubject.send(.button4)
             self.buttonToggle(self.button4)
         }
         .store(in: &cancellables)
         
-        button5.tapPublisher.sink { _ in
+        button5.tapPublisher.sink {[unowned self] _ in
             self.actionSubject.send(.button5)
             self.buttonToggle(self.button5)
         }
@@ -121,7 +121,7 @@ class QuizView: BaseView {
 
         nextButton
             .tapPublisher
-            .sink { _ in
+            .sink {[unowned self] _ in
                 UIView.transition(with: self.backgroundImageView,
                                   duration: 1,
                                   options: .curveEaseInOut,

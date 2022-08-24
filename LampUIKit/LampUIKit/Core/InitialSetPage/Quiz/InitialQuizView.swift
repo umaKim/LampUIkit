@@ -61,7 +61,7 @@ class InitialQuizView: BaseView {
     private func bind() {
         quizView
             .actionPublisher
-            .sink { action in
+            .sink {[unowned self] action in
                 switch action {
                 case .button1:
                     self.actionSubject.send(.button1)
@@ -86,7 +86,7 @@ class InitialQuizView: BaseView {
         
         resultView
             .actionPublisher
-            .sink { action in
+            .sink {[unowned self] action in
                 switch action {
                 case .next:
                     self.actionSubject.send(.next)

@@ -48,7 +48,7 @@ class MyCharacterView: BaseWhiteView {
     private func bind() {
         dismissButton
             .tapPublisher
-            .sink { _ in
+            .sink {[unowned self] _ in
                 self.actionSubject.send(.dismiss)
             }
             .store(in: &cancellables)

@@ -62,7 +62,7 @@ class SearchView: UIView {
     private func bind() {
         searchBar.textDidChangePublisher
             .debounce(for: 1, scheduler: RunLoop.main)
-            .sink { text in
+            .sink {[unowned self] text in
                 print(text)
                 self.actionSubject.send(.searchTextDidChange(text))
         }
@@ -73,11 +73,13 @@ class SearchView: UIView {
             self.actionSubject.send(.searchDidBeginEditing)
         }
         .store(in: &cancellables)
+            .sink {[unowned self] _ in
         
         dismissButton.tapPublisher.sink { _ in
             self.actionSubject.send(.dismiss)
         }
         .store(in: &cancellables)
+            .sink {[unowned self] _ in
         
         categoryButtons.actionPublisher.sink { action in
             switch action {
@@ -89,6 +91,7 @@ class SearchView: UIView {
                 self.actionSubject.send(.travel)
             case .notVisit:
                 self.actionSubject.send(.notVisit)
+            .sink {[unowned self] action in
             }
         }
         .store(in: &cancellables)

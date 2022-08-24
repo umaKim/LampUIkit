@@ -232,12 +232,12 @@ extension WriteReviewView {
     private func bind() {
         delegate
             .$starValue
-            .sink { value in
+            .sink {[unowned self] value in
                 self.actionSubject.send(.updateStarRating(value))
             }
             .store(in: &cancellables)
         
-        satisfactionEvaluationView.actionPublisher.sink { action in
+        satisfactionEvaluationView.actionPublisher.sink {[unowned self] action in
             switch action {
             case .updateElement(let model):
                 self.actionSubject.send(.updateSatisfactionModel(model))
@@ -245,7 +245,7 @@ extension WriteReviewView {
         }
         .store(in: &cancellables)
         
-        atmosphereEvaluationView.actionPublisher.sink { action in
+        atmosphereEvaluationView.actionPublisher.sink {[unowned self] action in
             switch action {
             case .updateElement(let model):
                 self.actionSubject.send(.updateAtmosphereModel(model))
@@ -253,7 +253,7 @@ extension WriteReviewView {
         }
         .store(in: &cancellables)
         
-        surroundingEvaluationView.actionPublisher.sink { action in
+        surroundingEvaluationView.actionPublisher.sink {[unowned self] action in
             switch action {
             case .updateElement(let model):
                 self.actionSubject.send(.updateSurroundingModel(model))
@@ -261,7 +261,7 @@ extension WriteReviewView {
         }
         .store(in: &cancellables)
         
-        foodEvaluationView.actionPublisher.sink { action in
+        foodEvaluationView.actionPublisher.sink {[unowned self] action in
             switch action {
             case .updateElement(let model):
                 self.actionSubject.send(.updateFoodModel(model))
@@ -271,12 +271,12 @@ extension WriteReviewView {
         
         textContextView.textPublisher
             .compactMap({$0})
-            .sink { text in
+            .sink {[unowned self] text in
             self.actionSubject.send(.updateComment(text))
         }
         .store(in: &cancellables)
         
-        completeButton.tapPublisher.sink { _ in
+        completeButton.tapPublisher.sink {[unowned self] _ in
             self.actionSubject.send(.complete)
         }
         .store(in: &cancellables)

@@ -85,8 +85,9 @@ extension FavoriteCell {
     private func configureCollectionView() {
         collectionView.delegate = self
         
-        dataSource = DataSource(collectionView: collectionView) { collectionView, indexPath, model in
-            guard let cell = collectionView.dequeueReusableCell(
+        dataSource = DataSource(collectionView: collectionView) {[unowned self] collectionView, indexPath, model in
+            guard
+                let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: FavoriteCellCollectionViewCell.identifier,
                 for: indexPath) as? FavoriteCellCollectionViewCell else { return nil }
             cell.delegate = self

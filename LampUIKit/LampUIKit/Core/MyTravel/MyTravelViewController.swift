@@ -52,7 +52,7 @@ final class MyTravelViewController: BaseViewContronller {
     private func bind() {
         contentView
             .actionPublisher
-            .sink { action in
+            .sink {[unowned self] action in
                 switch action {
                 case .gear:
                     let vm = MyPageViewModel()
@@ -67,7 +67,7 @@ final class MyTravelViewController: BaseViewContronller {
         
         viewModel
             .notifyPublisher
-            .sink { noti in
+            .sink {[unowned self] noti in
                 switch noti {
                 case .reload:
                     self.contentView.reload()

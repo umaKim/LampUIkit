@@ -92,7 +92,7 @@ extension MyTravelCell {
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
         snapshot.appendItems(models)
-        dataSource?.apply(snapshot, animatingDifferences: true, completion: {
+        dataSource?.apply(snapshot, animatingDifferences: true, completion: { [unowned self] in
             self.dataSource?.applySnapshotUsingReloadData(snapshot)
         })
     }
@@ -100,8 +100,9 @@ extension MyTravelCell {
     private func configureCollectionView() {
         collectionView.delegate = self
         
-        dataSource = DataSource(collectionView: collectionView) { collectionView, indexPath, model in
-            guard let cell = collectionView.dequeueReusableCell(
+        dataSource = DataSource(collectionView: collectionView) {[unowned self] collectionView, indexPath, model in
+            guard
+                let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: MyTravelCellCollectionViewCell.identifier,
                 for: indexPath) as? MyTravelCellCollectionViewCell else { return nil }
             cell.delegate = self

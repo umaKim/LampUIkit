@@ -50,7 +50,7 @@ class MyCharacterViewController: BaseViewContronller {
         
         contentView
             .actionPublisher
-            .sink { action in
+            .sink {[unowned self] action in
                 switch action {
                 case .dismiss:
                     self.delegate?.myCharacterViewControllerDidTapDismiss()
@@ -60,7 +60,7 @@ class MyCharacterViewController: BaseViewContronller {
         
         viewModel
             .notifyPublisher
-            .sink { noti in
+            .sink {[unowned self] noti in
                 switch noti {
                 case .reload:
                     self.updateSections()
@@ -73,7 +73,7 @@ class MyCharacterViewController: BaseViewContronller {
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
         snapshot.appendItems(viewModel.characterData?.gaugeDatum ?? [])
-        dataSource?.apply(snapshot, animatingDifferences: true, completion: {
+        dataSource?.apply(snapshot, animatingDifferences: true, completion: { [unowned self] in
             self.dataSource?.applySnapshotUsingReloadData(snapshot)
         })
     }

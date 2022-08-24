@@ -73,14 +73,14 @@ class MyTravelView: UIView {
     private func bind() {
         gearButton
             .tapPublisher
-            .sink { _ in
+            .sink {[unowned self] _ in
                 self.actionSubject.send(.gear)
             }
             .store(in: &cancellables)
         
         dismissButton
             .tapPublisher
-            .sink { _ in
+            .sink {[unowned self] _ in
                 self.actionSubject.send(.dismiss)
             }
             .store(in: &cancellables)

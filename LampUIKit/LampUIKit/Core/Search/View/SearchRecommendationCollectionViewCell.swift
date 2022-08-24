@@ -194,21 +194,22 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
     private func bind() {
         setThisLocationButton
             .tapPublisher
-            .sink { _ in
-                self.delegate?.didTapSetThisLocationButton()
+            .sink {[unowned self] _ in
             }
             .store(in: &cancellables)
         
         pinButton
             .tapPublisher
-            .sink { _ in
-                self.delegate?.didTapMapPin()
+            .sink {[unowned self] _ in
+                if let location = self.location {
+                    self.delegate?.didTapMapPin(location: location)
+                }
             }
             .store(in: &cancellables)
         
         favoriteButton
             .tapPublisher
-            .sink { _ in
+            .sink {[unowned self] _ in
                 
                 self.isFavorite.toggle()
                 

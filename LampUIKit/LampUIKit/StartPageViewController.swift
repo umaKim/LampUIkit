@@ -54,9 +54,9 @@ class StartPageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        startButton.tapPublisher.sink { _ in
+        startButton.tapPublisher.sink {[unowned self] _ in
             if AuthApi.hasToken() {
-                UserApi.shared.me { user, error in
+                UserApi.shared.me {[unowned self] user, error in
                     guard let id = user?.id else { return }
                     NetworkService.shared.setUserAuthType(.kakao)
                     self.presentMain(with: "\(id)")

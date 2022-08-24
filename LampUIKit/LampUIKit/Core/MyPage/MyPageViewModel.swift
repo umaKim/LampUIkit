@@ -33,7 +33,7 @@ class MyPageViewModel: BaseViewModel {
     }
     
     public func deleteAccount() {
-        NetworkService.shared.deleteUser { result in
+        NetworkService.shared.deleteUser {[unowned self] result in
             switch result {
             case .success(let response):
                 if response.isSuccess ?? false {
@@ -57,8 +57,10 @@ class MyPageViewModel: BaseViewModel {
                 print(error)
             }
         }
-        
-        UserApi.shared.logout {(error) in
+    }
+    
+    private func kakaoSignout() {
+        UserApi.shared.logout {[unowned self] (error) in
             if let error = error {
                 print(error)
             }

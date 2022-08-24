@@ -53,7 +53,8 @@ final class LocationDetailViewController: BaseViewContronller {
     private func bind() {
         contentView
             .actionPublisher
-            .sink { action in
+            .sink {[unowned self] action in
+                HapticManager.shared.feedBack(with: .heavy)
                 switch action {
                 case .back:
                     self.navigationController?.popViewController(animated: true)

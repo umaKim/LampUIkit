@@ -59,7 +59,7 @@ class SearchViewController: BaseViewContronller {
     private func bind() {
         contentView
             .acationPublisher
-            .sink { action in
+            .sink {[unowned self] action in
                 switch action {
                 case .all:
                     //Relod
@@ -88,7 +88,7 @@ class SearchViewController: BaseViewContronller {
         
         viewModel
             .notifyPublisher
-            .sink { notify in
+            .sink {[unowned self] notify in
                 switch notify {
                 case .reload:
                     //                    self.contentView.reload()
@@ -133,8 +133,7 @@ extension SearchViewController {
         contentView.collectionView.delegate = self
         
         dataSource = DataSource(collectionView: contentView.collectionView,
-                                cellProvider: { collectionView, indexPath, itemIdentifier in
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchRecommendationCollectionViewCell.identifier, for: indexPath) as? SearchRecommendationCollectionViewCell else { return UICollectionViewCell() }
+                                cellProvider: {[unowned self] collectionView, indexPath, itemIdentifier in
             cell.tag = indexPath.item
             cell.configure(with: self.viewModel.locations[indexPath.item])
             cell.delegate = self

@@ -56,22 +56,22 @@ class CategoryButtonView: BaseWhiteView {
     }
     
     private func bind() {
-        allButton.tapPublisher.sink { _ in
+        allButton.tapPublisher.sink {[unowned self] _ in
             self.actionSubect.send(.all)
         }
         .store(in: &cancellables)
         
-        recommendOrderButton.tapPublisher.sink { _ in
+        recommendOrderButton.tapPublisher.sink {[unowned self] _ in
             self.actionSubect.send(.recommend)
         }
         .store(in: &cancellables)
         
-        travelButton.tapPublisher.sink { _ in
+        travelButton.tapPublisher.sink {[unowned self] _ in
             self.actionSubect.send(.travel)
         }
         .store(in: &cancellables)
         
-        notVisitButton.tapPublisher.sink { _ in
+        notVisitButton.tapPublisher.sink {[unowned self] _ in
             self.actionSubect.send(.notVisit)
         }.store(in: &cancellables)
     }
