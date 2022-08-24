@@ -51,10 +51,6 @@ struct CustomRatingBar: View {
                         ARStar(count: round(starCount), innerRatio: innerRatio)
                             .fill(Color.yellow)
                     }
-                    
-//                    Text("\(value1, specifier: "%.2f")")
-//                        .foregroundColor(.black)
-//                        
                 }
             }
     }
