@@ -6,12 +6,14 @@
 //
 import CoreLocation
 import UIKit
+import FloatingPanel
 import GoogleMaps
 
 class MainViewController: BaseViewContronller  {
 
     private let contentView: MainView = MainView()
     
+    private var fpc = FloatingPanelController()
     
     init(_ vm: MainViewModel) {
         super.init()
@@ -27,6 +29,37 @@ class MainViewController: BaseViewContronller  {
         view = contentView
     }
     
+    private func setFloatingPanelWithSearchViewController() {
+        let contentVC = SearchViewController(vm: SearchViewModel())
+        contentVC.delegate = self
+        let nav = UINavigationController(rootViewController: contentVC)
+        configureFpc(with: nav)
+    }
+    
+    private func setFloatingPanelWithLocationDetailViewController(_ location: RecommendedLocation) {
+        let contentVC = LocationDetailViewController(vm: LocationDetailViewModel(location))
+        contentVC.delegate = self
+        let nav = UINavigationController(rootViewController: contentVC)
+        configureFpc(with: nav)
+        
+        fpc.track(scrollView: contentVC.contentView.contentScrollView)
+    }
+    
+    private func configureFpc(with viewController: UIViewController) {
+        let appearance = SurfaceAppearance()
+        appearance.cornerRadius = 8.0
+        appearance.backgroundColor = .clear
+        fpc.surfaceView.appearance = appearance
+        
+        fpc.surfaceView.grabberHandlePadding = -12.0
+        
+        fpc.set(contentViewController: viewController)
+        
+        fpc.addPanel(toParent: self)
+        fpc.delegate = self
+        fpc.move(to: .tip, animated: true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -38,6 +71,7 @@ class MainViewController: BaseViewContronller  {
         
         bind()
         
+        setFloatingPanelWithSearchViewController()
         
         setMapToMyLocation()
     }
@@ -141,10 +175,15 @@ extension MainViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
     }
 }
 
-extension MainViewController: MTMapViewDelegate {
+extension MainViewController: FloatingPanelControllerDelegate {
+    func floatingPanelDidMove(_ fpc: FloatingPanelController) {
+        if fpc.state == .tip {
+            view.endEditing(true)
+        }
+    }
     
-    func mapView(_ mapView: MTMapView!, selectedPOIItem poiItem: MTMapPOIItem!) -> Bool {
-        return false
+    func floatingPanel(_ vc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout {
+        return FloatingPanelLampLayout()
     }
 }
 
@@ -171,5 +210,24 @@ extension MainViewController: MyTravelViewControllerDelegate {
 extension MainViewController: MyCharacterViewControllerDelegate {
     func myCharacterViewControllerDidTapDismiss() {
         dismiss()
+    }
+}
+
+class FloatingPanelLampLayout: FloatingPanelLayout {
+    let position: FloatingPanelPosition = .bottom
+    let initialState: FloatingPanelState = .tip
+
+    var anchors: [FloatingPanelState: FloatingPanelLayoutAnchoring] {
+        return [
+            .full: FloatingPanelLayoutAnchor(absoluteInset: 56.0, edge: .top, referenceGuide: .safeArea),
+            .half: FloatingPanelLayoutAnchor(absoluteInset: 302.0, edge: .bottom, referenceGuide: .safeArea),
+             /* Visible + ToolView */
+            .tip: FloatingPanelLayoutAnchor(absoluteInset: 85.0, edge: .bottom, referenceGuide: .safeArea),
+        ]
+        // + 44.0
+    }
+
+    func backdropAlpha(for state: FloatingPanelState) -> CGFloat {
+        return 0.0
     }
 }
