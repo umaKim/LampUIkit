@@ -81,9 +81,11 @@ class DetailReviewCollectionViewHeader: UICollectionReusableView {
         return uv
     }()
     
+    private var delegate: ContentViewDelegate = ContentViewDelegate()
+    
     private lazy var starRatingView: UIView = {
         guard
-            let uv = UIHostingController(rootView: CustomRatingBar(axisMode: .horizontal, interactionable: false)).view
+            let uv = UIHostingController(rootView: CustomRatingBar(axisMode: .horizontal, interactionable: false, delegate: delegate)).view
         else {return UIView()}
         uv.backgroundColor = .greyshWhite
         return uv
