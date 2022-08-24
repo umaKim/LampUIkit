@@ -1902,6 +1902,10 @@ THE SOFTWARE.
    limitations under the License.
 
 
+## GoogleMaps
+
+Copyright 2022 Google
+
 ## GoogleSignIn
 
 
