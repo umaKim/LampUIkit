@@ -265,11 +265,12 @@ public extension SceneLocationView {
         let locationNodeLocation = locationOfLocationNode(locationNode)
 
         locationNode.updatePositionAndScale(setup: true,
-                                            scenePosition: currentScenePosition, locationNodeLocation: locationNodeLocation,
+                                            scenePosition: currentScenePosition,
+                                            locationNodeLocation: locationNodeLocation,
                                             locationManager: sceneLocationManager) {
-                                                self.locationViewDelegate?
-                                                    .didUpdateLocationAndScaleOfLocationNode(sceneLocationView: self,
-                                                                                             locationNode: locationNode)
+            self.locationViewDelegate?
+                .didUpdateLocationAndScaleOfLocationNode(sceneLocationView: self,
+                                                         locationNode: locationNode)
         }
 
         locationNodes.append(locationNode)

@@ -21,7 +21,13 @@ open class LocationAnnotationNode: LocationNode {
     public var annotationHeightAdjustmentFactor = 1.1
 
     public init(location: CLLocation?, image: UIImage) {
-        let plane = SCNPlane(width: image.size.width / 100, height: image.size.height / 100)
+        //MARK: - Disable original code for trying out 3D Object
+//        let plane = SCNPlane(width: image.size.width / 100, height: image.size.height / 100)
+        let plane = SCNBox(width: image.size.width/100,
+                           height: image.size.height/100,
+                           length: image.size.width/100,
+                           chamferRadius: 8)
+//        let plane = SCNSphere(radius: image.size.width/100)
         plane.firstMaterial?.diffuse.contents = image
         plane.firstMaterial?.lightingModel = .constant
 
@@ -31,9 +37,10 @@ open class LocationAnnotationNode: LocationNode {
 
         super.init(location: location)
 
-        let billboardConstraint = SCNBillboardConstraint()
-        billboardConstraint.freeAxes = SCNBillboardAxis.Y
-        constraints = [billboardConstraint]
+        //MARK: - Disable this code to prevent Item always face camera
+//        let billboardConstraint = SCNBillboardConstraint()
+//        billboardConstraint.freeAxes = SCNBillboardAxis.Y
+//        constraints = [billboardConstraint]
 
         addChildNode(annotationNode)
     }
@@ -79,7 +86,10 @@ open class LocationAnnotationNode: LocationNode {
                                          locationNodeLocation nodeLocation: CLLocation,
                                          locationManager: SceneLocationManager,
                                          onCompletion: (() -> Void)) {
-        guard let position = scenePosition, let location = locationManager.currentLocation else { return }
+        guard
+            let position = scenePosition,
+            let location = locationManager.currentLocation
+        else { return }
 
         SCNTransaction.begin()
         SCNTransaction.animationDuration = setup ? 0.0 : 0.1
@@ -88,8 +98,10 @@ open class LocationAnnotationNode: LocationNode {
 
         childNodes.first?.renderingOrder = renderingOrder(fromDistance: distance)
 
-        let adjustedDistance = self.adjustedDistance(setup: setup, position: position,
-                                                     locationNodeLocation: nodeLocation, locationManager: locationManager)
+        let adjustedDistance = self.adjustedDistance(setup: setup,
+                                                     position: position,
+                                                     locationNodeLocation: nodeLocation,
+                                                     locationManager: locationManager)
 
         // The scale of a node with a billboard constraint applied is ignored
         // The annotation subnode itself, as a subnode, has the scale applied to it
