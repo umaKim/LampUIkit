@@ -12,8 +12,9 @@ import UIKit
 enum LocationDetailViewHeaderCellButtonStackViewAction {
     case save
     case ar
+    case map
     case review
-    case share
+//    case share
 }
 
 class LocationDetailViewHeaderCellButtonStackView: UIView {
@@ -34,14 +35,14 @@ class LocationDetailViewHeaderCellButtonStackView: UIView {
                             subTitle: "AR")
     }()
     
-    private let reviewButton: UIButton = {
+    private let mapButton: UIButton = {
         return .buttonMaker(image: UIImage(named: "detailReview"),
                             imagePadding: 12,
-                            subTitle: "후기쓰기")
+                            subTitle: "지도보기")
     }()
     
-    private let shareButton: UIButton = {
-        return .buttonMaker(image: UIImage(named: "detailShare"),
+    private let reviewButton: UIButton = {
+        return .buttonMaker(image: UIImage(named: "detailReview"),
                             imagePadding: 12,
                             subTitle: "공유하기")
     }()
@@ -57,15 +58,22 @@ class LocationDetailViewHeaderCellButtonStackView: UIView {
         setupUI()
     }
     
+    public func configure(_ isSaved: Bool) {
+        self.isSaved = isSaved
+        
+        saveButton.setImage(isSaved ? UIImage(named: "favorite_saved") : UIImage(named: "detailSave"), for: .normal)
+    }
+    
     private func bind() {
         saveButton.tapPublisher.sink { _ in
             self.isSaved.toggle()
             if self.isSaved {
                 self.saveButton.setImage(UIImage(named: "favorite_saved"), for: .normal)
-                self.actionSubject.send(.save)
+               
             } else {
                 self.saveButton.setImage(UIImage(named: "detailSave"), for: .normal)
             }
+            self.actionSubject.send(.save)
         }
         .store(in: &cancellables)
         
@@ -74,20 +82,20 @@ class LocationDetailViewHeaderCellButtonStackView: UIView {
         }
         .store(in: &cancellables)
         
-        reviewButton.tapPublisher.sink { _ in
-            self.actionSubject.send(.review)
+        mapButton.tapPublisher.sink { _ in
+            self.actionSubject.send(.map)
         }
         .store(in: &cancellables)
         
-        shareButton.tapPublisher.sink { _ in
-            self.actionSubject.send(.share)
+        reviewButton.tapPublisher.sink { _ in
+            self.actionSubject.send(.review)
         }
         .store(in: &cancellables)
     }
     
     
     private func setupUI() {
-        let sv = UIStackView(arrangedSubviews: [saveButton, arButton, reviewButton, shareButton])
+        let sv = UIStackView(arrangedSubviews: [saveButton, arButton, mapButton, reviewButton])
         sv.axis = .horizontal
         sv.alignment = .fill
         sv.distribution = .fillEqually
