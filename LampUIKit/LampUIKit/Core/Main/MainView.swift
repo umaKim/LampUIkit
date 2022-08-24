@@ -162,20 +162,26 @@ class MainView: BaseWhiteView {
         }
         
         NSLayoutConstraint.activate([
-            sv.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
-            sv.centerXAnchor.constraint(equalTo: centerXAnchor),
+            filterSv.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
+            filterSv.centerXAnchor.constraint(equalTo: centerXAnchor),
             
-            zoomSv.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            refreshButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            refreshButton.bottomAnchor.constraint(equalTo: myLocationButton.topAnchor, constant: -16),
+            
+            myLocationButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            myLocationButton.bottomAnchor.constraint(equalTo: zoomSv.topAnchor, constant:  -16),
+            
+            zoomSv.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             zoomSv.centerYAnchor.constraint(equalTo: centerYAnchor),
             
-            myCharacterButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            myCharacterButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -86),
             myCharacterButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 16),
             
-            myTravelButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            myTravelButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            myTravelButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            myTravelButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -86),
             
-            searchButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
-            searchButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -16),
+//            searchButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
+//            searchButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -16),
             
             mapView.leadingAnchor.constraint(equalTo: leadingAnchor),
             mapView.trailingAnchor.constraint(equalTo: trailingAnchor),
