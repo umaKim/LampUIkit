@@ -37,6 +37,16 @@ class MainViewModel: BaseViewModel  {
         self.setLocation(with: coord.latitude, coord.longitude)
     }
     
+    public func zoomIn() {
+        if zoom > 20 { return }
+        zoom = zoom + 1
+    }
+    
+    public func zoomOut() {
+        if 3 > zoom { return }
+        zoom = zoom - 1
+    }
+    
     public func fetchItems() {
         notifySubject.send(.startLoading)
         let location = Location(lat: longitude, long: latitude)
@@ -51,6 +61,11 @@ class MainViewModel: BaseViewModel  {
                 print(error)
             }
         }
+    }
+    
+    public func setMyZoomLevel(_ level: Float) {
+        print(level)
+        zoom = level
     }
     
     public func setMyLocation() {

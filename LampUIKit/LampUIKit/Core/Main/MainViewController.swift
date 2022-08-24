@@ -149,12 +149,17 @@ class MainViewController: BaseViewContronller  {
     }
     
     private func zoomIn() {
-        contentView.mapView.zoomIn(animated: true)
+        viewModel.zoomIn()
+        contentView.mapView.animate(toZoom: viewModel.zoom)
     }
     
     private func zoomOut() {
-        contentView.mapView.zoomOut(animated: true)
-extension MainViewController: CLLocationManagerDelegate, GMSMapViewDelegate {
+        viewModel.zoomOut()
+        contentView.mapView.animate(toZoom: viewModel.zoom)
+    }
+}
+
+extension MainViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let coord =  manager.location?.coordinate else {return }
         let userLocationMarker = GMSMarker(position: coord)
