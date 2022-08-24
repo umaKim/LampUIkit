@@ -44,7 +44,7 @@ class LocationDetailViewHeaderCellButtonStackView: UIView {
     private let reviewButton: UIButton = {
         return .buttonMaker(image: UIImage(named: "detailReview"),
                             imagePadding: 12,
-                            subTitle: "공유하기")
+                            subTitle: "후기쓰기")
     }()
     
     private var isSaved: Bool
