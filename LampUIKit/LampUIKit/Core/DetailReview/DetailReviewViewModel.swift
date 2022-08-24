@@ -27,6 +27,7 @@ class DetailReviewViewModel: BaseViewModel {
         self.locationDetail = locationDetail
         super.init()
         
+        fetchReviews()
     }
     
     private func fetchReviews() {
