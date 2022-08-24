@@ -55,7 +55,7 @@ class MainView: BaseWhiteView {
     
     private lazy var myLocationButton: UIButton = {
        let bt = UIButton()
-        bt.setImage(UIImage(named: "myCurrentLocation"), for: .normal)
+        bt.setImage(UIImage(named: "myLocation"), for: .normal)
         return bt
     }()
     
@@ -77,8 +77,7 @@ class MainView: BaseWhiteView {
     
     private lazy var refreshButton: UIButton = {
         let bt = UIButton()
-        bt.backgroundColor = .red
-        bt.setImage(UIImage(systemName: "arrow.clockwise"), for: .normal)
+        bt.setImage(UIImage(named: "refresh"), for: .normal)
         return bt
     }()
     
