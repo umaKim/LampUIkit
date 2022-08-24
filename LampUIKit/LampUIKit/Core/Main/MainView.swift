@@ -143,11 +143,11 @@ class MainView: BaseWhiteView {
     }
     
     private func setupUI() {
-        let sv = UIStackView(arrangedSubviews: [recommendationButton, destinationButton, completeButton])
-        sv.axis = .horizontal
-        sv.distribution = .equalSpacing
-        sv.alignment = .fill
-        sv.spacing = 16
+        let filterSv = UIStackView(arrangedSubviews: [recommendationButton, destinationButton, completeButton])
+        filterSv.axis = .horizontal
+        filterSv.distribution = .equalSpacing
+        filterSv.alignment = .fill
+        filterSv.spacing = 16
         
         let zoomSv = UIStackView(arrangedSubviews: [zoomInButton, zoomOutButton])
         zoomSv.axis = .vertical
