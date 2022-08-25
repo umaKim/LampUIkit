@@ -50,8 +50,8 @@ class MainView: BaseWhiteView {
          return bt
      }()
     
-    private lazy var zoomInButton = SquareButton(UIImage(systemName: "plus"))
-    private lazy var zoomOutButton = SquareButton(UIImage(systemName: "minus"))
+    private lazy var zoomInButton = SquareButton(UIImage(systemName: "plus")?.withTintColor(.darkNavy, renderingMode: .alwaysOriginal))
+    private lazy var zoomOutButton = SquareButton(UIImage(systemName: "minus")?.withTintColor(.darkNavy, renderingMode: .alwaysOriginal))
     
     private lazy var myLocationButton: UIButton = {
        let bt = UIButton()
