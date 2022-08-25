@@ -4,7 +4,7 @@
 //
 //  Created by 김윤석 on 2022/08/24.
 //
-
+import UIKit
 import Foundation
 
 class HapticManager {
