@@ -49,24 +49,18 @@ class MyCharacterViewTableViewHeaderCell: UITableViewHeaderFooterView {
     }()
     
     private lazy var averageStat: GraphHeaderView = {
-       let uv = GraphHeaderView("평균스탯", number: 10)
+       let uv = GraphHeaderView("평균스탯", number: 0)
         uv.heightAnchor.constraint(equalToConstant: 40).isActive = true
         return uv
     }()
     
     private lazy var mileageStat: GraphHeaderView = {
-       let uv = GraphHeaderView("마일리지", number: 10)
+       let uv = GraphHeaderView("마일리지", number: 0)
         uv.heightAnchor.constraint(equalToConstant: 40).isActive = true
         return uv
     }()
     
-    private lazy var mileageView: UIView = {
-       let uv = UIView()
-        uv.backgroundColor = .lightNavy
-        uv.widthAnchor.constraint(equalToConstant: UIScreen.main.width).isActive = true
-        uv.heightAnchor.constraint(equalToConstant: 64).isActive = true
-        return uv
-    }()
+    private lazy var mileageView = MileageView()
     
     private func setupUI() {
         contentView.backgroundColor = .greyshWhite
