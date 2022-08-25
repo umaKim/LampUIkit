@@ -81,9 +81,12 @@ class MyCharacterViewController: BaseViewContronller {
     private func setupDataSource() {
         contentView.tableView.delegate = self
         
-        dataSource = .init(tableView: contentView.tableView, cellProvider: { tableView, indexPath, itemIdentifier in
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: MyCharacterViewTableViewCell.identifier, for: indexPath) as? MyCharacterViewTableViewCell else {return UITableViewCell()}
-            cell.configure(with: GaugeData(name: "", rate: ""))
+        dataSource = .init(tableView: contentView.tableView, cellProvider: {[unowned self] tableView, indexPath, itemIdentifier in
+            guard
+                let cell = tableView.dequeueReusableCell(withIdentifier: MyCharacterViewTableViewCell.identifier, for: indexPath) as? MyCharacterViewTableViewCell,
+                let data = viewModel.characterData
+            else {return UITableViewCell()}
+            cell.configure(with: data.gaugeDatum[indexPath.row])
             return cell
         })
     }
@@ -92,9 +95,10 @@ class MyCharacterViewController: BaseViewContronller {
 extension MyCharacterViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard
-            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: MyCharacterViewTableViewHeaderCell.identifier) as? MyCharacterViewTableViewHeaderCell
-        else {return nil}
-        header.configure(with: CharacterData(characterName: "", level: "", image: "", averageStat: "", mileage: "", gaugeDatum: []))
+            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: MyCharacterViewTableViewHeaderCell.identifier) as? MyCharacterViewTableViewHeaderCell,
+            let data = viewModel.characterData
+        else { return nil }
+        header.configure(with: data)
         return header
     }
 }
@@ -122,7 +126,6 @@ class GraphHeaderView: UIView {
             totalSv.topAnchor.constraint(equalTo: topAnchor)
         ])
     }
-    */
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
