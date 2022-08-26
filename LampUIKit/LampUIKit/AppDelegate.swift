@@ -9,6 +9,7 @@ import Firebase
 import KakaoSDKAuth
 import UIKit
 import CoreData
+import GoogleMaps
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
