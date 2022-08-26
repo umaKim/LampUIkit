@@ -10,10 +10,13 @@ import UIKit
 final class CompletedTravelCell: UICollectionViewCell {
     static let identifier = "CompletedTravelCell"
     
-    private typealias DataSource = UICollectionViewDiffableDataSource<Section, MyTravelLocations>
-    private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, MyTravelLocations>
+    private typealias DataSource = UICollectionViewDiffableDataSource<Section, MyTravelLocation>
+    private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, MyTravelLocation>
     
     enum Section { case main }
+    
+    private var dataSource: DataSource?
+    
     private lazy var collectionView: UICollectionView = {
         let cl = UICollectionViewFlowLayout()
         cl.scrollDirection = .vertical
