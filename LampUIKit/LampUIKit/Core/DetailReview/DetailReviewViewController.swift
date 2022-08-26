@@ -9,8 +9,8 @@ import UIKit
 
 class DetailReviewViewController: BaseViewContronller {
 
-    private typealias DataSource = UICollectionViewDiffableDataSource<Section, ReviewModel>
-    private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, ReviewModel>
+    private typealias DataSource = UICollectionViewDiffableDataSource<Section, ReviewData>
+    private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, ReviewData>
     
     enum Section { case main }
     
