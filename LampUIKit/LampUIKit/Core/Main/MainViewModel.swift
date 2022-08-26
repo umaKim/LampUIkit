@@ -25,7 +25,6 @@ class MainViewModel: BaseViewModel  {
     
     private let network = NetworkService.shared
     
-    private let locationManager = CLLocationManager()
     
     override init() {
         super.init()
@@ -56,7 +55,7 @@ class MainViewModel: BaseViewModel  {
                 self.recommendedPlaces = items.result
                 self.notifySubject.send(.recommendedLocations(items.result))
                 //TODO: end start Loading
-                notifySubject.send(.endLoading)
+                
             case .failure(let error):
                 print(error)
             }
@@ -88,7 +87,6 @@ extension MainViewModel: CLLocationManagerDelegate {
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("didFailWithError")
         print(error)
     }
 }
