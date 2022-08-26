@@ -22,7 +22,6 @@ class MainViewController: BaseViewContronller  {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     override func loadView() {
         super.loadView()
         
@@ -40,9 +39,6 @@ class MainViewController: BaseViewContronller  {
         let contentVC = LocationDetailViewController(vm: LocationDetailViewModel(location))
         contentVC.delegate = self
         let nav = UINavigationController(rootViewController: contentVC)
-        configureFpc(with: nav)
-        
-        fpc.track(scrollView: contentVC.contentView.contentScrollView)
         configureFpc(with: nav, completion: {[weak self] in
     }
     
@@ -58,17 +54,11 @@ class MainViewController: BaseViewContronller  {
         
         fpc.addPanel(toParent: self)
         fpc.delegate = self
-        fpc.move(to: .tip, animated: true)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        contentView.mapView.delegate = self
-        
-        // 현재 위치 트래킹
-        contentView.mapView.currentLocationTrackingMode = .onWithoutHeading
-        contentView.mapView.showCurrentLocationMarker = true
         
         bind()
         
@@ -83,34 +73,20 @@ class MainViewController: BaseViewContronller  {
         viewModel.fetchItems()
     }
     
-    private lazy var mePt1: MTMapLocationMarkerItem = {
-       let pt = MTMapLocationMarkerItem()
-        pt.customTrackingImageName = "star_filled"
-//        pt.customTrackingImageAnchorPointOffset = MTMapImageOffset(offsetX: 1,offsetY: 1)
-        return pt
-    }()
     private func bind() {
         contentView
             .actionPublisher
             .sink {[unowned self] action in
                 switch action {
-                case .search:
-                    let vc = SearchViewController(vm: SearchViewModel())
-                    vc.delegate = self
-                    let nav = UINavigationController(rootViewController: vc)
-                    present(nav, animated: true)
-                
                 case .myTravel:
                     let vc = MyTravelViewController(vm: MyTravelViewModel())
                     vc.delegate = self
                     let nav = UINavigationController(rootViewController: vc)
-                    present(nav, animated: true)
                     
                 case .myCharacter:
                     let vc = MyCharacterViewController(vm: MyCharacterViewModel())
                     vc.delegate = self
                     let nav = UINavigationController(rootViewController: vc)
-                    present(nav, animated: true)
                     
                 case .zoomIn:
                     self.zoomIn()
@@ -139,7 +115,6 @@ class MainViewController: BaseViewContronller  {
 
                 case .endLoading:
                     self.dismissLoadingView()
-                    break
                 }
             }
             .store(in: &cancellables)
@@ -148,7 +123,6 @@ class MainViewController: BaseViewContronller  {
     private func dismiss() {
         self.dismiss(animated: true)
     }
-    
     private func zoomIn() {
         viewModel.zoomIn()
         contentView.mapView.animate(toZoom: viewModel.zoom)
@@ -169,13 +143,8 @@ extension MainViewController: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("didFailWithError")
-        print(error)
     }
-    
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
-        print("didChange")
-//        print(mapView.camera)
     }
 }
     }
@@ -194,16 +163,10 @@ extension MainViewController: FloatingPanelControllerDelegate {
 }
 
 extension MainViewController: SearchViewControllerDelegate {
-    func searchViewControllerDidTapMapPin() {
-        if let sheet = nav?.sheetPresentationController {
-            sheet.selectedDetentIdentifier = .medium
-        }
         
-        setMapToMyLocation()
     }
     
     func searchViewControllerDidTapDismiss() {
-        dismiss()
     }
 }
 
@@ -219,21 +182,7 @@ extension MainViewController: MyCharacterViewControllerDelegate {
     }
 }
 
-class FloatingPanelLampLayout: FloatingPanelLayout {
-    let position: FloatingPanelPosition = .bottom
-    let initialState: FloatingPanelState = .tip
-
-    var anchors: [FloatingPanelState: FloatingPanelLayoutAnchoring] {
-        return [
-            .full: FloatingPanelLayoutAnchor(absoluteInset: 56.0, edge: .top, referenceGuide: .safeArea),
-            .half: FloatingPanelLayoutAnchor(absoluteInset: 302.0, edge: .bottom, referenceGuide: .safeArea),
-             /* Visible + ToolView */
-            .tip: FloatingPanelLayoutAnchor(absoluteInset: 85.0, edge: .bottom, referenceGuide: .safeArea),
-        ]
-        // + 44.0
     }
 
-    func backdropAlpha(for state: FloatingPanelState) -> CGFloat {
-        return 0.0
     }
 }
