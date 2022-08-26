@@ -51,14 +51,14 @@ class CreateNickNameView: BaseView {
         nickNameTextField
             .textPublisher
             .compactMap({$0})
-            .sink { text in
+            .sink {[unowned self] text in
                 self.actionSubject.send(.textFieldDidChange(text))
             }
             .store(in: &cancellables)
         
         createAccountButton
             .tapPublisher
-            .sink { _ in
+            .sink {[unowned self] _ in
                 self.actionSubject.send(.createAccountButtonDidTap)
             }
             .store(in: &cancellables)
@@ -86,7 +86,6 @@ class CreateNickNameView: BaseView {
             createAccountButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             createAccountButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             createAccountButton.heightAnchor.constraint(equalToConstant: 60)
-            
         ])
     }
 }
