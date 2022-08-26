@@ -64,17 +64,17 @@ class LoginView: UIView {
         
         backgroundColor = .darkNavy
         
-        kakao.tapPublisher.sink { _ in
+        kakao.tapPublisher.sink {[unowned self] _ in
             self.actionSubject.send(.kakao)
         }
         .store(in: &cancellables)
         
-        gmail.tapPublisher.sink { _ in
+        gmail.tapPublisher.sink {[unowned self] _ in
             self.actionSubject.send(.gmail)
         }
         .store(in: &cancellables)
         
-        apple.tapPublisher.sink { _ in
+        apple.tapPublisher.sink {[unowned self] _ in
             self.actionSubject.send(.apple)
         }
         .store(in: &cancellables)
