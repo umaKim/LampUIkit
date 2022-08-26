@@ -21,4 +21,6 @@ struct RecommendedLocation: Codable, Hashable {
     var isBookMarked: Bool
     let mapX: String
     let mapY: String
+    let planIdx: String?
+    let isOnPlan: Bool?
 }
