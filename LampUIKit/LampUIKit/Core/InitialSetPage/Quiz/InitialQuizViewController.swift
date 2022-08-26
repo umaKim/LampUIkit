@@ -33,6 +33,7 @@ class InitialQuizViewController: BaseViewContronller {
         contentView
             .actionPublisher
             .sink {[unowned self] action in
+                HapticManager.shared.feedBack(with: .heavy)
                 switch action {
                 case .button1:
                     self.viewModel.answerChoice(1)

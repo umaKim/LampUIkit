@@ -46,6 +46,7 @@ class LoginViewController: UIViewController {
     
     private func bind() {
         contentView.actionPublisher.sink { action in
+            HapticManager.shared.feedBack(with: .heavy)
             switch action {
             case .apple:
                 self.startSignInWithAppleFlow()
