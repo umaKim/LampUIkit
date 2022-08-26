@@ -18,7 +18,9 @@ struct CharacterResponse: Codable {
     let result: CharacterResult
 }
 
+struct CharacterResult: Codable {
     let characterChosen: Int?
+    let tags: [String]
 }
 
 struct UserExistCheckResponse: Codable {
