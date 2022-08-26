@@ -10,6 +10,12 @@ import Foundation
 struct Response: Codable {
     let isSuccess: Bool?
     let message: String?
+struct CharacterResponse: Codable {
+    let isSuccess: Bool?
+    let message: String?
+    let result: CharacterResult
+}
+
     let characterChosen: Int?
 }
 
