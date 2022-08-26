@@ -13,7 +13,6 @@ import GoogleMaps
 enum MainViewAction {
     case myLocation
     
-    case search
     case myTravel
     case myCharacter
     
@@ -59,11 +58,6 @@ class MainView: BaseWhiteView {
         return bt
     }()
     
-    private lazy var searchButton: UIButton = {
-       let bt = UIButton()
-        bt.setImage(UIImage(named: "Search"), for: .normal)
-        return bt
-    }()
     private lazy var myTravelButton: UIButton = {
        let bt = UIButton()
         bt.setImage(UIImage(named: "myTravel"), for: .normal)
@@ -104,13 +98,6 @@ class MainView: BaseWhiteView {
         }
         .store(in: &cancellables)
         
-        searchButton
-            .tapPublisher
-            .sink {[unowned self] _ in
-                self.actionSubject.send(.search)
-            }
-            .store(in: &cancellables)
-        
         myTravelButton
             .tapPublisher
             .sink { [unowned self] _ in
@@ -138,8 +125,6 @@ class MainView: BaseWhiteView {
                 self.actionSubject.send(.myLocation)
             }
             .store(in: &cancellables)
-    }
-    
     }
     
     private func setupUI() {
@@ -178,10 +163,6 @@ class MainView: BaseWhiteView {
             myCharacterButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 16),
             
             myTravelButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            myTravelButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -86),
-            
-//            searchButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
-//            searchButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -16),
             
             mapView.leadingAnchor.constraint(equalTo: leadingAnchor),
             mapView.trailingAnchor.constraint(equalTo: trailingAnchor),
