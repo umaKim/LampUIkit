@@ -41,9 +41,11 @@ class CreateNickNameViewController: BaseViewContronller {
             .sink {[unowned self] action in
                 switch action {
                 case .createAccountButtonDidTap:
+                    HapticManager.shared.feedBack(with: .heavy)
                     self.viewModel.createAccount()
                     
                 case .textFieldDidChange(let text):
+                    HapticManager.shared.feedBack(with: .soft)
                     self.viewModel.textDidChange(to: text)
                 }
             }
