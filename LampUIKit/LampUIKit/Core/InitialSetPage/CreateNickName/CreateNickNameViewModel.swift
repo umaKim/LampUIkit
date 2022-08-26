@@ -24,11 +24,10 @@ class CreateNickNameViewModel: BaseViewModel {
     override init() {
         super.init()
         
-//        notifySubject.send(.setInitialSetting(false))
     }
     
     public func createAccount() {
-        NetworkService.shared.postNickName(nickName) { result in
+        NetworkService.shared.postNickName(nickName) {[unowned self] result in
             switch result {
             case .success(let response):
                 if response.isSuccess ?? false {

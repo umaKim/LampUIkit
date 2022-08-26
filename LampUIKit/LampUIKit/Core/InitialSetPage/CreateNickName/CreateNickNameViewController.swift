@@ -38,7 +38,7 @@ class CreateNickNameViewController: BaseViewContronller {
         
         contentView
             .actionPublisher
-            .sink { action in
+            .sink {[unowned self] action in
                 switch action {
                 case .createAccountButtonDidTap:
                     self.viewModel.createAccount()
@@ -51,7 +51,7 @@ class CreateNickNameViewController: BaseViewContronller {
         
         viewModel
             .notifyPublisher
-            .sink { noti in
+            .sink {[unowned self] noti in
                 switch noti {
                 case .moveToMain:
                     self.changeRoot(MainViewController(MainViewModel()))

@@ -80,6 +80,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
         
         addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        dismissButton.tapPublisher.sink {[unowned self] _ in
         
         NSLayoutConstraint.activate([
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -181,7 +182,7 @@ class LocationDetailViewHeaderCell: UICollectionReusableView {
     private func bind() {
         buttonSv
             .actionPublisher
-            .sink { action in
+            .sink {[unowned self] action in
                 switch action {
                 case .save:
                     self.delegate?.locationDetailViewHeaderCellDidTapSave()
@@ -200,7 +201,7 @@ class LocationDetailViewHeaderCell: UICollectionReusableView {
         
         addToMyTravelButton
             .tapPublisher
-            .sink { _ in
+            .sink {[unowned self] _ in
                 self.addToMyTravelButton.isSelected.toggle()
                 
                 if self.addToMyTravelButton.isSelected {

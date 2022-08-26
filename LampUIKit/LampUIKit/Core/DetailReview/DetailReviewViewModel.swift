@@ -31,7 +31,7 @@ class DetailReviewViewModel: BaseViewModel {
     }
     
     private func fetchReviews() {
-        NetworkService.shared.fetchReviews(location.contentId) { result in
+        NetworkService.shared.fetchReviews(location.contentId) {[unowned self] result in
             switch result {
             case .success(let reviews):
                 self.reviews = reviews

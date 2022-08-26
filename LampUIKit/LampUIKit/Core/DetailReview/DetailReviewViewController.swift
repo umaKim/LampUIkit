@@ -46,17 +46,18 @@ class DetailReviewViewController: BaseViewContronller {
         
         contentView
             .actionPublisher
-            .sink { action in
+            .sink {[unowned self] action in
                 switch action {
                 case .back:
                     self.navigationController?.popViewController(animated: true)
                 }
             }
             .store(in: &cancellables)
+            .sink {[unowned self] noti in
     }
     
     private func configureCollectionView() {
-        dataSource = DataSource(collectionView: contentView.collectionView) { collectionView, indexPath, model in
+        dataSource = DataSource(collectionView: contentView.collectionView) {[unowned self] collectionView, indexPath, model in
             guard
                 let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: DetailReviewViewCollectionViewCell.identifier,
@@ -65,7 +66,7 @@ class DetailReviewViewController: BaseViewContronller {
             return cell
         }
         
-        dataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
+        dataSource?.supplementaryViewProvider = {[unowned self] collectionView, kind, indexPath in
             guard kind == UICollectionView.elementKindSectionHeader else { return nil }
             let view = collectionView.dequeueReusableSupplementaryView(
                 ofKind: kind,
@@ -80,6 +81,7 @@ class DetailReviewViewController: BaseViewContronller {
         snapshot.appendSections([.main])
         snapshot.appendItems(viewModel.models)
         dataSource?.apply(snapshot, animatingDifferences: true, completion: {
+        dataSource?.apply(snapshot, animatingDifferences: true, completion: { [unowned self] in
             self.dataSource?.applySnapshotUsingReloadData(snapshot)
         })
     }

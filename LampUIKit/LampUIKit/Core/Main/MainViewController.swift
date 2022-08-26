@@ -33,7 +33,7 @@ class MainViewController: BaseViewContronller  {
         let contentVC = SearchViewController(vm: SearchViewModel())
         contentVC.delegate = self
         let nav = UINavigationController(rootViewController: contentVC)
-        configureFpc(with: nav)
+        configureFpc(with: nav, completion: {[weak self] in
     }
     
     private func setFloatingPanelWithLocationDetailViewController(_ location: RecommendedLocation) {
@@ -43,6 +43,7 @@ class MainViewController: BaseViewContronller  {
         configureFpc(with: nav)
         
         fpc.track(scrollView: contentVC.contentView.contentScrollView)
+        configureFpc(with: nav, completion: {[weak self] in
     }
     
     private func configureFpc(with viewController: UIViewController) {
