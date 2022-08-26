@@ -18,7 +18,7 @@ struct RecommendedLocation: Codable, Hashable {
     let title: String
     let addr: String
     let rate: String
-    let bookMark: Bool
+    var isBookMarked: Bool
     let mapX: String
     let mapY: String
 }
