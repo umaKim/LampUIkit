@@ -11,6 +11,7 @@ extension UIViewController {
     open func present(
         _ viewControllerToPresent: UIViewController,
         transitionType: CATransitionSubtype = .fromRight,
+        presentationStyle: UIModalPresentationStyle = .fullScreen,
         animated flag: Bool,
         pushing: Bool,
         completion: (() -> Void)? = nil
@@ -22,7 +23,7 @@ extension UIViewController {
             transition.subtype = transitionType
             transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
             view.window?.layer.add(transition, forKey: kCATransition)
-            viewControllerToPresent.modalPresentationStyle = .fullScreen
+            viewControllerToPresent.modalPresentationStyle = presentationStyle
             self.present(viewControllerToPresent, animated: false, completion: completion)
         } else {
             self.present(viewControllerToPresent, animated: flag, completion: completion)
