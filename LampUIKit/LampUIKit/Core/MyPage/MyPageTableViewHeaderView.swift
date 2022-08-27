@@ -37,14 +37,13 @@ class MyPageTableViewHeaderView: UIView {
         return lb
     }()
     
-    init(_ name: String, email: String) {
+    init(_ myInfo: MyInfo) {
         super.init(frame: .zero)
         
-        nameLabel.text = name + " 님 \n안녕하세요"
-        emailLabel.text = email
+        nameLabel.text = myInfo.nickName + " 님 \n안녕하세요"
         
-        visitedTravelLabel.text = "내가 갔다온 여행 7개"
-        writtenLabel.text = "작성한 여행 후기 1개"
+        visitedTravelLabel.text = "내가 갔다온 여행 \(myInfo.numOfPlan)개"
+        writtenLabel.text = "작성한 여행 후기 \(myInfo.numOfReview)개"
         
         setupUI()
     }
