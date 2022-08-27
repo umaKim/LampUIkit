@@ -16,9 +16,12 @@ class MainViewController: BaseViewContronller {
 
     private let contentView: MainView = MainView()
     
+    private let viewModel: MainViewModel
+    
     private var fpc = FloatingPanelController()
     
     init(_ vm: MainViewModel) {
+        self.viewModel = vm
         super.init()
     }
     
