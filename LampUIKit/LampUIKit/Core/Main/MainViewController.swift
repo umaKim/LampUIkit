@@ -182,7 +182,19 @@ extension MainViewController: MyCharacterViewControllerDelegate {
     }
 }
 
+extension MainViewController: RecommendedLocationViewControllerDelegate {
+    func recommendedLocationViewControllerDidTapSearch() {
+        fpc.move(to: .full, animated: true)
     }
+    
+    func recommendedLocationViewControllerDidTapMyCharacter() {
+        fpc.move(to: .full, animated: true)
+    }
+    
+    func recommendedLocationViewControllerDidTapMapPin(location: RecommendedLocation) {
+        self.searchViewControllerDidTapMapPin(at: location)
+    }
+}
 
 //MARK: - Map Styler
 extension MainViewController {
