@@ -77,8 +77,8 @@ class InitialQuizViewController: BaseViewContronller {
                 case .quizData(let data):
                     self.contentView.setQuizData(data)
                     
-                case .setCharacter(let data):
-                    self.contentView.setCharacterData(data)
+                case .setCharacterImage(let image):
+                    self.contentView.setCharacterImage(image)
                     
                 case .finishInitialQuiz:
                     self.present(CreateNickNameViewController(CreateNickNameViewModel()), transitionType: .fromTop, animated: true, pushing: true)
