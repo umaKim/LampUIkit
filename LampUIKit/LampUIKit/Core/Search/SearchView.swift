@@ -20,7 +20,7 @@ enum SearchViewAction {
     case searchDidBeginEditing
 }
 
-class SearchView: UIView {
+class SearchView: BaseView {
     
     private(set) lazy var acationPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<SearchViewAction, Never>()
@@ -46,11 +46,8 @@ class SearchView: UIView {
         return cv
     }()
     
-    private var cancellables: Set<AnyCancellable>
-    
-    init() {
-        self.cancellables = .init()
-        super.init(frame: .zero)
+    override init() {
+        super.init()
         bind()
         setupUI()
     }
