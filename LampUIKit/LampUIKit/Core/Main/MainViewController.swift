@@ -59,20 +59,36 @@ class MainViewController: BaseViewContronller {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        bind()
-        
-        setFloatingPanelWithSearchViewController()
-        
-        setMapToMyLocation()
+extension MainViewController {
+    private func addMarkers(of locations: [RecommendedLocation]) {
+        locations.forEach { location in
+            addMarker(of: location)
+        }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    private func addMarker(of location: RecommendedLocation, isSelected: Bool = false) {
+        let marker = GMSMarker()
+        marker.tracksViewChanges = true
+        marker.appearAnimation = .pop
+        let markerView = CustomMarkerView(of: location.image)
+        marker.iconView = markerView
         
-        viewModel.fetchItems()
+        guard
+            let lat = Double(location.mapY),
+            let long = Double(location.mapX)
+        else { return }
+        
+        marker.position = .init(latitude: lat, longitude: long)
+        marker.title = location.title
+        marker.map = contentView.mapView
+        
+        if isSelected {
+            contentView.mapView.selectedMarker = marker
+        }
+        
+        marker.tracksInfoWindowChanges = true
     }
-    
+}
     private func bind() {
         contentView
             .actionPublisher
