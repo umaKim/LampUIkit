@@ -60,41 +60,35 @@ class SearchView: UIView {
     }
     
     private func bind() {
-        searchBar.textDidChangePublisher
+        searchBar
+            .textDidChangePublisher
             .debounce(for: 1, scheduler: RunLoop.main)
             .sink {[unowned self] text in
                 print(text)
                 self.actionSubject.send(.searchTextDidChange(text))
-        }
-        .store(in: &cancellables)
+            }
+            .store(in: &cancellables)
         
-        searchBar.searchTextField.didBeginEditingPublisher.sink { _ in
-           print("didBeginEditingPublisher")
-            self.actionSubject.send(.searchDidBeginEditing)
-        }
-        .store(in: &cancellables)
+        searchBar
+            .searchTextField
+            .didBeginEditingPublisher
             .sink {[unowned self] _ in
+                self.actionSubject.send(.searchDidBeginEditing)
+            }
+            .store(in: &cancellables)
         
-        dismissButton.tapPublisher.sink { _ in
-            self.actionSubject.send(.dismiss)
-        }
-        .store(in: &cancellables)
+        dismissButton
+            .tapPublisher
             .sink {[unowned self] _ in
+                self.actionSubject.send(.dismiss)
+            }
+            .store(in: &cancellables)
         
-        categoryButtons.actionPublisher.sink { action in
-            switch action {
-            case .all:
-                self.actionSubject.send(.all)
-            case .recommend:
-                self.actionSubject.send(.recommend)
-            case .travel:
-                self.actionSubject.send(.travel)
-            case .notVisit:
-                self.actionSubject.send(.notVisit)
+        categoryButtons
+            .actionPublisher
             .sink {[unowned self] action in
             }
-        }
-        .store(in: &cancellables)
+            .store(in: &cancellables)
     }
     
     private func setupUI() {
