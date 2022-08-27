@@ -104,7 +104,17 @@ extension MyCharacterViewController: UITableViewDelegate {
 }
 
 class GraphHeaderView: UIView {
+    init(
+        _ title: String,
+        number: Int,
+        color: UIColor = .systemGray
+    ) {
+        super.init(frame: .zero)
+        
+        titleLabel.text = title
+        
         setupUI()
+    }
     
     public func setValue(
         _ numerator: Float,
