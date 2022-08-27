@@ -9,7 +9,7 @@ import UIKit
 import FloatingPanel
 import GoogleMaps
 
-class MainViewController: BaseViewContronller  {
+class MainViewController: BaseViewContronller {
 
     private let contentView: MainView = MainView()
     
