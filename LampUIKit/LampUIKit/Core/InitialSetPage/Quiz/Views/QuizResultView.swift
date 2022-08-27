@@ -78,12 +78,6 @@ class QuizResultView: BaseView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func setupCharacter(_ data: CharacterData) {
-        
-    public func setTags(_ tags: [String]) {
-        capsuelLabel1.setText(tags[0])
-        capsuelLabel2.setText(tags[1])
-        capsuelLabel3.setText(tags[2])
     }
     
     private func bind() {
@@ -96,29 +90,6 @@ class QuizResultView: BaseView {
     }
     
     private func setupUI() {
-        capsuelLabel1.layer.borderWidth = 1
-        capsuelLabel1.layer.borderColor = UIColor.midNavy.cgColor
-        
-        capsuelLabel2.layer.borderWidth = 1
-        capsuelLabel2.layer.borderColor = UIColor.midNavy.cgColor
-        
-        capsuelLabel3.layer.borderWidth = 1
-        capsuelLabel3.layer.borderColor = UIColor.midNavy.cgColor
-        
-        let hsv = UIStackView(arrangedSubviews: [capsuelLabel1, capsuelLabel2, capsuelLabel3])
-        hsv.axis = .horizontal
-        hsv.alignment = .fill
-        hsv.distribution = .equalSpacing
-        hsv.spacing = 8
-        hsv.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        
-        let sv = UIStackView(arrangedSubviews: [hsv, instructionLabel])
-        sv.axis = .vertical
-        sv.alignment = .fill
-        sv.distribution = .fillProportionally
-        sv.spacing = 6
-        
-        [backgroundImageView, logoImageView, welcomeTitleLabel, characterImageView, sv, nextButton].forEach { uv in
             addSubview(uv)
             uv.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -129,17 +100,7 @@ class QuizResultView: BaseView {
             backgroundImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
             backgroundImageView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -80),
             
-            welcomeTitleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            welcomeTitleLabel.topAnchor.constraint(equalTo: backgroundImageView.topAnchor, constant: 36),
-            
             characterImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            characterImageView.widthAnchor.constraint(equalToConstant: backgroundImageView.frame.width),
-            characterImageView.heightAnchor.constraint(equalToConstant: backgroundImageView.frame.width),
-            characterImageView.topAnchor.constraint(equalTo: welcomeTitleLabel.bottomAnchor),
-            
-            hsv.centerXAnchor.constraint(equalTo: backgroundImageView.centerXAnchor),
-            hsv.bottomAnchor.constraint(equalTo: characterImageView.bottomAnchor, constant: 36),
-            
             nextButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             nextButton.centerYAnchor.constraint(equalTo: backgroundImageView.bottomAnchor, constant: -(UIScreen.main.height / 70)),
             
