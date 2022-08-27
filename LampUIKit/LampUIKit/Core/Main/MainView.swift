@@ -14,7 +14,6 @@ enum MainViewAction {
     case myLocation
     
     case myTravel
-    case myCharacter
     
     case zoomIn
     case zoomOut
@@ -63,11 +62,6 @@ class MainView: BaseWhiteView {
         bt.setImage(UIImage(named: "myTravel"), for: .normal)
         return bt
     }()
-    private lazy var myCharacterButton: UIButton = {
-       let bt = UIButton()
-        bt.setImage(UIImage(named: "myCharacter"), for: .normal)
-        return bt
-    }()
     
     private lazy var refreshButton: UIButton = {
         let bt = UIButton()
@@ -102,13 +96,6 @@ class MainView: BaseWhiteView {
             .tapPublisher
             .sink { [unowned self] _ in
                 self.actionSubject.send(.myTravel)
-            }
-            .store(in: &cancellables)
-        
-        myCharacterButton
-            .tapPublisher
-            .sink { [unowned self] _ in
-                self.actionSubject.send(.myCharacter)
             }
             .store(in: &cancellables)
         
@@ -158,9 +145,6 @@ class MainView: BaseWhiteView {
             
             zoomSv.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             zoomSv.centerYAnchor.constraint(equalTo: centerYAnchor),
-            
-            myCharacterButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -86),
-            myCharacterButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 16),
             
             myTravelButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             
