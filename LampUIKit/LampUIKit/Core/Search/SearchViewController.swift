@@ -106,8 +106,10 @@ class SearchViewController: BaseViewContronller {
 }
 
 extension SearchViewController: SearchRecommendationCollectionViewCellDelegate {
-    func didTapSetThisLocationButton() {
-        
+    func didTapFavoriteButton(at index: Int, _ location: RecommendedLocation) {
+        viewModel.save(index)
+    }
+    
     func didTapSetThisLocationButton(at index: Int, _ location: RecommendedLocation) {
         viewModel.postAddToMyTrip(at: index, location)
     }

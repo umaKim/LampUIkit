@@ -86,4 +86,18 @@ class SearchViewModel: BaseViewModel {
             }
         }
     }
+    
+    
+    public func save(_ index: Int) {
+        locations[index].isBookMarked.toggle()
+        let location = locations[index]
+        NetworkService.shared.updateBookMark(of: location.contentId,
+                                             location.mapX,
+                                             location.mapY,
+                                             placeName: location.title,
+                                             placeAddr: location.addr,
+                                             completion: {[unowned self] result in
+            print(result)
+        })
+    }
 }
