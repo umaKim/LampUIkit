@@ -184,5 +184,18 @@ extension MainViewController: MyCharacterViewControllerDelegate {
 
     }
 
+//MARK: - Map Styler
+extension MainViewController {
+    private func styleGoogleMaps() {
+        do {
+            if let styleUrl = Bundle.main.url(forResource: "style", withExtension: "json") {
+                contentView.mapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleUrl)
+                
+            } else {
+                NSLog("Unable to find style")
+            }
+        } catch {
+            NSLog("Unable to find style")
+        }
     }
 }
