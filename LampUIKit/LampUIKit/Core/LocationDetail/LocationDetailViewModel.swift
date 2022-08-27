@@ -36,7 +36,10 @@ final class LocationDetailViewModel: BaseViewModel {
     
     //MARK: - Private
     public func fetchLocationDetail() {
-        guard let contentId = location?.contentId else { return }
+        guard
+            let contentId = location?.contentId,
+            let contentTypeId = location?.contentTypeId
+        else { return }
         notifySubject.send(.startLoading)
         NetworkService.shared.fetchLocationDetail(contentId, contentTypeId) {[weak self] result in
             guard let self = self else {return }
