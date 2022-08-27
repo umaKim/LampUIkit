@@ -118,6 +118,8 @@ extension SearchViewController: SearchRecommendationCollectionViewCellDelegate {
     func didTapFavoriteButton(at index: Int, _ isFavorite: Bool) {
         print(index)
         print(isFavorite)
+    func didTapCancelThisLocationButton(at index: Int, _ location: RecommendedLocation) {
+        viewModel.deleteFromMyTrip(at: index, location)
     }
 }
 

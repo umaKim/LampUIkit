@@ -43,4 +43,20 @@ class SearchViewModel: BaseViewModel {
             self.notifySubject.send(.endLoading)
         }
     }
+    public func deleteFromMyTrip(at index: Int, _ location: RecommendedLocation) {
+        guard let planIdx = location.planIdx else { return }
+        
+        locations[index].isOnPlan = false
+        
+        NetworkService.shared.deleteFromMyTravel("\(planIdx)") {[unowned self] result  in
+            switch result {
+            case .success(let response):
+                print(response)
+                //MARK: - show alert
+
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
 }
