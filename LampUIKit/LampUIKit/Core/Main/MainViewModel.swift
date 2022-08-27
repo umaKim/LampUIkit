@@ -5,7 +5,6 @@
 //  Created by 김윤석 on 2022/08/09.
 //
 import CoreLocation
-import Alamofire
 import Foundation
 import Combine
 
@@ -20,8 +19,6 @@ class MainViewModel: BaseViewModel  {
     private(set) lazy var notifyPublisher = notifySubject.eraseToAnyPublisher()
     private let notifySubject = PassthroughSubject<MainViewModelNotification, Never>()
     
-    private(set) var latitude: Double = 0
-    private(set) var longitude: Double = 0
     
     private let network = NetworkService.shared
     
@@ -54,7 +51,6 @@ class MainViewModel: BaseViewModel  {
             case .success(let items):
                 self.recommendedPlaces = items.result
                 self.notifySubject.send(.recommendedLocations(items.result))
-                //TODO: end start Loading
                 
             case .failure(let error):
                 print(error)
@@ -63,7 +59,6 @@ class MainViewModel: BaseViewModel  {
     }
     
     public func setMyZoomLevel(_ level: Float) {
-        print(level)
         zoom = level
     }
     
@@ -74,8 +69,6 @@ class MainViewModel: BaseViewModel  {
     }
     
     public func setLocation(with latitude: Double, _ longitude: Double) {
-        self.latitude = latitude
-        self.longitude = longitude
     }
 }
 
