@@ -141,6 +141,20 @@ final class LocationDetailView: BaseWhiteView {
     
     private lazy var totalTravelReviewView = TotalTravelReviewView()
     
+    public func configure(_ locationDetail: LocationDetailData) {
+        
+        buttonSv.configure(locationDetail.bookMark ?? false)
+        
+        if locationDetail.planExist?.num == 0 {
+            addToMyTravelButton.isSelected = false
+            addToMyTravelButton.update("내 여행지로 추가", background: .midNavy, textColor: .white)
+        } else {
+            addToMyTravelButton.isSelected = true
+            addToMyTravelButton.update("내 여행지로 추가 취소", background: .systemGray, textColor: .white)
+        }
+        
+        totalTravelReviewView.configure(locationDetail)
+    }
     }
     
     override init() {
