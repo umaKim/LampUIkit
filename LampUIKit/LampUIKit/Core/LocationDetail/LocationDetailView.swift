@@ -248,7 +248,7 @@ final class LocationDetailView: BaseWhiteView {
             locationImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             locationImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             locationImageView.widthAnchor.constraint(equalToConstant: UIScreen.main.width - 32),
-            locationImageView.heightAnchor.constraint(equalToConstant: UIScreen.main.width - 32),
+            locationImageView.heightAnchor.constraint(equalToConstant: UIScreen.main.width / 1.5),
             
             buttonSv.topAnchor.constraint(equalTo: locationImageView.bottomAnchor),
             buttonSv.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
