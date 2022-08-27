@@ -55,6 +55,20 @@ class ARViewController: UIViewController {
         contentView
             .sceneLocationView
             .addLocationNodesWithConfirmedLocation(locationNodes: [annotationNode, annotationNode2])
+    private func bind() {
+        contentView.actionPublisher.sink {[weak self] action in
+            guard let self = self else {return }
+            switch action {
+            case .dismiss:
+                self.dismiss(animated: true)
+                
+            case .add:
+                //ADD object
+                // on Screen
+                break
+            }
+        }
+        .store(in: &cancellables)
     }
 }
 
