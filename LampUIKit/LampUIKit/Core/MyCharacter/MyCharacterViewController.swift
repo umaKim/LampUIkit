@@ -104,6 +104,22 @@ extension MyCharacterViewController: UITableViewDelegate {
 }
 
 class GraphHeaderView: UIView {
+    private lazy var titleLabel: UILabel = {
+       let lb = UILabel()
+        lb.text = "평균 스탯"
+        lb.textColor = .lightNavy
+        lb.font = .robotoBold(13)
+        return lb
+    }()
+    
+    private lazy var numberLabel: CapsuleLabelView = {
+       let uv = CapsuleLabelView("")
+        uv.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        return uv
+    }()
+    
+    private lazy var graphView = HorizontalFillBar(height: 13, fillerColor: .systemGreen, trackColor: .whiteGrey)
+    
     init(
         _ title: String,
         number: Int,
