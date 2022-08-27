@@ -305,4 +305,15 @@ class NetworkService {
                 completion( response.result)
             }
     }
+    
+    func fetchMyInfo(completion: @escaping (Result<MyInfo, AFError>) -> Void) {
+        let requestUrl = baseUrl + "/app/users/myPage?token=\(token)"
+        print(requestUrl)
+        AF.request(requestUrl, method: .get, encoding: JSONEncoding.default)
+            .validate()
+            .responseDecodable(of: MyInfo.self) { response in
+                completion(response.result)
+            }
+    }
+}
 }
