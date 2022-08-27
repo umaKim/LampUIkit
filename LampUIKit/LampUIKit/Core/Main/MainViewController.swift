@@ -54,11 +54,19 @@ class MainViewController: BaseViewContronller {
         
         fpc.addPanel(toParent: self)
         fpc.delegate = self
+//MARK: - Zoom
+extension MainViewController {
+    private func zoomIn() {
+        viewModel.zoomIn()
+        contentView.mapView.animate(toZoom: viewModel.zoom)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    private func zoomOut() {
+        viewModel.zoomOut()
+        contentView.mapView.animate(toZoom: viewModel.zoom)
+    }
+}
+
 extension MainViewController {
     private func addMarkers(of locations: [RecommendedLocation]) {
         locations.forEach { location in
