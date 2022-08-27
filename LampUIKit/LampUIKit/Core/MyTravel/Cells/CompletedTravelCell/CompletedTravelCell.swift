@@ -53,7 +53,8 @@ final class CompletedTravelCell: UICollectionViewCell {
             guard
                 let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: CompletedTravelCellCollectionViewCell.identifier,
-                for: indexPath) as? CompletedTravelCellCollectionViewCell else { return nil }
+                for: indexPath) as? CompletedTravelCellCollectionViewCell
+            else { return nil }
 //            cell.delegate = self
             cell.tag = indexPath.item
 //            cell.configure(self.models[indexPath.item])
