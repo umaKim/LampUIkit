@@ -104,7 +104,8 @@ extension MyTravelCell {
             guard
                 let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: MyTravelCellCollectionViewCell.identifier,
-                for: indexPath) as? MyTravelCellCollectionViewCell else { return nil }
+                for: indexPath) as? MyTravelCellCollectionViewCell
+            else { return nil }
             cell.delegate = self
             cell.tag = indexPath.item
             cell.showDeleButton = self.showDeleteButton
