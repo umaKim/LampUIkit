@@ -92,7 +92,6 @@ class LocationDetailViewHeaderCellButtonStackView: UIView {
         .store(in: &cancellables)
     }
     
-    
     private func setupUI() {
         let sv = UIStackView(arrangedSubviews: [saveButton, arButton, mapButton, reviewButton])
         sv.axis = .horizontal
