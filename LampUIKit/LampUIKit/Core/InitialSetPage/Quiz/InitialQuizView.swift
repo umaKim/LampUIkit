@@ -124,12 +124,10 @@ class InitialQuizView: BaseView {
         quizView.setQuizData(data)
     }
     
-    public func setCharacterData(_ data: CharacterData) {
+    public func setCharacterImage(_ image: UIImage) {
         quizView.isHidden = true
         resultView.isHidden = false
         
-        resultView.setupCharacter(data)
-    public func setTags(_ tags: [String]) {
-        resultView.setTags(tags)
+        resultView.setupCharacter(image)
     }
 }
