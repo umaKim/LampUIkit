@@ -87,6 +87,16 @@ class SearchView: UIView {
         categoryButtons
             .actionPublisher
             .sink {[unowned self] action in
+                switch action {
+                case .all:
+                    self.actionSubject.send(.all)
+                case .recommend:
+                    self.actionSubject.send(.recommend)
+                case .travel:
+                    self.actionSubject.send(.travel)
+                case .notVisit:
+                    self.actionSubject.send(.notVisit)
+                }
             }
             .store(in: &cancellables)
     }
