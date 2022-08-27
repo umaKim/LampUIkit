@@ -29,6 +29,12 @@ class InitialQuizViewController: BaseViewContronller {
         view = contentView
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        isInitialSettingDone(false)
+    }
+    
     private func bind() {
         contentView
             .actionPublisher
