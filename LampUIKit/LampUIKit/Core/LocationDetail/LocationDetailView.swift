@@ -284,7 +284,7 @@ final class LocationDetailView: BaseWhiteView {
 extension LocationDetailView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return .init(width: UIScreen.main.width-32,
-                     height: UIScreen.main.width-32)
+                     height: UIScreen.main.width / 1.5)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
