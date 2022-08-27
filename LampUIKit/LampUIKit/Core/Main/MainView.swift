@@ -128,7 +128,7 @@ class MainView: BaseWhiteView {
         zoomSv.layer.cornerRadius = 20
         zoomSv.clipsToBounds = true
         
-        [mapView, filterSv, refreshButton, myLocationButton, zoomSv, myTravelButton, myCharacterButton].forEach { uv in
+        [mapView, filterSv, refreshButton, myLocationButton, zoomSv, myTravelButton].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
             addSubview(uv)
         }
@@ -147,6 +147,7 @@ class MainView: BaseWhiteView {
             zoomSv.centerYAnchor.constraint(equalTo: centerYAnchor),
             
             myTravelButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            myTravelButton.topAnchor.constraint(equalTo: zoomSv.bottomAnchor, constant: 16),
             
             mapView.leadingAnchor.constraint(equalTo: leadingAnchor),
             mapView.trailingAnchor.constraint(equalTo: trailingAnchor),
