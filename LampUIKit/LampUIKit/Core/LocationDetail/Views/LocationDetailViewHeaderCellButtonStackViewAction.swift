@@ -36,7 +36,7 @@ class LocationDetailViewHeaderCellButtonStackView: UIView {
     }()
     
     private let mapButton: UIButton = {
-        return .buttonMaker(image: UIImage(named: "detailReview"),
+        return .buttonMaker(image: UIImage(named: "map"),
                             imagePadding: 12,
                             subTitle: "지도보기")
     }()
