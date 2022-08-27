@@ -105,6 +105,15 @@ extension MyCharacterViewController: UITableViewDelegate {
 
 class GraphHeaderView: UIView {
         setupUI()
+    
+    public func setValue(
+        _ numerator: Float,
+        _ denomenator: Float
+    ) {
+        numberLabel.setText("\(numerator) / \(denomenator)")
+        graphView.setProgress(numerator/denomenator, animated: true)
+    }
+    
     private func setupUI() {
         let headerSv = UIStackView(arrangedSubviews: [titleLabel, numberLabel])
         headerSv.axis = .horizontal
