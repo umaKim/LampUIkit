@@ -55,6 +55,7 @@ class StartPageViewController: UIViewController {
         super.viewDidLoad()
         
         startButton.tapPublisher.sink {[unowned self] _ in
+            HapticManager.shared.feedBack(with: .heavy)
             if AuthApi.hasToken() {
                 UserApi.shared.me {[unowned self] user, error in
                     guard let id = user?.id else { return }
