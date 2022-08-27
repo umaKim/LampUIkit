@@ -116,8 +116,6 @@ class SearchView: BaseView {
         }
         
         NSLayoutConstraint.activate([
-            categoryButtons.heightAnchor.constraint(equalToConstant: 30),
-            
             sv.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             sv.leadingAnchor.constraint(equalTo: leadingAnchor),
             sv.trailingAnchor.constraint(equalTo: trailingAnchor),
