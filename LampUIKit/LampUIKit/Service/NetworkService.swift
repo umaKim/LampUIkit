@@ -294,4 +294,15 @@ class NetworkService {
                 completion(response.result)
             }
     }
+    
+    func fetchCharacterInfo(completion: @escaping (Result<MyCharacter, AFError>) -> Void) {
+        let requestUrl = baseUrl + "/app/users/myCharacter?token=\(token)"
+        
+        AF.request(requestUrl, method: .get, encoding: JSONEncoding.default)
+            .validate()
+            .responseDecodable(of: MyCharacter.self) {
+                response in
+                completion( response.result)
+            }
+    }
 }
