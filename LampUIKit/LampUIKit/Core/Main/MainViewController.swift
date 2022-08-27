@@ -119,19 +119,6 @@ class MainViewController: BaseViewContronller {
             }
             .store(in: &cancellables)
     }
-    
-    private func dismiss() {
-        self.dismiss(animated: true)
-    }
-    private func zoomIn() {
-        viewModel.zoomIn()
-        contentView.mapView.animate(toZoom: viewModel.zoom)
-    }
-    
-    private func zoomOut() {
-        viewModel.zoomOut()
-        contentView.mapView.animate(toZoom: viewModel.zoom)
-    }
 }
 
 extension MainViewController: CLLocationManagerDelegate {
