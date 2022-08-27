@@ -11,6 +11,10 @@ import SDWebImage
 import UIKit
 
 protocol SearchRecommendationCollectionViewCellDelegate: AnyObject {
+    func didTapMapPin(location: RecommendedLocation)
+    func didTapSetThisLocationButton(at index: Int, _ location: RecommendedLocation)
+    func didTapCancelThisLocationButton(at index: Int, _ location: RecommendedLocation)
+    func didTapFavoriteButton(at index: Int, _ location: RecommendedLocation)
 }
 
 class SearchRecommendationCollectionViewCell: UICollectionViewCell {
