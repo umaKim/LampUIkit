@@ -163,10 +163,28 @@ extension MainViewController: FloatingPanelControllerDelegate {
 }
 
 extension MainViewController: SearchViewControllerDelegate {
+    func searchBarDidTap() {
+        fpc.move(to: .full, animated: true)
+    }
+    
+    func searchViewControllerDidTapMapPin(at location: RecommendedLocation) {
+        viewModel.appendPlace(location)
+        addMarker(of: location, isSelected: true)
         
+        guard
+            let lat = Double(location.mapY),
+            let long = Double(location.mapX)
+        else { return }
+        
+        self.moveTo(.init(latitude: lat, longitude: long))
+        
+        self.view.endEditing(true)
+        fpc.move(to: .tip, animated: true)
     }
     
     func searchViewControllerDidTapDismiss() {
+        self.view.endEditing(true)
+        fpc.move(to: .tip, animated: true)
     }
 }
 
