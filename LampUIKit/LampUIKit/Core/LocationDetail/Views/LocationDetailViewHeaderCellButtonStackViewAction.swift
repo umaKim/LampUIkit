@@ -47,10 +47,9 @@ class LocationDetailViewHeaderCellButtonStackView: UIView {
                             subTitle: "후기쓰기")
     }()
     
-    private var isSaved: Bool
+    private var isSaved: Bool = false
     
-    init(_ isSaved: Bool) {
-        self.isSaved = isSaved
+    init() {
         self.cancellables = .init()
         super.init(frame: .zero)
         
