@@ -93,7 +93,6 @@ extension FavoriteCell {
             cell.delegate = self
             cell.tag = indexPath.item
             cell.configure(self.models[indexPath.item])
-//            cell.showDeleButton = self.showDeleteButton
             return cell
         }
         
