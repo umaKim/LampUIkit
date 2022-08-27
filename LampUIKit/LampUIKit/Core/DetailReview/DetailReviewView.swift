@@ -98,6 +98,25 @@ class DetailReviewCollectionViewHeader: UICollectionReusableView {
     
     private lazy var dividerView = DividerView()
     
+    public func configure(_ location: RecommendedLocation, _ locationDetail: LocationDetailData) {
+        profileView.configure(location)
+        
+        guard let rate = locationDetail.totalAvgReviewRate else { return }
+        //MARK: - Star Rate
+        delegate.starValue = rate.AVG ?? 0.0
+        
+        //MARK: - Detial Rate
+        let satisfactionIndex = rate.satisfaction ?? 0
+        let moodIndex = rate.mood ?? 0
+        let surroundIndex = rate.surround ?? 0
+        let foodIndex = rate.foodArea ?? 0
+        
+        satisfyView.setSubtitle(RatingStandard.comfort[satisfactionIndex])
+        atmosphereView.setSubtitle(RatingStandard.atmosphere[moodIndex])
+        surroundingView.setSubtitle(RatingStandard.surrounding[surroundIndex])
+        foodView.setSubtitle(RatingStandard.food[foodIndex])
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
