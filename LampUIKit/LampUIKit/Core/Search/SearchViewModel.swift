@@ -43,6 +43,33 @@ class SearchViewModel: BaseViewModel {
             self.notifySubject.send(.endLoading)
         }
     }
+    
+    public func postAddToMyTrip(at index: Int, _ location: RecommendedLocation) {
+        let data = PostAddToMyTripData(
+            token: "",
+            contentId: location.contentId,
+            contentTypeId: location.contentTypeId,
+            placeName: location.title,
+            placeInfo: "",
+            placeAddress: location.addr,
+            userMemo: "",
+            mapX: location.mapX,
+            mapY: location.mapY
+        )
+        
+        locations[index].isOnPlan = true
+        
+        NetworkService.shared.postAddToMyTravel(data) {[unowned self] result in
+            switch result {
+            case .success(let response):
+                print(response)
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
     public func deleteFromMyTrip(at index: Int, _ location: RecommendedLocation) {
         guard let planIdx = location.planIdx else { return }
         

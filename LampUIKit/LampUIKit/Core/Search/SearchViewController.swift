@@ -108,6 +108,8 @@ class SearchViewController: BaseViewContronller {
 extension SearchViewController: SearchRecommendationCollectionViewCellDelegate {
     func didTapSetThisLocationButton() {
         
+    func didTapSetThisLocationButton(at index: Int, _ location: RecommendedLocation) {
+        viewModel.postAddToMyTrip(at: index, location)
     }
     
     func didTapMapPin() {
