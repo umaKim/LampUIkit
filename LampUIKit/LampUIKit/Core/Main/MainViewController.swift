@@ -147,6 +147,22 @@ extension MainViewController: CLLocationManagerDelegate {
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
     }
 }
+
+extension MainViewController: LocationDetailViewControllerDelegate {
+    func locationDetailViewControllerDidTapMapButton(_ location: RecommendedLocation) {
+        fpc.move(to: .half, animated: true)
+        guard
+            let lat = Double(location.mapY),
+            let long = Double(location.mapX)
+        else { return }
+        
+        self.moveTo(.init(latitude: lat, longitude: long))
+    }
+    
+    func locationDetailViewControllerDidTapDismissButton() {
+        fpc.move(to: .tip, animated: true)
+        setFloatingPanelWithRecommendedLocationViewController()
+        locationsSubject.send(viewModel.recommendedPlaces)
     }
 }
 
