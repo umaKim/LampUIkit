@@ -24,7 +24,7 @@ class SearchViewController: BaseViewContronller {
     
     weak var delegate: SearchViewControllerDelegate?
     
-    private let contentView = SearchView()
+    private(set) lazy var contentView = SearchView()
     
     private let viewModel: SearchViewModel
     
