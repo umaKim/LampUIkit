@@ -145,6 +145,36 @@ extension MainViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
     }
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
+        let lat = position.target.latitude
+        let long = position.target.longitude
+        viewModel.setLocation(with: lat, long)
+        viewModel.setMyZoomLevel(position.zoom)
+        
+        locationinfo.send(.init(latitude: lat, longitude: long))
+    }
+    
+    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+        HapticManager.shared.feedBack(with: .heavy)
+        guard
+            let index = viewModel.recommendedPlaces.firstIndex(where: {$0.title == marker.title})
+        else { return }
+
+        let location = viewModel.recommendedPlaces[index]
+        setFloatingPanelWithLocationDetailViewController(location)
+    }
+    
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        HapticManager.shared.feedBack(with: .heavy)
+        return false
+    }
+    
+    func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
+        guard
+            let index = viewModel.recommendedPlaces.firstIndex(where: {$0.title == marker.title})
+        else { return nil }
+        let location = viewModel.recommendedPlaces[index]
+        let uv = CustomBalloonView(title: location.title, subtitle: location.addr)
+        return uv
     }
 }
 
