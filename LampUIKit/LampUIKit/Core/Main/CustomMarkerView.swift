@@ -30,8 +30,7 @@ class CustomMarkerView: UIView {
     
     convenience init(of imageUrl: String) {
         self.init()
-        guard let url = URL(string: imageUrl) else { return }
-        contentImageView.sd_setImage(with: url, placeholderImage: UIImage(named: "placeholder"))
+        contentImageView.sd_setImage(with: URL(string: imageUrl), placeholderImage: UIImage(named: "placeholder"))
         contentImageView.layer.cornerRadius = CGFloat(width/2)
         contentImageView.clipsToBounds = true
         addSubview(contentImageView)
