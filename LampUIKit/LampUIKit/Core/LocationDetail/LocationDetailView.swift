@@ -38,7 +38,6 @@ final class LocationDetailView: BaseWhiteView {
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<LocationDetailViewAction, Never>()
     
-    private(set) var collectionView: UICollectionView = {
     private typealias DataSource = UICollectionViewDiffableDataSource<Section, String>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, String>
     
@@ -57,9 +56,6 @@ final class LocationDetailView: BaseWhiteView {
         return cv
     }()
     
-    public func reload() {
-        collectionView.reloadData()
-    private let contentScrollView: UIScrollView = {
        let sv = UIScrollView()
         sv.showsVerticalScrollIndicator = false
         return sv
@@ -180,11 +176,6 @@ final class LocationDetailView: BaseWhiteView {
                     
                 case .review:
                     self.actionSubject.send(.review)
-                    break
-                    
-                case .share:
-                    self.actionSubject.send(.share)
-                    break
                 }
             }
             .store(in: &cancellables)
@@ -196,11 +187,9 @@ final class LocationDetailView: BaseWhiteView {
                 
                 if self.addToMyTravelButton.isSelected {
                     self.addToMyTravelButton.update("내여행지로 추가 취소", background: .systemGray, textColor: .white)
-//                    self.delegate?.locationDetailViewHeaderCellDidTapAddToMyTrip()
                     self.actionSubject.send(.addToMyTrip)
                 } else {
                     self.addToMyTravelButton.update("내여행지로 추가", background: .midNavy, textColor: .white)
-//                    self.delegate?.locationDetailViewHeaderCellDidTapRemoveFromMyTrip()
                     self.actionSubject.send(.removeFromMyTrip)
                 }
             }
