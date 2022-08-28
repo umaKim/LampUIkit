@@ -181,6 +181,13 @@ class DetailReviewViewCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+    private func bind() {
+        likeButton.tapPublisher.sink { _ in
+            self.likeButton.isSelected.toggle()
+            print(self.likeButton.isSelected)
+        }
+        .store(in: &cancellables)
+    }
         layer.cornerRadius = 6
         layer.borderWidth = 1
         layer.borderColor = UIColor.systemGray.cgColor
