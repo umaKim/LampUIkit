@@ -163,6 +163,17 @@ class RoundedLabelView: UIView {
         lb.textColor = .black
         return lb
     }()
+    
+    public func setText(_ text: String) {
+        self.label.text = text
+    }
+    
+    public func setRound(_ isRounded: Bool) {
+        self.isRounded = isRounded
+    }
+    
+    private var isRounded: Bool
+    
     init(
         _ text: String,
         isRounded: Bool = true
