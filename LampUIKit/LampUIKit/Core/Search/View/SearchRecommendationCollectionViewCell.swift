@@ -164,8 +164,11 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
                 } else {
                     self.favoriteButton.setImage(UIImage(named: "favorite_unselected"), for: .normal)
                 }
-                self.delegate?.didTapFavoriteButton(at: self.tag,
-                                                    self.isFavorite)
+                
+                if let location = location {
+                    self.delegate?.didTapFavoriteButton(at: self.tag,
+                                                        location)
+                }
             }
             .store(in: &cancellables)
     }
