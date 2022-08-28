@@ -156,6 +156,7 @@ class ReviewLabel: UIView {
             sv.bottomAnchor.constraint(equalTo: bottomAnchor),
             sv.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
+class RoundedLabelView: UIView {
     private let label: UILabel = {
         let lb = UILabel()
         lb.font = .systemFont(ofSize: 15, weight: .semibold)
