@@ -140,6 +140,9 @@ extension SearchViewController {
         
         dataSource = DataSource(collectionView: contentView.collectionView,
                                 cellProvider: {[unowned self] collectionView, indexPath, itemIdentifier in
+            guard
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchRecommendationCollectionViewCell.identifier, for: indexPath) as? SearchRecommendationCollectionViewCell
+            else { return UICollectionViewCell() }
             cell.tag = indexPath.item
             cell.configure(with: self.viewModel.locations[indexPath.item])
             cell.delegate = self
