@@ -8,6 +8,7 @@ import Combine
 import UIKit
 
 protocol MyTravelCellDelegate: AnyObject {
+    func myTravelCellDelegateDidTap(_ item: MyTravelLocation)
     func myTravelCellDelegateDidTapDelete(at index: Int)
 }
 
@@ -73,6 +74,10 @@ extension MyTravelCell: MyTravelCellCollectionViewCellDelegate {
         delegate?.myTravelCellDelegateDidTapDelete(at: index)
     }
 }
+
+extension MyTravelCell: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        delegate?.myTravelCellDelegateDidTap(models[indexPath.item])
     }
 }
 
