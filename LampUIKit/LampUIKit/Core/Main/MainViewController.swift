@@ -55,6 +55,22 @@ class MainViewController: BaseViewContronller {
 
         contentView.mapView.animate(to: camera)
     }
+    
+    private func setGMPadding() {
+        UIView.animate(withDuration: 0.25, delay: 0, options: .curveLinear) {
+            switch self.fpc.state {
+            case .half:
+                self.contentView.mapView.padding = .init(top: 140, left: 0, bottom: 302.0, right: 0)
+                
+            case .tip:
+                self.contentView.mapView.padding = .init(top: 100, left: 0, bottom: 85.0, right: 0)
+                
+            default:
+                break
+            }
+        } completion: { _ in }
+    }
+    
     private func setFloatingPanelWithSearchViewController() {
         let contentVC = SearchViewController(vm: SearchViewModel())
         contentVC.delegate = self
