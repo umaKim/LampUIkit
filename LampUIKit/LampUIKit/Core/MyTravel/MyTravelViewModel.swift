@@ -74,11 +74,12 @@ class MyTravelViewModel: BaseViewModel {
     public func deleteMySaveLocations(at index: Int) {
         let targetItem = model.favoriteTravel[index]
         model.favoriteTravel.remove(at: index)
-        NetworkService.shared.updateBookMark(of: "\(targetItem.contentId ?? 0)",
-                                             "\(targetItem.mapX ?? "")",
-                                             "\(targetItem.mapY ?? "")",
-                                             placeName: "\(targetItem.placeName ?? "")",
-                                             placeAddr: "\(targetItem.placeAddr ?? "")") { result in
+        NetworkService.shared.updateBookMark(of: "\(targetItem.contentId)",
+                                             "\(targetItem.mapX )",
+                                             "\(targetItem.mapY )",
+                                             "\(targetItem.contentTypeId)",
+                                             placeName: "\(targetItem.placeName )",
+                                             placeAddr: "\(targetItem.placeAddr )") { result in
             
             switch result {
             case .success(let response):

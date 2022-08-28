@@ -94,6 +94,7 @@ class SearchViewModel: BaseViewModel {
         NetworkService.shared.updateBookMark(of: location.contentId,
                                              location.mapX,
                                              location.mapY,
+                                             location.contentTypeId,
                                              placeName: location.title,
                                              placeAddr: location.addr,
                                              completion: {[unowned self] result in
