@@ -94,6 +94,43 @@ class MyReviewCollectionViewCell: UICollectionViewCell {
         super.init(frame: .zero)
         
         backgroundColor = .green
+        
+        let dateSv = UIStackView(arrangedSubviews: [dateLabel, optionButton])
+        dateSv.alignment = .fill
+        dateSv.distribution = .fill
+        dateSv.axis = .horizontal
+        
+        let titleSv = UIStackView(arrangedSubviews: [titleLabel])
+        titleSv.alignment = .fill
+        titleSv.distribution = .fill
+        titleSv.axis = .horizontal
+        
+        let commentAlign = UIStackView(arrangedSubviews: [commmentLabel])
+        commentAlign.axis = .horizontal
+        commentAlign.alignment = .top
+        commentAlign.distribution = .fill
+        
+        let commentSv = UIStackView(arrangedSubviews: [commentAlign, starRateImageView])
+        commentSv.axis = .vertical
+        commentSv.distribution = .fill
+        commentSv.alignment = .center
+        
+        let totalSv = UIStackView(arrangedSubviews: [dateSv, imageView, titleSv, commentAlign, commentSv])
+        totalSv.axis = .vertical
+        totalSv.alignment = .fill
+        totalSv.distribution = .fill
+        
+        [totalSv].forEach { uv in
+            uv.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(uv)
+        }
+        
+        NSLayoutConstraint.activate([
+            totalSv.leadingAnchor.constraint(equalTo: leadingAnchor),
+            totalSv.trailingAnchor.constraint(equalTo: trailingAnchor),
+            totalSv.bottomAnchor.constraint(equalTo: bottomAnchor),
+            totalSv.topAnchor.constraint(equalTo: topAnchor)
+        ])
     }
     
     required init?(coder: NSCoder) {
