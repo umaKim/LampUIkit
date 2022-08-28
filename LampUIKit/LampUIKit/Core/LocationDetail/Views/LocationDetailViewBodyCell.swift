@@ -156,6 +156,27 @@ class ReviewLabel: UIView {
             sv.bottomAnchor.constraint(equalTo: bottomAnchor),
             sv.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
+    init(
+        _ text: String,
+        isRounded: Bool = true
+    ) {
+        self.label.text = text
+        self.isRounded = isRounded
+        super.init(frame: .zero)
+        
+        [label].forEach { uv in
+            uv.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(uv)
+        }
+        
+        NSLayoutConstraint.activate([
+            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            label.topAnchor.constraint(equalTo: topAnchor, constant: 6),
+            label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -6)
+        ])
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         if isRounded {
