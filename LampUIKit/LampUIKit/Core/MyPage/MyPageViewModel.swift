@@ -17,7 +17,6 @@ class MyPageViewModel: BaseViewModel {
     private(set) lazy var notifyPublisher = notifySubject.eraseToAnyPublisher()
     private let notifySubject = PassthroughSubject<MyPageViewModelNotify, Never>()
     
-    private(set) var models: [String] = ["로그아웃", "회원탈퇴"]
     
     public func logout() {
         switch NetworkService.shared.userAuthType {
@@ -50,7 +49,6 @@ class MyPageViewModel: BaseViewModel {
                     case .none:
                         break
                     }
-                   
                 }
                 
             case .failure(let error):
@@ -70,7 +68,5 @@ class MyPageViewModel: BaseViewModel {
         }
     }
     
-    public func deleteAccount() {
-        
     }
 }
