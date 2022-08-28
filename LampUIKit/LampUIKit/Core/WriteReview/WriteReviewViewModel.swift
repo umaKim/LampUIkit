@@ -10,6 +10,12 @@ import UIKit
 
 enum WriteReviewViewModelNotify {
     case ableCompleteButton(Bool)
+    case dismiss
+    case showMessage(String)
+    case numberOfImages(Int)
+    
+    case startLoading
+    case endLoading
 }
 
 class WriteReviewViewModel: BaseViewModel {
