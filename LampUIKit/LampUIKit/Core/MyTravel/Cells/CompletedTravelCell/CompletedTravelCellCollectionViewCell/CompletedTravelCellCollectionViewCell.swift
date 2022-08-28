@@ -54,8 +54,8 @@ final class CompletedTravelCellCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    public func configure(_ model: MyTravelLocation) {
-        visitiedDateLabel.text = model.travelDate
+    public func configure(_ model: MyCompletedTripLocation) {
+        visitiedDateLabel.text = model.travelCompletedDate
         locationNameLabel.text = model.placeInfo
     }
     
