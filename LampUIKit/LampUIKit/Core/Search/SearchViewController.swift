@@ -50,7 +50,6 @@ class SearchViewController: BaseViewContronller {
         
         navigationItem.rightBarButtonItems = [contentView.dismissButton]
         contentView.collectionView.delegate = self
-//        contentView.collectionView.dataSource = self
         
         bind()
         configureCollectionView()
@@ -91,7 +90,6 @@ class SearchViewController: BaseViewContronller {
             .sink {[unowned self] notify in
                 switch notify {
                 case .reload:
-                    //                    self.contentView.reload()
                     self.updateSections()
                     
                 case .startLoading:
@@ -119,9 +117,6 @@ extension SearchViewController: SearchRecommendationCollectionViewCellDelegate {
         delegate?.searchViewControllerDidTapMapPin()
     }
     
-    func didTapFavoriteButton(at index: Int, _ isFavorite: Bool) {
-        print(index)
-        print(isFavorite)
     func didTapCancelThisLocationButton(at index: Int, _ location: RecommendedLocation) {
         viewModel.deleteFromMyTrip(at: index, location)
     }
@@ -156,8 +151,6 @@ extension SearchViewController: UICollectionViewDelegate {
         
         let vm = LocationDetailViewModel(viewModel.locations[indexPath.item])
         let vc = LocationDetailViewController(vm: vm)
-        let nav = UINavigationController(rootViewController: vc)
-        present(nav, animated: true)
     }
 }
 
