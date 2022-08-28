@@ -101,6 +101,11 @@ class QuizResultView: BaseView {
             backgroundImageView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -80),
             
             characterImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            characterImageView.leadingAnchor.constraint(equalTo: backgroundImageView.leadingAnchor, constant: 16),
+            characterImageView.trailingAnchor.constraint(equalTo: backgroundImageView.trailingAnchor, constant: -16),
+            characterImageView.topAnchor.constraint(equalTo: backgroundImageView.topAnchor, constant: 26),
+            characterImageView.bottomAnchor.constraint(equalTo: backgroundImageView.bottomAnchor, constant: -80),
+           
             nextButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             nextButton.centerYAnchor.constraint(equalTo: backgroundImageView.bottomAnchor, constant: -(UIScreen.main.height / 70)),
             
