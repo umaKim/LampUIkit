@@ -47,6 +47,14 @@ class MainViewController: BaseViewContronller {
         
         moveTo(.init(latitude: viewModel.coord.latitude, longitude: viewModel.coord.longitude))
     }
+    
+    private func moveTo(_ coord: CLLocationCoordinate2D) {
+        let camera = GMSCameraPosition.camera(withTarget: coord, zoom: viewModel.zoom)
+       
+        setGMPadding()
+
+        contentView.mapView.animate(to: camera)
+    }
     private func setFloatingPanelWithSearchViewController() {
         let contentVC = SearchViewController(vm: SearchViewModel())
         contentVC.delegate = self
