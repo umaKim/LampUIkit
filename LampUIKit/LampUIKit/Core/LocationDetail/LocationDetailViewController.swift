@@ -14,7 +14,6 @@ protocol LocationDetailViewControllerDelegate: AnyObject {
 
 final class LocationDetailViewController: BaseViewContronller {
     
-    private let contentView = LocationDetailView()
     
     override func loadView() {
         super.loadView()
@@ -30,16 +29,11 @@ final class LocationDetailViewController: BaseViewContronller {
         self.viewModel = vm
         super.init()
         
-        hidesBottomBarWhenPushed = true
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        contentView.collectionView.dataSource = self
-        contentView.collectionView.delegate = self
-        
-        navigationItem.leftBarButtonItems = [contentView.backButton]
         
         bind()
     }
@@ -67,8 +61,6 @@ final class LocationDetailViewController: BaseViewContronller {
                     self.viewModel.save()
                     
                 case .ar:
-                    let vm = ARViewModel()
-                    let vc = ARViewController(vm: vm)
                     self.present(vc, animated: true)
                     
                 case .map:
@@ -80,13 +72,6 @@ final class LocationDetailViewController: BaseViewContronller {
                     let vm = WriteReviewViewModel(location)
                     let vc = WriteReviewViewController(vm)
                     self.navigationController?.pushViewController(vc, animated: true)
-                
-                case .share:
-                    let vc = UIActivityViewController(
-                        activityItems: [],
-                        applicationActivities: nil)
-                    
-                    self.present(vc, animated: true)
                     
                 case .addToMyTrip:
                     self.viewModel.addToMyTrip()
@@ -95,9 +80,6 @@ final class LocationDetailViewController: BaseViewContronller {
                     self.viewModel.removeFromMyTrip()
                     
                 case .showDetailReview:
-                    let vm = DetailReviewViewModel()
-                    let vc = DetailReviewViewController(vm: vm)
-                    self.navigationController?.pushViewController(vc, animated: true)
                 }
             }
             .store(in: &cancellables)
