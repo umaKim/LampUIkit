@@ -88,8 +88,6 @@ class DetailReviewViewController: BaseViewContronller {
     private func updateSections() {
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
-        snapshot.appendItems(viewModel.models)
-        dataSource?.apply(snapshot, animatingDifferences: true, completion: {
         dataSource?.apply(snapshot, animatingDifferences: true, completion: { [unowned self] in
             self.dataSource?.applySnapshotUsingReloadData(snapshot)
         })
@@ -122,10 +120,4 @@ extension DetailReviewViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         8
     }
-}
-
-struct ReviewModel: Decodable, Hashable {
-    let imageUrl: String
-    let rating: String
-    let comments: String
 }
