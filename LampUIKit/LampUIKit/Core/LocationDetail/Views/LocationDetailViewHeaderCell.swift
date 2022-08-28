@@ -17,8 +17,23 @@ protocol LocationDetailViewHeaderCellDelegate: AnyObject {
     func locationDetailViewHeaderCellDidTapRemoveFromMyTrip()
 }
 
+    private lazy var imageView: UIImageView = {
+       let uv = UIImageView()
+        uv.contentMode = .scaleAspectFill
+        uv.layer.cornerRadius = 6
+        uv.clipsToBounds = true
+        return uv
     }()
     
+    private lazy var dismissButton: UIButton = {
+        let bt = UIButton()
+//        bt.setImage(.xmark, for: .normal)
+        bt.setImage(UIImage(named: "minus"), for: .normal)
+        bt.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        bt.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        bt.layer.cornerRadius = 20/2
+        bt.backgroundColor = .greyshWhite
+        return bt
     }()
     
     }
