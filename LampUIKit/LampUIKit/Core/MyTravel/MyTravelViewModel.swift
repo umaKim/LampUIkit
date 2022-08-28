@@ -111,4 +111,15 @@ struct MyTravelLocation: Codable, Hashable {
     let mapX: String?
     let mapY: String?
     let bookMark: Bool?
+struct MyBookMarkLocation: Codable, Hashable {
+    let placeIdx: Int
+    let contentId: Int
+    let contentTypeId: Int
+    let placeAddr: String
+    let placeName: String
+    let placeInfo: String?
+    let mapX: String
+    let mapY: String
+    let planIdx: Int?
+}
 }
