@@ -17,8 +17,6 @@ class MyCharacterView: BaseWhiteView {
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<MyCharacterViewAction, Never>()
 
-    private(set) var dismissButton: UIBarButtonItem = {
-        let bt = UIBarButtonItem(image: .xmark, style: .done, target: nil, action: nil)
         bt.tintColor = .black
         return bt
     }()
@@ -46,12 +44,6 @@ class MyCharacterView: BaseWhiteView {
     }
     
     private func bind() {
-        dismissButton
-            .tapPublisher
-            .sink {[unowned self] _ in
-                self.actionSubject.send(.dismiss)
-            }
-            .store(in: &cancellables)
     }
     
     private func setupUI() {
