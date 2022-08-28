@@ -185,7 +185,7 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
         
         backgroundColor = .greyshWhite
         
-        let labelStackView = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel, starRatingView])
+        let labelStackView = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel])
         labelStackView.axis = .vertical
         labelStackView.spacing = 9
         labelStackView.alignment = .fill
