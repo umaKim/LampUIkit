@@ -155,6 +155,8 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
         pinButton
             .tapPublisher
             .sink {[unowned self] _ in
+                HapticManager.shared.feedBack(with: .medium)
+                
                 if let location = self.location {
                     self.delegate?.didTapMapPin(location: location)
                 }
@@ -164,6 +166,7 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
         favoriteButton
             .tapPublisher
             .sink {[unowned self] _ in
+                HapticManager.shared.feedBack(with: .medium)
                 
                 self.isFavorite.toggle()
                 
