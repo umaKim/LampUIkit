@@ -188,6 +188,8 @@ class DetailReviewViewCollectionViewCell: UICollectionViewCell {
         }
         .store(in: &cancellables)
     }
+    
+    private func setupUI() {
         layer.cornerRadius = 6
         layer.borderWidth = 1
         layer.borderColor = UIColor.systemGray.cgColor
