@@ -19,6 +19,62 @@ enum LocationDetailViewModelNotify {
 final class LocationDetailViewModel: BaseViewModel {
     private(set) lazy var notifyPublisher = notifySubject.eraseToAnyPublisher()
     private let notifySubject = PassthroughSubject<LocationDetailViewModelNotify, Never>()
+    override init() {
+        super.init()
+    }
+    
+    convenience init(_ location: RecommendedLocation) {
+        self.init()
+        self.location = location
+        
+//        fetchLocationDetail()
+    }
+    
+    convenience init(
+       _ myTravelLocation: MyTravelLocation
+    ) {
+        self.init()
+        
+        self.location = .init(
+            image: nil,
+            contentId: "\(myTravelLocation.contentId ?? 0)",
+            contentTypeId: "\(myTravelLocation.contentTypeId ?? 0)",
+            title: myTravelLocation.placeName ?? "",
+            addr: myTravelLocation.placeAddress ?? "",
+            rate: nil,
+            isBookMarked: myTravelLocation.isBookMarked ?? false,
+            mapX: myTravelLocation.mapX ?? "",
+            mapY: myTravelLocation.mapY ?? "",
+            planIdx: "\(myTravelLocation.planIdx ?? 0)"
+        )
+    }
+    
+    convenience init(
+        _ myBookMarkLocation: MyBookMarkLocation
+    ) {
+        self.init()
+        
+        self.location = .init(
+            image: nil,
+            contentId: "\(myBookMarkLocation.contentId)" ,
+            contentTypeId: "\(myBookMarkLocation.contentTypeId)" ,
+            title: myBookMarkLocation.placeName,
+            addr: myBookMarkLocation.placeAddr,
+            rate: nil,
+            isBookMarked: true,
+            mapX: myBookMarkLocation.mapX,
+            mapY: myBookMarkLocation.mapY,
+            planIdx: "\(myBookMarkLocation.placeIdx)"
+        )
+    }
+    
+    convenience init(
+        _ myCompletedLocation: MyCompletedTripLocation
+    ) {
+        self.init()
+        
+    }
+    
     public func save() {
         guard let location = location else {
             return
