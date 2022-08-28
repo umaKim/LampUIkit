@@ -133,6 +133,28 @@ final class LocationDetailViewModel: BaseViewModel {
         guard
             let location = location
         else { return }
+        
+        var contentInfo: String = ""
+        
+        if locationDetail?.contentTypeId == "12" {
+            contentInfo = locationDetail?.datailInfo?.usetime ?? ""
+        }
+        
+        if locationDetail?.contentTypeId == "14" {
+            contentInfo = locationDetail?.datailInfo?.usetimeculture ?? ""
+        }
+        
+        if locationDetail?.contentTypeId == "15" {
+            contentInfo = locationDetail?.datailInfo?.eventstartdate ?? ""
+        }
+        
+        if locationDetail?.contentTypeId == "28" {
+            contentInfo = locationDetail?.datailInfo?.usetimeleports ?? ""
+        }
+        
+        if locationDetail?.contentTypeId == "39" {
+            contentInfo = locationDetail?.datailInfo?.opentimefood ?? ""
+        }
 
         let data = PostAddToMyTripData(
             token: "",
