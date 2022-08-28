@@ -146,6 +146,16 @@ extension SearchViewController {
     }
 }
 
+extension SearchViewController: LocationDetailViewControllerDelegate {
+    func locationDetailViewControllerDidTapDismissButton() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    func locationDetailViewControllerDidTapMapButton(_ location: RecommendedLocation) {
+        self.didTapMapPin(location: location)
+    }
+}
+
 extension SearchViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
