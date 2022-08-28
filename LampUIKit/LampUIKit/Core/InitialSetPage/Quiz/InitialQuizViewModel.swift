@@ -19,11 +19,11 @@ class InitialQuizViewModel: BaseViewModel {
     private let notifySubject = PassthroughSubject<InitialQuizViewModelNotify, Never>()
     
     private let characterImages: [UIImage?] = [
-        .init(named: "bear"),
-        .init(named: "cat"),
-        .init(named: "racoon"),
-        .init(named: "dog"),
-        .init(named: "rabbit"),
+        .init(named: "resultRacoon"),
+        .init(named: "resultRabbit"),
+        .init(named: "resultCat"),
+        .init(named: "resultDog"),
+        .init(named: "resultBear")
     ]
     
     
