@@ -7,6 +7,6 @@
 
 import Foundation
 
-class ARViewModel {
+class ARViewModel: BaseViewModel {
     
 }
