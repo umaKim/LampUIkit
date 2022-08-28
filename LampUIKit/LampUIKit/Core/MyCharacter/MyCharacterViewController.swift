@@ -46,7 +46,7 @@ class MyCharacterViewController: BaseViewContronller {
         setupDataSource()
         updateSections()
         
-        navigationItem.rightBarButtonItems = [contentView.dismissButton]
+        navigationItem.rightBarButtonItems = [contentView.gearButton]
         
         contentView
             .actionPublisher
