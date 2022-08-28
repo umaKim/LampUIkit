@@ -30,7 +30,6 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell {
         lb.textColor = .midNavy
         lb.font = .systemFont(ofSize: 20, weight: .bold)
         lb.numberOfLines = 1
-        
         return lb
     }()
     
@@ -45,16 +44,14 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell {
     private lazy var timeLabel: UILabel = {
        let lb = UILabel()
         lb.font = .systemFont(ofSize: 14, weight: .semibold)
-        lb.text = "09:00~18:30 (입장마감은 17:30)"
         lb.textColor = .midNavy
         return lb
     }()
     
     private lazy var addressLabel: UILabel = {
        let lb = UILabel()
-        lb.text = "주소 어쩌구 저쩌구"
         lb.textColor = .midNavy
-        lb.font = .systemFont(ofSize: 14, weight: .semibold)
+        lb.font = .robotoMedium(14)
         return lb
     }()
     
@@ -106,7 +103,8 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell {
     }
     
     public func configure(_ location: MyTravelLocation) {
-        titleLabel.text = location.placeInfo
+        titleLabel.text = location.placeName
+        timeLabel.text = location.placeInfo
         addressLabel.text = location.placeAddress
     }
     
