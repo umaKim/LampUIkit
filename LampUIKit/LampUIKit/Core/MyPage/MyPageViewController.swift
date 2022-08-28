@@ -62,6 +62,12 @@ class MyPageViewController: BaseViewContronller {
                 switch noti {
                 case .goBackToBeforeLoginPage:
                     (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(StartPageViewController())
+                    
+                case .myInfo(let info):
+                    break
+                    
+                case .reload:
+                    self.contentView.tableView.reloadData()
                 }
         }
         .store(in: &cancellables)
