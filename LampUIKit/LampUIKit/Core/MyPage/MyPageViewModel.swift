@@ -68,5 +68,12 @@ class MyPageViewModel: BaseViewModel {
         }
     }
     
+    private func firebaseSignout() {
+        do {
+           try Auth.auth().signOut()
+            self.notifySubject.send(.goBackToBeforeLoginPage)
+        } catch {
+            print(error)
+        }
     }
 }
