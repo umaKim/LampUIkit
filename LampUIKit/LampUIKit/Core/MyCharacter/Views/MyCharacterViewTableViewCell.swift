@@ -30,7 +30,8 @@ class MyCharacterViewTableViewCell: UITableViewCell {
     private lazy var barView: HorizontalFillBar = {
         let uv = HorizontalFillBar(height: 13, fillerColor: .systemRed, trackColor: .whiteGrey)
         uv.layer.cornerRadius = 13 / 2
-        uv.widthAnchor.constraint(equalToConstant: UIScreen.main.width - 32).isActive = true
+        uv.heightAnchor.constraint(equalToConstant: 12).isActive = true
+        uv.widthAnchor.constraint(equalToConstant: UIScreen.main.width - UIScreen.main.width/3).isActive = true
         return uv
     }()
     
