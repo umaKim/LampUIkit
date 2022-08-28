@@ -212,6 +212,20 @@ class DetailReviewViewCollectionViewCell: UICollectionViewCell {
         bind()
         setupUI()
     }
+    
+    public func configure(_ review: ReviewData) {
+        let url = URL(string: (review.photoUrlArray.first ?? "") ?? "")
+        imageView.sd_setImage(with: url, placeholderImage: .init(named: "placeholder"))
+        if let star = Double(review.star) {
+            starRatinView.image = .init(named: "\(star)")
+        } else {
+            starRatinView.image = .init(named: "0")
+        }
+        
+        commentLabel.text = review.content
+        likeButton.configuration?.subtitle = "\(review.numLiked ?? 0)"
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
