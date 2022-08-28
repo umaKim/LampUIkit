@@ -81,6 +81,10 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
         return uv
     }()
     
+    private var location: RecommendedLocation?
+    
+    private var isFavorite: Bool = false
+    private var isOnPlan: Bool = false
     
     override init(frame: CGRect) {
         self.cancellables = .init()
