@@ -34,6 +34,19 @@ class MainViewController: BaseViewContronller {
         view = contentView
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        
+        styleGoogleMaps()
+        
+        bind()
+        
+        setFloatingPanelWithRecommendedLocationViewController()
+        
+        moveTo(.init(latitude: viewModel.coord.latitude, longitude: viewModel.coord.longitude))
+    }
     private func setFloatingPanelWithSearchViewController() {
         let contentVC = SearchViewController(vm: SearchViewModel())
         contentVC.delegate = self
