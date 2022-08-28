@@ -10,8 +10,8 @@ import UIKit
 final class CompletedTravelCell: UICollectionViewCell {
     static let identifier = "CompletedTravelCell"
     
-    private typealias DataSource = UICollectionViewDiffableDataSource<Section, MyTravelLocation>
-    private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, MyTravelLocation>
+    private typealias DataSource = UICollectionViewDiffableDataSource<Section, MyCompletedTripLocation>
+    private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, MyCompletedTripLocation>
     
     enum Section { case main }
     
