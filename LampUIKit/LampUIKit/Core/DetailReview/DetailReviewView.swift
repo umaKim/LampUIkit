@@ -205,6 +205,13 @@ class DetailReviewViewCollectionViewCell: UICollectionViewCell {
         ])
     }
     
+    override init(frame: CGRect) {
+        self.cancellables = .init()
+        super.init(frame: frame)
+        
+        bind()
+        setupUI()
+    }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
