@@ -118,6 +118,13 @@ final class LocationDetailView: BaseWhiteView {
             label5.isHidden = true
             return
         }
+        
+        label1.isHidden = true
+        label2.isHidden = true
+        label3.isHidden = true
+        label4.isHidden = true
+        label5.isHidden = true
+        return
     }
     
     private func configureImageViewCollecitonView() {
