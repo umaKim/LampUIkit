@@ -53,7 +53,16 @@ class DetailReviewViewController: BaseViewContronller {
                 }
             }
             .store(in: &cancellables)
+        
+        viewModel
+            .notifyPublisher
             .sink {[unowned self] noti in
+                switch noti {
+                case .reload:
+                    self.updateSections()
+                }
+            }
+            .store(in: &cancellables)
     }
     
     private func configureCollectionView() {
