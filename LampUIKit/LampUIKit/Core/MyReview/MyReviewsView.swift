@@ -52,6 +52,44 @@ class MyReviewsView: BaseWhiteView {
 class MyReviewCollectionViewCell: UICollectionViewCell {
     static let identifier = "MyReviewCollectionViewCell"
     
+    private lazy var dateLabel: UILabel = {
+       let lb = UILabel()
+        lb.text = "2022년 8월 22일"
+        return lb
+    }()
+    
+    private lazy var optionButton: UIButton = {
+       let bt = UIButton()
+        bt.setImage(UIImage(systemName: "person"), for: .normal)
+        return bt
+    }()
+    
+    private lazy var imageView: UIImageView = {
+       let uv = UIImageView()
+        uv.image = .init(systemName: "person")
+        uv.widthAnchor.constraint(equalToConstant: UIScreen.main.width - 60).isActive = true
+        uv.heightAnchor.constraint(equalToConstant: 161).isActive = true
+        return uv
+    }()
+    
+    private lazy var titleLabel: UILabel = {
+        let lb = UILabel()
+        lb.text = "경복궁"
+        return lb
+    }()
+    
+    private lazy var commmentLabel: UILabel = {
+       let lb = UILabel()
+        lb.text = "jkwbfkewbfoubweofbweofbnweobfiouwebfiouweboufwe"
+        return lb
+    }()
+    
+    private lazy var starRateImageView: UIImageView = {
+       let uv = UIImageView()
+        uv.image = .init(systemName: "person")
+        return uv
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: .zero)
         
