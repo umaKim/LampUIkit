@@ -52,6 +52,11 @@ class MyCharacterViewController: BaseViewContronller {
             .actionPublisher
             .sink {[unowned self] action in
                 switch action {
+                case .gear:
+                    let vm = MyPageViewModel()
+                    let vc = MyPageViewController(vm: vm)
+                    self.navigationController?.pushViewController(vc, animated: true)
+                    
                 case .dismiss:
                     self.delegate?.myCharacterViewControllerDidTapDismiss()
                 }
