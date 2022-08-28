@@ -132,7 +132,23 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
     private func bind() {
         setThisLocationButton
             .tapPublisher
-            .sink {[unowned self] _ in
+            .sink {[weak self] _ in
+                guard let self = self else {return }
+                HapticManager.shared.feedBack(with: .medium)
+                
+                self.isOnPlan.toggle()
+                if self.isOnPlan {
+                    self.setThisLocationButton.setImage(.init(named: "destinationCancelButton"), for: .normal)
+                    if let location = self.location {
+                        self.delegate?.didTapSetThisLocationButton(at: self.tag, location)
+                    }
+                   
+                } else {
+                    self.setThisLocationButton.setImage(UIImage(named: "destinationSetButton"), for: .normal)
+                    if let location = self.location {
+                        self.delegate?.didTapCancelThisLocationButton(at: self.tag, location)
+                    }
+                }
             }
             .store(in: &cancellables)
         
