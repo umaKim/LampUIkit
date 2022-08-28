@@ -32,14 +32,12 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
     
     private let descriptionLabel: UILabel = {
        let lb = UILabel()
-        lb.text = "서울특별시 종로구 사직로 161조선시대의 궁궐 중 하나이자  조선의 정궁, 법궁"
         lb.numberOfLines = 3
         lb.font = .systemFont(ofSize: 12)
         lb.textColor = .midNavy
         return lb
     }()
     
-    private let starRatingView = StarRatingView()
     
     private let setThisLocationButton: UIButton = {
        let bt = UIButton()
@@ -83,12 +81,6 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
         return uv
     }()
     
-    private let lampSpotButton: UIButton = {
-        let bt = UIButton()
-        let image = UIImage(systemName: "circle")?.withTintColor(.white, renderingMode: .alwaysOriginal)
-        bt.setImage(image, for: .normal)
-        return bt
-    }()
     
     override init(frame: CGRect) {
         self.cancellables = .init()
@@ -110,10 +102,7 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
         if location.image == "" {
             locationImageView.image = UIImage(named: "placeholder")
         }
-        guard let url = URL(string: location.image) else {return}
-        locationImageView.sd_setImage(with: url)
         
-        isFavorite = location.bookMark
         
         starRatingView.configure(with: Double(location.rate) ?? 0.0)
         
