@@ -160,8 +160,9 @@ final class LocationDetailViewModel: BaseViewModel {
             token: "",
             contentId: location.contentId,
             contentTypeId: location.contentTypeId,
-            contentInfo: location.title,
-            contentAddress: location.addr,
+            placeName: location.title,
+            placeInfo: contentInfo,
+            placeAddress: location.addr,
             userMemo: "",
             mapX: location.mapX,
             mapY: location.mapY
