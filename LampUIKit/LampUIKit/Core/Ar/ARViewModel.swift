@@ -9,4 +9,11 @@ import Foundation
 
 class ARViewModel: BaseViewModel {
     
+    private(set) var location: RecommendedLocation
+    
+    init(_ location: RecommendedLocation) {
+        self.location = location
+        super.init()
+        
+    }
 }
