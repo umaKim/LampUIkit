@@ -25,9 +25,7 @@ class MainView: BaseWhiteView {
     
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<MainViewAction, Never>()
-    
-//    private(set) var mapView = MTMapView()
-    
+
     private(set) var mapView = GMSMapView()
     
     private lazy var recommendationButton: UIButton = {
@@ -128,7 +126,7 @@ class MainView: BaseWhiteView {
         zoomSv.layer.cornerRadius = 20
         zoomSv.clipsToBounds = true
         
-        [mapView, filterSv, refreshButton, myLocationButton, zoomSv, myTravelButton].forEach { uv in
+        [mapView, filterSv, refreshButton, myLocationButton, zoomSv].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
             addSubview(uv)
         }
