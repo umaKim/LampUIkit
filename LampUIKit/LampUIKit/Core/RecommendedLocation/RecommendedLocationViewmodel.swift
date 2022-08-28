@@ -41,7 +41,7 @@ class RecommendedLocationViewmodel: BaseViewModel {
             .sink {[weak self] coord in
             guard let self = self else {return }
             
-            self.geocoder.reverseGeocodeCoordinate(.init(latitude: coord.latitude, longitude: coord.longitude)) {[unowned self] response, error in
+            self.geocoder.reverseGeocodeCoordinate(.init(latitude: coord.latitude, longitude: coord.longitude)) {[weak self] response, error in
                 if let address = response?.firstResult() {
                     let administrativeArea = address.administrativeArea ?? ""
                     let locality = address.locality ?? ""
@@ -49,7 +49,7 @@ class RecommendedLocationViewmodel: BaseViewModel {
                     
                     let addressString = administrativeArea + " " + locality + " " + sublocality
                     print(addressString)
-                    self.notifySubject.send(.updateAddress(addressString))
+                    self?.notifySubject.send(.updateAddress(addressString))
                 }
             }
         }
