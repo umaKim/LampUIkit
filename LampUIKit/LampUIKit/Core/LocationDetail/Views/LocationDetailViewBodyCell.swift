@@ -156,6 +156,13 @@ class ReviewLabel: UIView {
             sv.bottomAnchor.constraint(equalTo: bottomAnchor),
             sv.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if isRounded {
+            layer.borderWidth = 1
+            layer.borderColor = UIColor.midNavy.cgColor
+            layer.cornerRadius = self.frame.height / 2
+        }
     }
     
     required init?(coder: NSCoder) {
