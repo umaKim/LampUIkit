@@ -94,8 +94,8 @@ class MyTravelViewModel: BaseViewModel {
 
 struct MyTravelDataSet: Codable {
     var myTravel: [MyTravelLocation]
-    var favoriteTravel: [MyTravelLocation]
-    var completedTravel: [MyTravelLocation]
+    var favoriteTravel: [MyBookMarkLocation]
+    var completedTravel: [MyCompletedTripLocation]
 }
 
 struct MyTravelLocation: Codable, Hashable {

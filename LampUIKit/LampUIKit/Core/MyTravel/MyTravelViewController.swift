@@ -82,6 +82,12 @@ final class MyTravelViewController: BaseViewContronller {
 }
 
 extension MyTravelViewController: MyTravelCellDelegate {
+    func myTravelCellDelegateDidTap(_ item: MyTravelLocation) {
+        let vm = LocationDetailViewModel(item)
+        let vc = LocationDetailViewController(vm: vm)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     func myTravelCellDelegateDidTapDelete(at index: Int) {
         viewModel.deleteMyTravel(at: index)
     }
