@@ -51,7 +51,10 @@ protocol LocationDetailViewHeaderCellDelegate: AnyObject {
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
             imageView.topAnchor.constraint(equalTo: topAnchor),
-            imageView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            imageView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
+            dismissButton.topAnchor.constraint(equalTo: topAnchor, constant: 6),
+            dismissButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -6)
         ])
     }
     
