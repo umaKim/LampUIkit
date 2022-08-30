@@ -84,11 +84,7 @@ class StartPageViewController: UIViewController {
         animaionView.loopMode = .loop
         animaionView.play()
         
-        view.addSubview(animaionView)
-        
-        animaionView.frame = view.bounds
-        
-        [background, titleImage, startButton].forEach { uv in
+        [background, animaionView, titleImage, startButton].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(uv)
         }
