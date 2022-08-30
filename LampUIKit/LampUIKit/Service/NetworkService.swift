@@ -204,16 +204,16 @@ final class NetworkService {
     }
     
     func postReviewImages(with images: [Data],
-                             _ contentId: String,
-                             completion: @escaping ((Result<Response, AFError>) -> Void)) {
+                          _ contentId: String,
+                          completion: @escaping ((Result<Response, AFError>) -> Void)) {
         
         let date = Date()
-
+        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-
+        
         let dateString = dateFormatter.string(from: date)
-
+        
         let requestUrl = baseUrl + "/app/placeInfo/review/photo?contentId=\(contentId)&token=\(token)&date=\(dateString)"
         
         let boundary = "Boundary-\(UUID().uuidString)"
