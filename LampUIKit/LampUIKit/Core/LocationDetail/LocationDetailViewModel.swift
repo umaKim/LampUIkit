@@ -166,6 +166,7 @@ final class LocationDetailViewModel: BaseViewModel {
             token: "",
             contentId: location.contentId,
             contentTypeId: location.contentTypeId,
+            image: location.image ?? "",
             placeName: location.title,
             placeInfo: contentInfo,
             placeAddress: location.addr,
@@ -214,6 +215,7 @@ struct PostAddToMyTripData: Codable {
     var token: String
     let contentId: String
     let contentTypeId: String
+    let image: String
     let placeName: String
     let placeInfo: String
     let placeAddress: String
