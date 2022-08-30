@@ -73,12 +73,12 @@ class SearchView: BaseView {
             }
             .store(in: &cancellables)
         
-//        dismissButton
-//            .tapPublisher
-//            .sink {[unowned self] _ in
-//                self.actionSubject.send(.dismiss)
-//            }
-//            .store(in: &cancellables)
+        dismissButton
+            .tapPublisher
+            .sink {[unowned self] _ in
+                self.actionSubject.send(.dismiss)
+            }
+            .store(in: &cancellables)
         
         categoryButtons
             .actionPublisher

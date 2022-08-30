@@ -61,8 +61,7 @@ class MyCharacterViewController: BaseViewContronller {
                     self.navigationController?.pushViewController(vc, animated: true)
                     
                 case .dismiss:
-//                    self.delegate?.myCharacterViewControllerDidTapDismiss()
-                    break
+                    self.delegate?.myCharacterViewControllerDidTapDismiss()
                 }
             }
             .store(in: &cancellables)
