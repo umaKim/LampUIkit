@@ -46,8 +46,8 @@ final class LocationDetailViewModel: BaseViewModel {
             rate: nil,
             bookMarkIdx: "",
             isBookMarked: myTravelLocation.isBookMarked,
-            mapX: myTravelLocation.mapX,
-            mapY: myTravelLocation.mapY,
+            mapX: myTravelLocation.mapX ?? "",
+            mapY: myTravelLocation.mapY ?? "",
             planIdx: "\(myTravelLocation.planIdx)"
         )
     }

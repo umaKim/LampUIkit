@@ -49,6 +49,7 @@ class SearchViewModel: BaseViewModel {
             token: "",
             contentId: location.contentId,
             contentTypeId: location.contentTypeId,
+            image: location.image ?? "",
             placeName: location.title,
             placeInfo: "",
             placeAddress: location.addr,
