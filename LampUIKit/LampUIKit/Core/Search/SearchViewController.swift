@@ -50,7 +50,7 @@ class SearchViewController: BaseViewContronller {
         contentView.searchBar.placeholder = "검색어 입력"
 //        navigationItem.titleView = contentView.searchBar
         
-//        navigationItem.rightBarButtonItems = [contentView.dismissButton]
+        navigationItem.leftBarButtonItems = [contentView.dismissButton]
 //        contentView.searchBar.delegate = self
         contentView.collectionView.delegate = self
         
