@@ -423,27 +423,6 @@ struct ReviewData: Codable, Hashable {
     let reviewILiked: Bool?
     let photoUrlArray: [String]?
 }
-//
-//{
-////"reviewIdx": 89,
-//"contentId": "126747",
-//"userId": 246,
-//"thumbnailPhotoId": 0,
-//"star": "2.5",
-//"satisfaction": null,
-//"mood": 2,
-//"surround": 2,
-//"foodArea": 1,
-//"content": "Nice",
-//"createdAt": "2022-08-30T11:39:43.000Z",
-//"numReported": 0,
-//"photoIdx": 48,
-//"numLiked": 0,
-//"reviewILiked": false,
-//"photoUrlArray": [
-//"https://lampstorage.s3.ap-northeast-2.amazonaws.com/126747/2353458115/2022-08-30/126747-F94379AC-6402-4BC1-B12F-F7708951C56E.jpg"
-//]
-//
 
 struct LocationImageResponse: Decodable {
     let image: [String]
