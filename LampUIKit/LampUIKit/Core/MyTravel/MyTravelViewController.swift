@@ -87,6 +87,7 @@ extension MyTravelViewController: MyTravelCellDelegate {
     func myTravelCellDelegateDidTap(_ item: MyTravelLocation) {
         let vm = LocationDetailViewModel(item)
         let vc = LocationDetailViewController(vm: vm)
+        vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -99,6 +100,7 @@ extension MyTravelViewController: FavoriteCellDelegate {
     func favoriteCellDidTap(_ item: MyBookMarkLocation) {
         let vm = LocationDetailViewModel(item)
         let vc = LocationDetailViewController(vm: vm)
+        vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -106,7 +108,21 @@ extension MyTravelViewController: FavoriteCellDelegate {
         viewModel.deleteMySaveLocations(at: index)
     }
 }
+
+extension MyTravelViewController: LocationDetailViewControllerDelegate {
+    func locationDetailViewControllerDidTapDismissButton() {
+        
+    }
     
+    func locationDetailViewControllerDidTapMapButton(_ location: RecommendedLocation) {
+        self.delegate?.myTravelViewControllerDidTapMapButton(location)
+    }
+    
+    func locationDetailViewControllerDidTapBackButton() {
+        self.navigationController?.popViewController(animated: true)
+        self.viewModel.fetch()
+    }
+}
 
 extension MyTravelViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
