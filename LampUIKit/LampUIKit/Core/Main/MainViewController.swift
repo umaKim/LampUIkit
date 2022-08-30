@@ -355,15 +355,6 @@ extension MainViewController: MyTravelViewControllerDelegate {
     }
     
     func myTravelViewControllerDidTapDismiss() {
-//        dismiss()
-//        self.navigationController?.setNavigationBarHidden(true, animated: true)
-//        self.navigationController?.popViewController(animated: true)
-    }
-}
-
-extension MainViewController: MyCharacterViewControllerDelegate {
-    func myCharacterViewControllerDidTapDismiss() {
-//        self.navigationController?.setNavigationBarHidden(true, animated: true)
         self.navigationController?.popViewController(animated: true)
     }
 }
