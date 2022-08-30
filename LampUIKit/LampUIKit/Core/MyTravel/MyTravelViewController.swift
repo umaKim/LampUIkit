@@ -10,6 +10,8 @@ import UIKit
 protocol MyTravelViewControllerDelegate: AnyObject {
 //    func myTravelViewDidTapItem(_ item: MyTravel)
     func myTravelViewControllerDidTapDismiss()
+    func myTravelViewControllerDidTapMapButton(_ location: RecommendedLocation)
+    
 }
 
 final class MyTravelViewController: BaseViewContronller {
