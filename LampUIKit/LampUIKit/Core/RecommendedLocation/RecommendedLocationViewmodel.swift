@@ -37,7 +37,7 @@ class RecommendedLocationViewmodel: BaseViewModel {
             .store(in: &cancellables)
         
         locationInfo
-            .debounce(for: 2, scheduler: DispatchQueue.global())
+            .debounce(for: 1, scheduler: DispatchQueue.global())
             .sink {[weak self] coord in
             guard let self = self else {return }
             
