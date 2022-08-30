@@ -76,8 +76,6 @@ class MyReviewsViewController: BaseViewContronller {
 
 extension MyReviewsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        .init(width: UIScreen.main.width - 32, height: 300)
-        
         let cellSize = NSString(string: "jkwbfkewbfoubweofbweo")
             .boundingRect(
                 with: CGSize(width:  UIScreen.main.width - 32, height: CGFloat.greatestFiniteMagnitude),
@@ -88,9 +86,5 @@ extension MyReviewsViewController: UICollectionViewDelegateFlowLayout {
                 context: nil)
 
         return CGSize(width: UIScreen.main.width - 32, height: cellSize.height + 300)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        .init(width: UIScreen.main.width - 32, height: 100)
     }
 }

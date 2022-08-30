@@ -174,7 +174,6 @@ extension SearchViewController: LocationDetailViewControllerDelegate {
 
 extension SearchViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         let vm = LocationDetailViewModel(viewModel.locations[indexPath.item])
         let vc = LocationDetailViewController(vm: vm)
         vc.delegate = self
