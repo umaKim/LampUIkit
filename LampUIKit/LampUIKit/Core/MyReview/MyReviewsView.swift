@@ -69,8 +69,9 @@ class MyReviewCollectionViewCell: UICollectionViewCell {
     
     private lazy var imageView: UIImageView = {
        let uv = UIImageView()
-        uv.contentMode = .scaleAspectFit
+        uv.contentMode = .scaleAspectFill
         uv.layer.cornerRadius = 8
+        uv.clipsToBounds = true
         uv.backgroundColor = .red
         uv.widthAnchor.constraint(equalToConstant: UIScreen.main.width - 60).isActive = true
         uv.heightAnchor.constraint(equalToConstant: 161).isActive = true
