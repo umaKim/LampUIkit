@@ -27,11 +27,10 @@ class SearchView: BaseView {
     
     private(set) lazy var searchBar = UISearchBar(frame: .init(x: 0, y: 0, width: self.frame.width, height: 64))
     
-//    private(set) var dismissButton: UIBarButtonItem = {
-//        let bt = UIBarButtonItem(image: .xmark, style: .done, target: nil, action: nil)
-//        bt.tintColor = .black
-//        return bt
-//    }()
+    private(set) var dismissButton: UIBarButtonItem = {
+        let bt = UIBarButtonItem(image: .back, style: .done, target: nil, action: nil)
+        return bt
+    }()
     
     private let categoryButtons = CategoryButtonView()
     

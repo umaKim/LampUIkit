@@ -29,11 +29,10 @@ class MyTravelView: UIView {
 //        return bt
 //    }()
     
-//    private(set) var dismissButton: UIBarButtonItem = {
-//        let bt = UIBarButtonItem(image: .xmark, style: .done, target: nil, action: nil)
-//        bt.tintColor = .black
-//        return bt
-//    }()
+    private(set) var dismissButton: UIBarButtonItem = {
+        let bt = UIBarButtonItem(image: .back, style: .done, target: nil, action: nil)
+        return bt
+    }()
     
     private(set) lazy var categoryButton = MyTravelCategoryView()
     
