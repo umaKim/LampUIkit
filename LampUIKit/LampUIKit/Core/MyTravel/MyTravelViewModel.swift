@@ -117,9 +117,9 @@ struct MyTravelLocation: Codable, Hashable {
     let placeName: String
     let placeInfo: String
     let placeAddress: String
-    let userMemo: String
-    let mapX: String
-    let mapY: String
+    let userMemo: String?
+    let mapX: String?
+    let mapY: String?
     let isBookMarked: Bool
 }
 
