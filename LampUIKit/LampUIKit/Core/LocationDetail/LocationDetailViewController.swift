@@ -73,7 +73,7 @@ final class LocationDetailViewController: BaseViewContronller {
                     self.viewModel.save()
                     
                 case .ar:
-                    guard let location = viewModel.location else {return}
+                    guard let location = viewModel.location else { return }
                     let vm = ARViewModel(location)
                     let vc = ARViewController(vm)
                     self.present(vc, animated: true)
