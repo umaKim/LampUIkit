@@ -95,6 +95,11 @@ class StartPageViewController: UIViewController {
             background.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             background.topAnchor.constraint(equalTo: view.topAnchor),
             
+            animaionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            animaionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            animaionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            animaionView.topAnchor.constraint(equalTo: view.topAnchor),
+            
             titleImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             titleImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
             
