@@ -44,7 +44,7 @@ final class MyTravelViewController: BaseViewContronller {
         contentView.collectionView.dataSource = self
         contentView.collectionView.delegate = self
         
-//        navigationItem.rightBarButtonItems = [contentView.dismissButton]
+        navigationItem.leftBarButtonItems = [contentView.dismissButton]
 //        navigationItem.leftBarButtonItems = [contentView.gearButton]
         navigationController?.setLargeTitleColor(.midNavy)
         
