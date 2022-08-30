@@ -246,7 +246,7 @@ extension MainViewController {
 
 extension MainViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let coord =  manager.location?.coordinate else {return }
+        guard let coord =  manager.location?.coordinate else { return }
         let userLocationMarker = GMSMarker(position: coord)
         userLocationMarker.icon = UIImage(named: "userMarker")
         userLocationMarker.map = contentView.mapView
