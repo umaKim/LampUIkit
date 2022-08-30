@@ -61,8 +61,8 @@ final class MyTravelViewController: BaseViewContronller {
 //                    let vc = MyPageViewController(vm: vm)
 //                    self.navigationController?.pushViewController(vc, animated: true)
                     
-//                case .dismiss:
-//                    self.delegate?.myTravelViewControllerDidTapDismiss()
+                case .dismiss:
+                    self.delegate?.myTravelViewControllerDidTapDismiss()
                 }
             }
             .store(in: &cancellables)
