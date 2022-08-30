@@ -15,7 +15,7 @@ enum MenuTabBarButtonType: Int {
 
 enum MyTravelViewAction {
 //    case gear
-//    case dismiss
+    case dismiss
 }
 
 class MyTravelView: UIView {
