@@ -20,11 +20,12 @@ class MyReviewsView: BaseWhiteView {
         let cl = UICollectionViewFlowLayout()
         cl.scrollDirection = .vertical
         let cv = UICollectionView(frame: .zero, collectionViewLayout: cl)
-        cv.register(MyReviewHeaderCell.self,
-                    forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                    withReuseIdentifier: MyReviewHeaderCell.identifier)
+//        cv.register(MyReviewHeaderCell.self,
+//                    forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+//                    withReuseIdentifier: MyReviewHeaderCell.identifier)
         cv.register(MyReviewCollectionViewCell.self, forCellWithReuseIdentifier: MyReviewCollectionViewCell.identifier)
         cv.backgroundColor = .greyshWhite
+        cv.contentInset = .init(top: 16, left: 0, bottom: 16, right: 0)
         return cv
     }()
     
@@ -55,18 +56,22 @@ class MyReviewCollectionViewCell: UICollectionViewCell {
     private lazy var dateLabel: UILabel = {
        let lb = UILabel()
         lb.text = "2022년 8월 22일"
+        lb.font = .robotoBold(12)
+        lb.textColor = .darkNavy
         return lb
     }()
     
     private lazy var optionButton: UIButton = {
        let bt = UIButton()
-        bt.setImage(UIImage(systemName: "person"), for: .normal)
+        bt.setImage(UIImage(named: "more"), for: .normal)
         return bt
     }()
     
     private lazy var imageView: UIImageView = {
        let uv = UIImageView()
-        uv.image = .init(systemName: "person")
+        uv.contentMode = .scaleAspectFit
+        uv.layer.cornerRadius = 8
+        uv.backgroundColor = .red
         uv.widthAnchor.constraint(equalToConstant: UIScreen.main.width - 60).isActive = true
         uv.heightAnchor.constraint(equalToConstant: 161).isActive = true
         return uv
@@ -74,26 +79,44 @@ class MyReviewCollectionViewCell: UICollectionViewCell {
     
     private lazy var titleLabel: UILabel = {
         let lb = UILabel()
-        lb.text = "경복궁"
+        lb.textColor = .darkNavy
+        lb.font = .robotoBold(20)
         return lb
     }()
     
     private lazy var commmentLabel: UILabel = {
        let lb = UILabel()
-        lb.text = "jkwbfkewbfoubweofbweofbnweobfiouwebfiouweboufwe"
+        lb.textColor = .darkNavy
+        lb.numberOfLines = 0
+        lb.textAlignment = .center
         return lb
     }()
     
     private lazy var starRateImageView: UIImageView = {
        let uv = UIImageView()
-        uv.image = .init(systemName: "person")
         return uv
     }()
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
         
-        backgroundColor = .green
+        setupUI()
+    }
+    
+    public func configure(with datum: UserReviewData) {
+        dateLabel.text = datum.date
+        if let url = datum.photoUrl {
+            imageView.sd_setImage(with: URL(string: url), placeholderImage: UIImage(named: "placeholder"))
+        }
+        titleLabel.text = datum.placeName
+        commmentLabel.text = datum.content
+        guard let star = Double(datum.star) else {return }
+        starRateImageView.image = .init(named: "\(star)")
+    }
+    
+    private func setupUI() {
+        layer.borderWidth = 1
+        layer.cornerRadius = 8
         
         let dateSv = UIStackView(arrangedSubviews: [dateLabel, optionButton])
         dateSv.alignment = .fill
@@ -119,6 +142,7 @@ class MyReviewCollectionViewCell: UICollectionViewCell {
         totalSv.axis = .vertical
         totalSv.alignment = .fill
         totalSv.distribution = .fill
+        totalSv.spacing = 8
         
         [totalSv].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
@@ -126,10 +150,10 @@ class MyReviewCollectionViewCell: UICollectionViewCell {
         }
         
         NSLayoutConstraint.activate([
-            totalSv.leadingAnchor.constraint(equalTo: leadingAnchor),
-            totalSv.trailingAnchor.constraint(equalTo: trailingAnchor),
-            totalSv.bottomAnchor.constraint(equalTo: bottomAnchor),
-            totalSv.topAnchor.constraint(equalTo: topAnchor)
+            totalSv.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            totalSv.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            totalSv.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
+            totalSv.topAnchor.constraint(equalTo: topAnchor, constant: 16)
         ])
     }
     

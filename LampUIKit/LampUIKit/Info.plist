@@ -2,25 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>KAKAO_APP_KEY</key>
-	<string>ca26661d6b9c87cb37c9d48e988a7cf1</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Photo Library access permission is required for bringing photos</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Camera acess permission is required to use AR service</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Location access permission is required to use AR service</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Location access permission is required to use AR service</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>please allow photo access for adding photos</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Roboto-Bold.ttf</string>
-		<string>Roboto-Light.ttf</string>
-		<string>Roboto-Medium.ttf</string>
-		<string>Roboto-Regular.ttf</string>
-	</array>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -40,6 +21,8 @@
 			</array>
 		</dict>
 	</array>
+	<key>KAKAO_APP_KEY</key>
+	<string>ca26661d6b9c87cb37c9d48e988a7cf1</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>kakaokompassauth</string>
@@ -50,6 +33,13 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Roboto-Bold.ttf</string>
+		<string>Roboto-Light.ttf</string>
+		<string>Roboto-Medium.ttf</string>
+		<string>Roboto-Regular.ttf</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

@@ -85,7 +85,8 @@ class WriteReviewViewController: BaseViewContronller {
                 self.contentView.ableCompleteButton(isAble)
                 
             case .dismiss:
-                self.dismiss(animated: true)
+//                self.dismiss(animated: true)
+                self.navigationController?.popViewController(animated: true)
                 
             case .showMessage(let message):
                 self.presentUmaDefaultAlert(title: message)
@@ -96,10 +97,13 @@ class WriteReviewViewController: BaseViewContronller {
             case .endLoading:
                 self.dismissLoadingView()
                 
+            case .numberOfImages(let count):
+                self.contentView.setImageCounter(count)
             }
         }
         .store(in: &cancellables)
     }
+}
 
 extension WriteReviewViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {

@@ -8,10 +8,20 @@ import Combine
 import UIKit
 
 enum InitialQuizViewModelNotify {
-    case question(String)
+    //    case question(String)
     case index(String)
-    case answers(String, String, String)
-    case setTags([String])
+    //    case answers(String, String, String)
+    case quizData(Question)
+    case setCharacterImage(UIImage)
+    
+    case finishInitialQuiz
+    
+//    case setInitialSetting(Bool)
+}
+
+enum InitialQuizViewStatus {
+    case quiz
+    case result
 }
 
 class InitialQuizViewModel: BaseViewModel {
@@ -26,13 +36,18 @@ class InitialQuizViewModel: BaseViewModel {
         .init(named: "resultBear")
     ]
     
+    private var questions: [Question] = []
+    private var answers: [UserQuizeAnswer] = []
     
+    private var status: InitialQuizViewStatus = .quiz
     
     override init() {
         super.init()
         
         fetch()
     }
+    
+    private var currentIndex: Int = 0
     
     private func fetch() {
         //TODO: Bind with network
@@ -93,5 +108,10 @@ class InitialQuizViewModel: BaseViewModel {
             }
         }
     }
+    
+    private var uid: String = ""
+    
+    private func resultProcess() {
+        notifySubject.send(.finishInitialQuiz)
     }
 }

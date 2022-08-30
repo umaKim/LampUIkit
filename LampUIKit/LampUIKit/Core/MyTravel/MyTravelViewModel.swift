@@ -57,7 +57,20 @@ class MyTravelViewModel: BaseViewModel {
         NetworkService.shared.fetchCompletedTravel {[unowned self] result in
             switch result {
             case .success(let locations):
-                self.model.completedTravel = locations
+                self.model.completedTravel = locations.map { location -> MyCompletedTripLocation in
+                        .init(planIdx: location.planIdx ?? "",
+                              travelCompletedDate: "",
+                              contentId: location.contentId,
+                              contentTypeId: location.contentTypeId,
+                              placeInfo: "",
+                              placeAddress: location.addr,
+                              userMemo: "",
+                              mapX: location.mapX,
+                              mapY: location.mapY,
+                              placeName: location.title,
+                              isBookMarked: location.isBookMarked)
+                }
+//                self.model.completedTravel = locations
                 self.notifySubject.send(.reload)
             case .failure(let error):
                 print(error)
@@ -89,7 +102,6 @@ class MyTravelViewModel: BaseViewModel {
             }
         }
     }
-    
 }
 
 struct MyTravelDataSet: Codable {
@@ -99,35 +111,36 @@ struct MyTravelDataSet: Codable {
 }
 
 struct MyTravelLocation: Codable, Hashable {
-    let planIdx: Int?
-    let travelDate: String?
-    let contentId: Int?
-    let contentTypeId: Int?
-    let placeName: String?
-    let placeInfo: String?
-    let placeAddress: String?
-    let placeAddr: String?
-    let userMemo: String?
-    let mapX: String?
-    let mapY: String?
-    let bookMark: Bool?
+    let planIdx: String
+    let contentId: String
+    let contentTypeId: String
+    let placeName: String
+    let placeInfo: String
+    let placeAddress: String
+    let userMemo: String
+    let mapX: String
+    let mapY: String
+    let isBookMarked: Bool
+}
+
 struct MyBookMarkLocation: Codable, Hashable {
-    let placeIdx: Int
-    let contentId: Int
-    let contentTypeId: Int
+    let placeIdx: String
+    let contentTypeId: String
+    let contentId: String
     let placeAddr: String
     let placeName: String
     let placeInfo: String?
     let mapX: String
     let mapY: String
-    let planIdx: Int?
+    let isPlanExist: Bool
+    let planIdx: String
 }
 
 struct MyCompletedTripLocation: Codable, Hashable {
-    let planIdx: Int?
+    let planIdx: String
     let travelCompletedDate: String
-    let contentId: Int
-    let contentTypeId: Int
+    let contentId: String
+    let contentTypeId: String
     let placeInfo: String
     let placeAddress: String
     let userMemo: String

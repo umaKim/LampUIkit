@@ -30,34 +30,34 @@ class QuizResultView: BaseView {
         return uv
     }()
     
-    private lazy var welcomeTitleLabel: UILabel = {
-       let lb = UILabel()
-        lb.font = .robotoBold(20)
-        lb.textAlignment = .center
-        lb.textColor = .darkNavy
-        lb.numberOfLines = 0
-        lb.text = "축하드려요~ \n당신과 함께 할 캐릭터는~~"
-        return lb
-    }()
+//    private lazy var welcomeTitleLabel: UILabel = {
+//       let lb = UILabel()
+//        lb.font = .robotoBold(20)
+//        lb.textAlignment = .center
+//        lb.textColor = .darkNavy
+//        lb.numberOfLines = 0
+//        lb.text = "축하드려요~ \n당신과 함께 할 캐릭터는~~"
+//        return lb
+//    }()
     
     private lazy var characterImageView: UIImageView = {
        let uv = UIImageView()
         uv.image = UIImage(systemName: "person")
-        uv.backgroundColor = .red
+        uv.contentMode = .scaleAspectFit
         return uv
     }()
     
-    private lazy var capsuelLabel1 = CapsuleLabelView("고즈넉한", backgroundColor: .white, textColor: .midNavy, textSize: 12)
-    private lazy var capsuelLabel2 = CapsuleLabelView("고즈넉한", backgroundColor: .white, textColor: .midNavy, textSize: 12)
-    private lazy var capsuelLabel3 = CapsuleLabelView("고즈넉한", backgroundColor: .white, textColor: .midNavy, textSize: 12)
-    
-    private lazy var instructionLabel: UILabel = {
-       let lb = UILabel()
-        lb.text = "이 태그를 중심으로 여행지를 추천해드려요"
-        lb.font = .robotoBold(14)
-        lb.textColor = .black
-        return lb
-    }()
+//    private lazy var capsuelLabel1 = CapsuleLabelView("고즈넉한", backgroundColor: .white, textColor: .midNavy, textSize: 12)
+//    private lazy var capsuelLabel2 = CapsuleLabelView("고즈넉한", backgroundColor: .white, textColor: .midNavy, textSize: 12)
+//    private lazy var capsuelLabel3 = CapsuleLabelView("고즈넉한", backgroundColor: .white, textColor: .midNavy, textSize: 12)
+//
+//    private lazy var instructionLabel: UILabel = {
+//       let lb = UILabel()
+//        lb.text = "이 태그를 중심으로 여행지를 추천해드려요"
+//        lb.font = .robotoBold(14)
+//        lb.textColor = .black
+//        return lb
+//    }()
     
     private lazy var nextButton: UIButton = {
         let bt = UIButton()
@@ -78,6 +78,8 @@ class QuizResultView: BaseView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    public func setupCharacter(_ image: UIImage) {
+        characterImageView.image = image
     }
     
     private func bind() {
@@ -90,6 +92,7 @@ class QuizResultView: BaseView {
     }
     
     private func setupUI() {
+        [backgroundImageView, logoImageView, characterImageView, nextButton].forEach { uv in
             addSubview(uv)
             uv.translatesAutoresizingMaskIntoConstraints = false
         }

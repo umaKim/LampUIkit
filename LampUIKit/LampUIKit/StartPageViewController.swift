@@ -10,6 +10,7 @@ import Firebase
 import Combine
 import CombineCocoa
 import UIKit
+import Lottie
 
 class StartPageViewController: UIViewController {
 
@@ -18,6 +19,8 @@ class StartPageViewController: UIViewController {
         uv.image = UIImage(named: "startImage")
         return uv
     }()
+    
+    private lazy var animaionView = AnimationView(name: "TwinkleAnimation")
     
     private lazy var titleImage: UIImageView = {
         let uv = UIImageView()
@@ -46,13 +49,16 @@ class StartPageViewController: UIViewController {
     
     private func presentMain(with uid: String) {
         NetworkService.shared.setToken(uid)
-        present(MainViewController(MainViewModel()),
+        present(UINavigationController(rootViewController:  MainViewController(MainViewModel())),
                 transitionType: .fromTop,
                 animated: true, pushing: true)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        UserApi.shared.logout { error in
+//            print(error)
+//        }
         
         startButton.tapPublisher.sink {[unowned self] _ in
             HapticManager.shared.feedBack(with: .heavy)
@@ -74,6 +80,13 @@ class StartPageViewController: UIViewController {
             }
         }
         .store(in: &cancellables)
+        
+        animaionView.loopMode = .loop
+        animaionView.play()
+        
+        view.addSubview(animaionView)
+        
+        animaionView.frame = view.bounds
         
         [background, titleImage, startButton].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false

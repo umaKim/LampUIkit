@@ -5,9 +5,48 @@
 //  Created by 김윤석 on 2022/07/17.
 //
 
+import Alamofire
 import Foundation
 
-class NetworkService {
+class JsonNetworkService {
+    static let shared = JsonNetworkService()
+    
+    private let baseURL = "http://api.visitkorea.or.kr/openapi/service/rest/DataLabService/tmapTotalTarItsBroDDList?"
+    
+    enum Key {
+        static let bigData = "0IPKAzuqgRL%2BlJLFKeV4YTkgTV%2B90JKXrqf81CWgLhY%2BmtJBbP61uC7JH%2BiiYAlIfP2cFE7bKY1vmI5MGX45Pg%3D%3D"
+    }
+    
+    func fetchRecomendingPlaces() {
+        
+        let requestUrl = baseURL + "serviceKey=\(Key.bigData)" + "&MobileOS=ETC" + "&MobileApp=AppTest" + "&baseYm=202106" + "&_type=json"
+        
+        AF.request(requestUrl, method: .get)
+            .validate()
+            .responseDecodable(of: RecomendingPlaceResponse.self){ response in
+                print(response.result)
+            }
+    }
+}
+
+struct RecomendingPlaceResponse: Codable {
+    let responsew: RecomendingPlaceHeader
+}
+
+struct RecomendingPlaceHeader: Codable {
+    let header: RecomendingPlace
+}
+
+struct RecomendingPlace: Codable {
+    let responseTime: String
+}
+
+enum UserAuthType {
+    case kakao
+    case firebase
+}
+
+final class NetworkService {
     static let shared = NetworkService()
     
     private let baseUrl = "https://dev.twolamps.shop"
@@ -15,6 +54,12 @@ class NetworkService {
     
     public func setToken(_ uid: String) {
         self.token = uid
+    }
+    
+    private(set) var userAuthType: UserAuthType?
+    
+    func setUserAuthType(_ userAuthType: UserAuthType) {
+        self.userAuthType = userAuthType
     }
     
     func login() {
@@ -34,7 +79,7 @@ class NetworkService {
     
     func checkUserExist(_ uid: String, completion: @escaping (UserExistCheckResponse) -> Void) {
         let requestUrl = baseUrl + "/app/users?token=\(uid)"
-        
+        print(requestUrl)
         AF.request(requestUrl, method: .get, encoding: JSONEncoding.default)
             .validate()
             .responseDecodable(of: UserExistCheckResponse.self) { response in
@@ -50,8 +95,8 @@ class NetworkService {
     
     func deleteUser(completion: @escaping (Result<Response, AFError>) -> Void) {
         let requestUrl = baseUrl + "/app/users/delete?token=\(token)"
-        
-        AF.request( requestUrl, method: .delete )
+        print(requestUrl)
+        AF.request( requestUrl, method: .patch)
             .validate()
             .responseDecodable(of: Response.self) { response in
                 completion(response.result)
@@ -60,18 +105,39 @@ class NetworkService {
     
     func fetchRecommendation(
         _ location: Location,
-        _ radius: Int,
+        _ radius: Float,
         _ numberOfItems: Int = 10,
         completion: @escaping (Result<RecommendedLocationResponse, AFError>) -> Void
     ) {
-        
-        let requestUrl = baseUrl + "/app/main/placeInfo?serviceLanguage=KorService&contentTypeId=12&pageSize=\(numberOfItems)&pageNumber=1&mapX=\(location.lat)&mapY=\(location.long)&radius=\(radius)&token=" + token
+        let requestUrl = baseUrl + "/app/main/placeInfo?serviceLanguage=KorService&pageSize=\(numberOfItems)&pageNumber=1&mapX=\(location.long)&mapY=\(location.lat)&radius=\(radius)&token=" + token
         
         print(requestUrl)
         
         AF.request(requestUrl, method: .get, encoding: JSONEncoding.default)
             .validate()
             .responseDecodable(of: RecommendedLocationResponse.self) { response in
+                completion(response.result)
+            }
+    }
+    
+    func fetchRecommendationFromAllOver(completion: @escaping (Result<RecommendedLocationResponse, AFError>) -> Void) {
+        let requestUrl = baseUrl + "/app/main/totalPlaceInfo?serviceLanguage=KorService&pageSize=20&pageNumber=1&token=\(token)"
+        
+        AF.request(requestUrl, method: .get, encoding: JSONEncoding.default)
+            .validate()
+            .responseDecodable(of: RecommendedLocationResponse.self) {
+                response in
+                completion(response.result)
+            }
+    }
+    
+    func fetchUnvisitedLocations(completion: @escaping (Result<RecommendedLocationResponse, AFError>) -> Void) {
+        let requestUrl = baseUrl + "/app/main/totalPlaceInfo?serviceLanguage=KorService&pageSize=20&pageNumber=1&token=\(token)"
+        
+        AF.request(requestUrl, method: .get, encoding: JSONEncoding.default)
+            .validate()
+            .responseDecodable(of: RecommendedLocationResponse.self) {
+                response in
                 completion(response.result)
             }
     }
@@ -91,13 +157,12 @@ class NetworkService {
             }
     }
     
-    func postAnswers(_ answers: [UserQuizeAnswer], completion: @escaping (Result<Response, AFError>) -> Void) {
+    func postAnswers(_ answers: [UserQuizeAnswer], completion: @escaping (Result<CharacterResponse, AFError>) -> Void) {
         
         let requestUrl = baseUrl + "/app/users/survey?token=\(token)"
-        
         AF.request(requestUrl, method: .post, parameters: answers, encoder: JSONParameterEncoder(), headers: nil)
             .validate()
-            .responseDecodable(of: Response.self) { response in
+            .responseDecodable(of: CharacterResponse.self) { response in
                 completion(response.result)
             }
     }
@@ -106,7 +171,7 @@ class NetworkService {
         let parameters = NickNameSettingData(nickname: nickName, socialToken: token, isAdmin: 0)
         
         let requestUrl = baseUrl + "/app/users"
-        
+        print(requestUrl)
         AF.request(requestUrl, method: .post, parameters: parameters, encoder: JSONParameterEncoder(), headers: nil)
             .validate()
             .responseDecodable(of: Response.self) { response in
@@ -131,7 +196,6 @@ class NetworkService {
         newParameters.token = token
         
         let requestUrl = baseUrl + "/app/placeInfo/review"
-        
         AF.request(requestUrl, method: .post, parameters: newParameters, encoder: JSONParameterEncoder(), headers: nil)
             .validate()
             .responseDecodable(of: Response.self) { response in
@@ -148,12 +212,10 @@ class NetworkService {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
 
-        print(dateFormatter.string(from: date))
         let dateString = dateFormatter.string(from: date)
 
-        let requestUrl = baseUrl + "/app/placeInfo/review/photo?contentId=\(contentId)&userId=\(token)&date=\(dateString)"
+        let requestUrl = baseUrl + "/app/placeInfo/review/photo?contentId=\(contentId)&token=\(token)&date=\(dateString)"
         
-        print(requestUrl)
         let boundary = "Boundary-\(UUID().uuidString)"
         let headers: HTTPHeaders = ["Content-Type":"multipart/form-data; boundary=\(boundary)"]
         
@@ -209,14 +271,13 @@ class NetworkService {
         AF.request(requestUrl, method: .delete, headers: nil)
             .validate()
             .responseDecodable(of: Response.self) { response in
-//                completion(response.result)
-//                print(String(decoding: response.data!, as: UTF8.self))
                 completion(response.result)
             }
     }
     
     func fetchMyTravel(completion: @escaping (Result<[MyTravelLocation], AFError>) -> Void) {
         let requestUrl = baseUrl + "/app/trip?token=\(token)"
+        print(requestUrl)
         AF.request(requestUrl, method: .get, encoding: JSONEncoding.default)
             .validate()
             .responseDecodable(of: [MyTravelLocation].self) { response in
@@ -226,7 +287,7 @@ class NetworkService {
     
     func removeMyTravel(_ item: MyTravelLocation) {
         print(item)
-        guard let planIdx = item.planIdx else {return }
+        let planIdx = item.planIdx
         let requestUrl = baseUrl + "/app/trip?token=\(token)&planIdx=\(planIdx)"
         
         AF.request(requestUrl, method: .delete)
@@ -237,34 +298,34 @@ class NetworkService {
             }
     }
     
-    func fetchSavedTravel(completion: @escaping (Result<[MyTravelLocation], AFError>) -> Void) {
+    func fetchSavedTravel(completion: @escaping (Result<[MyBookMarkLocation], AFError>) -> Void) {
         let requestUrl = baseUrl + "/app/trip/bookmark?token=\(token)"
-        
+        print(requestUrl)
         AF.request(requestUrl, method: .get, encoding: JSONEncoding.default)
             .validate()
-            .responseDecodable(of: [MyTravelLocation].self) { response in
+            .responseDecodable(of: [MyBookMarkLocation].self) { response in
                 completion(response.result)
             }
     }
     
-    func fetchCompletedTravel(completion: @escaping (Result<[MyTravelLocation], AFError>) -> Void) {
+    func fetchCompletedTravel(completion: @escaping (Result<[RecommendedLocation], AFError>) -> Void) {
         let requestUrl = baseUrl + "/app/trip/complete?token=\(token)"
+        print(requestUrl)
         AF.request(requestUrl, method: .get, encoding: JSONEncoding.default)
             .validate()
-            .responseDecodable(of: [MyTravelLocation].self) { response in
+            .responseDecodable(of: [RecommendedLocation].self) { response in
                 completion(response.result)
             }
     }
     
-    func updateBookMark(of contentId: String, _ mapx: String, _ mapY: String, placeName: String, placeAddr: String, completion: @escaping (Result<Response, AFError>) -> Void) {
+    func updateBookMark(of contentId: String, _ contentTypeId: String, _ mapx: String, _ mapY: String, placeName: String, placeAddr: String, completion: @escaping (Result<Response, AFError>) -> Void) {
         guard
             let encodedPlaceName = placeName.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
             let encodedPlaceAddr = placeAddr.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         else { return }
         
-        let requestUrl = baseUrl + "/app/main/placeInfo/bookmark?token=\(token)&contentId=\(contentId)&mapX=\(mapx)&mapY=\(mapY)&placeName=\(encodedPlaceName)&placeAddr=\(encodedPlaceAddr)"
+        let requestUrl = baseUrl + "/app/main/placeInfo/bookmark?token=\(token)&contentId=\(contentId)&contentTypeId=\(contentTypeId)&mapX=\(mapx)&mapY=\(mapY)&placeName=\(encodedPlaceName)&placeAddr=\(encodedPlaceAddr)"
         
-        print(requestUrl)
         AF.request(requestUrl, method: .patch)
             .validate()
             .responseDecodable(of: Response.self) {
@@ -275,7 +336,7 @@ class NetworkService {
     
     func fetchLocationDetailImage(_ contentId: String, completion: @escaping (Result<LocationImageResponse, AFError>) -> Void) {
         let requestUrl = baseUrl + "/app/placeInfo/images?contentId=\(contentId)"
-        
+        print(requestUrl)
         AF.request(requestUrl, method: .get, encoding: JSONEncoding.default)
             .validate()
             .responseDecodable(of: LocationImageResponse.self) {
@@ -286,7 +347,7 @@ class NetworkService {
     
     func fetchReviews(_ contentId: String, completion: @escaping (Result<[ReviewData], AFError>) -> Void) {
         let requestUrl = baseUrl + "/app/placeInfo/review?token=\(token)&contentId=\(contentId)"
-        
+        print(requestUrl)
         AF.request(requestUrl, method: .get, encoding: JSONEncoding.default)
             .validate()
             .responseDecodable(of: [ReviewData].self) {
@@ -297,7 +358,7 @@ class NetworkService {
     
     func fetchCharacterInfo(completion: @escaping (Result<MyCharacter, AFError>) -> Void) {
         let requestUrl = baseUrl + "/app/users/myCharacter?token=\(token)"
-        
+        print(requestUrl)
         AF.request(requestUrl, method: .get, encoding: JSONEncoding.default)
             .validate()
             .responseDecodable(of: MyCharacter.self) {
@@ -315,5 +376,185 @@ class NetworkService {
                 completion(response.result)
             }
     }
+    
+    func fetchMyReviews(completion: @escaping( Result<[UserReviewData], AFError>) -> Void) {
+        let requesUrl = baseUrl + "/app/users/myReviews?token=\(token)"
+        print(requesUrl)
+        AF.request(requesUrl, method: .get, encoding: JSONEncoding.default)
+            .validate()
+            .responseDecodable(of: [UserReviewData].self) { response in
+                completion(response.result)
+            }
+    }
 }
+
+struct MyInfo: Codable {
+    let nickName: String
+    let numOfReview: Int
+    let numOfPlan: Int
+}
+
+struct MyCharacter: Codable {
+    let nickName: String
+    let points: Int
+    let travelExp: Int
+    let exploreExp: Int
+    let socialExp: Int
+    let characterLevel: Int
+    let totalExp: Int
+    let characterImageUrl: String
+}
+
+struct ReviewData: Codable, Hashable {
+    let reviewIdx: Int?
+    let contentId: String
+    let userId: Int?
+//    let thumbnailPhotoId: String?
+    let star: String?
+    let satisfaction: Int?
+    let mood: Int?
+    let surround: Int?
+    let foodArea: Int?
+    let content: String?
+    let createdAt: String?
+    let numReported: Int?
+    let photoIdx: Int?
+    let numLiked: Int?
+    let reviewILiked: Bool?
+    let photoUrlArray: [String]?
+}
+//
+//{
+////"reviewIdx": 89,
+//"contentId": "126747",
+//"userId": 246,
+//"thumbnailPhotoId": 0,
+//"star": "2.5",
+//"satisfaction": null,
+//"mood": 2,
+//"surround": 2,
+//"foodArea": 1,
+//"content": "Nice",
+//"createdAt": "2022-08-30T11:39:43.000Z",
+//"numReported": 0,
+//"photoIdx": 48,
+//"numLiked": 0,
+//"reviewILiked": false,
+//"photoUrlArray": [
+//"https://lampstorage.s3.ap-northeast-2.amazonaws.com/126747/2353458115/2022-08-30/126747-F94379AC-6402-4BC1-B12F-F7708951C56E.jpg"
+//]
+//
+
+struct LocationImageResponse: Decodable {
+    let image: [String]
+}
+
+struct ReviewPostData: Codable {
+    var token: String
+    var contentId: String
+    let contentTypeId: String
+    let placeName: String
+    let starRate: String
+    let mood: Int
+    let surround: Int
+    let foodArea: Int
+    let content: String
+}
+
+struct LocationDetailResponse: Codable {
+    let result: LocationDetailData?
+}
+
+struct LocationDetailData: Codable {
+//    let APIUrl: String?
+    let datailInfo: LocationDetailInfoData?
+    let contentTypeId: String?
+    var bookMark: Bool?
+    let totalAvgReviewRate: TotalAvgReviewRate?
+    let planExist: PlanExist?
+}
+
+struct TotalAvgReviewRate: Codable {
+    let AVG: Double?
+    let satisfaction: Int?
+    let mood: Int?
+    let surround: Int?
+    let foodArea: Int?
+}
+
+struct PlanExist: Codable {
+    let planIdx: String?
+    let num: Int?
+    let isActivated: Bool?
+}
+
+struct LocationDetailInfoData: Codable {
+    let infocenter: String?
+    let parking: String?
+    let restdate: String?
+    let useseason : String?
+    let usetime: String?
+    let discountinfo: String?
+    let infocenterculture : String?
+    let restdateculture: String?
+    let usefee: String?
+    let usetimeculture : String?
+    let eventplace : String?
+    let eventstartdate: String?
+    let placeinfo: String?
+    let playtime: String?
+    let usetimefestival: String?
+    let infocenterleports: String?
+    let openperiod: String?
+    let restdateleports: String?
+    let usefeeleports: String?
+    let usetimeleports: String?
+    let infocenterfood: String?
+    let firstmenu: String?
+    let opentimefood: String?
+    let restdatefood: String?
+}
+
+struct LcoationDetailRevoewData: Codable {
+    let reviewIdx: Int
+    let contentId: Int
+    let userId: Int
+    let star: Double
+    let mood: Int
+    let surround: Int
+    let foodArea: Int
+    let content: String
+    let createdAt: String
+    let numReported: Int
+    let numLiked: Int
+    let photo: [PhotoUrl]
+}
+
+struct PhotoUrl: Codable {
+    let photoUrl: String
+}
+
+struct NickNameSettingData: Codable {
+    let nickname: String
+    let socialToken: String
+    let isAdmin: Int
+}
+
+struct UserQuizeAnswer: Codable {
+    let questionId: Int
+    let answer: Int
+}
+
+struct QuestionsResponse: Codable {
+    let result: [Question]
+}
+
+struct Question: Codable {
+    let surveyIdx: Int
+    let title: String?
+    let option1: String?
+    let option2: String?
+    let option3: String?
+    let option4: String?
+    let option5: String?
 }

@@ -41,9 +41,13 @@ class DetailReviewViewController: BaseViewContronller {
         
         navigationItem.leftBarButtonItems = [contentView.backButton]
         navigationItem.rightBarButtonItems = [contentView.reportButton]
+        
         configureCollectionView()
         updateSections()
-        
+        bind()
+    }
+    
+    private func bind() {
         contentView
             .actionPublisher
             .sink {[unowned self] action in
@@ -72,6 +76,7 @@ class DetailReviewViewController: BaseViewContronller {
                 withReuseIdentifier: DetailReviewViewCollectionViewCell.identifier,
                 for: indexPath) as? DetailReviewViewCollectionViewCell
             else { return nil }
+            cell.configure(self.viewModel.reviews[indexPath.item])
             return cell
         }
         
@@ -81,13 +86,15 @@ class DetailReviewViewController: BaseViewContronller {
                 ofKind: kind,
                 withReuseIdentifier: DetailReviewCollectionViewHeader.identifier,
                 for: indexPath) as? DetailReviewCollectionViewHeader
+            view?.configure(self.viewModel.location, self.viewModel.locationDetail)
             return view
         }
     }
-    
+
     private func updateSections() {
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
+        snapshot.appendItems(viewModel.reviews)
         dataSource?.apply(snapshot, animatingDifferences: true, completion: { [unowned self] in
             self.dataSource?.applySnapshotUsingReloadData(snapshot)
         })

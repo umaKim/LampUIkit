@@ -157,30 +157,48 @@ class DetailReviewViewCollectionViewCell: UICollectionViewCell {
     
     private lazy var imageView: UIImageView = {
         let uv = UIImageView()
-        uv.backgroundColor = .blue
         uv.layer.cornerRadius = 6
         uv.clipsToBounds = true
         uv.contentMode = .scaleAspectFill
+        uv.backgroundColor = .lightNavy
         uv.heightAnchor.constraint(equalToConstant: 80).isActive = true
         return uv
     }()
     
-    private lazy var starRatinView: UIView = {
-        let uv = UIView()
-        uv.backgroundColor = .green
+    private lazy var starRatinView: UIImageView = {
+        let uv = UIImageView()
+//        uv.backgroundColor = .green
+        uv.contentMode = .scaleAspectFit
         uv.heightAnchor.constraint(equalToConstant: 20).isActive = true
         return uv
     }()
     
     private lazy var commentLabel: UILabel = {
         let lb = UILabel()
-        lb.backgroundColor = .brown
+        lb.textColor = .darkNavy
+        lb.textAlignment = .natural
+        lb.numberOfLines = 0
+        lb.sizeToFit()
+        lb.font = .robotoRegular(10)
         return lb
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    private lazy var likeButton: UIButton = {
+        var config = UIButton.Configuration.tinted()
+        config.baseBackgroundColor = .midNavy
+        config.cornerStyle = .capsule
+        let image = UIImage(systemName: "heart")?.resize(to: 10)
+        config.image = image
+        config.imagePlacement = .leading
+        config.imagePadding = 6
         
+        let bt = UIButton(configuration: config)
+        bt.frame = .init(x: 0, y: 0, width: 62, height: 21)
+        return bt
+    }()
+    
+    private var cancellables: Set<AnyCancellable>
+    
     private func bind() {
         likeButton.tapPublisher.sink { _ in
             self.likeButton.isSelected.toggle()
@@ -195,7 +213,22 @@ class DetailReviewViewCollectionViewCell: UICollectionViewCell {
         layer.borderColor = UIColor.systemGray.cgColor
         clipsToBounds = true
         
-        let sv = UIStackView(arrangedSubviews: [imageView, starRatinView, commentLabel])
+        let commentLabelSv = UIStackView(arrangedSubviews: [commentLabel])
+        commentLabelSv.axis = .horizontal
+        commentLabelSv.alignment = .top
+        commentLabelSv.distribution = .fill
+        
+        let buttonSv = UIStackView(arrangedSubviews: [likeButton, UIView()])
+        buttonSv.alignment = .fill
+        buttonSv.distribution = .equalSpacing
+        buttonSv.axis = .horizontal
+        
+//        let starSv = UIStackView(arrangedSubviews: [starRatinView])
+//        starSv.alignment = .leading
+//        starSv.axis = .horizontal
+//        starSv.distribution = .fillProportionally
+        
+        let sv = UIStackView(arrangedSubviews: [imageView, starRatinView, commentLabelSv, buttonSv])
         sv.distribution = .fill
         sv.alignment = .fill
         sv.axis = .vertical
@@ -223,9 +256,9 @@ class DetailReviewViewCollectionViewCell: UICollectionViewCell {
     }
     
     public func configure(_ review: ReviewData) {
-        let url = URL(string: (review.photoUrlArray.first ?? "") ?? "")
+        let url = URL(string: (review.photoUrlArray?.first ?? ""))
         imageView.sd_setImage(with: url, placeholderImage: .init(named: "placeholder"))
-        if let star = Double(review.star) {
+        if let star = Double(review.star ?? "0") {
             starRatinView.image = .init(named: "\(star)")
         } else {
             starRatinView.image = .init(named: "0")

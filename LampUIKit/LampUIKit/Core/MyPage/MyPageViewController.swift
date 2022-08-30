@@ -109,7 +109,10 @@ extension MyPageViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         contentView.tableView.deselectRow(at: indexPath, animated: true)
         
-        if viewModel.models[indexPath.item] == "로그아웃" {
+        if viewModel.models[indexPath.item] == "나의 여행 후기" {
+            let vc = MyReviewsViewController(MyReviewsViewModel())
+            self.navigationController?.pushViewController(vc, animated: true)
+        } else if viewModel.models[indexPath.item] == "로그아웃" {
             contentView.presentLogOutActions()
         } else if viewModel.models[indexPath.item] == "회원탈퇴" {
             contentView.presentDeleteAccountActions()
@@ -117,7 +120,8 @@ extension MyPageViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = MyPageTableViewHeaderView()
+        guard let myInfo = viewModel.myInfo else {return nil}
+        let view = MyPageTableViewHeaderView(myInfo)
         return view
     }
     

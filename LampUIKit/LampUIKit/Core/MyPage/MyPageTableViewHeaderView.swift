@@ -16,12 +16,12 @@ class MyPageTableViewHeaderView: UIView {
         return lb
     }()
     
-    private lazy var emailLabel: UILabel = {
-        let lb = UILabel()
-        lb.font = .robotoMedium(13)
-        lb.textColor = .opaqueGrey
-        return lb
-    }()
+//    private lazy var emailLabel: UILabel = {
+//        let lb = UILabel()
+//        lb.font = .robotoMedium(13)
+//        lb.textColor = .opaqueGrey
+//        return lb
+//    }()
     
     private lazy var visitedTravelLabel: UILabel = {
         let lb = UILabel()
@@ -41,6 +41,7 @@ class MyPageTableViewHeaderView: UIView {
         super.init(frame: .zero)
         
         nameLabel.text = myInfo.nickName + " 님 \n안녕하세요"
+//        emailLabel.text = email
         
         visitedTravelLabel.text = "내가 갔다온 여행 \(myInfo.numOfPlan)개"
         writtenLabel.text = "작성한 여행 후기 \(myInfo.numOfReview)개"
@@ -51,7 +52,7 @@ class MyPageTableViewHeaderView: UIView {
     private func setupUI() {
         backgroundColor = .greyshWhite
         
-        let leftSv = UIStackView(arrangedSubviews: [nameLabel, emailLabel])
+        let leftSv = UIStackView(arrangedSubviews: [nameLabel])
         leftSv.axis = .vertical
         leftSv.alignment = .fill
         leftSv.distribution = .fillProportionally

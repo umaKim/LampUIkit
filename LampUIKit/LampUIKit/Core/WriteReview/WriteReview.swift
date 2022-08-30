@@ -47,10 +47,11 @@ class WriteReviewView: BaseWhiteView, ImageCollectionViewCellDelegate {
         return sv
     }()
     
-    private let profileView: LocationRectangleProfileView = {
-       let uv = LocationRectangleProfileView()
-        return uv
-    }()
+    private let profileView = LocationRectangleProfileView()
+    
+    public func configure(_ location: RecommendedLocation) {
+        profileView.configure(location)
+    }
     
     private let dividerView1 = DividerView()
     
@@ -136,7 +137,7 @@ class WriteReviewView: BaseWhiteView, ImageCollectionViewCellDelegate {
     
     private let dividerView2 = DividerView()
     
-    private lazy var imageCollectionView: UICollectionView = {
+    private lazy var selectedImageCollectionView: UICollectionView = {
         let cl = UICollectionViewFlowLayout()
         cl.scrollDirection = .horizontal
         cl.sectionInset = .init(top: 0, left: 8, bottom: 0, right: 0)
@@ -154,6 +155,18 @@ class WriteReviewView: BaseWhiteView, ImageCollectionViewCellDelegate {
     
     private let dividerView3 = DividerView()
     
+    private lazy var imageCounterLabel: UILabel = {
+       let lb = UILabel()
+        lb.textColor = .lightGray
+        lb.text = "0/3"
+        lb.font = .robotoLight(13)
+        return lb
+    }()
+    
+    public func setImageCounter(_ count: Int) {
+        imageCounterLabel.text = "\(count)/3"
+    }
+    
     private(set) lazy var completeButton: UIButton = {
         let bt = UIButton()
         bt.setImage(UIImage(named: "completeWriting_disable"), for: .normal)
@@ -162,7 +175,6 @@ class WriteReviewView: BaseWhiteView, ImageCollectionViewCellDelegate {
     }()
     
     private let contentView = UIView()
-    
     
     override init() {
         super.init()
@@ -177,8 +189,6 @@ class WriteReviewView: BaseWhiteView, ImageCollectionViewCellDelegate {
         setupUI()
         configureDataSource()
         updateSections()
-        
-        
     }
     
     public func setImage(with image: UIImage) {
@@ -286,12 +296,14 @@ extension WriteReviewView {
 //MARK: - set up UI
 extension WriteReviewView {
     private func configureDataSource() {
-        dataSource = DataSource(collectionView: imageCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
+        dataSource = DataSource(collectionView: selectedImageCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
             guard
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: indexPath) as? ImageCollectionViewCell
             else { return UICollectionViewCell() }
             cell.configure(self.photos[indexPath.item])
+            cell.isDeleteButtonHidden = false
             cell.delegate = self
+            cell.tag = indexPath.item
             cell.backgroundColor = .blue
             cell.layer.cornerRadius = 16
             cell.clipsToBounds = true
@@ -321,6 +333,10 @@ extension WriteReviewView {
         characterCounterSv.alignment = .trailing
         characterCounterSv.distribution = .fill
         
+        let imageCounterSv = UIStackView(arrangedSubviews: [UIView(), imageCounterLabel])
+        imageCounterSv.alignment = .trailing
+        imageCounterSv.distribution = .fill
+        
         let totalStackView = UIStackView(arrangedSubviews: [profileView,
                                                             dividerView1,
                                                             starRatingView,
@@ -328,7 +344,8 @@ extension WriteReviewView {
                                                             textContextView,
                                                             characterCounterSv,
                                                             dividerView2,
-                                                            imageCollectionView,
+                                                            selectedImageCollectionView,
+                                                            imageCounterSv,
                                                             dividerView3,
                                                             completeButton])
         totalStackView.axis = .vertical

@@ -9,6 +9,7 @@ import Combine
 import CombineCocoa
 import SDWebImage
 import UIKit
+import SwiftUI
 
 protocol SearchRecommendationCollectionViewCellDelegate: AnyObject {
     func didTapMapPin(location: RecommendedLocation)
@@ -27,17 +28,26 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
         lb.font = .systemFont(ofSize: 18, weight: .semibold)
         lb.textColor = .darkNavy
         lb.numberOfLines = 2
+        lb.heightAnchor.constraint(equalToConstant: 22).isActive = true
         return lb
     }()
     
     private let descriptionLabel: UILabel = {
        let lb = UILabel()
         lb.numberOfLines = 3
-        lb.font = .systemFont(ofSize: 12)
+        lb.font = .robotoRegular(12)
         lb.textColor = .midNavy
         return lb
     }()
     
+    private var starDelegate: ContentViewDelegate = ContentViewDelegate()
+    
+    private lazy var starRatingImageView: UIImageView = {
+       let uv = UIImageView()
+        uv.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        uv.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        return uv
+    }()
     
     private let setThisLocationButton: UIButton = {
        let bt = UIButton()
@@ -107,10 +117,20 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
             locationImageView.image = UIImage(named: "placeholder")
         }
         
+        locationImageView.sd_setImage(with: URL(string: location.image ?? ""), placeholderImage: .init(named: "placeholder"))
         
-        starRatingView.configure(with: Double(location.rate) ?? 0.0)
+        isFavorite = location.isBookMarked
+        favoriteButton.setImage(isFavorite ? UIImage(named: "favorite_selected") : UIImage(named: "favorite_unselected"), for: .normal)
+        
+        let starRating = Double(location.rate ?? 0)
+        starDelegate.starValue = CGFloat(starRating)
         
         descriptionLabel.text = location.addr
+        
+        starRatingImageView.image = UIImage(named: "\(location.rate ?? 0)")
+        
+        self.isOnPlan = location.isOnPlan ?? false
+        setThisLocationButton.setImage(isOnPlan ? .init(named: "destinationCancelButton") : .init(named: "destinationSetButton"), for: .normal)
     }
     
     override func prepareForReuse() {
@@ -118,6 +138,8 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
         
         titleLabel.text = nil
         locationImageView.image = nil
+        setThisLocationButton.setImage(nil, for: .normal)
+        favoriteButton.setImage(nil, for: .normal)
     }
     
     private var cancellables: Set<AnyCancellable>
@@ -181,10 +203,20 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
         
         backgroundColor = .greyshWhite
         
-        let labelStackView = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel])
+//        let starStackView = UIStackView(arrangedSubviews: [starRatingImageView, UIView()])
+//        starStackView.axis = .horizontal
+//        starStackView.alignment = .leading
+//        starStackView.distribution = .fillProportionally
+        
+        let descriptionSv = UIStackView(arrangedSubviews: [descriptionLabel])
+        descriptionSv.axis = .horizontal
+        descriptionSv.alignment = .top
+        descriptionSv.distribution = .fill
+        
+        let labelStackView = UIStackView(arrangedSubviews: [titleLabel, descriptionSv, starRatingImageView])
         labelStackView.axis = .vertical
         labelStackView.spacing = 9
-        labelStackView.alignment = .fill
+        labelStackView.alignment = .leading
         labelStackView.distribution = .fill
         
         let buttonStackView = UIStackView(arrangedSubviews: [setThisLocationButton, pinButton])

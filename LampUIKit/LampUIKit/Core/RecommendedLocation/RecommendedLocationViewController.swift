@@ -12,6 +12,7 @@ protocol RecommendedLocationViewControllerDelegate: AnyObject {
     func recommendedLocationViewControllerDidTapSearch()
     func recommendedLocationViewControllerDidTapMapPin(location: RecommendedLocation)
     func recommendedLocationViewControllerDidTapMyCharacter()
+    func recommendedLocationViewControllerDidTapMyTravel()
 //    func recommendedLocationViewControllerDidTapSetThisLocationButton(_ location: RecommendedLocation)
 //    func recommendedLocationViewControllerDidTapCancelThisLocationButton(_ location: RecommendedLocation)
 //    func recommendedLocationViewControllerDidTapFavoriteButton(at index: Int, _ isFavorite: Bool, _ location: RecommendedLocation)
@@ -60,22 +61,29 @@ class RecommendedLocationViewController: BaseViewContronller {
     }
     
     private func bind() {
-        contentView.actionPublisher.sink { action in
-            switch action {
-            case .search:
+        contentView
+            .actionPublisher
+            .sink {[unowned self] action in
                 HapticManager.shared.feedBack(with: .heavy)
-                let vc = SearchViewController(vm: SearchViewModel())
-                vc.delegate = self
-                self.delegate?.recommendedLocationViewControllerDidTapSearch()
-                self.navigationController?.pushViewController(vc, animated: true)
-                
-            case .myCharacter:
-                let vc = MyCharacterViewController(vm: MyCharacterViewModel())
-                self.delegate?.recommendedLocationViewControllerDidTapMyCharacter()
-                self.navigationController?.pushViewController(vc, animated: true)
+                switch action {
+                case .search:
+                    let vc = SearchViewController(vm: SearchViewModel())
+                    vc.delegate = self
+                    self.delegate?.recommendedLocationViewControllerDidTapSearch()
+                    self.navigationController?.pushViewController(vc, animated: true)
+                    
+                case .myCharacter:
+                    let vc = MyCharacterViewController(vm: MyCharacterViewModel())
+                    self.delegate?.recommendedLocationViewControllerDidTapMyCharacter()
+                    self.navigationController?.pushViewController(vc, animated: true)
+                    
+                case .myTravel:
+                    let vc = MyTravelViewController(vm: MyTravelViewModel())
+                    self.delegate?.recommendedLocationViewControllerDidTapMyTravel()
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
             }
-        }
-        .store(in: &cancellables)
+            .store(in: &cancellables)
         
         viewModel
             .notifyPublisher
@@ -143,6 +151,14 @@ extension RecommendedLocationViewController: SearchViewControllerDelegate {
     
     func searchBarDidTap() {
         
+    }
+}
+
+extension RecommendedLocationViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vm = LocationDetailViewModel(viewModel.locations[indexPath.item])
+        let vc = LocationDetailViewController(vm: vm)
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 

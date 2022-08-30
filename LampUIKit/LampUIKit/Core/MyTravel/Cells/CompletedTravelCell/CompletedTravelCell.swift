@@ -31,6 +31,32 @@ final class CompletedTravelCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+//        backgroundColor = .systemCyan
+//
+//        [collectionView].forEach { uv in
+//            uv.translatesAutoresizingMaskIntoConstraints = false
+//            contentView.addSubview(uv)
+//        }
+//
+//        collectionView.dataSource = self
+//        collectionView.delegate = self
+//
+//        NSLayoutConstraint.activate([
+//            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
+//            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+//            collectionView.topAnchor.constraint(equalTo: topAnchor),
+//            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
+//        ])
+        
+        setupUI()
+    }
+    
+    private var models: [MyCompletedTripLocation] = []
+    
+    public func configure(models: [MyCompletedTripLocation]) {
+        self.models = models
+        updateSections()
     }
     
     required init?(coder: NSCoder) {
@@ -109,6 +135,12 @@ extension CompletedTravelCell: UICollectionViewDataSource {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CompletedTravelCellCollectionViewCell.identifier, for: indexPath) as? CompletedTravelCellCollectionViewCell
         else {return UICollectionViewCell()}
         return cell
+    }
+}
+
+extension CompletedTravelCell: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
     }
 }
 

@@ -43,6 +43,9 @@ class MyCharacterViewController: BaseViewContronller {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        
         setupDataSource()
         updateSections()
         
@@ -58,7 +61,8 @@ class MyCharacterViewController: BaseViewContronller {
                     self.navigationController?.pushViewController(vc, animated: true)
                     
                 case .dismiss:
-                    self.delegate?.myCharacterViewControllerDidTapDismiss()
+//                    self.delegate?.myCharacterViewControllerDidTapDismiss()
+                    break
                 }
             }
             .store(in: &cancellables)

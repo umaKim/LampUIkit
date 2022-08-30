@@ -8,14 +8,15 @@
 import UIKit
 
 protocol FavoriteCellDelegate: AnyObject {
+    func favoriteCellDidTap(_ item: MyBookMarkLocation)
     func favoriteCellDidTapDelete(at index: Int)
 }
 
 final class FavoriteCell: UICollectionViewCell {
     static let identifier = "FavoriteCell"
     
-    private typealias DataSource = UICollectionViewDiffableDataSource<Section, MyTravelLocation>
-    private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, MyTravelLocation>
+    private typealias DataSource = UICollectionViewDiffableDataSource<Section, MyBookMarkLocation>
+    private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, MyBookMarkLocation>
     
     enum Section { case main }
     
@@ -40,9 +41,9 @@ final class FavoriteCell: UICollectionViewCell {
         setupUI()
     }
     
-    private var models: [MyTravelLocation] = []
+    private var models: [MyBookMarkLocation] = []
     
-    public func configure(models: [MyTravelLocation]) {
+    public func configure(models: [MyBookMarkLocation]) {
         self.models = models
         self.updateSections()
     }
@@ -72,6 +73,12 @@ extension FavoriteCell: FavoriteCellHeaderCellDelegate {
     }
 }
 
+extension FavoriteCell: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        delegate?.favoriteCellDidTap(models[indexPath.item])
+    }
+}
+
 extension FavoriteCell {
     private func updateSections() {
         var snapshot = Snapshot()
@@ -89,7 +96,8 @@ extension FavoriteCell {
             guard
                 let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: FavoriteCellCollectionViewCell.identifier,
-                for: indexPath) as? FavoriteCellCollectionViewCell else { return nil }
+                for: indexPath) as? FavoriteCellCollectionViewCell
+            else { return nil }
             cell.delegate = self
             cell.tag = indexPath.item
             cell.configure(self.models[indexPath.item])

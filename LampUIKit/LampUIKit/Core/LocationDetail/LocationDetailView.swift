@@ -14,8 +14,9 @@ enum LocationDetailViewAction {
     
     case save
     case ar
+    case map
     case review
-    case share
+//    case share
     
     case addToMyTrip
     case removeFromMyTrip
@@ -44,6 +45,7 @@ final class LocationDetailView: BaseWhiteView {
     enum Section { case main }
     
     private var dataSource: DataSource?
+    
     private lazy var locationImageView: UICollectionView = {
         let cl = UICollectionViewFlowLayout()
         cl.scrollDirection = .horizontal
@@ -56,12 +58,14 @@ final class LocationDetailView: BaseWhiteView {
         return cv
     }()
     
+    private(set) var contentScrollView: UIScrollView = {
        let sv = UIScrollView()
         sv.showsVerticalScrollIndicator = false
         return sv
     }()
     
     private let contentView = UIView()
+    
     private let buttonSv = LocationDetailViewHeaderCellButtonStackView()
     
     private let dividerView = DividerView()
@@ -134,9 +138,13 @@ final class LocationDetailView: BaseWhiteView {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: indexPath) as? ImageCollectionViewCell
             else { return UICollectionViewCell() }
             cell.configure(self.photoUrls[indexPath.item])
+            cell.isDeleteButtonHidden = true
             return cell
         })
     }
+    
+    private var photoUrls: [String] = []
+    
     private func updateSections() {
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
@@ -162,12 +170,21 @@ final class LocationDetailView: BaseWhiteView {
         
         totalTravelReviewView.configure(locationDetail)
     }
+    
+    public func configure(with images: [String]) {
+        photoUrls = images
+        updateSections()
     }
     
     override init() {
         super.init()
         
         bind()
+        setupUI()
+        
+        configureImageViewCollecitonView()
+    }
+    
     private func bind() {
         backButton
             .tapPublisher
@@ -194,6 +211,9 @@ final class LocationDetailView: BaseWhiteView {
                 case .ar:
                     self.actionSubject.send(.ar)
                     break
+                    
+                case .map:
+                    self.actionSubject.send(.map)
                     
                 case .review:
                     self.actionSubject.send(.review)
@@ -264,7 +284,6 @@ final class LocationDetailView: BaseWhiteView {
             contentView.bottomAnchor.constraint(equalTo: contentScrollView.bottomAnchor),
             
             contentView.widthAnchor.constraint(equalTo: contentScrollView.widthAnchor),
-//            contentView.heightAnchor.constraint(equalToConstant: UIScreen.main.height * 1.5),
             
             locationImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             locationImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),

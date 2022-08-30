@@ -28,8 +28,9 @@ class WriteReviewViewModel: BaseViewModel {
     private var surroundingRating: Int?
     private var foodRating: Int?
     private var comments: String = ""
+    private(set) var images: [UIImage] = []
     
-    private let location: RecommendedLocation
+    private(set) var location: RecommendedLocation
     
     init(_ location: RecommendedLocation) {
         self.location = location
@@ -76,25 +77,61 @@ class WriteReviewViewModel: BaseViewModel {
         self.notifySubject.send(.ableCompleteButton(ableCompleteButton))
     }
     
+    public func addImage( _ image: UIImage) {
+        if isAbleToAddMoreImages() {
+            images.append(image)
+            self.notifySubject.send(.numberOfImages(self.images.count))
+            self.notifySubject.send(.ableCompleteButton(ableCompleteButton))
+        } else {
+            notifySubject.send(.showMessage("사진은 3개로 제한됩니다."))
+        }
+    }
+    
+    public func removeImage(at index: Int) {
+        images.remove(at: index)
+        self.notifySubject.send(.numberOfImages(self.images.count))
+        self.notifySubject.send(.ableCompleteButton(ableCompleteButton))
+    }
+    
+    private func isAbleToAddMoreImages() -> Bool {
+        return images.count < 3
+    }
+    
     public func completeButton() {
+        postReviews()
+    }
+    
+    private func postReviews() {
         guard
-//            let contentId = location.contentId,
             let atmosphereRating = atmosphereRating,
             let surroundingRating = surroundingRating,
             let foodRating = foodRating
         else { return }
-        print(location.contentId)
-        let model = ReviewPostData(token: "", contentId: location.contentId, starRate: starRating, mood: atmosphereRating, surround: surroundingRating, foodArea: foodRating, content: comments)
-        NetworkService.shared.postReview(model) { result in
+        
+        let model = ReviewPostData(
+            token: "",
+            contentId: location.contentId,
+            contentTypeId: location.contentTypeId,
+            placeName: location.title,
+            starRate: "\(starRating)",
+            mood: atmosphereRating,
+            surround: surroundingRating,
+            foodArea: foodRating,
+            content: comments
+        )
+        
+        self.notifySubject.send(.startLoading)
+        NetworkService.shared.postReview(model) {[unowned self] result in
+            self.notifySubject.send(.endLoading)
+            
             switch result {
             case .success(let response):
                 print(response)
-                print(response.message)
                 if response.isSuccess ?? false {
-                   
+                    self.postReviewImages()
+                    
                 } else {
-                    response.message
-                    //TODO: - send message to alert
+                    self.notifySubject.send(.showMessage(response.message ?? ""))
                 }
                 
             case .failure(let error):
@@ -112,7 +149,6 @@ class WriteReviewViewModel: BaseViewModel {
                 if response.isSuccess ?? false {
                     self.notifySubject.send(.dismiss)
                 } else {
-                    //TODO: - show message
                     self.notifySubject.send(.showMessage(response.message ?? ""))
                 }
             case .failure(let error):

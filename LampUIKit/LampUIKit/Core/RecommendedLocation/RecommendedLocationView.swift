@@ -11,6 +11,7 @@ import UIKit
 enum RecommendedLocationViewAction {
     case search
     case myCharacter
+    case myTravel
 }
 
 class RecommendedLocationView: BaseWhiteView {
@@ -32,6 +33,7 @@ class RecommendedLocationView: BaseWhiteView {
         cv.register(SearchRecommendationCollectionViewCell.self, forCellWithReuseIdentifier: SearchRecommendationCollectionViewCell.identifier)
         cv.backgroundColor = .greyshWhite
         cv.keyboardDismissMode = .onDrag
+        cv.contentInset = .init(top: 0, left: 0, bottom: 80, right: 0)
         return cv
     }()
     
@@ -44,6 +46,12 @@ class RecommendedLocationView: BaseWhiteView {
     private(set) lazy var myCharacter: UIButton = {
        let bt = UIButton()
         bt.setImage(UIImage(systemName: "house"), for: .normal)
+        return bt
+    }()
+    
+    private(set) lazy var travelButton: UIButton = {
+       let bt = UIButton()
+        bt.setImage(UIImage(systemName: "circle"), for: .normal)
         return bt
     }()
     
@@ -72,11 +80,18 @@ class RecommendedLocationView: BaseWhiteView {
                 self.actionSubject.send(.myCharacter)
             }
             .store(in: &cancellables)
+        
+        travelButton
+            .tapPublisher
+            .sink { _ in
+                self.actionSubject.send(.myTravel)
+            }
+            .store(in: &cancellables)
     }
     
     private func setupUI() {
         
-        customNavigationbar.setRightSideItems([searchButton, myCharacter])
+        customNavigationbar.setRightSideItems([searchButton, myCharacter, travelButton])
         
         [customNavigationbar, collectionView].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false

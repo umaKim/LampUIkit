@@ -114,6 +114,7 @@ extension MyTravelCell {
             cell.delegate = self
             cell.tag = indexPath.item
             cell.showDeleButton = self.showDeleteButton
+            cell.configure(self.models[indexPath.item])
             return cell
         }
         

@@ -11,9 +11,11 @@ import UIKit
 import GoogleMaps
 
 enum MainViewAction {
-    case myLocation
+    case allOver
+    case unvisited
+    case completed
     
-    case myTravel
+    case myLocation
     
     case zoomIn
     case zoomOut
@@ -25,39 +27,33 @@ class MainView: BaseWhiteView {
     
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<MainViewAction, Never>()
-
+    
     private(set) var mapView = GMSMapView()
     
-    private lazy var recommendationButton: UIButton = {
-       let bt = UIButton()
+    private lazy var allOverButton: UIButton = {
+        let bt = UIButton()
         bt.setImage(UIImage(named: "recommended_selected"), for: .normal)
         return bt
     }()
     
     private lazy var destinationButton: UIButton = {
         let bt = UIButton()
-         bt.setImage(UIImage(named: "destination_selected"), for: .normal)
-         return bt
-     }()
+        bt.setImage(UIImage(named: "destination_selected"), for: .normal)
+        return bt
+    }()
     
     private lazy var completeButton: UIButton = {
         let bt = UIButton()
         bt.setImage(UIImage(named: "completed_selected"), for: .normal)
-         return bt
-     }()
+        return bt
+    }()
     
     private lazy var zoomInButton = SquareButton(UIImage(systemName: "plus")?.withTintColor(.darkNavy, renderingMode: .alwaysOriginal))
     private lazy var zoomOutButton = SquareButton(UIImage(systemName: "minus")?.withTintColor(.darkNavy, renderingMode: .alwaysOriginal))
     
     private lazy var myLocationButton: UIButton = {
-       let bt = UIButton()
+        let bt = UIButton()
         bt.setImage(UIImage(named: "myLocation"), for: .normal)
-        return bt
-    }()
-    
-    private lazy var myTravelButton: UIButton = {
-       let bt = UIButton()
-        bt.setImage(UIImage(named: "myTravel"), for: .normal)
         return bt
     }()
     
@@ -70,6 +66,8 @@ class MainView: BaseWhiteView {
     override init() {
         super.init()
         
+        mapView.isMyLocationEnabled = true
+        
         bind()
         setupUI()
     }
@@ -79,21 +77,38 @@ class MainView: BaseWhiteView {
     }
     
     private func bind() {
-        
-        zoomInButton.tapPublisher.sink {[unowned self] _ in
-            self.actionSubject.send(.zoomIn)
-        }
-        .store(in: &cancellables)
-        
-        zoomOutButton.tapPublisher.sink {[unowned self] _ in
-            self.actionSubject.send(.zoomOut)
-        }
-        .store(in: &cancellables)
-        
-        myTravelButton
+        allOverButton
             .tapPublisher
-            .sink { [unowned self] _ in
-                self.actionSubject.send(.myTravel)
+            .sink {[unowned self] _ in
+                self.actionSubject.send(.allOver)
+            }
+            .store(in: &cancellables)
+        
+        destinationButton
+            .tapPublisher
+            .sink {[unowned self] _ in
+                self.actionSubject.send(.unvisited)
+            }
+            .store(in: &cancellables)
+        
+        completeButton
+            .tapPublisher
+            .sink {[unowned self] _ in
+                self.actionSubject.send(.completed)
+            }
+            .store(in: &cancellables)
+        
+        zoomInButton
+            .tapPublisher
+            .sink {[unowned self] _ in
+                self.actionSubject.send(.zoomIn)
+            }
+            .store(in: &cancellables)
+        
+        zoomOutButton
+            .tapPublisher
+            .sink {[unowned self] _ in
+                self.actionSubject.send(.zoomOut)
             }
             .store(in: &cancellables)
         
@@ -113,7 +128,7 @@ class MainView: BaseWhiteView {
     }
     
     private func setupUI() {
-        let filterSv = UIStackView(arrangedSubviews: [recommendationButton, destinationButton, completeButton])
+        let filterSv = UIStackView(arrangedSubviews: [allOverButton, destinationButton, completeButton])
         filterSv.axis = .horizontal
         filterSv.distribution = .equalSpacing
         filterSv.alignment = .fill
@@ -144,8 +159,8 @@ class MainView: BaseWhiteView {
             zoomSv.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             zoomSv.centerYAnchor.constraint(equalTo: centerYAnchor),
             
-            myTravelButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            myTravelButton.topAnchor.constraint(equalTo: zoomSv.bottomAnchor, constant: 16),
+            //            myTravelButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            //            myTravelButton.topAnchor.constraint(equalTo: zoomSv.bottomAnchor, constant: 16),
             
             mapView.leadingAnchor.constraint(equalTo: leadingAnchor),
             mapView.trailingAnchor.constraint(equalTo: trailingAnchor),

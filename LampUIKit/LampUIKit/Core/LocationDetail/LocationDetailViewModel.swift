@@ -19,6 +19,10 @@ enum LocationDetailViewModelNotify {
 final class LocationDetailViewModel: BaseViewModel {
     private(set) lazy var notifyPublisher = notifySubject.eraseToAnyPublisher()
     private let notifySubject = PassthroughSubject<LocationDetailViewModelNotify, Never>()
+    
+    private(set) var locationDetail: LocationDetailData?
+    private(set) var location: RecommendedLocation?
+   
     override init() {
         super.init()
     }
@@ -26,8 +30,6 @@ final class LocationDetailViewModel: BaseViewModel {
     convenience init(_ location: RecommendedLocation) {
         self.init()
         self.location = location
-        
-//        fetchLocationDetail()
     }
     
     convenience init(
@@ -37,15 +39,16 @@ final class LocationDetailViewModel: BaseViewModel {
         
         self.location = .init(
             image: nil,
-            contentId: "\(myTravelLocation.contentId ?? 0)",
-            contentTypeId: "\(myTravelLocation.contentTypeId ?? 0)",
-            title: myTravelLocation.placeName ?? "",
-            addr: myTravelLocation.placeAddress ?? "",
+            contentId: "\(myTravelLocation.contentId)",
+            contentTypeId: "\(myTravelLocation.contentTypeId)",
+            title: myTravelLocation.placeName,
+            addr: myTravelLocation.placeAddress,
             rate: nil,
-            isBookMarked: myTravelLocation.isBookMarked ?? false,
-            mapX: myTravelLocation.mapX ?? "",
-            mapY: myTravelLocation.mapY ?? "",
-            planIdx: "\(myTravelLocation.planIdx ?? 0)"
+            bookMarkIdx: "",
+            isBookMarked: myTravelLocation.isBookMarked,
+            mapX: myTravelLocation.mapX,
+            mapY: myTravelLocation.mapY,
+            planIdx: "\(myTravelLocation.planIdx)"
         )
     }
     
@@ -61,6 +64,7 @@ final class LocationDetailViewModel: BaseViewModel {
             title: myBookMarkLocation.placeName,
             addr: myBookMarkLocation.placeAddr,
             rate: nil,
+            bookMarkIdx: "",
             isBookMarked: true,
             mapX: myBookMarkLocation.mapX,
             mapY: myBookMarkLocation.mapY,
@@ -83,6 +87,7 @@ final class LocationDetailViewModel: BaseViewModel {
         NetworkService.shared.updateBookMark(of: location.contentId, 
                                              location.mapX,
                                              location.mapY,
+                                             location.contentTypeId,
                                              placeName: location.title,
                                              placeAddr: location.addr,
                                              completion: {[unowned self] result in
@@ -103,6 +108,7 @@ final class LocationDetailViewModel: BaseViewModel {
             case .success(let locationDetail):
                 self.locationDetail = locationDetail.result
                 self.notifySubject.send(.sendLocationDetail(self.locationDetail))
+               
             case .failure(let error):
                 print(error)
             }
@@ -116,9 +122,9 @@ final class LocationDetailViewModel: BaseViewModel {
             case .success(let response):
                 var images = [String]()
                 
-                if let mainImage = self.location?.image {
-                    images.append(mainImage)
-                }
+//                if let mainImage = self.location?.image {
+//                    images.append(mainImage)
+//                }
 
                 images.append(contentsOf: response.image)
                 self.notifySubject.send(.locationDetailImages(images))
@@ -202,4 +208,16 @@ final class LocationDetailViewModel: BaseViewModel {
     public func removeFromMyTrip() {
         deleteFromMyTrip()
     }
+}
+
+struct PostAddToMyTripData: Codable {
+    var token: String
+    let contentId: String
+    let contentTypeId: String
+    let placeName: String
+    let placeInfo: String
+    let placeAddress: String
+    let userMemo: String
+    let mapX: String
+    let mapY: String
 }

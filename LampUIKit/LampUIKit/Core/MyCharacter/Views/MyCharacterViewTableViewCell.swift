@@ -40,7 +40,13 @@ class MyCharacterViewTableViewCell: UITableViewCell {
     private lazy var seperateView = DividerView()
     
     public func configure(with data: GaugeData) {
-        self.barView.setProgress(20/100, animated: true)
+        self.titleLabel.text = data.name
+        
+        if let progress = Int(data.rate) {
+            self.barView.setProgress(Float(progress/100), animated: true)
+        }
+        
+        numberLabel.setText("\(data.rate)")
     }
     
     private func setupUI() {

@@ -22,11 +22,11 @@ open class LocationAnnotationNode: LocationNode {
 
     public init(location: CLLocation?, image: UIImage) {
         //MARK: - Disable original code for trying out 3D Object
-//        let plane = SCNPlane(width: image.size.width / 100, height: image.size.height / 100)
-        let plane = SCNBox(width: image.size.width/100,
-                           height: image.size.height/100,
-                           length: image.size.width/100,
-                           chamferRadius: 8)
+        let plane = SCNPlane(width: image.size.width / 100, height: image.size.height / 100)
+//        let plane = SCNBox(width: image.size.width/100,
+//                           height: image.size.height/100,
+//                           length: image.size.width/100,
+//                           chamferRadius: 8)
 //        let plane = SCNSphere(radius: image.size.width/100)
         plane.firstMaterial?.diffuse.contents = image
         plane.firstMaterial?.lightingModel = .constant
@@ -38,9 +38,9 @@ open class LocationAnnotationNode: LocationNode {
         super.init(location: location)
 
         //MARK: - Disable this code to prevent Item always face camera
-//        let billboardConstraint = SCNBillboardConstraint()
-//        billboardConstraint.freeAxes = SCNBillboardAxis.Y
-//        constraints = [billboardConstraint]
+        let billboardConstraint = SCNBillboardConstraint()
+        billboardConstraint.freeAxes = SCNBillboardAxis.Y
+        constraints = [billboardConstraint]
 
         addChildNode(annotationNode)
     }

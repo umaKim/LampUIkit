@@ -71,11 +71,30 @@ class MainViewController: BaseViewContronller {
         } completion: { _ in }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        viewModel.fetchItems()
+    }
+    
+    private func dismiss() {
+        self.dismiss(animated: true)
+    }
+    
+    private lazy var locationsSubject = PassthroughSubject<[RecommendedLocation], Never>()
+    private lazy var locationinfo = CurrentValueSubject<Coord, Never>(viewModel.coord)
+}
+
+//MARK: - Configure with FPC
+extension MainViewController {
     private func setFloatingPanelWithSearchViewController() {
         let contentVC = SearchViewController(vm: SearchViewModel())
         contentVC.delegate = self
         let nav = UINavigationController(rootViewController: contentVC)
         configureFpc(with: nav, completion: {[weak self] in
+            self?.fpc.move(to: .tip, animated: true)
+            self?.fpc.track(scrollView: contentVC.contentView.collectionView)
+        })
     }
     
     private func setFloatingPanelWithLocationDetailViewController(_ location: RecommendedLocation) {
@@ -83,9 +102,24 @@ class MainViewController: BaseViewContronller {
         contentVC.delegate = self
         let nav = UINavigationController(rootViewController: contentVC)
         configureFpc(with: nav, completion: {[weak self] in
+            self?.fpc.move(to: .full, animated: true)
+            self?.fpc.track(scrollView: contentVC.contentView.contentScrollView)
+        })
     }
     
-    private func configureFpc(with viewController: UIViewController) {
+    private func setFloatingPanelWithRecommendedLocationViewController() {
+        let vm = RecommendedLocationViewmodel(locationsSubject.eraseToAnyPublisher(),
+                                              locationinfo)
+        let contentVC = RecommendedLocationViewController(vm)
+        contentVC.delegate = self
+        let nav = UINavigationController(rootViewController: contentVC)
+        configureFpc(with: nav) { [weak self] in
+            self?.fpc.move(to: .tip, animated: true)
+            self?.fpc.track(scrollView: contentVC.contentView.collectionView)
+        }
+    }
+    
+    private func configureFpc(with viewController: UIViewController, completion: @escaping () -> Void) {
         let appearance = SurfaceAppearance()
         appearance.cornerRadius = 8.0
         appearance.backgroundColor = .clear
@@ -93,10 +127,15 @@ class MainViewController: BaseViewContronller {
         
         fpc.surfaceView.grabberHandlePadding = -12.0
         
-        fpc.set(contentViewController: viewController)
+        let vc = viewController
+        fpc.set(contentViewController: vc)
         
         fpc.addPanel(toParent: self)
         fpc.delegate = self
+        completion()
+    }
+}
+
 //MARK: - Zoom
 extension MainViewController {
     private func zoomIn() {
@@ -110,6 +149,7 @@ extension MainViewController {
     }
 }
 
+//MARK: - Marker
 extension MainViewController {
     private func addMarkers(of locations: [RecommendedLocation]) {
         locations.forEach { location in
@@ -121,7 +161,7 @@ extension MainViewController {
         let marker = GMSMarker()
         marker.tracksViewChanges = true
         marker.appearAnimation = .pop
-        let markerView = CustomMarkerView(of: location.image)
+        let markerView = CustomMarkerView(of: location.image ?? "")
         marker.iconView = markerView
         
         guard
@@ -140,20 +180,18 @@ extension MainViewController {
         marker.tracksInfoWindowChanges = true
     }
 }
+
+//MARK: - Bind
+extension MainViewController {
     private func bind() {
+        viewModel.locationManager.delegate = self
+        contentView.mapView.delegate = self
+        
         contentView
             .actionPublisher
             .sink {[unowned self] action in
+                HapticManager.shared.feedBack(with: .medium)
                 switch action {
-                case .myTravel:
-                    let vc = MyTravelViewController(vm: MyTravelViewModel())
-                    vc.delegate = self
-                    let nav = UINavigationController(rootViewController: vc)
-                    
-                case .myCharacter:
-                    let vc = MyCharacterViewController(vm: MyCharacterViewModel())
-                    vc.delegate = self
-                    let nav = UINavigationController(rootViewController: vc)
                     
                 case .zoomIn:
                     self.zoomIn()
@@ -165,7 +203,20 @@ extension MainViewController {
                     self.viewModel.fetchItems()
                     
                 case .myLocation:
+                    self.contentView.mapView.animate(toZoom: 15)
+                    self.viewModel.setMyZoomLevel(15)
                     self.viewModel.setMyLocation()
+                    
+                case .allOver:
+                    self.contentView.mapView.animate(toZoom: 8)
+                    self.viewModel.setMyZoomLevel(8)
+                    self.viewModel.fetchAllOver()
+                    
+                case .unvisited:
+                    self.viewModel.fetchUnvisited()
+                    
+                case .completed:
+                    self.viewModel.fetchCompleted()
                 }
             }
             .store(in: &cancellables)
@@ -175,13 +226,18 @@ extension MainViewController {
             .sink {[unowned self] noti in
                 switch noti {
                 case .recommendedLocations(let locations):
+                    self.contentView.mapView.clear()
                     self.addMarkers(of: locations)
+                    self.locationsSubject.send(locations)
 
                 case .startLoading:
                     self.showLoadingView()
 
                 case .endLoading:
                     self.dismissLoadingView()
+                    
+                case .moveTo(let coord):
+                    self.moveTo(coord)
                 }
             }
             .store(in: &cancellables)
@@ -197,7 +253,10 @@ extension MainViewController: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        presentUmaDefaultAlert(title: error.localizedDescription)
     }
+}
+
 extension MainViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
         let lat = position.target.latitude
@@ -253,9 +312,10 @@ extension MainViewController: LocationDetailViewControllerDelegate {
 
 extension MainViewController: FloatingPanelControllerDelegate {
     func floatingPanelDidMove(_ fpc: FloatingPanelController) {
-        if fpc.state == .tip {
+        if fpc.state == .tip || fpc.state == .half {
             view.endEditing(true)
         }
+        setGMPadding()
     }
     
     func floatingPanel(_ vc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout {
@@ -290,18 +350,29 @@ extension MainViewController: SearchViewControllerDelegate {
 }
 
 extension MainViewController: MyTravelViewControllerDelegate {
+    func myTravelViewDidTap(_ item: MyTravelLocation) {
+        
+    }
+    
     func myTravelViewControllerDidTapDismiss() {
-        dismiss()
+//        dismiss()
+//        self.navigationController?.setNavigationBarHidden(true, animated: true)
+//        self.navigationController?.popViewController(animated: true)
     }
 }
 
 extension MainViewController: MyCharacterViewControllerDelegate {
     func myCharacterViewControllerDidTapDismiss() {
-        dismiss()
+//        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
 }
 
 extension MainViewController: RecommendedLocationViewControllerDelegate {
+    func recommendedLocationViewControllerDidTapMyTravel() {
+        fpc.move(to: .full, animated: true)
+    }
+    
     func recommendedLocationViewControllerDidTapSearch() {
         fpc.move(to: .full, animated: true)
     }

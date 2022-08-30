@@ -7,6 +7,55 @@
 import Combine
 import UIKit
 
+//
+//private let satisfactionEvaluationView: EvaluationView = {
+//    let models: [EvaluationModel] = [
+//        EvaluationModel(isSelected: false, title: "매우 만족"),
+//        EvaluationModel(isSelected: false, title: "만족"),
+//        EvaluationModel(isSelected: false, title: "보통")
+//    ]
+//    let uv = EvaluationView(title: "만족도", elements: models)
+//    uv.heightAnchor.constraint(equalToConstant: 60).isActive = true
+//    return uv
+//}()
+//
+//private let atmosphereEvaluationView: EvaluationView = {
+//    let models: [EvaluationModel] = [
+//        EvaluationModel(isSelected: false, title: "고즈넉한"),
+//        EvaluationModel(isSelected: false, title: "잔잔한"),
+//        EvaluationModel(isSelected: false, title: "셍기넘치는"),
+//        EvaluationModel(isSelected: false, title: "푸르른")
+//    ]
+//
+//    let uv = EvaluationView(title: "분위기", elements: models)
+//    uv.heightAnchor.constraint(equalToConstant: 60).isActive = true
+//    return uv
+//}()
+//
+//private let surroundingEvaluationView: EvaluationView = {
+//    let models: [EvaluationModel] = [
+//        EvaluationModel(isSelected: false, title: "여유로운"),
+//        EvaluationModel(isSelected: false, title: "혼잡한"),
+//        EvaluationModel(isSelected: false, title: "인파가 적당한")
+//    ]
+//
+//    let uv = EvaluationView(title: "주차 및 주변", elements: models)
+//    uv.heightAnchor.constraint(equalToConstant: 60).isActive = true
+//    return uv
+//}()
+//
+//private let foodEvaluationView: EvaluationView = {
+//    let models: [EvaluationModel] = [
+//        EvaluationModel(isSelected: false, title: "다양한 종류"),
+//        EvaluationModel(isSelected: false, title: "먹거리 없음")
+//    ]
+//
+//    let uv = EvaluationView(title: "먹거리", elements: models)
+//    uv.heightAnchor.constraint(equalToConstant: 60).isActive = true
+//    return uv
+//}()
+
+
 enum RatingStandard {
     static let comfort: [String] = ["매우 만족", "만족", "보통"]
     static let atmosphere: [String] = ["고즈넉한", "잔잔한", "셍기넘치는", "푸르른"]
@@ -61,8 +110,17 @@ class LocationDetailViewBodyCell: UICollectionViewCell {
     
     private let dividerView = DividerView()
     
-    public func configure() {
+    public func configure(_ locationDetail: LocationDetailData) {
+        guard let rate = locationDetail.totalAvgReviewRate else { return }
+        let satisfactionIndex = rate.satisfaction ?? 0
+        let moodIndex = rate.mood ?? 0
+        let surroundIndex = rate.surround ?? 0
+        let foodIndex = rate.foodArea ?? 0
         
+        satisfyView.setSubtitle(RatingStandard.comfort[satisfactionIndex])
+        atmosphereView.setSubtitle(RatingStandard.atmosphere[moodIndex])
+        surroundingView.setSubtitle(RatingStandard.surrounding[surroundIndex])
+        foodView.setSubtitle(RatingStandard.food[foodIndex])
     }
     
     override init(frame: CGRect) {
@@ -122,29 +180,37 @@ class LocationDetailViewBodyCell: UICollectionViewCell {
 }
 
 class ReviewLabel: UIView {
-    
     private let titleLabel: UILabel = {
         let lb = UILabel()
         lb.font = .systemFont(ofSize: 15, weight: .semibold)
         lb.textColor = .midNavy
+        lb.widthAnchor.constraint(equalToConstant: 80).isActive = true
         return lb
     }()
     
-    private let subTitleLabel: UILabel = {
-       let lb = UILabel()
-        lb.font = .systemFont(ofSize: 15, weight: .semibold)
-        lb.textColor = .black
-        return lb
-    }()
+//    private lazy var subTitleLabel: UILabel = {
+//       let lb = UILabel()
+//        lb.font = .systemFont(ofSize: 15, weight: .semibold)
+//        lb.textColor = .black
+//        return lb
+//    }()
+    
+    private lazy var subTitleLabel = RoundedLabelView("")
+    
+    public func setSubtitle(_ text: String) {
+        self.subTitleLabel.setText(text)
+    }
     
     init(
         title: String,
         subTitle: String,
-        spacing: CGFloat = 16
+        spacing: CGFloat = 16,
+        setRoundDesign: Bool = true
     ) {
         self.titleLabel.text = title
-        self.subTitleLabel.text = subTitle
         super.init(frame: .zero)
+        self.subTitleLabel.setText(subTitle)
+        self.subTitleLabel.setRound(setRoundDesign)
         
         let sv = UIStackView(arrangedSubviews: [titleLabel, subTitleLabel])
         sv.axis = .horizontal
@@ -163,6 +229,23 @@ class ReviewLabel: UIView {
             sv.bottomAnchor.constraint(equalTo: bottomAnchor),
             sv.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
+        
+//        if setRoundDesign {
+//            subTitleLabel.layer.cornerRadius = 8
+//            subTitleLabel.layer.borderWidth = 1
+//            subTitleLabel.layer.borderColor = UIColor.midNavy.cgColor
+////            subTitleLabel.sizeToFit()
+//            subTitleLabel.frame = CGRect(x: 0, y: 0,
+//                                         width: subTitleLabel.frame.width + 16,
+//                                         height: subTitleLabel.frame.height + 6)
+//        }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
 class RoundedLabelView: UIView {
     private let label: UILabel = {
         let lb = UILabel()

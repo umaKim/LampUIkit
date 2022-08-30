@@ -39,7 +39,7 @@ class MyCharacterViewTableViewHeaderCell: UITableViewHeaderFooterView {
     
     private lazy var characterImageView: UIImageView = {
        let uv = UIImageView()
-        uv.image = UIImage()
+        uv.contentMode = .scaleAspectFill
         uv.backgroundColor = .midNavy
         uv.layer.cornerRadius = 7
         
@@ -100,7 +100,64 @@ class MyCharacterViewTableViewHeaderCell: UITableViewHeaderFooterView {
     }
     
     public func configure(with character: CharacterData) {
-        averageStat.setValue(20)
-        mileageStat.setValue(50)
+        characterImageView.sd_setImage(with: URL(string: character.imageString ?? ""),
+                                       placeholderImage: UIImage(named: "placeholder"))
+        nameLabel.text = character.characterName
+        levelLabel.text = "LV.\(character.level)"
+        if
+            let avg = Float(character.averageStat),
+            let mileage = Float(character.mileage) {
+            averageStat.setValue(avg, 200)
+            mileageStat.setValue(mileage, 50)
+        }
+        
+        mileageView.setValue(character.mileage)
+    }
+}
+
+class MileageView: UIView {
+    private let titleLabel: UILabel = {
+        let lb = UILabel()
+        lb.text = "남은 마일리지 : "
+        lb.font = .robotoRegular(16)
+        return lb
+    }()
+    
+    private let valueLabel: UILabel = {
+       let lb = UILabel()
+        lb.font = .robotoBold(16)
+        return lb
+    }()
+    
+    init() {
+        super.init(frame: .zero)
+        
+        layer.cornerRadius = 6
+        backgroundColor = .lightNavy
+        widthAnchor.constraint(equalToConstant: UIScreen.main.width).isActive = true
+        heightAnchor.constraint(equalToConstant: 64).isActive = true
+        
+        let sv = UIStackView(arrangedSubviews: [titleLabel, valueLabel])
+        sv.alignment = .fill
+        sv.distribution = .fill
+        sv.axis = .horizontal
+        
+        [sv].forEach { uv in
+            uv.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(uv)
+        }
+        
+        NSLayoutConstraint.activate([
+            sv.centerXAnchor.constraint(equalTo: centerXAnchor),
+            sv.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    public func setValue(_ value: String) {
+        valueLabel.text = value
     }
 }

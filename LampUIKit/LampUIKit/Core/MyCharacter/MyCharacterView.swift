@@ -9,6 +9,7 @@ import Combine
 import UIKit
 
 enum MyCharacterViewAction {
+    case gear
     case dismiss
 }
 
@@ -17,9 +18,17 @@ class MyCharacterView: BaseWhiteView {
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<MyCharacterViewAction, Never>()
 
+    private(set) lazy var gearButton: UIBarButtonItem = {
+        let bt = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .done, target: nil, action: nil)
         bt.tintColor = .black
         return bt
     }()
+    
+//    private(set) var dismissButton: UIBarButtonItem = {
+//        let bt = UIBarButtonItem(image: .xmark, style: .done, target: nil, action: nil)
+//        bt.tintColor = .black
+//        return bt
+//    }()
     
     private(set) lazy var tableView: UITableView = {
       let tv = UITableView()
@@ -44,6 +53,17 @@ class MyCharacterView: BaseWhiteView {
     }
     
     private func bind() {
+        gearButton.tapPublisher.sink { _ in
+            self.actionSubject.send(.gear)
+        }
+        .store(in: &cancellables)
+        
+//        dismissButton
+//            .tapPublisher
+//            .sink {[unowned self] _ in
+//                self.actionSubject.send(.dismiss)
+//            }
+//            .store(in: &cancellables)
     }
     
     private func setupUI() {

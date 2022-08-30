@@ -12,6 +12,12 @@ enum MainViewModelNotification {
     case recommendedLocations([RecommendedLocation])
     case startLoading
     case endLoading
+    case moveTo(CLLocationCoordinate2D)
+}
+
+struct Coord {
+    let latitude: Double
+    let longitude: Double
 }
 
 class MainViewModel: BaseViewModel  {
@@ -19,9 +25,19 @@ class MainViewModel: BaseViewModel  {
     private(set) lazy var notifyPublisher = notifySubject.eraseToAnyPublisher()
     private let notifySubject = PassthroughSubject<MainViewModelNotification, Never>()
     
+    private(set) var recommendedPlaces: [RecommendedLocation] = []
+    
+    private(set) var coord: Coord = .init(latitude: 0, longitude: 0)
     
     private let network = NetworkService.shared
     
+    private(set) var zoom: Float = 15
+    
+    private(set) var locationManager = CLLocationManager()
+    
+    public func appendPlace(_ locaion: RecommendedLocation) {
+        self.recommendedPlaces.append(locaion)
+    }
     
     override init() {
         super.init()
@@ -45,7 +61,7 @@ class MainViewModel: BaseViewModel  {
     
     public func fetchItems() {
         notifySubject.send(.startLoading)
-        let location = Location(lat: longitude, long: latitude)
+        let location = Location(lat: coord.latitude, long: coord.longitude)
         network.fetchRecommendation(location, zoom.zoomLevel, 20) {[unowned self] result in
             switch result {
             case .success(let items):
@@ -54,7 +70,10 @@ class MainViewModel: BaseViewModel  {
                 
             case .failure(let error):
                 print(error)
+                print(error.localizedDescription)
             }
+            
+            notifySubject.send(.endLoading)
         }
     }
     
@@ -65,10 +84,59 @@ class MainViewModel: BaseViewModel  {
     public func setMyLocation() {
         guard let coord = locationManager.location?.coordinate else { return }
         self.setLocation(with: coord.latitude, coord.longitude)
-        self.notifySubject.send(.myLocation(coord))
+        self.notifySubject.send(.moveTo(coord))
     }
     
     public func setLocation(with latitude: Double, _ longitude: Double) {
+        self.coord = .init(latitude: latitude, longitude: longitude)
+    }
+    
+    public func fetchAllOver() {
+        notifySubject.send(.startLoading)
+        network.fetchRecommendationFromAllOver { result in
+            switch result {
+            case .success(let items):
+                self.recommendedPlaces = items.result
+                self.notifySubject.send(.recommendedLocations(items.result))
+                
+            case .failure(let error):
+                print(error)
+                print(error.localizedDescription)
+            }
+            
+            self.notifySubject.send(.endLoading)
+        }
+    }
+    
+    public func fetchUnvisited() {
+        notifySubject.send(.startLoading)
+        network.fetchUnvisitedLocations { result in
+            switch result {
+            case .success(let items):
+                self.recommendedPlaces = items.result
+                self.notifySubject.send(.recommendedLocations(items.result))
+                
+            case .failure(let error):
+                print(error)
+                print(error.localizedDescription)
+            }
+            
+            self.notifySubject.send(.endLoading)
+        }
+    }
+    
+    public func fetchCompleted() {
+        notifySubject.send(.startLoading)
+        network.fetchCompletedTravel { result in
+            switch result {
+            case .success(let items):
+                self.recommendedPlaces = items
+                self.notifySubject.send(.recommendedLocations(items))
+            case .failure(let error):
+                print(error)
+            }
+            self.notifySubject.send(.endLoading)
+        }
     }
 }
 

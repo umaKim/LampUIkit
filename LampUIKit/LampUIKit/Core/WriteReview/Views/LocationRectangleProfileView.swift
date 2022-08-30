@@ -10,14 +10,16 @@ import UIKit
 final class LocationRectangleProfileView: UIView {
     private lazy var profileImageView: UIImageView = {
         let uv = UIImageView()
-        uv.image = .gear
+        uv.clipsToBounds = true
+        uv.layer.cornerRadius = 6
+        uv.contentMode = .scaleToFill
         uv.widthAnchor.constraint(equalToConstant: 72).isActive = true
+        uv.heightAnchor.constraint(equalToConstant: 56).isActive = true
         return uv
     }()
     
     private lazy var titleLabel: UILabel = {
         let lb = UILabel()
-        lb.text = "경복궁"
         lb.textColor = .black
         lb.font = .robotoBold(15)
         return lb
@@ -25,16 +27,16 @@ final class LocationRectangleProfileView: UIView {
     
     private lazy var addrLabel: UILabel = {
         let lb = UILabel()
-        lb.text = "서울시 종로구 시작로 191"
         lb.textColor = .darkNavy
         lb.font = .robotoBold(12)
         return lb
     }()
     
     public func configure(_ location: RecommendedLocation) {
-        let urlString = location.image
-        let url = URL(string: urlString)
-        profileImageView.sd_setImage(with: url)
+        if let urlString = location.image {
+            let url = URL(string: urlString)
+            profileImageView.sd_setImage(with: url)
+        }
         
         titleLabel.text = location.title
         addrLabel.text = location.addr
@@ -47,11 +49,13 @@ final class LocationRectangleProfileView: UIView {
         labelSv.axis = .vertical
         labelSv.distribution = .fill
         labelSv.alignment = .leading
+        labelSv.spacing = 8
         
         let totalSv = UIStackView(arrangedSubviews: [profileImageView, labelSv])
         totalSv.axis = .horizontal
         totalSv.distribution = .fill
-        totalSv.alignment = .fill
+        totalSv.alignment = .center
+        totalSv.spacing = 16
        
         [totalSv].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
@@ -59,8 +63,8 @@ final class LocationRectangleProfileView: UIView {
         }
         
         NSLayoutConstraint.activate([
-            totalSv.leadingAnchor.constraint(equalTo: leadingAnchor),
-            totalSv.trailingAnchor.constraint(equalTo: trailingAnchor),
+            totalSv.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            totalSv.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             totalSv.bottomAnchor.constraint(equalTo: bottomAnchor),
             totalSv.topAnchor.constraint(equalTo: topAnchor)
         ])

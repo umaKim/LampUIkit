@@ -8,6 +8,7 @@
 import UIKit
 
 protocol MyTravelViewControllerDelegate: AnyObject {
+//    func myTravelViewDidTapItem(_ item: MyTravel)
     func myTravelViewControllerDidTapDismiss()
 }
 
@@ -37,13 +38,14 @@ final class MyTravelViewController: BaseViewContronller {
 
         title = "나의 여행"
         
+        navigationController?.setNavigationBarHidden(false, animated: true)
         navigationItem.largeTitleDisplayMode = .always
         
         contentView.collectionView.dataSource = self
         contentView.collectionView.delegate = self
         
-        navigationItem.rightBarButtonItems = [contentView.dismissButton]
-        navigationItem.leftBarButtonItems = [contentView.gearButton]
+//        navigationItem.rightBarButtonItems = [contentView.dismissButton]
+//        navigationItem.leftBarButtonItems = [contentView.gearButton]
         navigationController?.setLargeTitleColor(.midNavy)
         
         bind()
@@ -54,13 +56,13 @@ final class MyTravelViewController: BaseViewContronller {
             .actionPublisher
             .sink {[unowned self] action in
                 switch action {
-                case .gear:
-                    let vm = MyPageViewModel()
-                    let vc = MyPageViewController(vm: vm)
-                    self.navigationController?.pushViewController(vc, animated: true)
+//                case .gear:
+//                    let vm = MyPageViewModel()
+//                    let vc = MyPageViewController(vm: vm)
+//                    self.navigationController?.pushViewController(vc, animated: true)
                     
-                case .dismiss:
-                    self.delegate?.myTravelViewControllerDidTapDismiss()
+//                case .dismiss:
+//                    self.delegate?.myTravelViewControllerDidTapDismiss()
                 }
             }
             .store(in: &cancellables)
@@ -94,6 +96,12 @@ extension MyTravelViewController: MyTravelCellDelegate {
 }
 
 extension MyTravelViewController: FavoriteCellDelegate {
+    func favoriteCellDidTap(_ item: MyBookMarkLocation) {
+        let vm = LocationDetailViewModel(item)
+        let vc = LocationDetailViewController(vm: vm)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     func favoriteCellDidTapDelete(at index: Int) {
         viewModel.deleteMySaveLocations(at: index)
     }

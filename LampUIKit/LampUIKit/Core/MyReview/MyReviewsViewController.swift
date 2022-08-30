@@ -40,6 +40,14 @@ class MyReviewsViewController: BaseViewContronller {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewModel.notifyPublisher.sink {[weak self] noti in
+            switch noti {
+            case .reload:
+                self?.updateSections()
+            }
+        }
+        .store(in: &cancellables)
+        
         configureCollectionView()
         updateSections()
     }
@@ -60,24 +68,26 @@ class MyReviewsViewController: BaseViewContronller {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyReviewCollectionViewCell.identifier, for: indexPath) as? MyReviewCollectionViewCell
             else { return UICollectionViewCell() }
             cell.tag = indexPath.item
-//            cell.configure(with: self.viewModel.datum[indexPath.item])
-//            cell.delegate = self
+            cell.configure(with: self.viewModel.datum[indexPath.item])
             return cell
         })
-        
-        dataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
-            guard kind == UICollectionView.elementKindSectionHeader else { return nil }
-            let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: MyReviewHeaderCell.identifier, for: indexPath) as? MyReviewHeaderCell
-//            view?.delegate = self
-            view?.configure()
-            return view
-        }
     }
 }
 
 extension MyReviewsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        .init(width: UIScreen.main.width - 32, height: 300)
+//        .init(width: UIScreen.main.width - 32, height: 300)
+        
+        let cellSize = NSString(string: "jkwbfkewbfoubweofbweo")
+            .boundingRect(
+                with: CGSize(width:  UIScreen.main.width - 32, height: CGFloat.greatestFiniteMagnitude),
+                options: .usesLineFragmentOrigin,
+                attributes: [
+                    NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)
+                ],
+                context: nil)
+
+        return CGSize(width: UIScreen.main.width - 32, height: cellSize.height + 300)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {

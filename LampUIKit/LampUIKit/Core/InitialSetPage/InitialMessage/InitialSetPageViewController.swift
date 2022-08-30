@@ -34,6 +34,8 @@ class InitialSetPageViewController: BaseViewContronller {
     init(vm: InitialSetPageViewModel) {
         self.viewModel = vm
         super.init()
+        
+       
     }
     
     required init?(coder: NSCoder) {
@@ -41,11 +43,13 @@ class InitialSetPageViewController: BaseViewContronller {
     }
     
     private var runCount = 0
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .darkNavy
+        
+        isInitialSettingDone(false)
         
         animateBeginningMessageLabel()
         

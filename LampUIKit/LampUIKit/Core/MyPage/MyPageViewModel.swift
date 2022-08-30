@@ -11,12 +11,36 @@ import Foundation
 
 enum MyPageViewModelNotify {
     case goBackToBeforeLoginPage
+    
+    case myInfo(MyInfo)
+    case reload
 }
 
 class MyPageViewModel: BaseViewModel {
     private(set) lazy var notifyPublisher = notifySubject.eraseToAnyPublisher()
     private let notifySubject = PassthroughSubject<MyPageViewModelNotify, Never>()
     
+    private(set) var myInfo: MyInfo?
+    
+    private(set) var models: [String] = ["나의 여행 후기","로그아웃", "회원탈퇴"]
+    
+    override init() {
+        super.init()
+        NetworkService.shared.fetchMyInfo { result in
+            switch result {
+            case .success(let info):
+                self.myInfo = info
+                self.notifySubject.send(.reload)
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    private func fetchUserInfo() {
+        
+    }
     
     public func logout() {
         switch NetworkService.shared.userAuthType {
@@ -65,6 +89,7 @@ class MyPageViewModel: BaseViewModel {
             else {
                 print("logout() success.")
             }
+            self.notifySubject.send(.goBackToBeforeLoginPage)
         }
     }
     

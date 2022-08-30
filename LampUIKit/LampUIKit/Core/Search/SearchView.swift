@@ -27,11 +27,11 @@ class SearchView: BaseView {
     
     private(set) lazy var searchBar = UISearchBar(frame: .init(x: 0, y: 0, width: self.frame.width, height: 64))
     
-    private(set) var dismissButton: UIBarButtonItem = {
-        let bt = UIBarButtonItem(image: .xmark, style: .done, target: nil, action: nil)
-        bt.tintColor = .black
-        return bt
-    }()
+//    private(set) var dismissButton: UIBarButtonItem = {
+//        let bt = UIBarButtonItem(image: .xmark, style: .done, target: nil, action: nil)
+//        bt.tintColor = .black
+//        return bt
+//    }()
     
     private let categoryButtons = CategoryButtonView()
     
@@ -74,12 +74,12 @@ class SearchView: BaseView {
             }
             .store(in: &cancellables)
         
-        dismissButton
-            .tapPublisher
-            .sink {[unowned self] _ in
-                self.actionSubject.send(.dismiss)
-            }
-            .store(in: &cancellables)
+//        dismissButton
+//            .tapPublisher
+//            .sink {[unowned self] _ in
+//                self.actionSubject.send(.dismiss)
+//            }
+//            .store(in: &cancellables)
         
         categoryButtons
             .actionPublisher
@@ -104,7 +104,7 @@ class SearchView: BaseView {
         searchBar.barTintColor = .whiteGrey
         searchBar.searchBarStyle = .prominent
         
-        let sv = UIStackView(arrangedSubviews: [categoryButtons, collectionView])
+        let sv = UIStackView(arrangedSubviews: [searchBar, collectionView])
         sv.alignment = .fill
         sv.distribution = .fill
         sv.axis = .vertical

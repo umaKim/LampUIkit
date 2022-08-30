@@ -10,7 +10,8 @@ import UIKit
 
 protocol SearchViewControllerDelegate: AnyObject {
     func searchViewControllerDidTapDismiss()
-    func searchViewControllerDidTapMapPin()
+    func searchViewControllerDidTapMapPin(at location: RecommendedLocation)
+    func searchBarDidTap()
 }
 
 class SearchViewController: BaseViewContronller {
@@ -45,15 +46,23 @@ class SearchViewController: BaseViewContronller {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.setNavigationBarHidden(false, animated: false)
         contentView.searchBar.placeholder = "검색어 입력"
-        navigationItem.titleView = contentView.searchBar
+//        navigationItem.titleView = contentView.searchBar
         
-        navigationItem.rightBarButtonItems = [contentView.dismissButton]
+//        navigationItem.rightBarButtonItems = [contentView.dismissButton]
+//        contentView.searchBar.delegate = self
         contentView.collectionView.delegate = self
         
         bind()
-        configureCollectionView()
+        configureCollectionView()   
     }
+    
+//    override func viewDidDisappear(_ animated: Bool) {
+//        super.viewDidDisappear(animated)
+//
+//        navigationController?.setNavigationBarHidden(true, animated: false)
+//    }
     
     private func bind() {
         contentView
@@ -81,6 +90,9 @@ class SearchViewController: BaseViewContronller {
                     
                 case .searchTextDidChange(let text):
                     self.viewModel.search(text)
+                    
+                case .searchDidBeginEditing:
+                    self.delegate?.searchBarDidTap()
                 }
             }
             .store(in: &cancellables)
@@ -161,6 +173,8 @@ extension SearchViewController: UICollectionViewDelegate {
         
         let vm = LocationDetailViewModel(viewModel.locations[indexPath.item])
         let vc = LocationDetailViewController(vm: vm)
+        vc.delegate = self
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
