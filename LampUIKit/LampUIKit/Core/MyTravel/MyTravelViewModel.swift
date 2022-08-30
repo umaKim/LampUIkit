@@ -29,6 +29,12 @@ class MyTravelViewModel: BaseViewModel {
         fetchCompletedTravel()
     }
     
+    public func fetch() {
+        fetchMyTravel()
+        fetchSavedTravel()
+        fetchCompletedTravel()
+    }
+    
     private func fetchMyTravel() {
         NetworkService.shared.fetchMyTravel {[unowned self] result in
             switch result {
