@@ -159,6 +159,10 @@ extension SearchViewController {
 }
 
 extension SearchViewController: LocationDetailViewControllerDelegate {
+    func locationDetailViewControllerDidTapBackButton() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     func locationDetailViewControllerDidTapDismissButton() {
         self.navigationController?.popViewController(animated: true)
     }
