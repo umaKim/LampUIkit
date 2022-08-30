@@ -293,6 +293,10 @@ extension MainViewController: GMSMapViewDelegate {
 }
 
 extension MainViewController: LocationDetailViewControllerDelegate {
+    func locationDetailViewControllerDidTapBackButton() {
+        
+    }
+    
     func locationDetailViewControllerDidTapMapButton(_ location: RecommendedLocation) {
         fpc.move(to: .half, animated: true)
         guard
@@ -350,6 +354,10 @@ extension MainViewController: SearchViewControllerDelegate {
 }
 
 extension MainViewController: MyTravelViewControllerDelegate {
+    func myTravelViewControllerDidTapMapButton(_ location: RecommendedLocation) {
+        
+    }
+    
     func myTravelViewDidTap(_ item: MyTravelLocation) {
         
     }
