@@ -10,6 +10,7 @@ import UIKit
 protocol MyTravelCellDelegate: AnyObject {
     func myTravelCellDelegateDidTap(_ item: MyTravelLocation)
     func myTravelCellDelegateDidTapDelete(at index: Int)
+    func myTravelCellDelegateDidTapComplete(at index: Int)
 }
 
 final class MyTravelCell: UICollectionViewCell {
@@ -68,6 +69,12 @@ extension MyTravelCell: MyTravelCellHeaderCellDelegate {
 }
 
 extension MyTravelCell: MyTravelCellCollectionViewCellDelegate {
+    func myTravelCellCollectionViewCellDidTapComplete(at index: Int) {
+        models.remove(at: index)
+        updateSections()
+        delegate?.myTravelCellDelegateDidTapComplete(at: index)
+    }
+    
     func myTravelCellCollectionViewCellDidTapDelete(at index: Int) {
         models.remove(at: index)
         updateSections()

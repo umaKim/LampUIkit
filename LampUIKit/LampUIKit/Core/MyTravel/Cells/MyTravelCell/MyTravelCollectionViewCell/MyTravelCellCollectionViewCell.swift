@@ -9,6 +9,7 @@ import UIKit
 
 protocol MyTravelCellCollectionViewCellDelegate: AnyObject {
     func myTravelCellCollectionViewCellDidTapDelete(at index: Int)
+    func myTravelCellCollectionViewCellDidTapComplete(at index: Int)
 }
 
 final class MyTravelCellCollectionViewCell: UICollectionViewCell {
@@ -63,6 +64,13 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell {
         return bt
     }()
     
+    private lazy var completeTripButton: UIButton = {
+       let bt = UIButton()
+        bt.setImage(UIImage(named: "completeTrip"), for: .normal)
+        bt.isHidden = false
+        return bt
+    }()
+    
     private var cancellables: Set<AnyCancellable>
     
     override init(frame: CGRect) {
@@ -77,7 +85,7 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell {
         totalSv.distribution = .fill
         totalSv.spacing = 6
         
-        [containerView, totalSv, deleteButton].forEach { uv in
+        [containerView, totalSv, deleteButton, completeTripButton].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
             addSubview(uv)
         }
@@ -94,10 +102,18 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell {
             
             deleteButton.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16),
             deleteButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
+            
+            completeTripButton.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16),
+            completeTripButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16)
         ])
         
         deleteButton.tapPublisher.sink { _ in
             self.delegate?.myTravelCellCollectionViewCellDidTapDelete(at: self.tag)
+        }
+        .store(in: &cancellables)
+        
+        completeTripButton.tapPublisher.sink { _ in
+            self.delegate?.myTravelCellCollectionViewCellDidTapComplete(at: self.tag)
         }
         .store(in: &cancellables)
     }
@@ -111,6 +127,7 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell {
     var showDeleButton: Bool? {
         didSet{
             deleteButton.isHidden = !(showDeleButton ?? false)
+            completeTripButton.isHidden = showDeleButton ?? true
         }
     }
     

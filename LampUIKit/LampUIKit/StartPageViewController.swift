@@ -25,6 +25,7 @@ class StartPageViewController: UIViewController {
     private lazy var titleImage: UIImageView = {
         let uv = UIImageView()
         uv.image = UIImage(named: "lampTitle")
+        uv.isHidden = true
         return uv
     }()
     

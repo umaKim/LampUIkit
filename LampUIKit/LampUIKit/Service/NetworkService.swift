@@ -185,7 +185,7 @@ final class NetworkService {
         AF.request(requestUrl, method: .get, encoding: JSONEncoding.default)
             .validate()
             .responseDecodable(of: LocationDetailResponse.self) { response in
-                print(String(decoding: response.data!, as: UTF8.self))
+                //                print(String(decoding: response.data!, as: UTF8.self))
                 completion(response.result)
             }
     }
@@ -386,6 +386,27 @@ final class NetworkService {
                 completion(response.result)
             }
     }
+    
+    func postCompleteTrip(_ param: CompleteTripPostData, completion: @escaping (Result<Response, AFError>) -> Void) {
+        var newParameter = param
+        newParameter.token = token
+        
+        let requestUrl = baseUrl + "/app/trip/complete"
+        
+        AF.request(requestUrl, method: .post, parameters: newParameter, encoder: JSONParameterEncoder(), headers: nil)
+            .validate()
+            .responseDecodable(of: Response.self) {
+                response in
+                completion(response.result)
+            }
+    }
+}
+
+struct CompleteTripPostData: Codable {
+    var token: String
+    let planIdx: String
+    let mapX: String
+    let mapY: String
 }
 
 struct MyInfo: Codable {
