@@ -120,7 +120,7 @@ class MainViewModel: BaseViewModel  {
     
     public func fetchUnvisited() {
         notifySubject.send(.startLoading)
-        network.fetchUnvisitedLocations { result in
+        network.fetchMyTravel { result in
             switch result {
             case .success(let locations):
                 self.recommendedPlaces = locations.map({
