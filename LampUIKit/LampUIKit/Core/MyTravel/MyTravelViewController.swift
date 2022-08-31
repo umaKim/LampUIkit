@@ -8,7 +8,6 @@
 import UIKit
 
 protocol MyTravelViewControllerDelegate: AnyObject {
-//    func myTravelViewDidTapItem(_ item: MyTravel)
     func myTravelViewControllerDidTapDismiss()
     func myTravelViewControllerDidTapMapButton(_ location: RecommendedLocation)
     
@@ -38,8 +37,6 @@ final class MyTravelViewController: BaseViewContronller {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "나의 여행"
-        
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationItem.largeTitleDisplayMode = .always
         
@@ -47,7 +44,6 @@ final class MyTravelViewController: BaseViewContronller {
         contentView.collectionView.delegate = self
         
         navigationItem.leftBarButtonItems = [contentView.dismissButton]
-//        navigationItem.leftBarButtonItems = [contentView.gearButton]
         navigationController?.setLargeTitleColor(.midNavy)
         
         bind()
@@ -58,11 +54,6 @@ final class MyTravelViewController: BaseViewContronller {
             .actionPublisher
             .sink {[unowned self] action in
                 switch action {
-//                case .gear:
-//                    let vm = MyPageViewModel()
-//                    let vc = MyPageViewController(vm: vm)
-//                    self.navigationController?.pushViewController(vc, animated: true)
-                    
                 case .dismiss:
                     self.delegate?.myTravelViewControllerDidTapDismiss()
                 }

@@ -23,12 +23,6 @@ class MyTravelView: UIView {
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<MyTravelViewAction, Never>()
     
-//    private(set) var gearButton : UIBarButtonItem = {
-//        let bt = UIBarButtonItem(image: .gear, style: .done, target: nil, action: nil)
-//        bt.tintColor = .black
-//        return bt
-//    }()
-    
     private(set) var dismissButton: UIBarButtonItem = {
         let bt = UIBarButtonItem(image: .back, style: .done, target: nil, action: nil)
         return bt
@@ -70,13 +64,6 @@ class MyTravelView: UIView {
     }
     
     private func bind() {
-//        gearButton
-//            .tapPublisher
-//            .sink {[unowned self] _ in
-//                self.actionSubject.send(.gear)
-//            }
-//            .store(in: &cancellables)
-        
         dismissButton
             .tapPublisher
             .sink {[unowned self] _ in
