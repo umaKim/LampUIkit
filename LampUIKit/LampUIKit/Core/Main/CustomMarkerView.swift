@@ -28,8 +28,16 @@ class CustomMarkerView: UIView {
         super.init(frame: .init(x: 0, y: 0, width: width, height: height))
     }
     
-    convenience init(of imageUrl: String) {
+    convenience init(of imageUrl: String, type markerType: MapMarkerType) {
         self.init()
+        switch markerType {
+        case .recommended:
+            outerImageView.image = .init(named: "circleRecommended")
+        case .destination:
+            outerImageView.image = .init(named: "circleDestination")
+        case .completed:
+            outerImageView.image = .init(named: "circleCompleted")
+        }
         contentImageView.sd_setImage(with: URL(string: imageUrl), placeholderImage: UIImage(named: "placeholder"))
         contentImageView.layer.cornerRadius = CGFloat(width/2)
         contentImageView.clipsToBounds = true

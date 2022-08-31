@@ -20,12 +20,19 @@ struct Coord {
     let longitude: Double
 }
 
+enum MapMarkerType {
+    case recommended
+    case destination
+    case completed
+}
+
 class MainViewModel: BaseViewModel  {
     
     private(set) lazy var notifyPublisher = notifySubject.eraseToAnyPublisher()
     private let notifySubject = PassthroughSubject<MainViewModelNotification, Never>()
     
     private(set) var recommendedPlaces: [RecommendedLocation] = []
+    private(set) var markerType: MapMarkerType = .recommended
     
     private(set) var coord: Coord = .init(latitude: 0, longitude: 0)
     
@@ -67,6 +74,7 @@ class MainViewModel: BaseViewModel  {
             switch result {
             case .success(let items):
                 self.recommendedPlaces = items.result
+                self.markerType = .recommended
                 self.notifySubject.send(.recommendedLocations(items.result))
                 
             case .failure(let error):
@@ -98,6 +106,7 @@ class MainViewModel: BaseViewModel  {
             switch result {
             case .success(let items):
                 self.recommendedPlaces = items.result
+                self.markerType = .recommended
                 self.notifySubject.send(.recommendedLocations(items.result))
                 
             case .failure(let error):
@@ -115,6 +124,7 @@ class MainViewModel: BaseViewModel  {
             switch result {
             case .success(let items):
                 self.recommendedPlaces = items.result
+                self.markerType = .destination
                 self.notifySubject.send(.recommendedLocations(items.result))
                 
             case .failure(let error):
@@ -132,6 +142,7 @@ class MainViewModel: BaseViewModel  {
             switch result {
             case .success(let items):
                 self.recommendedPlaces = items
+                self.markerType = .completed
                 self.notifySubject.send(.recommendedLocations(items))
             case .failure(let error):
                 print(error)
