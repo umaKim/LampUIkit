@@ -122,16 +122,25 @@ class MainViewModel: BaseViewModel  {
         notifySubject.send(.startLoading)
         network.fetchUnvisitedLocations { result in
             switch result {
-            case .success(let items):
-                self.recommendedPlaces = items.result
+            case .success(let locations):
+                self.recommendedPlaces = locations.map({
+                    RecommendedLocation(image: $0.image,
+                                        contentId: $0.contentId,
+                                        contentTypeId: $0.contentTypeId,
+                                        title: $0.placeName,
+                                        addr: $0.placeAddress,
+                                        rate: 0,
+                                        bookMarkIdx: $0.bookMarkIdx,
+                                        isBookMarked: $0.isBookMarked,
+                                        mapX: $0.mapX ?? "",
+                                        mapY: $0.mapY ?? "",
+                                        planIdx: $0.planIdx,
+                                        isOnPlan: true)})
                 self.markerType = .destination
-                self.notifySubject.send(.recommendedLocations(items.result))
-                
+                self.notifySubject.send(.recommendedLocations(self.recommendedPlaces))
             case .failure(let error):
                 print(error)
-                print(error.localizedDescription)
             }
-            
             self.notifySubject.send(.endLoading)
         }
     }
