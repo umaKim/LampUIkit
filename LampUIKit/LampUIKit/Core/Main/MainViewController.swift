@@ -44,6 +44,8 @@ class MainViewController: BaseViewContronller {
         bind()
         
         setFloatingPanelWithRecommendedLocationViewController()
+        fpc.addPanel(toParent: self)
+        fpc.delegate = self
         
         moveTo(.init(latitude: viewModel.coord.latitude, longitude: viewModel.coord.longitude))
     }
