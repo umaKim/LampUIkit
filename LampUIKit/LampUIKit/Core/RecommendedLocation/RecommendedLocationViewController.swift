@@ -19,6 +19,7 @@ protocol RecommendedLocationViewControllerDelegate: AnyObject {
 }
 
 class RecommendedLocationViewController: BaseViewContronller {
+   
     private typealias DataSource = UICollectionViewDiffableDataSource<Section, RecommendedLocation>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, RecommendedLocation>
     
@@ -74,11 +75,13 @@ class RecommendedLocationViewController: BaseViewContronller {
                     
                 case .myCharacter:
                     let vc = MyCharacterViewController(vm: MyCharacterViewModel())
+                    vc.delegate = self
                     self.delegate?.recommendedLocationViewControllerDidTapMyCharacter()
                     self.navigationController?.pushViewController(vc, animated: true)
                     
                 case .myTravel:
                     let vc = MyTravelViewController(vm: MyTravelViewModel())
+                    vc.delegate = self
                     self.delegate?.recommendedLocationViewControllerDidTapMyTravel()
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
@@ -188,6 +191,7 @@ extension RecommendedLocationViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vm = LocationDetailViewModel(viewModel.locations[indexPath.item])
         let vc = LocationDetailViewController(vm: vm)
+        vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
 }
