@@ -98,7 +98,8 @@ class TotalTravelReviewView: UIView {
     }
     
     private func bind() {
-        showDetailButton.tapPublisher.sink {[unowned self] _ in
+        showDetailButton.tapPublisher.sink {[weak self] _ in
+            guard let self = self else {return}
             self.actionSubject.send(.showDetail)
         }
         .store(in: &cancellables)

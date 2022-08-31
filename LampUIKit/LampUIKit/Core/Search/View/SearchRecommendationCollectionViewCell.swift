@@ -169,7 +169,8 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
         
         pinButton
             .tapPublisher
-            .sink {[unowned self] _ in
+            .sink {[weak self] _ in
+                guard let self = self else {return}
                 HapticManager.shared.feedBack(with: .medium)
                 
                 if let location = self.location {
@@ -180,7 +181,8 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
         
         favoriteButton
             .tapPublisher
-            .sink {[unowned self] _ in
+            .sink {[weak self] _ in
+                guard let self = self else {return}
                 HapticManager.shared.feedBack(with: .medium)
                 
                 self.isFavorite.toggle()
@@ -191,7 +193,7 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
                     self.favoriteButton.setImage(UIImage(named: "favorite_unselected"), for: .normal)
                 }
                 
-                if let location = location {
+                if let location = self.location {
                     self.delegate?.didTapFavoriteButton(at: self.tag,
                                                         location)
                 }

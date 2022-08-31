@@ -75,6 +75,7 @@ class MainViewController: BaseViewContronller {
         super.viewDidAppear(animated)
         
         viewModel.fetchItems()
+        
     }
     
     private func dismiss() {
@@ -130,8 +131,7 @@ extension MainViewController {
         let vc = viewController
         fpc.set(contentViewController: vc)
         
-        fpc.addPanel(toParent: self)
-        fpc.delegate = self
+       
         completion()
     }
 }
@@ -161,7 +161,8 @@ extension MainViewController {
         let marker = GMSMarker()
         marker.tracksViewChanges = true
         marker.appearAnimation = .pop
-        let markerView = CustomMarkerView(of: location.image ?? "")
+        let markerView = CustomMarkerView(of: location.image ?? "",
+                                          type: viewModel.markerType)
         marker.iconView = markerView
         
         guard
@@ -189,7 +190,8 @@ extension MainViewController {
         
         contentView
             .actionPublisher
-            .sink {[unowned self] action in
+            .sink {[weak self] action in
+                guard let self = self else {return}
                 HapticManager.shared.feedBack(with: .medium)
                 switch action {
                     
@@ -223,7 +225,8 @@ extension MainViewController {
         
         viewModel
             .notifyPublisher
-            .sink {[unowned self] noti in
+            .sink {[weak self] noti in
+                guard let self = self else {return}
                 switch noti {
                 case .recommendedLocations(let locations):
                     self.contentView.mapView.clear()

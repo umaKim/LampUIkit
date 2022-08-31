@@ -65,7 +65,7 @@ class RecommendedLocationViewmodel: BaseViewModel {
                                              location.contentTypeId,
                                              placeName: location.title,
                                              placeAddr: location.addr,
-                                             completion: {[unowned self] result in
+                                             completion: {[weak self] result in
             print(result)
         })
     }
@@ -86,7 +86,7 @@ class RecommendedLocationViewmodel: BaseViewModel {
         
         self.locations[index].isBookMarked = true
         
-        NetworkService.shared.postAddToMyTravel(data) {[unowned self] result in
+        NetworkService.shared.postAddToMyTravel(data) {[weak self] result in
             switch result {
             case .success(let response):
                 print(response)
@@ -100,7 +100,7 @@ class RecommendedLocationViewmodel: BaseViewModel {
     public func deleteFromMyTrip(at index: Int, _ location: RecommendedLocation) {
         guard let planIdx = location.planIdx else { return }
         self.locations[index].isOnPlan = false
-        NetworkService.shared.deleteFromMyTravel("\(planIdx)") {[unowned self] result  in
+        NetworkService.shared.deleteFromMyTravel("\(planIdx)") {[weak self] result  in
             switch result {
             case .success(let response):
                 print(response)

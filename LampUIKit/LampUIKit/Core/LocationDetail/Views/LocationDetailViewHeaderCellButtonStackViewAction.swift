@@ -64,32 +64,44 @@ class LocationDetailViewHeaderCellButtonStackView: UIView {
     }
     
     private func bind() {
-        saveButton.tapPublisher.sink {[unowned self] _ in
-            self.isSaved.toggle()
-            if self.isSaved {
-                self.saveButton.setImage(UIImage(named: "favorite_saved"), for: .normal)
-               
-            } else {
-                self.saveButton.setImage(UIImage(named: "detailSave"), for: .normal)
+        saveButton
+            .tapPublisher
+            .sink {[weak self] _ in
+                guard let self = self else {return}
+                self.isSaved.toggle()
+                if self.isSaved {
+                    self.saveButton.setImage(UIImage(named: "favorite_saved"), for: .normal)
+                    
+                } else {
+                    self.saveButton.setImage(UIImage(named: "detailSave"), for: .normal)
+                }
+                self.actionSubject.send(.save)
             }
-            self.actionSubject.send(.save)
-        }
-        .store(in: &cancellables)
+            .store(in: &cancellables)
         
-        arButton.tapPublisher.sink {[unowned self] _ in
-            self.actionSubject.send(.ar)
-        }
-        .store(in: &cancellables)
+        arButton
+            .tapPublisher
+            .sink {[weak self] _ in
+                guard let self = self else {return}
+                self.actionSubject.send(.ar)
+            }
+            .store(in: &cancellables)
         
-        mapButton.tapPublisher.sink {[unowned self] _ in
-            self.actionSubject.send(.map)
-        }
-        .store(in: &cancellables)
+        mapButton
+            .tapPublisher
+            .sink {[weak self] _ in
+                guard let self = self else {return}
+                self.actionSubject.send(.map)
+            }
+            .store(in: &cancellables)
         
-        reviewButton.tapPublisher.sink {[unowned self] _ in
-            self.actionSubject.send(.review)
-        }
-        .store(in: &cancellables)
+        reviewButton
+            .tapPublisher
+            .sink {[weak self] _ in
+                guard let self = self else {return}
+                self.actionSubject.send(.review)
+            }
+            .store(in: &cancellables)
     }
     
     private func setupUI() {

@@ -60,20 +60,20 @@ class StartPageViewController: UIViewController {
 //            print(error)
 //        }
         
-        startButton.tapPublisher.sink {[unowned self] _ in
+        startButton.tapPublisher.sink {[weak self] _ in
             HapticManager.shared.feedBack(with: .heavy)
             if AuthApi.hasToken() {
-                UserApi.shared.me {[unowned self] user, error in
+                UserApi.shared.me {[weak self] user, error in
                     guard let id = user?.id else { return }
                     NetworkService.shared.setUserAuthType(.kakao)
-                    self.presentMain(with: "\(id)")
+                    self?.presentMain(with: "\(id)")
                 }
             }
             else if let uid = Auth.auth().currentUser?.uid {
                 NetworkService.shared.setUserAuthType(.firebase)
-                self.presentMain(with: uid)
+                self?.presentMain(with: uid)
             } else {
-                self.present(LoginViewController(vm: LoginViewModel()),
+                self?.present(LoginViewController(vm: LoginViewModel()),
                              transitionType: .fromTop,
                              animated: true,
                              pushing: true)

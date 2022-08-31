@@ -64,26 +64,26 @@ class RecommendedLocationViewController: BaseViewContronller {
     private func bind() {
         contentView
             .actionPublisher
-            .sink {[unowned self] action in
+            .sink {[weak self] action in
                 HapticManager.shared.feedBack(with: .heavy)
                 switch action {
                 case .search:
                     let vc = SearchViewController(vm: SearchViewModel())
                     vc.delegate = self
-                    self.delegate?.recommendedLocationViewControllerDidTapSearch()
-                    self.navigationController?.pushViewController(vc, animated: true)
+                    self?.delegate?.recommendedLocationViewControllerDidTapSearch()
+                    self?.navigationController?.pushViewController(vc, animated: true)
                     
                 case .myCharacter:
                     let vc = MyCharacterViewController(vm: MyCharacterViewModel())
                     vc.delegate = self
-                    self.delegate?.recommendedLocationViewControllerDidTapMyCharacter()
-                    self.navigationController?.pushViewController(vc, animated: true)
+                    self?.delegate?.recommendedLocationViewControllerDidTapMyCharacter()
+                    self?.navigationController?.pushViewController(vc, animated: true)
                     
                 case .myTravel:
                     let vc = MyTravelViewController(vm: MyTravelViewModel())
                     vc.delegate = self
-                    self.delegate?.recommendedLocationViewControllerDidTapMyTravel()
-                    self.navigationController?.pushViewController(vc, animated: true)
+                    self?.delegate?.recommendedLocationViewControllerDidTapMyTravel()
+                    self?.navigationController?.pushViewController(vc, animated: true)
                 }
             }
             .store(in: &cancellables)
@@ -91,13 +91,13 @@ class RecommendedLocationViewController: BaseViewContronller {
         viewModel
             .notifyPublisher
             .receive(on: RunLoop.main)
-            .sink {[unowned self] noti in
+            .sink {[weak self] noti in
                 switch noti {
                 case .updateAddress(let address):
-                    self.contentView.updateCustomNavigationBarTitle(address)
+                    self?.contentView.updateCustomNavigationBarTitle(address)
                     
                 case .reload:
-                    self.updateSections()
+                    self?.updateSections()
                 }
             }
             .store(in: &cancellables)
@@ -131,12 +131,14 @@ extension RecommendedLocationViewController {
         contentView.collectionView.delegate = self
         
         dataSource = DataSource(collectionView: contentView.collectionView,
-                                cellProvider: {[unowned self] collectionView, indexPath, itemIdentifier in
+                                cellProvider: {[weak self] collectionView, indexPath, itemIdentifier in
             guard
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchRecommendationCollectionViewCell.identifier, for: indexPath) as? SearchRecommendationCollectionViewCell
             else { return UICollectionViewCell() }
             cell.tag = indexPath.item
-            cell.configure(with: self.viewModel.locations[indexPath.item])
+            if let item = self?.viewModel.locations[indexPath.item] {
+                cell.configure(with: item)
+            }
             cell.delegate = self
             return cell
         })

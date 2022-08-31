@@ -57,7 +57,8 @@ class InitialSetPageViewController: BaseViewContronller {
     }
     
     private func animateBeginningMessageLabel() {
-        Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) {[unowned self] timer in
+        Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) {[weak self] timer in
+            guard let self = self else {return}
             if self.runCount == 3 {
                 timer.invalidate()
                 //TODO: - Start Quiz Screen

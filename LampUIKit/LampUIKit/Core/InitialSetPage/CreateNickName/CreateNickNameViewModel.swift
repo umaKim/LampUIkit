@@ -27,7 +27,8 @@ class CreateNickNameViewModel: BaseViewModel {
     }
     
     public func createAccount() {
-        NetworkService.shared.postNickName(nickName) {[unowned self] result in
+        NetworkService.shared.postNickName(nickName) {[weak self] result in
+            guard let self = self else {return}
             switch result {
             case .success(let response):
                 if response.isSuccess ?? false {

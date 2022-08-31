@@ -121,7 +121,8 @@ class WriteReviewViewModel: BaseViewModel {
         )
         
         self.notifySubject.send(.startLoading)
-        NetworkService.shared.postReview(model) {[unowned self] result in
+        NetworkService.shared.postReview(model) {[weak self] result in
+            guard let self = self else {return}
             self.notifySubject.send(.endLoading)
             
             switch result {
@@ -142,7 +143,8 @@ class WriteReviewViewModel: BaseViewModel {
     
     private func postReviewImages() {
         let imageDatum = images.map({$0.sd_imageData(as: .JPEG, compressionQuality: 0.25)}).compactMap({$0})
-        NetworkService.shared.postReviewImages(with: imageDatum, location.contentId) {[unowned self] result in
+        NetworkService.shared.postReviewImages(with: imageDatum, location.contentId) {[weak self] result in
+            guard let self = self else {return}
             switch result {
             case .success(let response):
                 print(response)

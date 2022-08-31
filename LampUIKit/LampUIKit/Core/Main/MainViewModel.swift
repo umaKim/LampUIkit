@@ -62,7 +62,8 @@ class MainViewModel: BaseViewModel  {
     public func fetchItems() {
         notifySubject.send(.startLoading)
         let location = Location(lat: coord.latitude, long: coord.longitude)
-        network.fetchRecommendation(location, zoom.zoomLevel, 20) {[unowned self] result in
+        network.fetchRecommendation(location, zoom.zoomLevel, 20) {[weak self] result in
+            guard let self = self else {return}
             switch result {
             case .success(let items):
                 self.recommendedPlaces = items.result
@@ -73,7 +74,7 @@ class MainViewModel: BaseViewModel  {
                 print(error.localizedDescription)
             }
             
-            notifySubject.send(.endLoading)
+            self.notifySubject.send(.endLoading)
         }
     }
     

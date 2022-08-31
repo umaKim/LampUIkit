@@ -133,7 +133,8 @@ final class LocationDetailView: BaseWhiteView {
     
     private func configureImageViewCollecitonView() {
         dataSource = DataSource(collectionView: locationImageView,
-                                cellProvider: {[unowned self] collectionView, indexPath, itemIdentifier in
+                                cellProvider: {[weak self] collectionView, indexPath, itemIdentifier in
+            guard let self = self else {return nil}
             guard
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: indexPath) as? ImageCollectionViewCell
             else { return UICollectionViewCell() }
@@ -188,21 +189,24 @@ final class LocationDetailView: BaseWhiteView {
     private func bind() {
         backButton
             .tapPublisher
-            .sink {[unowned self] _ in
+            .sink {[weak self] _ in
+                guard let self = self else {return}
                 self.actionSubject.send(.back)
             }
             .store(in: &cancellables)
         
         dismissButton
             .tapPublisher
-            .sink {[unowned self] _ in
-            self.actionSubject.send(.dismiss)
-        }
-        .store(in: &cancellables)
+            .sink {[weak self] _ in
+                guard let self = self else {return}
+                self.actionSubject.send(.dismiss)
+            }
+            .store(in: &cancellables)
         
         buttonSv
             .actionPublisher
-            .sink {[unowned self] action in
+            .sink {[weak self] action in
+                guard let self = self else {return}
                 switch action {
                 case .save:
                     self.actionSubject.send(.save)
@@ -223,7 +227,8 @@ final class LocationDetailView: BaseWhiteView {
         
         addToMyTravelButton
             .tapPublisher
-            .sink {[unowned self] _ in
+            .sink {[weak self] _ in
+                guard let self = self else {return}
                 self.addToMyTravelButton.isSelected.toggle()
                 
                 if self.addToMyTravelButton.isSelected {
@@ -238,7 +243,8 @@ final class LocationDetailView: BaseWhiteView {
         
         totalTravelReviewView
             .actionPublisher
-            .sink {[unowned self] action in
+            .sink {[weak self] action in
+                guard let self = self else {return}
                 switch action {
                 case .showDetail:
                     self.actionSubject.send(.showDetailReview)

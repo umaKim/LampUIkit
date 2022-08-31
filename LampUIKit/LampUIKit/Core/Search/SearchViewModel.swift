@@ -31,7 +31,8 @@ class SearchViewModel: BaseViewModel {
     
     public func search(_ text: String) {
         notifySubject.send(.startLoading)
-        service.fetchSearchLocations(text) {[unowned self] result in
+        service.fetchSearchLocations(text) {[weak self] result in
+            guard let self = self else {return}
             switch result {
             case .success(let locationResponse):
                 self.locations = locationResponse.result
@@ -60,7 +61,8 @@ class SearchViewModel: BaseViewModel {
         
         locations[index].isOnPlan = true
         
-        NetworkService.shared.postAddToMyTravel(data) {[unowned self] result in
+        NetworkService.shared.postAddToMyTravel(data) {[weak self] result in
+            guard let self = self else {return}
             switch result {
             case .success(let response):
                 print(response)
@@ -76,7 +78,8 @@ class SearchViewModel: BaseViewModel {
         
         locations[index].isOnPlan = false
         
-        NetworkService.shared.deleteFromMyTravel("\(planIdx)") {[unowned self] result  in
+        NetworkService.shared.deleteFromMyTravel("\(planIdx)") {[weak self] result  in
+            guard let self = self else {return}
             switch result {
             case .success(let response):
                 print(response)
@@ -98,7 +101,8 @@ class SearchViewModel: BaseViewModel {
                                              location.contentTypeId,
                                              placeName: location.title,
                                              placeAddr: location.addr,
-                                             completion: {[unowned self] result in
+                                             completion: {[weak self] result in
+            guard let self = self else {return}
             print(result)
         })
     }

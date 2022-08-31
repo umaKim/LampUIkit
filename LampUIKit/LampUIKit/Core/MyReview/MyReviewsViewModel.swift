@@ -21,7 +21,8 @@ class MyReviewsViewModel: BaseViewModel {
     override init() {
         super.init()
         
-        NetworkService.shared.fetchMyReviews {[unowned self] result in
+        NetworkService.shared.fetchMyReviews {[weak self] result in
+            guard let self = self else {return}
             switch result {
             case .success(let response):
                 self.datum = response

@@ -41,7 +41,8 @@ class MyPageViewController: BaseViewContronller {
     private func bind() {
         contentView
             .actionPublisher
-            .sink {[unowned self] action in
+            .sink {[weak self] action in
+                guard let self = self else {return}
                 switch action {
                 case .logoutActions:
                     self.presentUmaActionAlert(title: "로그아웃 하시겠습니까?",
@@ -58,7 +59,8 @@ class MyPageViewController: BaseViewContronller {
         
         viewModel
             .notifyPublisher
-            .sink {[unowned self] noti in
+            .sink {[weak self] noti in
+                guard let self = self else {return}
                 switch noti {
                 case .goBackToBeforeLoginPage:
                     (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(StartPageViewController())
@@ -74,13 +76,15 @@ class MyPageViewController: BaseViewContronller {
     }
     
     private var logoutAction: UIAlertAction {
-        return .init(title: "로그아웃", style: .default, handler: {[unowned self] action in
+        return .init(title: "로그아웃", style: .default, handler: {[weak self] action in
+            guard let self = self else {return}
             self.viewModel.logout()
         })
     }
     
     private var deleteAccountAction: UIAlertAction {
-        return .init(title: "계정 삭제", style: .default, handler: {[unowned self] action in
+        return .init(title: "계정 삭제", style: .default, handler: {[weak self] action in
+            guard let self = self else {return}
             self.viewModel.deleteAccount()
         })
     }

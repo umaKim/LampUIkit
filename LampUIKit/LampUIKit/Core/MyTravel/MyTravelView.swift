@@ -66,7 +66,8 @@ class MyTravelView: UIView {
     private func bind() {
         dismissButton
             .tapPublisher
-            .sink {[unowned self] _ in
+            .sink {[weak self] _ in
+                guard let self = self else {return}
                 self.actionSubject.send(.dismiss)
             }
             .store(in: &cancellables)

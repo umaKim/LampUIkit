@@ -28,7 +28,8 @@ class MyCharacterViewModel: BaseViewModel {
     override init() {
         super.init()
         
-        NetworkService.shared.fetchCharacterInfo {[unowned self] result in
+        NetworkService.shared.fetchCharacterInfo {[weak self] result in
+            guard let self = self else {return}
             switch result {
             case .success(let info):
                 print(info)

@@ -60,7 +60,8 @@ final class LocationDetailViewController: BaseViewContronller {
     private func bind() {
         contentView
             .actionPublisher
-            .sink {[unowned self] action in
+            .sink {[weak self] action in
+                guard let self = self else {return}
                 HapticManager.shared.feedBack(with: .heavy)
                 switch action {
                 case .back:
@@ -73,7 +74,7 @@ final class LocationDetailViewController: BaseViewContronller {
                     self.viewModel.save()
                     
                 case .ar:
-                    guard let location = viewModel.location else { return }
+                    guard let location = self.viewModel.location else { return }
                     let vm = ARViewModel(location)
                     let vc = ARViewController(vm)
                     self.present(vc, animated: true)
@@ -108,7 +109,8 @@ final class LocationDetailViewController: BaseViewContronller {
         
         viewModel
             .notifyPublisher
-            .sink {[unowned self] noti in
+            .sink {[weak self] noti in
+                guard let self = self else {return}
                 switch noti {
                 case .reload:
 //                    self.contentView.reload()

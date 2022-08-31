@@ -43,7 +43,8 @@ class InitialQuizViewController: BaseViewContronller {
     private func bind() {
         contentView
             .actionPublisher
-            .sink {[unowned self] action in
+            .sink {[weak self] action in
+                guard let self = self else {return}
                 HapticManager.shared.feedBack(with: .heavy)
                 switch action {
                 case .button1:
@@ -69,7 +70,8 @@ class InitialQuizViewController: BaseViewContronller {
         
         viewModel
             .notifyPublisher
-            .sink {[unowned self] noti in
+            .sink {[weak self] noti in
+                guard let self = self else {return}
                 switch noti {
                 case .index(let index):
                     print(index)

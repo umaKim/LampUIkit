@@ -242,12 +242,14 @@ extension WriteReviewView {
     private func bind() {
         delegate
             .$starValue
-            .sink {[unowned self] value in
+            .sink {[weak self] value in
+                guard let self = self else {return}
                 self.actionSubject.send(.updateStarRating(value))
             }
             .store(in: &cancellables)
         
-        satisfactionEvaluationView.actionPublisher.sink {[unowned self] action in
+        satisfactionEvaluationView.actionPublisher.sink {[weak self] action in
+            guard let self = self else {return}
             switch action {
             case .updateElement(let model):
                 self.actionSubject.send(.updateSatisfactionModel(model))
@@ -255,7 +257,8 @@ extension WriteReviewView {
         }
         .store(in: &cancellables)
         
-        atmosphereEvaluationView.actionPublisher.sink {[unowned self] action in
+        atmosphereEvaluationView.actionPublisher.sink {[weak self] action in
+            guard let self = self else {return}
             switch action {
             case .updateElement(let model):
                 self.actionSubject.send(.updateAtmosphereModel(model))
@@ -263,7 +266,8 @@ extension WriteReviewView {
         }
         .store(in: &cancellables)
         
-        surroundingEvaluationView.actionPublisher.sink {[unowned self] action in
+        surroundingEvaluationView.actionPublisher.sink {[weak self] action in
+            guard let self = self else {return}
             switch action {
             case .updateElement(let model):
                 self.actionSubject.send(.updateSurroundingModel(model))
@@ -271,7 +275,8 @@ extension WriteReviewView {
         }
         .store(in: &cancellables)
         
-        foodEvaluationView.actionPublisher.sink {[unowned self] action in
+        foodEvaluationView.actionPublisher.sink {[weak self] action in
+            guard let self = self else {return}
             switch action {
             case .updateElement(let model):
                 self.actionSubject.send(.updateFoodModel(model))
@@ -286,7 +291,8 @@ extension WriteReviewView {
         }
         .store(in: &cancellables)
         
-        completeButton.tapPublisher.sink {[unowned self] _ in
+        completeButton.tapPublisher.sink {[weak self] _ in
+            guard let self = self else {return}
             self.actionSubject.send(.complete)
         }
         .store(in: &cancellables)

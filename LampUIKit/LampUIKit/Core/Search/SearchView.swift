@@ -59,8 +59,8 @@ class SearchView: BaseView {
         searchBar
             .textDidChangePublisher
             .debounce(for: 1, scheduler: RunLoop.main)
-            .sink {[unowned self] text in
-                print(text)
+            .sink {[weak self] text in
+                guard let self = self else {return}
                 self.actionSubject.send(.searchTextDidChange(text))
             }
             .store(in: &cancellables)
@@ -68,21 +68,24 @@ class SearchView: BaseView {
         searchBar
             .searchTextField
             .didBeginEditingPublisher
-            .sink {[unowned self] _ in
+            .sink {[weak self] _ in
+                guard let self = self else {return}
                 self.actionSubject.send(.searchDidBeginEditing)
             }
             .store(in: &cancellables)
         
         dismissButton
             .tapPublisher
-            .sink {[unowned self] _ in
+            .sink {[weak self] _ in
+                guard let self = self else {return}
                 self.actionSubject.send(.dismiss)
             }
             .store(in: &cancellables)
         
         categoryButtons
             .actionPublisher
-            .sink {[unowned self] action in
+            .sink {[weak self] action in
+                guard let self = self else {return}
                 switch action {
                 case .all:
                     self.actionSubject.send(.all)

@@ -67,13 +67,17 @@ class LoginViewController: UIViewController {
     }
     
     private func checkIfUserAlreadyExist(with uid: String) {
-        NetworkService.shared.checkUserExist(uid) {[unowned self] res in
+        NetworkService.shared.checkUserExist(uid) {[weak self] res in
+            guard let self = self else {return}
             if res.isSuccess {
                 //TODO: - move to mainView
                 if res.nicknameExist ?? false {
                     self.changeRootViewcontroller(with: uid)
                 } else {
-                    self.present(CreateNickNameViewController(CreateNickNameViewModel()), transitionType: .fromTop, animated: true, pushing: true)
+                    self.present(CreateNickNameViewController(CreateNickNameViewModel()),
+                                 transitionType: .fromTop,
+                                 animated: true,
+                                 pushing: true)
                 }
                 
             } else {
@@ -165,7 +169,8 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
             
             let credential = OAuthProvider.credential(withProviderID: "apple.com", idToken: idTokenString, rawNonce: nonce)
             
-            Auth.auth().signIn(with: credential) {[unowned self] authResult, error in
+            Auth.auth().signIn(with: credential) {[weak self] authResult, error in
+                guard let self = self else {return}
                 if let error = error {
                     print ("Error Apple sign in: %@", error)
                     return
@@ -197,7 +202,7 @@ extension LoginViewController {
         let config = GIDConfiguration(clientID: clientID)
         
         // Start the sign in flow!
-        GIDSignIn.sharedInstance.signIn(with: config, presenting: self) { [unowned self] user, error in
+        GIDSignIn.sharedInstance.signIn(with: config, presenting: self) { [weak self] user, error in
             
             if let error = error { return }
             
@@ -210,7 +215,8 @@ extension LoginViewController {
             
             let credential = GoogleAuthProvider.credential(withIDToken: idToken,
                                                            accessToken: authentication.accessToken)
-            Auth.auth().signIn(with: credential) {[unowned self] result, error in
+            Auth.auth().signIn(with: credential) {[weak self] result, error in
+                guard let self = self else {return}
                 // token을 넘겨주면, 성공했는지 안했는지에 대한 result값과 error값을 넘겨줌
                 if let error = error {
                     print(error)
@@ -231,7 +237,8 @@ extension LoginViewController {
     func startKakaoLogin() {
         // ✅ 카카오톡 설치 여부 확인
         if (UserApi.isKakaoTalkLoginAvailable()) {
-            UserApi.shared.loginWithKakaoTalk {[unowned self] (oauthToken, error) in
+            UserApi.shared.loginWithKakaoTalk {[weak self] (oauthToken, error) in
+                guard let self = self else {return}
                 if let error = error {
                     print(error)
                 }
@@ -249,7 +256,8 @@ extension LoginViewController {
     private func getUserInfo() {
         
         // ✅ 사용자 정보 가져오기
-        UserApi.shared.me() {[unowned self] (user, error) in
+        UserApi.shared.me() {[weak self] (user, error) in
+            guard let self = self else {return}
             if let error = error {
                 self.presentUmaDefaultAlert(title: "\(error.localizedDescription)")
             }

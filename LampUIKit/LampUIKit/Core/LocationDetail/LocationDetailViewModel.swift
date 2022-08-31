@@ -90,7 +90,8 @@ final class LocationDetailViewModel: BaseViewModel {
                                              location.contentTypeId,
                                              placeName: location.title,
                                              placeAddr: location.addr,
-                                             completion: {[unowned self] result in
+                                             completion: {[weak self] result in
+            guard let self = self else {return}
             self.notifySubject.send(.endLoading)
         })
     }
@@ -175,7 +176,8 @@ final class LocationDetailViewModel: BaseViewModel {
             mapY: location.mapY
         )
         
-        NetworkService.shared.postAddToMyTravel(data) {[unowned self] result in
+        NetworkService.shared.postAddToMyTravel(data) {[weak self] result in
+            guard let self = self else {return}
             switch result {
             case .success(let response):
                 print(response)
@@ -188,7 +190,8 @@ final class LocationDetailViewModel: BaseViewModel {
     
     private func deleteFromMyTrip() {
         guard let planIdx = locationDetail?.planExist?.planIdx else { return }
-        NetworkService.shared.deleteFromMyTravel("\(planIdx)") {[unowned self] result  in
+        NetworkService.shared.deleteFromMyTravel("\(planIdx)") {[weak self] result  in
+            guard let self = self else {return}
             switch result {
             case .success(let response):
                 print(response)

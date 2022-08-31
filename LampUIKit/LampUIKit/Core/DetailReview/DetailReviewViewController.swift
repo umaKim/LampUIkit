@@ -50,7 +50,8 @@ class DetailReviewViewController: BaseViewContronller {
     private func bind() {
         contentView
             .actionPublisher
-            .sink {[unowned self] action in
+            .sink {[weak self] action in
+                guard let self = self else {return}
                 switch action {
                 case .back:
                     self.navigationController?.popViewController(animated: true)
@@ -60,7 +61,8 @@ class DetailReviewViewController: BaseViewContronller {
         
         viewModel
             .notifyPublisher
-            .sink {[unowned self] noti in
+            .sink {[weak self] noti in
+                guard let self = self else {return}
                 switch noti {
                 case .reload:
                     self.updateSections()
@@ -70,7 +72,8 @@ class DetailReviewViewController: BaseViewContronller {
     }
     
     private func configureCollectionView() {
-        dataSource = DataSource(collectionView: contentView.collectionView) {[unowned self] collectionView, indexPath, model in
+        dataSource = DataSource(collectionView: contentView.collectionView) {[weak self] collectionView, indexPath, model in
+            guard let self = self else { return nil}
             guard
                 let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: DetailReviewViewCollectionViewCell.identifier,
@@ -80,7 +83,8 @@ class DetailReviewViewController: BaseViewContronller {
             return cell
         }
         
-        dataSource?.supplementaryViewProvider = {[unowned self] collectionView, kind, indexPath in
+        dataSource?.supplementaryViewProvider = {[weak self] collectionView, kind, indexPath in
+            guard let self = self else {return nil}
             guard kind == UICollectionView.elementKindSectionHeader else { return nil }
             let view = collectionView.dequeueReusableSupplementaryView(
                 ofKind: kind,
@@ -95,7 +99,8 @@ class DetailReviewViewController: BaseViewContronller {
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
         snapshot.appendItems(viewModel.reviews)
-        dataSource?.apply(snapshot, animatingDifferences: true, completion: { [unowned self] in
+        dataSource?.apply(snapshot, animatingDifferences: true, completion: { [weak self] in
+            guard let self = self else {return}
             self.dataSource?.applySnapshotUsingReloadData(snapshot)
         })
     }

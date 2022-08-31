@@ -34,7 +34,7 @@ class WriteReviewViewController: BaseViewContronller {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         hideKeyboardWhenTappedAround()
         
         contentView.textContextView.delegate = self
@@ -43,49 +43,51 @@ class WriteReviewViewController: BaseViewContronller {
         
         contentView
             .actionPublisher
-            .sink {[unowned self] action in
-            switch action {
-            case .updateSatisfactionModel(let satisfactionRatings):
-                self.viewModel.setComfortRating(satisfactionRatings)
-            
-            case .updateAtmosphereModel(let atmosphereRatings):
-                self.viewModel.setAtmosphereRating(atmosphereRatings)
-            
-            case .updateSurroundingModel(let surroundingRatings):
-                self.viewModel.setSurroundingRating(surroundingRatings)
-            
-            case .updateFoodModel(let foodRatings):
-                self.viewModel.setFoodRating(foodRatings)
-                
-            case .updateStarRating(let starRating):
-                self.viewModel.setStarRating(starRating)
-                
-            case .updateComment(let text):
-                self.viewModel.setComments(text)
-                
-            case .addPhoto:
-                let vc = UIImagePickerController()
-                vc.sourceType = .photoLibrary
-                vc.delegate = self
-                vc.allowsEditing = true
-                self.present(vc, animated: true)
-                
-            case .removeImage(let index):
-                self.viewModel.removeImage(at: index)
-                
-            case .complete:
-                self.viewModel.completeButton()
+            .sink {[weak self] action in
+                guard let self = self else {return}
+                switch action {
+                case .updateSatisfactionModel(let satisfactionRatings):
+                    self.viewModel.setComfortRating(satisfactionRatings)
+                    
+                case .updateAtmosphereModel(let atmosphereRatings):
+                    self.viewModel.setAtmosphereRating(atmosphereRatings)
+                    
+                case .updateSurroundingModel(let surroundingRatings):
+                    self.viewModel.setSurroundingRating(surroundingRatings)
+                    
+                case .updateFoodModel(let foodRatings):
+                    self.viewModel.setFoodRating(foodRatings)
+                    
+                case .updateStarRating(let starRating):
+                    self.viewModel.setStarRating(starRating)
+                    
+                case .updateComment(let text):
+                    self.viewModel.setComments(text)
+                    
+                case .addPhoto:
+                    let vc = UIImagePickerController()
+                    vc.sourceType = .photoLibrary
+                    vc.delegate = self
+                    vc.allowsEditing = true
+                    self.present(vc, animated: true)
+                    
+                case .removeImage(let index):
+                    self.viewModel.removeImage(at: index)
+                    
+                case .complete:
+                    self.viewModel.completeButton()
+                }
             }
-        }
-        .store(in: &cancellables)
+            .store(in: &cancellables)
         
-        viewModel.notifyPublisher.sink {[unowned self] noti in
+        viewModel.notifyPublisher.sink {[weak self] noti in
+            guard let self = self else {return}
             switch noti {
             case .ableCompleteButton(let isAble):
                 self.contentView.ableCompleteButton(isAble)
                 
             case .dismiss:
-//                self.dismiss(animated: true)
+                //                self.dismiss(animated: true)
                 self.navigationController?.popViewController(animated: true)
                 
             case .showMessage(let message):

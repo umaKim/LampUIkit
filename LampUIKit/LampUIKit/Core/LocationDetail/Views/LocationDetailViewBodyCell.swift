@@ -131,10 +131,13 @@ class LocationDetailViewBodyCell: UICollectionViewCell {
     }
     
     private func bind() {
-        showDetailButton.tapPublisher.sink {[unowned self] _ in
-            self.delegate?.locationDetailViewBodyCellDidTapShowDetail()
-        }
-        .store(in: &cancellables)
+        showDetailButton
+            .tapPublisher
+            .sink {[weak self] _ in
+                guard let self = self else {return}
+                self.delegate?.locationDetailViewBodyCellDidTapShowDetail()
+            }
+            .store(in: &cancellables)
     }
     
     private var cancellables: Set<AnyCancellable>

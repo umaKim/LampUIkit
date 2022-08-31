@@ -38,7 +38,8 @@ class CreateNickNameViewController: BaseViewContronller {
         
         contentView
             .actionPublisher
-            .sink {[unowned self] action in
+            .sink {[weak self] action in
+                guard let self = self else {return}
                 switch action {
                 case .createAccountButtonDidTap:
                     HapticManager.shared.feedBack(with: .heavy)
@@ -53,7 +54,8 @@ class CreateNickNameViewController: BaseViewContronller {
         
         viewModel
             .notifyPublisher
-            .sink {[unowned self] noti in
+            .sink {[weak self] noti in
+                guard let self = self else {return}
                 switch noti {
                 case .moveToMain:
                     self.changeRoot(MainViewController(MainViewModel()))

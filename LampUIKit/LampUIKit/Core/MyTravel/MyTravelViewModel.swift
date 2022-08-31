@@ -35,8 +35,21 @@ class MyTravelViewModel: BaseViewModel {
         fetchCompletedTravel()
     }
     
+    public func completeTrip(at index: Int) {
+        let myTravel = model.myTravel[index]
+        NetworkService.shared.postCompleteTrip(.init(token: "",
+                                                     planIdx: myTravel.planIdx,
+                                                     mapX: myTravel.mapX ?? "",
+                                                     mapY: myTravel.mapY ?? "")) {[weak self] result in
+            self?.model.myTravel.remove(at: index)
+            self?.fetchCompletedTravel()
+            print(result)
+        }
+    }
+    
     private func fetchMyTravel() {
-        NetworkService.shared.fetchMyTravel {[unowned self] result in
+        NetworkService.shared.fetchMyTravel {[weak self] result in
+            guard let self = self else {return}
             switch result {
             case .success(let locations):
                 self.model.myTravel = locations
@@ -48,7 +61,8 @@ class MyTravelViewModel: BaseViewModel {
     }
     
     private func fetchSavedTravel() {
-        NetworkService.shared.fetchSavedTravel {[unowned self] result in
+        NetworkService.shared.fetchSavedTravel {[weak self] result in
+            guard let self = self else {return}
             switch result {
             case .success(let locations):
                 self.model.favoriteTravel = locations
@@ -60,7 +74,8 @@ class MyTravelViewModel: BaseViewModel {
     }
     
     private func fetchCompletedTravel() {
-        NetworkService.shared.fetchCompletedTravel {[unowned self] result in
+        NetworkService.shared.fetchCompletedTravel {[weak self] result in
+            guard let self = self else {return}
             switch result {
             case .success(let locations):
                 self.model.completedTravel = locations.map { location -> MyCompletedTripLocation in

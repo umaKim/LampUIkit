@@ -54,7 +54,8 @@ class MyCharacterViewController: BaseViewContronller {
         
         contentView
             .actionPublisher
-            .sink {[unowned self] action in
+            .sink {[weak self] action in
+                guard let self = self else {return}
                 switch action {
                 case .gear:
                     let vm = MyPageViewModel()
@@ -69,7 +70,8 @@ class MyCharacterViewController: BaseViewContronller {
         
         viewModel
             .notifyPublisher
-            .sink {[unowned self] noti in
+            .sink {[weak self] noti in
+                guard let self = self else {return}
                 switch noti {
                 case .reload:
                     self.updateSections()
@@ -82,7 +84,8 @@ class MyCharacterViewController: BaseViewContronller {
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
         snapshot.appendItems(viewModel.characterData?.gaugeDatum ?? [])
-        dataSource?.apply(snapshot, animatingDifferences: true, completion: { [unowned self] in
+        dataSource?.apply(snapshot, animatingDifferences: true, completion: { [weak self] in
+            guard let self = self else { return }
             self.dataSource?.applySnapshotUsingReloadData(snapshot)
         })
     }
@@ -90,10 +93,11 @@ class MyCharacterViewController: BaseViewContronller {
     private func setupDataSource() {
         contentView.tableView.delegate = self
         
-        dataSource = .init(tableView: contentView.tableView, cellProvider: {[unowned self] tableView, indexPath, itemIdentifier in
+        dataSource = .init(tableView: contentView.tableView, cellProvider: {[weak self] tableView, indexPath, itemIdentifier in
+            guard let self = self else { return nil }
             guard
                 let cell = tableView.dequeueReusableCell(withIdentifier: MyCharacterViewTableViewCell.identifier, for: indexPath) as? MyCharacterViewTableViewCell,
-                let data = viewModel.characterData
+                let data = self.viewModel.characterData
             else {return UITableViewCell()}
             cell.configure(with: data.gaugeDatum[indexPath.row])
             return cell

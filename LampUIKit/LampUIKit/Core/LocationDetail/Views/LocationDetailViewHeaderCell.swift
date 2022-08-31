@@ -66,10 +66,13 @@ class ImageCollectionViewCell: UICollectionViewCell {
         self.isDeleteButtonHidden = true
         super.init(frame: frame)
         
-        dismissButton.tapPublisher.sink {[unowned self] _ in
-            self.delegate?.imageCollectionViewCellDidTapDelete(self.tag)
-        }
-        .store(in: &cancellables)
+        dismissButton
+            .tapPublisher
+            .sink {[weak self] _ in
+                guard let self = self else {return}
+                self.delegate?.imageCollectionViewCellDidTapDelete(self.tag)
+            }
+            .store(in: &cancellables)
         
         [imageView, dismissButton].forEach { uv in
             addSubview(uv)
@@ -216,7 +219,8 @@ class LocationDetailViewHeaderCell: UICollectionReusableView {
     private func bind() {
         buttonSv
             .actionPublisher
-            .sink {[unowned self] action in
+            .sink {[weak self] action in
+                guard let self = self else {return}
                 switch action {
                 case .save:
                     self.delegate?.locationDetailViewHeaderCellDidTapSave()
@@ -238,7 +242,8 @@ class LocationDetailViewHeaderCell: UICollectionReusableView {
         
         addToMyTravelButton
             .tapPublisher
-            .sink {[unowned self] _ in
+            .sink {[weak self] _ in
+                guard let self = self else {return}
                 self.addToMyTravelButton.isSelected.toggle()
                 
                 if self.addToMyTravelButton.isSelected {

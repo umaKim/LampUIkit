@@ -52,7 +52,8 @@ final class MyTravelViewController: BaseViewContronller {
     private func bind() {
         contentView
             .actionPublisher
-            .sink {[unowned self] action in
+            .sink {[weak self] action in
+                guard let self = self else {return}
                 switch action {
                 case .dismiss:
                     self.delegate?.myTravelViewControllerDidTapDismiss()
@@ -62,7 +63,8 @@ final class MyTravelViewController: BaseViewContronller {
         
         viewModel
             .notifyPublisher
-            .sink {[unowned self] noti in
+            .sink {[weak self] noti in
+                guard let self = self else {return}
                 switch noti {
                 case .reload:
                     self.contentView.reload()
@@ -77,6 +79,10 @@ final class MyTravelViewController: BaseViewContronller {
 }
 
 extension MyTravelViewController: MyTravelCellDelegate {
+    func myTravelCellDelegateDidTapComplete(at index: Int) {
+        viewModel.completeTrip(at: index)
+    }
+    
     func myTravelCellDelegateDidTap(_ item: MyTravelLocation) {
         let vm = LocationDetailViewModel(item)
         let vc = LocationDetailViewController(vm: vm)

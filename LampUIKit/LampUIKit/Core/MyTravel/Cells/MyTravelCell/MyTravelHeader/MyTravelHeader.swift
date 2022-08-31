@@ -42,7 +42,8 @@ final class MyTravelCellHeaderCell: UICollectionReusableView {
         
         editButton
             .tapPublisher
-            .sink {[unowned self] _ in
+            .sink {[weak self] _ in
+                guard let self = self else {return}
                 self.isEditButtonTapped.toggle()
                 if self.isEditButtonTapped {
                     self.editButton.setTitle("완료", for: .normal)

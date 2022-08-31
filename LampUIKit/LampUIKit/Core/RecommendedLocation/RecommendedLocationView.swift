@@ -69,22 +69,22 @@ class RecommendedLocationView: BaseWhiteView {
     private func bind() {
         searchButton
             .tapPublisher
-            .sink {[unowned self] _ in
-                self.actionSubject.send(.search)
+            .sink {[weak self] _ in
+                self?.actionSubject.send(.search)
             }
             .store(in: &cancellables)
         
         myCharacter
             .tapPublisher
-            .sink { _ in
-                self.actionSubject.send(.myCharacter)
+            .sink {[weak self] _ in
+                self?.actionSubject.send(.myCharacter)
             }
             .store(in: &cancellables)
         
         travelButton
             .tapPublisher
-            .sink { _ in
-                self.actionSubject.send(.myTravel)
+            .sink {[weak self] _ in
+                self?.actionSubject.send(.myTravel)
             }
             .store(in: &cancellables)
     }

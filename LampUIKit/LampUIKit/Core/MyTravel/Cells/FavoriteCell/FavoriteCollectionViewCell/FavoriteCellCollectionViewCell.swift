@@ -85,7 +85,8 @@ final class FavoriteCellCollectionViewCell: UICollectionViewCell {
     private func bind() {
         favoriteButton
             .tapPublisher
-            .sink {[unowned self] _ in
+            .sink {[weak self] _ in
+                guard let self = self else {return}
                 self.isSaveButtonTapped.toggle()
                 
                 if self.isSaveButtonTapped {

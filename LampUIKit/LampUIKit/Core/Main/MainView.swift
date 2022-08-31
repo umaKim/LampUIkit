@@ -79,49 +79,56 @@ class MainView: BaseWhiteView {
     private func bind() {
         allOverButton
             .tapPublisher
-            .sink {[unowned self] _ in
+            .sink {[weak self] _ in
+                guard let self = self else {return}
                 self.actionSubject.send(.allOver)
             }
             .store(in: &cancellables)
         
         destinationButton
             .tapPublisher
-            .sink {[unowned self] _ in
+            .sink {[weak self] _ in
+                guard let self = self else {return}
                 self.actionSubject.send(.unvisited)
             }
             .store(in: &cancellables)
         
         completeButton
             .tapPublisher
-            .sink {[unowned self] _ in
+            .sink {[weak self] _ in
+                guard let self = self else {return}
                 self.actionSubject.send(.completed)
             }
             .store(in: &cancellables)
         
         zoomInButton
             .tapPublisher
-            .sink {[unowned self] _ in
+            .sink {[weak self] _ in
+                guard let self = self else {return}
                 self.actionSubject.send(.zoomIn)
             }
             .store(in: &cancellables)
         
         zoomOutButton
             .tapPublisher
-            .sink {[unowned self] _ in
+            .sink {[weak self] _ in
+                guard let self = self else {return}
                 self.actionSubject.send(.zoomOut)
             }
             .store(in: &cancellables)
         
         refreshButton
             .tapPublisher
-            .sink { [unowned self] _ in
+            .sink { [weak self] _ in
+                guard let self = self else {return}
                 self.actionSubject.send(.refresh)
             }
             .store(in: &cancellables)
         
         myLocationButton
             .tapPublisher
-            .sink {[unowned self] _ in
+            .sink {[weak self] _ in
+                guard let self = self else {return}
                 self.actionSubject.send(.myLocation)
             }
             .store(in: &cancellables)

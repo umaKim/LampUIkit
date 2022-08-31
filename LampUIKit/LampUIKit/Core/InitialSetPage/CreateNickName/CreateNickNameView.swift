@@ -51,14 +51,16 @@ class CreateNickNameView: BaseView {
         nickNameTextField
             .textPublisher
             .compactMap({$0})
-            .sink {[unowned self] text in
+            .sink {[weak self] text in
+                guard let self = self else {return}
                 self.actionSubject.send(.textFieldDidChange(text))
             }
             .store(in: &cancellables)
         
         createAccountButton
             .tapPublisher
-            .sink {[unowned self] _ in
+            .sink {[weak self] _ in
+                guard let self = self else {return}
                 self.actionSubject.send(.createAccountButtonDidTap)
             }
             .store(in: &cancellables)

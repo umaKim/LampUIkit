@@ -90,7 +90,8 @@ class MyPageView: BaseWhiteView {
     }
     
     private func bind() {
-        backButton.tapPublisher.sink {[unowned self] _ in
+        backButton.tapPublisher.sink {[weak self] _ in
+            guard let self = self else {return}
             self.actionSubject.send(.back)
         }
         .store(in: &cancellables)

@@ -56,7 +56,8 @@ class MyPageViewModel: BaseViewModel {
     }
     
     public func deleteAccount() {
-        NetworkService.shared.deleteUser {[unowned self] result in
+        NetworkService.shared.deleteUser {[weak self] result in
+            guard let self = self else {return}
             switch result {
             case .success(let response):
                 if response.isSuccess ?? false {
@@ -82,7 +83,8 @@ class MyPageViewModel: BaseViewModel {
     }
     
     private func kakaoSignout() {
-        UserApi.shared.logout {[unowned self] (error) in
+        UserApi.shared.logout {[weak self] (error) in
+            guard let self = self else {return}
             if let error = error {
                 print(error)
             }
