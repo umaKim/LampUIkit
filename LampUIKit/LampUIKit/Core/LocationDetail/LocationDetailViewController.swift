@@ -63,7 +63,7 @@ final class LocationDetailViewController: BaseViewContronller {
                 HapticManager.shared.feedBack(with: .heavy)
                 switch action {
                 case .back:
-                    self.navigationController?.popViewController(animated: true)
+                    self.delegate?.locationDetailViewControllerDidTapBackButton()
                     
                 case .dismiss:
 //                    self.dismiss(animated: true)
