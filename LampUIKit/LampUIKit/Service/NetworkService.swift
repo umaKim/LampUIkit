@@ -409,7 +409,6 @@ struct ReviewData: Codable, Hashable {
     let reviewIdx: Int?
     let contentId: String
     let userId: Int?
-//    let thumbnailPhotoId: String?
     let star: String?
     let satisfaction: Int?
     let mood: Int?
@@ -445,7 +444,6 @@ struct LocationDetailResponse: Codable {
 }
 
 struct LocationDetailData: Codable {
-//    let APIUrl: String?
     let datailInfo: LocationDetailInfoData?
     let contentTypeId: String?
     var bookMark: Bool?
