@@ -132,6 +132,7 @@ struct MyTravelDataSet: Codable {
 }
 
 struct MyTravelLocation: Codable, Hashable {
+    let image: String?
     let planIdx: String
     let contentId: String
     let contentTypeId: String
@@ -141,6 +142,7 @@ struct MyTravelLocation: Codable, Hashable {
     let userMemo: String?
     let mapX: String?
     let mapY: String?
+    let bookMarkIdx: String
     let isBookMarked: Bool
 }
 
