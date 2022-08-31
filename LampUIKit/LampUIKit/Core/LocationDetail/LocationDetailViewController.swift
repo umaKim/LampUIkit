@@ -66,7 +66,6 @@ final class LocationDetailViewController: BaseViewContronller {
                     self.delegate?.locationDetailViewControllerDidTapBackButton()
                     
                 case .dismiss:
-//                    self.dismiss(animated: true)
                     self.delegate?.locationDetailViewControllerDidTapDismissButton()
                     
                 case .save:
