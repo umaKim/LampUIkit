@@ -168,6 +168,22 @@ extension RecommendedLocationViewController: SearchViewControllerDelegate {
     }
 }
 
+extension RecommendedLocationViewController: MyCharacterViewControllerDelegate {
+    func myCharacterViewControllerDidTapDismiss() {
+        self.navigationController?.popViewController(animated: true)
+    }
+}
+
+extension RecommendedLocationViewController: MyTravelViewControllerDelegate {
+    func myTravelViewControllerDidTapMapButton(_ location: RecommendedLocation) {
+        delegate?.recommendedLocationViewControllerDidTapMapPin(location: location)
+    }
+    
+    func myTravelViewControllerDidTapDismiss() {
+        self.navigationController?.popViewController(animated: true)
+    }
+}
+
 extension RecommendedLocationViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vm = LocationDetailViewModel(viewModel.locations[indexPath.item])
