@@ -140,6 +140,20 @@ extension RecommendedLocationViewController {
     }
 }
 
+extension RecommendedLocationViewController: LocationDetailViewControllerDelegate {
+    func locationDetailViewControllerDidTapDismissButton() {
+        
+    }
+    
+    func locationDetailViewControllerDidTapMapButton(_ location: RecommendedLocation) {
+        self.delegate?.recommendedLocationViewControllerDidTapMapPin(location: location)
+    }
+    
+    func locationDetailViewControllerDidTapBackButton() {
+        self.navigationController?.popViewController(animated: true)
+    }
+}
+
 extension RecommendedLocationViewController: SearchViewControllerDelegate {
     func searchViewControllerDidTapDismiss() {
         self.navigationController?.popViewController(animated: true)
