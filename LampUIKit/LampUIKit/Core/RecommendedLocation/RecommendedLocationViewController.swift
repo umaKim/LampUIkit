@@ -12,6 +12,7 @@ protocol RecommendedLocationViewControllerDelegate: AnyObject {
     func recommendedLocationViewControllerDidTapMapPin(location: RecommendedLocation)
     func recommendedLocationViewControllerDidTapMyCharacter()
     func recommendedLocationViewControllerDidTapMyTravel()
+    func recommendedLocationViewControllerDidTapNavigation(location: RecommendedLocation)
 //    func recommendedLocationViewControllerDidTapSetThisLocationButton(_ location: RecommendedLocation)
 //    func recommendedLocationViewControllerDidTapCancelThisLocationButton(_ location: RecommendedLocation)
 //    func recommendedLocationViewControllerDidTapFavoriteButton(at index: Int, _ isFavorite: Bool, _ location: RecommendedLocation)
@@ -145,6 +146,10 @@ extension RecommendedLocationViewController {
 }
 
 extension RecommendedLocationViewController: LocationDetailViewControllerDelegate {
+    func locationDetailViewControllerDidTapNavigate(_ location: RecommendedLocation) {
+        self.delegate?.recommendedLocationViewControllerDidTapNavigation(location: location)
+    }
+    
     func locationDetailViewControllerDidTapDismissButton() {
         
     }
@@ -159,6 +164,10 @@ extension RecommendedLocationViewController: LocationDetailViewControllerDelegat
 }
 
 extension RecommendedLocationViewController: SearchViewControllerDelegate {
+    func searchViewControllerDidTapNavigation(at location: RecommendedLocation) {
+        self.delegate?.recommendedLocationViewControllerDidTapNavigation(location: location)
+    }
+    
     func searchViewControllerDidTapDismiss() {
         self.navigationController?.popViewController(animated: true)
     }
@@ -179,6 +188,10 @@ extension RecommendedLocationViewController: MyCharacterViewControllerDelegate {
 }
 
 extension RecommendedLocationViewController: MyTravelViewControllerDelegate {
+    func myTravelViewControllerDidTapNavigation(_ location: RecommendedLocation) {
+        delegate?.recommendedLocationViewControllerDidTapNavigation(location: location)
+    }
+    
     func myTravelViewControllerDidTapMapButton(_ location: RecommendedLocation) {
         delegate?.recommendedLocationViewControllerDidTapMapPin(location: location)
     }

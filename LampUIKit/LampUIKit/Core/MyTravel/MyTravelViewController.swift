@@ -10,7 +10,7 @@ import UIKit
 protocol MyTravelViewControllerDelegate: AnyObject {
     func myTravelViewControllerDidTapDismiss()
     func myTravelViewControllerDidTapMapButton(_ location: RecommendedLocation)
-    
+    func myTravelViewControllerDidTapNavigation(_ location: RecommendedLocation)
 }
 
 final class MyTravelViewController: BaseViewContronller {
@@ -109,6 +109,10 @@ extension MyTravelViewController: FavoriteCellDelegate {
 }
 
 extension MyTravelViewController: LocationDetailViewControllerDelegate {
+    func locationDetailViewControllerDidTapNavigate(_ location: RecommendedLocation) {
+        self.delegate?.myTravelViewControllerDidTapNavigation(location)
+    }
+    
     func locationDetailViewControllerDidTapDismissButton() {
         
     }

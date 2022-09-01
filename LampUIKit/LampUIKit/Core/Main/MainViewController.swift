@@ -238,6 +238,42 @@ extension MainViewController {
             }
             .store(in: &cancellables)
     }
+    
+    private func navigateMyLocationToTargetLocation(_ location: RecommendedLocation) {
+//        fpc.move(to: .init(rawValue: <#T##FloatingPanelState.RawValue#>, order: <#T##Int#>), animated: true)
+        fpc.move(to: .halfTip, animated: true)
+        
+        guard
+            let lat = Double(location.mapY),
+            let long = Double(location.mapX)
+        else { return }
+        
+        let path = GMSMutablePath()
+        path.add(.init(latitude: lat, longitude: long))
+        path.add(.init(latitude: viewModel.myLocation.latitude,
+                       longitude: viewModel.myLocation.longitude))
+        
+        let polyline = GMSPolyline(path: path)
+        polyline.strokeWidth = 3.0
+        polyline.strokeColor = UIColor.red
+        polyline.map = contentView.mapView // Your map view
+        
+        let key: String = "AIzaSyC5lym-6ogUzurxxOfVYIBantJllGGVhDY"
+        
+        let source = "\(viewModel.myLocation.longitude),\(viewModel.myLocation.latitude)"
+        let destination = "\(location.mapY),\(location.mapY)"
+        
+        let requestUrl = "https://maps.googleapis.com/maps/api/directions/json?origin=\(source)&destination=\(destination)&key=\(key)"
+        print(requestUrl)
+        AF.request(requestUrl).responseJSON(completionHandler: { response in
+            switch response.result {
+            case .success(let response):
+                print(response)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        })
+    }
 }
 
 extension MainViewController: CLLocationManagerDelegate {
@@ -288,7 +324,12 @@ extension MainViewController: GMSMapViewDelegate {
     }
 }
 
+//MARK: - LocationDetailViewControllerDelegate
 extension MainViewController: LocationDetailViewControllerDelegate {
+    func locationDetailViewControllerDidTapNavigate(_ location: RecommendedLocation) {
+        navigateMyLocationToTargetLocation(location)
+    }
+    
     func locationDetailViewControllerDidTapBackButton() {
         
     }
@@ -310,6 +351,10 @@ extension MainViewController: LocationDetailViewControllerDelegate {
     }
 }
 
+//MARK: - SearchViewControllerDelegate
+extension MainViewController: SearchViewControllerDelegate {
+    func searchViewControllerDidTapNavigation(at location: RecommendedLocation) {
+        navigateMyLocationToTargetLocation(location)
     }
     
     func searchBarDidTap() {
@@ -337,7 +382,12 @@ extension MainViewController: LocationDetailViewControllerDelegate {
     }
 }
 
+//MARK: - MyTravelViewControllerDelegate
 extension MainViewController: MyTravelViewControllerDelegate {
+    func myTravelViewControllerDidTapNavigation(_ location: RecommendedLocation) {
+        navigateMyLocationToTargetLocation(location)
+    }
+    
     func myTravelViewControllerDidTapMapButton(_ location: RecommendedLocation) {
         
     }
@@ -351,7 +401,12 @@ extension MainViewController: MyTravelViewControllerDelegate {
     }
 }
 
+//MARK: - RecommendedLocationViewControllerDelegate
 extension MainViewController: RecommendedLocationViewControllerDelegate {
+    func recommendedLocationViewControllerDidTapNavigation(location: RecommendedLocation) {
+        navigateMyLocationToTargetLocation(location)
+    }
+    
     func recommendedLocationViewControllerDidTapMyTravel() {
         fpc.move(to: .full, animated: true)
     }

@@ -11,6 +11,7 @@ import UIKit
 protocol SearchViewControllerDelegate: AnyObject {
     func searchViewControllerDidTapDismiss()
     func searchViewControllerDidTapMapPin(at location: RecommendedLocation)
+    func searchViewControllerDidTapNavigation(at location: RecommendedLocation)
     func searchBarDidTap()
 }
 
@@ -162,6 +163,10 @@ extension SearchViewController {
 }
 
 extension SearchViewController: LocationDetailViewControllerDelegate {
+    func locationDetailViewControllerDidTapNavigate(_ location: RecommendedLocation) {
+        self.delegate?.searchViewControllerDidTapNavigation(at: location)
+    }
+    
     func locationDetailViewControllerDidTapBackButton() {
         self.navigationController?.popViewController(animated: true)
     }
