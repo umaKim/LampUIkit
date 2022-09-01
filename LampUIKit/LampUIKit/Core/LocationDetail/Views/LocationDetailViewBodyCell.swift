@@ -191,13 +191,6 @@ class ReviewLabel: UIView {
         return lb
     }()
     
-//    private lazy var subTitleLabel: UILabel = {
-//       let lb = UILabel()
-//        lb.font = .systemFont(ofSize: 15, weight: .semibold)
-//        lb.textColor = .black
-//        return lb
-//    }()
-    
     private lazy var subTitleLabel = RoundedLabelView("")
     
     public func setSubtitle(_ text: String) {

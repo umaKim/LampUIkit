@@ -174,7 +174,6 @@ class DetailReviewViewCollectionViewCell: UICollectionViewCell {
     
     private lazy var starRatinView: UIImageView = {
         let uv = UIImageView()
-//        uv.backgroundColor = .green
         uv.contentMode = .scaleAspectFit
         uv.heightAnchor.constraint(equalToConstant: 20).isActive = true
         return uv
@@ -257,11 +256,6 @@ class DetailReviewViewCollectionViewCell: UICollectionViewCell {
         buttonSv.alignment = .fill
         buttonSv.distribution = .equalSpacing
         buttonSv.axis = .horizontal
-        
-//        let starSv = UIStackView(arrangedSubviews: [starRatinView])
-//        starSv.alignment = .leading
-//        starSv.axis = .horizontal
-//        starSv.distribution = .fillProportionally
         
         let sv = UIStackView(arrangedSubviews: [imageView, starRatinView, commentLabelSv, buttonSv])
         sv.distribution = .fill

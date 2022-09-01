@@ -16,7 +16,6 @@ enum LocationDetailViewAction {
     case ar
     case map
     case review
-//    case share
     
     case addToMyTrip
     case removeFromMyTrip
@@ -128,7 +127,6 @@ final class LocationDetailView: BaseWhiteView {
         label3.isHidden = true
         label4.isHidden = true
         label5.isHidden = true
-        return
     }
     
     private func configureImageViewCollecitonView() {
@@ -252,11 +250,9 @@ final class LocationDetailView: BaseWhiteView {
                 switch action {
                 case .save:
                     self.actionSubject.send(.save)
-                    break
                     
                 case .ar:
                     self.actionSubject.send(.ar)
-                    break
                     
                 case .map:
                     self.actionSubject.send(.map)

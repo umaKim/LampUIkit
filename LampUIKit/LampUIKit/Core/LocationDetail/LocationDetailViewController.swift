@@ -43,7 +43,6 @@ final class LocationDetailViewController: BaseViewContronller {
         }
         
         setStatusBar()
-        
         bind()
         
         let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.black]

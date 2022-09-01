@@ -14,7 +14,6 @@ enum LocationDetailViewHeaderCellButtonStackViewAction {
     case ar
     case map
     case review
-//    case share
 }
 
 class LocationDetailViewHeaderCellButtonStackView: UIView {

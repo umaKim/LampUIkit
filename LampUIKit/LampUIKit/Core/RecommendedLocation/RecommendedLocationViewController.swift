@@ -5,7 +5,6 @@
 //  Created by 김윤석 on 2022/08/25.
 //
 
-import Foundation
 import UIKit
 
 protocol RecommendedLocationViewControllerDelegate: AnyObject {

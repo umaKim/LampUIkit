@@ -43,7 +43,6 @@ class MainViewController: BaseViewContronller {
         
         bind()
         
-        setFloatingPanelWithRecommendedLocationViewController()
         fpc.addPanel(toParent: self)
         fpc.delegate = self
         
@@ -71,13 +70,6 @@ class MainViewController: BaseViewContronller {
                 break
             }
         } completion: { _ in }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        viewModel.fetchItems()
-        
     }
     
     private func dismiss() {
@@ -133,7 +125,6 @@ extension MainViewController {
         let vc = viewController
         fpc.set(contentViewController: vc)
         
-       
         completion()
     }
 }
@@ -319,20 +310,8 @@ extension MainViewController: LocationDetailViewControllerDelegate {
     }
 }
 
-extension MainViewController: FloatingPanelControllerDelegate {
-    func floatingPanelDidMove(_ fpc: FloatingPanelController) {
-        if fpc.state == .tip || fpc.state == .half {
-            view.endEditing(true)
-        }
-        setGMPadding()
     }
     
-    func floatingPanel(_ vc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout {
-        return FloatingPanelLampLayout()
-    }
-}
-
-extension MainViewController: SearchViewControllerDelegate {
     func searchBarDidTap() {
         fpc.move(to: .full, animated: true)
     }

@@ -8,7 +8,6 @@
 import UIKit
 
 class DetailReviewViewController: BaseViewContronller {
-
     private typealias DataSource = UICollectionViewDiffableDataSource<Section, ReviewData>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, ReviewData>
     
