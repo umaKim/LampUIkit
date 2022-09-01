@@ -35,6 +35,7 @@ class MainViewModel: BaseViewModel  {
     private(set) var markerType: MapMarkerType = .recommended
     
     private(set) var coord: Coord = .init(latitude: 0, longitude: 0)
+    private(set) var myLocation: Coord = .init(latitude: 0, longitude: 0)
     
     private let network = NetworkService.shared
     
@@ -53,6 +54,7 @@ class MainViewModel: BaseViewModel  {
         locationManager.requestLocation()
         
         guard let coord = locationManager.location?.coordinate else { return }
+        self.setMyLocation(with: coord.latitude, coord.longitude)
         self.setLocation(with: coord.latitude, coord.longitude)
     }
     
@@ -98,6 +100,10 @@ class MainViewModel: BaseViewModel  {
     
     public func setLocation(with latitude: Double, _ longitude: Double) {
         self.coord = .init(latitude: latitude, longitude: longitude)
+    }
+    
+    public func setMyLocation(with latitude: Double, _ longitude: Double) {
+        self.myLocation = .init(latitude: latitude, longitude: longitude)
     }
     
     public func fetchAllOver() {
