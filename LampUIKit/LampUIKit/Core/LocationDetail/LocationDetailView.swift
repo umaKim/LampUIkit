@@ -4,7 +4,7 @@
 //
 //  Created by 김윤석 on 2022/07/20.
 //
-
+import SkeletonView
 import Combine
 import UIKit
 
@@ -177,6 +177,46 @@ final class LocationDetailView: BaseWhiteView {
         updateSections()
     }
     
+    public func showSkeleton() {
+        let skeletonAnimation = SkeletonAnimationBuilder().makeSlidingAnimation(withDirection: .leftRight)
+        
+        buttonSv.showAnimatedGradientSkeleton(usingGradient: .init(colors: [.lightGray, .gray]),
+                                              animation: skeletonAnimation,
+                                              transition: .none)
+        
+        label1.showAnimatedGradientSkeleton(usingGradient: .init(colors: [.lightGray, .gray]),
+                                            animation: skeletonAnimation,
+                                            transition: .none)
+        label2.showAnimatedGradientSkeleton(usingGradient: .init(colors: [.lightGray, .gray]),
+                                            animation: skeletonAnimation,
+                                            transition: .none)
+        label3.showAnimatedGradientSkeleton(usingGradient: .init(colors: [.lightGray, .gray]),
+                                            animation: skeletonAnimation,
+                                            transition: .none)
+        label4.showAnimatedGradientSkeleton(usingGradient: .init(colors: [.lightGray, .gray]),
+                                            animation: skeletonAnimation,
+                                            transition: .none)
+        label5.showAnimatedGradientSkeleton(usingGradient: .init(colors: [.lightGray, .gray]),
+                                            animation: skeletonAnimation,
+                                            transition: .none)
+        
+        addToMyTravelButton.showAnimatedGradientSkeleton(usingGradient: .init(colors: [.lightGray, .gray]),
+                                                         animation: skeletonAnimation,
+                                                         transition: .none)
+    }
+    
+    public func hideSkeleton() {
+        buttonSv.hideSkeleton()
+        
+        label1.hideSkeleton()
+        label2.hideSkeleton()
+        label3.hideSkeleton()
+        label4.hideSkeleton()
+        label5.hideSkeleton()
+        
+        addToMyTravelButton.hideSkeleton()
+    }
+    
     override init() {
         super.init()
         
@@ -277,6 +317,12 @@ final class LocationDetailView: BaseWhiteView {
             uv.translatesAutoresizingMaskIntoConstraints = false
             contentView.addSubview(uv)
         }
+        
+        buttonSv.isSkeletonable = true
+        dividerView.isSkeletonable = true
+        labelStackView.isSkeletonable = true
+        addToMyTravelButton.isSkeletonable = true
+        totalTravelReviewView.isSkeletonable = true
         
         NSLayoutConstraint.activate([
             contentScrollView.topAnchor.constraint(equalTo: topAnchor),
