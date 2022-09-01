@@ -151,8 +151,16 @@ class DetailReviewCollectionViewHeader: UICollectionReusableView {
     }
 }
 
+protocol DetailReviewViewCollectionViewCellDelegate: AnyObject {
+    func detailReviewViewCollectionViewCellDidTapLikeButton(_ index: Int)
+    func detailReviewViewCollectionViewCellDidTapUnlikeButton(_ index: Int)
+    func detailReviewViewCollectionViewCellDidTapReportButton(_ index: Int)
+}
+
 class DetailReviewViewCollectionViewCell: UICollectionViewCell {
     static let identifier = "DetailReviewViewCollectionViewCell"
+    
+    weak var delegate: DetailReviewViewCollectionViewCellDelegate?
     
     private lazy var imageView: UIImageView = {
         let uv = UIImageView()
@@ -186,7 +194,7 @@ class DetailReviewViewCollectionViewCell: UICollectionViewCell {
         var config = UIButton.Configuration.tinted()
         config.baseBackgroundColor = .midNavy
         config.cornerStyle = .capsule
-        let image = UIImage(systemName: "heart")?.resize(to: 10)
+        let image = UIImage(systemName: "heart")?.withTintColor(.red, renderingMode: .alwaysOriginal).resize(to: 10)
         config.image = image
         config.imagePlacement = .leading
         config.imagePadding = 6
@@ -196,12 +204,40 @@ class DetailReviewViewCollectionViewCell: UICollectionViewCell {
         return bt
     }()
     
+    private lazy var reportButton: UIButton = {
+       let bt = UIButton()
+        bt.layer.cornerRadius = 21/2
+        bt.layer.borderWidth = 1
+        bt.layer.borderColor = UIColor.systemGray.cgColor
+        bt.titleLabel?.font = .robotoMedium(9)
+        bt.setTitle("신고하기", for: .normal)
+        bt.setTitleColor(UIColor.systemGray, for: .normal)
+        bt.widthAnchor.constraint(equalToConstant: 52).isActive = true
+        bt.heightAnchor.constraint(equalToConstant: 21).isActive = true
+        return bt
+    }()
+    
     private var cancellables: Set<AnyCancellable>
     
     private func bind() {
         likeButton.tapPublisher.sink { _ in
             self.likeButton.isSelected.toggle()
-            print(self.likeButton.isSelected)
+            if self.likeButton.isSelected {
+                let numLiked = (self.reviewData?.numLiked ?? 0) + 1
+                self.likeButton.configuration?.subtitle = "\(numLiked)"
+                self.delegate?.detailReviewViewCollectionViewCellDidTapLikeButton(self.tag)
+            } else {
+                let numLiked = (self.reviewData?.numLiked ?? 0) - 1
+                self.likeButton.configuration?.subtitle = "\(numLiked)"
+                self.delegate?.detailReviewViewCollectionViewCellDidTapUnlikeButton(self.tag)
+            }
+            
+        }
+        .store(in: &cancellables)
+        
+        reportButton.tapPublisher.sink { _ in
+            self.reportButton.isSelected.toggle()
+            self.delegate?.detailReviewViewCollectionViewCellDidTapReportButton(self.tag)
         }
         .store(in: &cancellables)
     }
@@ -217,7 +253,7 @@ class DetailReviewViewCollectionViewCell: UICollectionViewCell {
         commentLabelSv.alignment = .top
         commentLabelSv.distribution = .fill
         
-        let buttonSv = UIStackView(arrangedSubviews: [likeButton, UIView()])
+        let buttonSv = UIStackView(arrangedSubviews: [likeButton, reportButton])
         buttonSv.alignment = .fill
         buttonSv.distribution = .equalSpacing
         buttonSv.axis = .horizontal
@@ -254,9 +290,14 @@ class DetailReviewViewCollectionViewCell: UICollectionViewCell {
         setupUI()
     }
     
+    private var reviewData: ReviewData?
+    
     public func configure(_ review: ReviewData) {
+        self.reviewData = review
+        
         let url = URL(string: (review.photoUrlArray?.first ?? ""))
         imageView.sd_setImage(with: url, placeholderImage: .init(named: "placeholder"))
+        
         if let star = Double(review.star ?? "0") {
             starRatinView.image = .init(named: "\(star)")
         } else {
@@ -265,6 +306,7 @@ class DetailReviewViewCollectionViewCell: UICollectionViewCell {
         
         commentLabel.text = review.content
         likeButton.configuration?.subtitle = "\(review.numLiked ?? 0)"
+        likeButton.isSelected = review.reviewILiked ?? false
     }
     
     required init?(coder: NSCoder) {

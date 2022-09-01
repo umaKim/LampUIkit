@@ -9,6 +9,7 @@ import Foundation
 
 enum DetailReviewViewModelNotify {
     case reload
+    case message(String)
 }
 
 class DetailReviewViewModel: BaseViewModel {
@@ -41,5 +42,30 @@ class DetailReviewViewModel: BaseViewModel {
                 print(error)
             }
         }
+    }
+    
+    public func didTapReport(at index: Int) {
+        let idx = "\(reviews[index].reviewIdx ?? 0)"
+        NetworkService.shared.postReport(idx) { result in
+            switch result {
+            case .success(let response):
+                self.notifySubject.send(.message(response.message ?? ""))
+                
+            case .failure(let error):
+                self.notifySubject.send(.message(error.localizedDescription))
+            }
+        }
+    }
+    
+    public func didTapLike(at index: Int) {
+        reviews[index].numLiked = self.reviews[index].numLiked + 1
+        let idx = "\(reviews[index].reviewIdx ?? 0)"
+        NetworkService.shared.patchLike(idx)
+    }
+    
+    public func didTapUnLike(at index: Int) {
+        reviews[index].numLiked = self.reviews[index].numLiked - 1
+        let idx = "\(reviews[index].reviewIdx ?? 0)"
+        NetworkService.shared.patchLike(idx)
     }
 }

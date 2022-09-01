@@ -66,6 +66,9 @@ class DetailReviewViewController: BaseViewContronller {
                 switch noti {
                 case .reload:
                     self.updateSections()
+                    
+                case .message(let text):
+                    self.presentUmaDefaultAlert(title: text)
                 }
             }
             .store(in: &cancellables)
@@ -79,6 +82,8 @@ class DetailReviewViewController: BaseViewContronller {
                 withReuseIdentifier: DetailReviewViewCollectionViewCell.identifier,
                 for: indexPath) as? DetailReviewViewCollectionViewCell
             else { return nil }
+            cell.tag = indexPath.row
+            cell.delegate = self
             cell.configure(self.viewModel.reviews[indexPath.item])
             return cell
         }
@@ -131,5 +136,19 @@ extension DetailReviewViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         8
+    }
+}
+
+extension DetailReviewViewController: DetailReviewViewCollectionViewCellDelegate {
+    func detailReviewViewCollectionViewCellDidTapUnlikeButton(_ index: Int) {
+        
+    }
+    
+    func detailReviewViewCollectionViewCellDidTapLikeButton(_ index: Int) {
+        viewModel.didTapLike(at: index)
+    }
+    
+    func detailReviewViewCollectionViewCellDidTapReportButton(_ index: Int) {
+        viewModel.didTapReport(at: index)
     }
 }
