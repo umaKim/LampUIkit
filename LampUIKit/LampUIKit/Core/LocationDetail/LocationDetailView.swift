@@ -15,6 +15,7 @@ enum LocationDetailViewAction {
     case save
     case ar
     case map
+    case navigate
     case review
     
     case addToMyTrip
@@ -256,6 +257,9 @@ final class LocationDetailView: BaseWhiteView {
                     
                 case .map:
                     self.actionSubject.send(.map)
+                    
+                case .navigation:
+                    self.actionSubject.send(.navigate)
                     
                 case .review:
                     self.actionSubject.send(.review)
