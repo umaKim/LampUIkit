@@ -145,11 +145,12 @@ final class LocationDetailView: BaseWhiteView {
     }
     
     private var photoUrls: [String] = []
+    private var photoUrlsForCell: [String] = []
     
     private func updateSections() {
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
-        snapshot.appendItems(photoUrls)
+        snapshot.appendItems(photoUrlsForCell)
         dataSource?.apply(snapshot, animatingDifferences: true)
     }
     
@@ -174,6 +175,7 @@ final class LocationDetailView: BaseWhiteView {
     
     public func configure(with images: [String]) {
         photoUrls = images
+        photoUrlsForCell = images.map({$0 + UUID().uuidString})
         updateSections()
     }
     
