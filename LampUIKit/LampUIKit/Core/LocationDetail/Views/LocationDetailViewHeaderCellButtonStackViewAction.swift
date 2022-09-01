@@ -13,6 +13,7 @@ enum LocationDetailViewHeaderCellButtonStackViewAction {
     case save
     case ar
     case map
+    case navigation
     case review
 }
 
@@ -38,6 +39,12 @@ class LocationDetailViewHeaderCellButtonStackView: UIView {
         return .buttonMaker(image: UIImage(named: "map"),
                             imagePadding: 12,
                             subTitle: "지도보기")
+    }()
+    
+    private let navigationButton: UIButton = {
+        return .buttonMaker(image: UIImage(systemName: "person"),
+                            imagePadding: 12,
+                            subTitle: "길안내")
     }()
     
     private let reviewButton: UIButton = {
@@ -94,6 +101,14 @@ class LocationDetailViewHeaderCellButtonStackView: UIView {
             }
             .store(in: &cancellables)
         
+        navigationButton
+            .tapPublisher
+            .sink {[weak self] _ in
+                guard let self = self else {return}
+                self.actionSubject.send(.navigation)
+            }
+            .store(in: &cancellables)
+        
         reviewButton
             .tapPublisher
             .sink {[weak self] _ in
@@ -104,7 +119,7 @@ class LocationDetailViewHeaderCellButtonStackView: UIView {
     }
     
     private func setupUI() {
-        let sv = UIStackView(arrangedSubviews: [saveButton, arButton, mapButton, reviewButton])
+        let sv = UIStackView(arrangedSubviews: [saveButton, arButton, mapButton, navigationButton, reviewButton])
         sv.axis = .horizontal
         sv.alignment = .fill
         sv.distribution = .fillEqually
