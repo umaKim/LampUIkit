@@ -13,7 +13,7 @@ extension UIButton {
         placement: NSDirectionalRectEdge = .top,
         imagePadding: CGFloat,
         subTitle: String,
-        subTitleSize: CGFloat = 14,
+        subTitleSize: CGFloat = 12,
         subTitleColor: UIColor = .gray
     ) -> UIButton {
         
