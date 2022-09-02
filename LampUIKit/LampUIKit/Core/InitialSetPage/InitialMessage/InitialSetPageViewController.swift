@@ -12,7 +12,7 @@ class InitialSetPageViewController: BaseViewContronller {
 
     private lazy var beginningMessageLabel: UILabel = {
        let lb = UILabel()
-        lb.textColor = .white
+        lb.textColor = .greyshWhite
         lb.numberOfLines = 4
         lb.textAlignment = .center
         lb.font = .robotoBold(20)
@@ -50,9 +50,7 @@ class InitialSetPageViewController: BaseViewContronller {
         view.backgroundColor = .darkNavy
         
         isInitialSettingDone(false)
-        
         animateBeginningMessageLabel()
-        
         setupUI()
     }
     
@@ -61,7 +59,6 @@ class InitialSetPageViewController: BaseViewContronller {
             guard let self = self else {return}
             if self.runCount == 3 {
                 timer.invalidate()
-                //TODO: - Start Quiz Screen
                 let vc = InitialQuizViewController(vm: InitialQuizViewModel())
                 self.present(vc, transitionType: .fromTop, animated: true, pushing: true)
                 
