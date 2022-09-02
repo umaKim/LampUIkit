@@ -38,7 +38,11 @@ class CustomMarkerView: UIView {
         case .completed:
             outerImageView.image = .init(named: "circleCompleted")
         }
-        contentImageView.sd_setImage(with: URL(string: imageUrl), placeholderImage: UIImage(named: "placeholder"))
+        contentImageView.sd_setImage(
+            with: URL(string: imageUrl),
+            placeholderImage: UIImage(named: "placeholder")) { image, error, type, url in
+//            print(url)
+        }
         contentImageView.layer.cornerRadius = CGFloat(width/2)
         contentImageView.clipsToBounds = true
         addSubview(contentImageView)
