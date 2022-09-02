@@ -181,25 +181,13 @@ final class LocationDetailView: BaseWhiteView {
     public func showSkeleton() {
         let skeletonAnimation = SkeletonAnimationBuilder().makeSlidingAnimation(withDirection: .leftRight)
         
-        buttonSv.showAnimatedGradientSkeleton(usingGradient: .init(colors: [.lightGray, .gray]),
-                                              animation: skeletonAnimation,
-                                              transition: .none)
+        buttonSv.showSkeleton()
         
-        label1.showAnimatedGradientSkeleton(usingGradient: .init(colors: [.lightGray, .gray]),
-                                            animation: skeletonAnimation,
-                                            transition: .none)
-        label2.showAnimatedGradientSkeleton(usingGradient: .init(colors: [.lightGray, .gray]),
-                                            animation: skeletonAnimation,
-                                            transition: .none)
-        label3.showAnimatedGradientSkeleton(usingGradient: .init(colors: [.lightGray, .gray]),
-                                            animation: skeletonAnimation,
-                                            transition: .none)
-        label4.showAnimatedGradientSkeleton(usingGradient: .init(colors: [.lightGray, .gray]),
-                                            animation: skeletonAnimation,
-                                            transition: .none)
-        label5.showAnimatedGradientSkeleton(usingGradient: .init(colors: [.lightGray, .gray]),
-                                            animation: skeletonAnimation,
-                                            transition: .none)
+        label1.showSkeleton()
+        label2.showSkeleton()
+        label3.showSkeleton()
+        label4.showSkeleton()
+        label5.showSkeleton()
         
         addToMyTravelButton.showAnimatedGradientSkeleton(usingGradient: .init(colors: [.lightGray, .gray]),
                                                          animation: skeletonAnimation,
