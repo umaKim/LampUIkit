@@ -103,6 +103,7 @@ class WriteReviewViewModel: BaseViewModel {
     
     private func postReviews() {
         guard
+            let comfortRating = comfortRating,
             let atmosphereRating = atmosphereRating,
             let surroundingRating = surroundingRating,
             let foodRating = foodRating
@@ -114,6 +115,7 @@ class WriteReviewViewModel: BaseViewModel {
             contentTypeId: location.contentTypeId,
             placeName: location.title,
             starRate: "\(starRating)",
+            satisfaction: comfortRating,
             mood: atmosphereRating,
             surround: surroundingRating,
             foodArea: foodRating,
