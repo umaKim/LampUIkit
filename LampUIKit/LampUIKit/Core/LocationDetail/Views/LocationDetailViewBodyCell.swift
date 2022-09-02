@@ -277,7 +277,9 @@ class RoundedLabelView: UIView {
             label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             label.topAnchor.constraint(equalTo: topAnchor, constant: 6),
-            label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -6)
+            label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -6),
+            
+            heightAnchor.constraint(equalToConstant: 30)
         ])
     }
     
