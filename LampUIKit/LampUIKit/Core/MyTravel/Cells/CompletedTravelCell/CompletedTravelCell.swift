@@ -32,11 +32,62 @@ final class CompletedTravelCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
+        fetchCompletedTravel(completion: { })
+        
+        refreshcontrol.isRefreshingPublisher.sink {[weak self] isRefreshing in
+            guard let self = self else {return }
+            if isRefreshing {
+                self.fetchCompletedTravel {
+                    self.refreshcontrol.endRefreshing()
+                }
+            }
+        }
+        .store(in: &cancellables)
     }
     
     private var models: [MyCompletedTripLocation] = []
     
         updateSections()
+    }
+    
+    private func fetchCompletedTravel(completion: @escaping () -> Void) {
+        NetworkService.shared.fetchCompletedTravel {[weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let locations):
+                print(locations)
+                self.models = locations.map { location -> MyCompletedTripLocation in
+                        .init(planIdx: location.planIdx ?? "",
+                              travelCompletedDate: "",
+                              contentId: location.contentId,
+                              contentTypeId: location.contentTypeId,
+                              placeInfo: "",
+                              placeAddress: location.addr,
+                              userMemo: "",
+                              mapX: location.mapX,
+                              mapY: location.mapY,
+                              placeName: location.title,
+                              isBookMarked: location.isBookMarked)
+                }
+//                self.notifySubject.send(.reload)
+                self.updateSections()
+                completion()
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    public func deleteCompletedTravel(at index: Int) {
+        let targetItem = models[index]
+        NetworkService.shared.deleteFromMyTravel(targetItem.planIdx) { result in
+            switch result {
+            case .success(let response):
+                print(response)
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     required init?(coder: NSCoder) {
