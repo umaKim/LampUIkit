@@ -15,7 +15,6 @@ enum LocationDetailViewAction {
     case save
     case ar
     case map
-    case navigate
     case review
     
     case addToMyTrip
@@ -246,9 +245,6 @@ final class LocationDetailView: BaseWhiteView {
                 case .map:
                     self.actionSubject.send(.map)
                     
-                case .navigation:
-                    self.actionSubject.send(.navigate)
-                    
                 case .review:
                     self.actionSubject.send(.review)
                 }
@@ -260,7 +256,6 @@ final class LocationDetailView: BaseWhiteView {
             .sink {[weak self] _ in
                 guard let self = self else {return}
                 self.addToMyTravelButton.isSelected.toggle()
-                
                 if self.addToMyTravelButton.isSelected {
                     self.addToMyTravelButton.update("내여행지로 추가 취소", background: .systemGray, textColor: .white)
                     self.actionSubject.send(.addToMyTrip)
