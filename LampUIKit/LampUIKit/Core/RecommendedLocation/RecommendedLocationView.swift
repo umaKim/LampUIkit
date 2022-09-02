@@ -18,11 +18,6 @@ class RecommendedLocationView: BaseWhiteView {
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<RecommendedLocationViewAction, Never>()
     
-//    private(set) lazy var searchButton: UIBarButtonItem = .init(image: UIImage(named: "Search")?.withRenderingMode(.alwaysOriginal),
-//                                                                style: .done, target: nil, action: nil)
-//    private(set) lazy var myCharacter: UIBarButtonItem = .init(image: .init(systemName: "person")?.withRenderingMode(.alwaysOriginal),
-//                                                               style: .done, target: nil, action: nil)
-   
     private(set) lazy var customNavigationbar = CustomNavigationBarView()
     
     private(set) var collectionView: UICollectionView = {
@@ -108,37 +103,6 @@ class RecommendedLocationView: BaseWhiteView {
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
             collectionView.topAnchor.constraint(equalTo: customNavigationbar.bottomAnchor)
         ])
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
-class MyLocationHeaderView: UIView {
-    private lazy var titleLabel: UILabel = {
-       let lb = UILabel()
-        lb.font = .robotoBold(18)
-        lb.text = "GODOOGODE"
-        return lb
-    }()
-    
-    init() {
-        super.init(frame: .init(x: 0, y: 0, width: 60, height: UIScreen.main.width/2))
-        
-        backgroundColor = .red
-        
-        addSubview(titleLabel)
-//        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-//        NSLayoutConstraint.activate([
-//            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-//            titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
-//        ])
-    }
-    
-    public func configure() {
-        titleLabel.text = "서울특별시"
     }
     
     required init?(coder: NSCoder) {
