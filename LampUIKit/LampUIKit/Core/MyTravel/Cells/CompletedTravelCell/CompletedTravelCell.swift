@@ -98,9 +98,7 @@ final class CompletedTravelCell: UICollectionViewCell {
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
         snapshot.appendItems(models)
-        dataSource?.apply(snapshot, animatingDifferences: true, completion: {
-            self.dataSource?.applySnapshotUsingReloadData(snapshot)
-        })
+        dataSource?.apply(snapshot, animatingDifferences: true)
     }
     
     private func configureCollectionView() {

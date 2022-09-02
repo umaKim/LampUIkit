@@ -104,10 +104,7 @@ extension MyTravelCell {
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
         snapshot.appendItems(models)
-        dataSource?.apply(snapshot, animatingDifferences: true, completion: { [weak self] in
-            guard let self = self else {return}
-            self.dataSource?.applySnapshotUsingReloadData(snapshot)
-        })
+        dataSource?.apply(snapshot, animatingDifferences: true)
     }
     
     private func configureCollectionView() {
