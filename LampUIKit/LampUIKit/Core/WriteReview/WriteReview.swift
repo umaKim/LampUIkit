@@ -128,7 +128,7 @@ class WriteReviewView: BaseWhiteView, ImageCollectionViewCellDelegate {
     }()
     
     private lazy var characterCounter: UILabel = {
-       let lb = UILabel()
+        let lb = UILabel()
         lb.textColor = .lightGray
         lb.text = "0/300"
         lb.font = .robotoLight(13)
@@ -160,7 +160,7 @@ class WriteReviewView: BaseWhiteView, ImageCollectionViewCellDelegate {
     private let dividerView3 = DividerView()
     
     private lazy var imageCounterLabel: UILabel = {
-       let lb = UILabel()
+        let lb = UILabel()
         lb.textColor = .lightGray
         lb.text = "0/3"
         lb.font = .robotoLight(13)
@@ -291,9 +291,9 @@ extension WriteReviewView {
         textContextView.textPublisher
             .compactMap({$0})
             .sink {[unowned self] text in
-            self.actionSubject.send(.updateComment(text))
-        }
-        .store(in: &cancellables)
+                self.actionSubject.send(.updateComment(text))
+            }
+            .store(in: &cancellables)
         
         completeButton.tapPublisher.sink {[weak self] _ in
             guard let self = self else {return}
