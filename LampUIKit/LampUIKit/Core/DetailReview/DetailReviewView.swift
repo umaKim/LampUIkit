@@ -185,7 +185,7 @@ class DetailReviewViewCollectionViewCell: UICollectionViewCell {
         lb.textAlignment = .natural
         lb.numberOfLines = 0
         lb.sizeToFit()
-        lb.font = .robotoRegular(10)
+        lb.font = .systemFont(ofSize: 10, weight: .semibold)
         return lb
     }()
     
