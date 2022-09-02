@@ -116,10 +116,10 @@ final class LocationDetailViewController: BaseViewContronller {
                     break
                     
                 case .startLoading:
-                    self.showLoadingView()
+                    self.contentView.showSkeleton()
                     
                 case .endLoading:
-                    self.dismissLoadingView()
+                    self.contentView.hideSkeleton()
                     
                 case .sendLocationDetail(let data):
                     if let data = data {
