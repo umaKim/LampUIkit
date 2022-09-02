@@ -59,12 +59,6 @@ class SearchViewController: BaseViewContronller {
         configureCollectionView()   
     }
     
-//    override func viewDidDisappear(_ animated: Bool) {
-//        super.viewDidDisappear(animated)
-//
-//        navigationController?.setNavigationBarHidden(true, animated: false)
-//    }
-    
     private func bind() {
         contentView
             .acationPublisher
