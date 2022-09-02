@@ -13,9 +13,6 @@ protocol RecommendedLocationViewControllerDelegate: AnyObject {
     func recommendedLocationViewControllerDidTapMyCharacter()
     func recommendedLocationViewControllerDidTapMyTravel()
     func recommendedLocationViewControllerDidTapNavigation(location: RecommendedLocation)
-//    func recommendedLocationViewControllerDidTapSetThisLocationButton(_ location: RecommendedLocation)
-//    func recommendedLocationViewControllerDidTapCancelThisLocationButton(_ location: RecommendedLocation)
-//    func recommendedLocationViewControllerDidTapFavoriteButton(at index: Int, _ isFavorite: Bool, _ location: RecommendedLocation)
 }
 
 class RecommendedLocationViewController: BaseViewContronller {
