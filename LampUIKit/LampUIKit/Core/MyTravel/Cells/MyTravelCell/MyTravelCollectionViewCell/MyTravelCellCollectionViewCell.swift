@@ -106,29 +106,6 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell {
             completeTripButton.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16),
             completeTripButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16)
         ])
-        
-        deleteButton.tapPublisher.sink { _ in
-            self.delegate?.myTravelCellCollectionViewCellDidTapDelete(at: self.tag)
-        }
-        .store(in: &cancellables)
-        
-        completeTripButton.tapPublisher.sink { _ in
-            self.delegate?.myTravelCellCollectionViewCellDidTapComplete(at: self.tag)
-        }
-        .store(in: &cancellables)
-    }
-    
-    public func configure(_ location: MyTravelLocation) {
-        titleLabel.text = location.placeName
-        timeLabel.text = location.placeInfo
-        addressLabel.text = location.placeAddress
-    }
-    
-    var showDeleButton: Bool? {
-        didSet{
-            deleteButton.isHidden = !(showDeleButton ?? false)
-            completeTripButton.isHidden = showDeleButton ?? true
-        }
     }
     
     required init?(coder: NSCoder) {
