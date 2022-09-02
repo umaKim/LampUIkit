@@ -45,7 +45,8 @@ class LoginViewController: UIViewController {
     }
     
     private func bind() {
-        contentView.actionPublisher.sink { action in
+        contentView.actionPublisher.sink {[weak self] action in
+            guard let self = self else { return }
             HapticManager.shared.feedBack(with: .heavy)
             switch action {
             case .apple:
