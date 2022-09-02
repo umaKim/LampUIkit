@@ -111,10 +111,6 @@ final class LocationDetailViewController: BaseViewContronller {
             .sink {[weak self] noti in
                 guard let self = self else {return}
                 switch noti {
-                case .reload:
-//                    self.contentView.reload()
-                    break
-                    
                 case .startLoading:
                     self.contentView.showSkeleton()
                     
@@ -134,24 +130,6 @@ final class LocationDetailViewController: BaseViewContronller {
             .store(in: &cancellables)
     }
     
-    func setStatusBar() {
-//        if #available(iOS 13, *)
-//        {
-//            let keyWindow = UIApplication.shared.connectedScenes
-//                .filter({$0.activationState == .foregroundActive})
-//                .compactMap({$0 as? UIWindowScene})
-//                .first?.windows
-//                .filter({$0.isKeyWindow}).first
-//            let statusBar = UIView(frame: (keyWindow?.windowScene?.statusBarManager?.statusBarFrame) ?? CGRect(x: 0, y: 0, width: UIScreen.main.width, height: 100))
-//            statusBar.backgroundColor = .green
-//            keyWindow?.addSubview(statusBar)
-//        } else {
-//            let statusBar: UIView = UIApplication.shared.value(forKey: "statusBar") as! UIView
-//            if statusBar.responds(to:#selector(setter: UIView.backgroundColor)) {
-//                statusBar.backgroundColor = .green
-//            }
-//            UIApplication.shared.statusBarStyle = .lightContent
-//        }
     }
     
     required init?(coder: NSCoder) {
