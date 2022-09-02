@@ -303,9 +303,7 @@ final class LocationDetailView: BaseWhiteView {
             contentView.addSubview(uv)
         }
         
-        buttonSv.isSkeletonable = true
         dividerView.isSkeletonable = true
-        labelStackView.isSkeletonable = true
         addToMyTravelButton.isSkeletonable = true
         totalTravelReviewView.isSkeletonable = true
         
@@ -360,7 +358,7 @@ final class LocationDetailView: BaseWhiteView {
 
 extension LocationDetailView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: UIScreen.main.width-32,
+        return .init(width: UIScreen.main.width - 32,
                      height: UIScreen.main.width / 1.5)
     }
     
