@@ -140,7 +140,7 @@ extension DetailReviewViewController: UICollectionViewDelegateFlowLayout {
 
 extension DetailReviewViewController: DetailReviewViewCollectionViewCellDelegate {
     func detailReviewViewCollectionViewCellDidTapUnlikeButton(_ index: Int) {
-        
+        viewModel.didTapLike(at: index)
     }
     
     func detailReviewViewCollectionViewCellDidTapLikeButton(_ index: Int) {
