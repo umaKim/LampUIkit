@@ -53,22 +53,22 @@ class WriteReviewViewModel: BaseViewModel {
     }
     
     public func setComfortRating( _ rating: Int) {
-        self.comfortRating = rating
+        self.comfortRating = rating + 1
         self.notifySubject.send(.ableCompleteButton(ableCompleteButton))
     }
     
     public func setAtmosphereRating( _ rating: Int) {
-        self.atmosphereRating = rating
+        self.atmosphereRating = rating + 1
         self.notifySubject.send(.ableCompleteButton(ableCompleteButton))
     }
     
     public func setSurroundingRating( _ rating: Int) {
-        self.surroundingRating = rating
+        self.surroundingRating = rating + 1
         self.notifySubject.send(.ableCompleteButton(ableCompleteButton))
     }
     
     public func setFoodRating( _ rating: Int) {
-        self.foodRating = rating
+        self.foodRating = rating + 1
         self.notifySubject.send(.ableCompleteButton(ableCompleteButton))
     }
     
