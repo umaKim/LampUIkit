@@ -68,6 +68,7 @@ class MyTravelView: UIView {
             .tapPublisher
             .sink {[weak self] _ in
                 guard let self = self else {return}
+                HapticManager.shared.feedBack(with: .rigid)
                 self.actionSubject.send(.dismiss)
             }
             .store(in: &cancellables)
@@ -75,6 +76,7 @@ class MyTravelView: UIView {
         categoryButton
             .actionPublisher
             .sink {[weak self] action in
+                HapticManager.shared.feedBack(with: .rigid)
                 switch action {
                 case .didTapMyTravel:
                     self?.scrollTo(item: .myTravel)
