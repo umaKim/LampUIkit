@@ -44,8 +44,7 @@ final class FavoriteCell: UICollectionViewCell {
     
     private var models: [MyBookMarkLocation] = []
     
-    public func configure(models: [MyBookMarkLocation]) {
-        self.models = models
+    public func configure() {
         self.updateSections()
     }
     
