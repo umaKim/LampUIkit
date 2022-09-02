@@ -25,7 +25,7 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
     
     private let titleLabel: UILabel = {
        let lb = UILabel()
-        lb.font = .systemFont(ofSize: 18, weight: .semibold)
+        lb.font = .robotoBold(18)
         lb.textColor = .darkNavy
         lb.numberOfLines = 2
         return lb
@@ -34,7 +34,7 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
     private let descriptionLabel: UILabel = {
        let lb = UILabel()
         lb.numberOfLines = 3
-        lb.font = .robotoRegular(12)
+        lb.font = .systemFont(ofSize: 12, weight: .semibold)
         lb.textColor = .midNavy
         return lb
     }()
