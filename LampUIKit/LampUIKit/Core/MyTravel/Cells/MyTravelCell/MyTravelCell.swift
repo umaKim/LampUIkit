@@ -41,14 +41,44 @@ final class MyTravelCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
+        fetchMyTravel()
     }
     
     private var models: [MyTravelLocation] = []
     private var showDeleteButton: Bool = false
     
-    public func configure(models: [MyTravelLocation]) {
-        self.models = models
+    public func configure() {
         updateSections()
+    }
+    
+    private func fetchMyTravel() {
+        NetworkService.shared.fetchMyTravel {[weak self] result in
+            guard let self = self else {return}
+            switch result {
+            case .success(let locations):
+                self.models = locations
+                self.updateSections()
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    public func deleteMyTravel(at index: Int) {
+        let targetItem = models[index]
+        models.remove(at: index)
+        NetworkService.shared.removeMyTravel(targetItem)
+    }
+    
+    
+    public func completeTrip(at index: Int) {
+        let myTravel = models[index]
+        NetworkService.shared.postCompleteTrip(.init(token: "",
+                                                     planIdx: myTravel.planIdx,
+                                                     mapX: myTravel.mapX ?? "",
+                                                     mapY: myTravel.mapY ?? "")) {[weak self] result in
+        }
     }
     
     required init?(coder: NSCoder) {
