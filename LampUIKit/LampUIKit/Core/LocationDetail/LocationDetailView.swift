@@ -219,7 +219,7 @@ final class LocationDetailView: BaseWhiteView {
         backButton
             .tapPublisher
             .sink {[weak self] _ in
-                guard let self = self else {return}
+                guard let self = self else { return }
                 self.actionSubject.send(.back)
             }
             .store(in: &cancellables)
@@ -227,7 +227,7 @@ final class LocationDetailView: BaseWhiteView {
         dismissButton
             .tapPublisher
             .sink {[weak self] _ in
-                guard let self = self else {return}
+                guard let self = self else { return }
                 self.actionSubject.send(.dismiss)
             }
             .store(in: &cancellables)
@@ -235,7 +235,7 @@ final class LocationDetailView: BaseWhiteView {
         buttonSv
             .actionPublisher
             .sink {[weak self] action in
-                guard let self = self else {return}
+                guard let self = self else { return }
                 switch action {
                 case .save:
                     self.actionSubject.send(.save)
