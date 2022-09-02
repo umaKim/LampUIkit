@@ -113,10 +113,8 @@ final class CompletedTravelCell: UICollectionViewCell {
                 withReuseIdentifier: CompletedTravelCellCollectionViewCell.identifier,
                 for: indexPath) as? CompletedTravelCellCollectionViewCell
             else { return nil }
-//            cell.delegate = self
             cell.tag = indexPath.item
-//            cell.configure(self.models[indexPath.item])
-//            cell.showDeleButton = self.showDeleteButton
+            cell.delegate = self
             cell.configure(self.models[indexPath.item])
             return cell
         }
@@ -124,7 +122,6 @@ final class CompletedTravelCell: UICollectionViewCell {
         dataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
             guard kind == UICollectionView.elementKindSectionHeader else { return nil }
             let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CompletedTravelHeaderCell.identifier, for: indexPath) as? CompletedTravelHeaderCell
-//            view?.delegate = self
             return view
         }
     }
