@@ -65,7 +65,6 @@ final class FavoriteCell: UICollectionViewCell {
     
     public func deleteMySaveLocations(at index: Int) {
         let targetItem = models[index]
-//        models.remove(at: index)
         NetworkService.shared.updateBookMark(of: "\(targetItem.contentId)",
                                              "\(targetItem.mapX )",
                                              "\(targetItem.mapY )",
