@@ -26,10 +26,16 @@ final class CompletedTravelCell: UICollectionViewCell {
                     withReuseIdentifier: CompletedTravelHeaderCell.identifier)
         cv.register(CompletedTravelCellCollectionViewCell.self, forCellWithReuseIdentifier: CompletedTravelCellCollectionViewCell.identifier)
         cv.backgroundColor = .greyshWhite
+        cv.refreshControl = refreshcontrol
         return cv
     }()
     
+    private lazy var refreshcontrol = UIRefreshControl()
+    
+    private var cancellables: Set<AnyCancellable>
+    
     override init(frame: CGRect) {
+        self.cancellables = .init()
         super.init(frame: frame)
         setupUI()
         fetchCompletedTravel(completion: { })
