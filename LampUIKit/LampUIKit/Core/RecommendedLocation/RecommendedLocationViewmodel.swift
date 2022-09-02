@@ -46,7 +46,7 @@ class RecommendedLocationViewmodel: BaseViewModel {
                     let administrativeArea = address.administrativeArea ?? ""
                     let locality = address.locality ?? ""
                     let sublocality = address.subLocality ?? ""
-                    
+
                     let addressString = administrativeArea + " " + locality + " " + sublocality
                     print(addressString)
                     self?.notifySubject.send(.updateAddress(addressString))
