@@ -28,7 +28,6 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
         lb.font = .systemFont(ofSize: 18, weight: .semibold)
         lb.textColor = .darkNavy
         lb.numberOfLines = 2
-        lb.heightAnchor.constraint(equalToConstant: 22).isActive = true
         return lb
     }()
     
