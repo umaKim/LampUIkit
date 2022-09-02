@@ -8,7 +8,6 @@ import Combine
 import Foundation
 
 enum LocationDetailViewModelNotify {
-    case reload
     case startLoading
     case endLoading
     
@@ -121,13 +120,7 @@ final class LocationDetailViewModel: BaseViewModel {
             guard let self = self else {return }
             switch result {
             case .success(let response):
-                var images = [String]()
-                
-//                if let mainImage = self.location?.image {
-//                    images.append(mainImage)
-//                }
-
-                images.append(contentsOf: response.image)
+                let images = response.image
                 self.notifySubject.send(.locationDetailImages(images))
                 
             case .failure(let error):
