@@ -439,7 +439,7 @@ struct ReviewData: Codable, Hashable {
     let createdAt: String?
     let numReported: Int?
     let photoIdx: Int?
-    let numLiked: Int?
+    var numLiked: Int
     let reviewILiked: Bool?
     let photoUrlArray: [String]?
 }
