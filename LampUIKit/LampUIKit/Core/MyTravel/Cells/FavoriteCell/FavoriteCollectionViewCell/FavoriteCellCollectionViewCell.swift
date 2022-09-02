@@ -70,7 +70,6 @@ final class FavoriteCellCollectionViewCell: UICollectionViewCell {
     public func configure(_ model: MyBookMarkLocation) {
         titleLabel.text = model.placeName
         favoriteButton.setImage(UIImage(named: "favorite_saved"), for: .normal)
-//        timeLabel.text = model.
         addressLabel.text = model.placeAddr
     }
     
