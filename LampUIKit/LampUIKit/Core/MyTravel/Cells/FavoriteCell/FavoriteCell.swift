@@ -39,6 +39,7 @@ final class FavoriteCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
+        fetchSavedTravel()
     }
     
     private var models: [MyBookMarkLocation] = []
@@ -46,6 +47,39 @@ final class FavoriteCell: UICollectionViewCell {
     public func configure(models: [MyBookMarkLocation]) {
         self.models = models
         self.updateSections()
+    }
+    
+    private func fetchSavedTravel() {
+        NetworkService.shared.fetchSavedTravel {[weak self] result in
+            guard let self = self else {return}
+            switch result {
+            case .success(let locations):
+                self.models = locations
+//                self.notifySubject.send(.reload)
+                self.updateSections()
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    public func deleteMySaveLocations(at index: Int) {
+        let targetItem = models[index]
+//        models.remove(at: index)
+        NetworkService.shared.updateBookMark(of: "\(targetItem.contentId)",
+                                             "\(targetItem.mapX )",
+                                             "\(targetItem.mapY )",
+                                             "\(targetItem.contentTypeId)",
+                                             placeName: "\(targetItem.placeName )",
+                                             placeAddr: "\(targetItem.placeAddr )") { result in
+            
+            switch result {
+            case .success(let response):
+                print(response)
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     required init?(coder: NSCoder) {
