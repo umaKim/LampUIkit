@@ -4,7 +4,7 @@
 //
 //  Created by 김윤석 on 2022/08/16.
 //
-
+import SkeletonView
 import UIKit
 
 class LocationDescriptionView: UIView {
@@ -39,6 +39,24 @@ class LocationDescriptionView: UIView {
     public func configure(_ title: String, _ description: String) {
         titleLabel.text = title
         descriptionLabel.text = description
+    }
+    
+    public func showSkeleton() {
+        let skeletonAnimation = SkeletonAnimationBuilder().makeSlidingAnimation(withDirection: .leftRight)
+        
+        titleLabel.isSkeletonable = true
+        titleLabel.showAnimatedGradientSkeleton(usingGradient: .init(colors: [.lightGray, .gray]),
+                                                animation: skeletonAnimation,
+                                                transition: .none)
+        descriptionLabel.isSkeletonable = true
+        descriptionLabel.showAnimatedGradientSkeleton(usingGradient: .init(colors: [.lightGray, .gray]),
+                                                      animation: skeletonAnimation,
+                                                      transition: .none)
+    }
+    
+    public func hideSkeleton() {
+        titleLabel.hideSkeleton()
+        descriptionLabel.hideSkeleton()
     }
     
     required init?(coder: NSCoder) {

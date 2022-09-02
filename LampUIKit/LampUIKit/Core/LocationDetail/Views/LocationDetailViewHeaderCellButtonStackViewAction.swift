@@ -4,7 +4,7 @@
 //
 //  Created by 김윤석 on 2022/07/20.
 //
-
+import SkeletonView
 import Combine
 import CombineCocoa
 import UIKit
@@ -69,6 +69,36 @@ class LocationDetailViewHeaderCellButtonStackView: UIView {
         saveButton.setImage(isSaved ? UIImage(named: "favorite_saved") : UIImage(named: "detailSave"), for: .normal)
     }
     
+    public func showSkeleton() {
+        
+        let skeletonAnimation = SkeletonAnimationBuilder().makeSlidingAnimation(withDirection: .leftRight)
+        
+        saveButton.showAnimatedGradientSkeleton(usingGradient: .init(colors: [.lightGray, .gray]),
+                                              animation: skeletonAnimation,
+                                              transition: .none)
+        
+        
+        arButton.showAnimatedGradientSkeleton(usingGradient: .init(colors: [.lightGray, .gray]),
+                                              animation: skeletonAnimation,
+                                              transition: .none)
+        
+        mapButton.showAnimatedGradientSkeleton(usingGradient: .init(colors: [.lightGray, .gray]),
+                                              animation: skeletonAnimation,
+                                              transition: .none)
+        
+        
+        reviewButton.showAnimatedGradientSkeleton(usingGradient: .init(colors: [.lightGray, .gray]),
+                                              animation: skeletonAnimation,
+                                              transition: .none)
+    }
+    
+    public func hideSkeleton() {
+        saveButton.hideSkeleton()
+        arButton.hideSkeleton()
+        mapButton.hideSkeleton()
+        reviewButton.hideSkeleton()
+    }
+    
     private func bind() {
         saveButton
             .tapPublisher
@@ -119,7 +149,11 @@ class LocationDetailViewHeaderCellButtonStackView: UIView {
     }
     
     private func setupUI() {
-        let sv = UIStackView(arrangedSubviews: [saveButton, arButton, mapButton, navigationButton, reviewButton])
+        let sv = UIStackView(arrangedSubviews: [saveButton,
+                                                arButton,
+                                                mapButton,
+//                                                navigationButton,
+                                                reviewButton])
         sv.axis = .horizontal
         sv.alignment = .fill
         sv.distribution = .fillEqually
@@ -127,6 +161,7 @@ class LocationDetailViewHeaderCellButtonStackView: UIView {
         [sv].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
             addSubview(uv)
+            uv.isSkeletonable = true
         }
         
         NSLayoutConstraint.activate([
