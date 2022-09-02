@@ -65,23 +65,25 @@ class WriteReviewView: BaseWhiteView, ImageCollectionViewCellDelegate {
     }()
     
     private let satisfactionEvaluationView: EvaluationView = {
-        let models: [EvaluationModel] = [
-            EvaluationModel(isSelected: false, title: "매우 만족"),
-            EvaluationModel(isSelected: false, title: "만족"),
-            EvaluationModel(isSelected: false, title: "보통")
-        ]
+        let models: [EvaluationModel] = RatingStandard.comfort
+            .filter({
+                $0 != "-"
+            }).map { string in
+                EvaluationModel(isSelected: false, title: string)
+            }
+        
         let uv = EvaluationView(title: "만족도", elements: models)
         uv.heightAnchor.constraint(equalToConstant: 60).isActive = true
         return uv
     }()
     
     private let atmosphereEvaluationView: EvaluationView = {
-        let models: [EvaluationModel] = [
-            EvaluationModel(isSelected: false, title: "고즈넉한"),
-            EvaluationModel(isSelected: false, title: "잔잔한"),
-            EvaluationModel(isSelected: false, title: "셍기넘치는"),
-            EvaluationModel(isSelected: false, title: "푸르른")
-        ]
+        let models: [EvaluationModel] = RatingStandard.atmosphere
+            .filter({
+                $0 != "-"
+            }).map { string in
+                EvaluationModel(isSelected: false, title: string)
+            }
         
         let uv = EvaluationView(title: "분위기", elements: models)
         uv.heightAnchor.constraint(equalToConstant: 60).isActive = true
@@ -89,11 +91,12 @@ class WriteReviewView: BaseWhiteView, ImageCollectionViewCellDelegate {
     }()
     
     private let surroundingEvaluationView: EvaluationView = {
-        let models: [EvaluationModel] = [
-            EvaluationModel(isSelected: false, title: "여유로운"),
-            EvaluationModel(isSelected: false, title: "혼잡한"),
-            EvaluationModel(isSelected: false, title: "인파가 적당한")
-        ]
+        let models: [EvaluationModel] = RatingStandard.surrounding
+            .filter({
+                $0 != "-"
+            }).map { string in
+                EvaluationModel(isSelected: false, title: string)
+            }
         
         let uv = EvaluationView(title: "주차 및 주변", elements: models)
         uv.heightAnchor.constraint(equalToConstant: 60).isActive = true
@@ -101,11 +104,12 @@ class WriteReviewView: BaseWhiteView, ImageCollectionViewCellDelegate {
     }()
     
     private let foodEvaluationView: EvaluationView = {
-        let models: [EvaluationModel] = [
-            EvaluationModel(isSelected: false, title: "다양한 종류"),
-            EvaluationModel(isSelected: false, title: "먹거리 없음")
-        ]
-        
+        let models: [EvaluationModel] = RatingStandard.food
+            .filter({
+                $0 != "-"
+            }).map { string in
+                EvaluationModel(isSelected: false, title: string)
+            }
         let uv = EvaluationView(title: "먹거리", elements: models)
         uv.heightAnchor.constraint(equalToConstant: 60).isActive = true
         return uv
