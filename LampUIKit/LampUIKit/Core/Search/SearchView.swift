@@ -18,6 +18,7 @@ enum SearchViewAction {
     
     case searchTextDidChange(String)
     case searchDidBeginEditing
+    case didTapSearchButton
 }
 
 class SearchView: BaseView {
@@ -70,6 +71,14 @@ class SearchView: BaseView {
             .sink {[weak self] _ in
                 guard let self = self else {return}
                 self.actionSubject.send(.searchDidBeginEditing)
+            }
+            .store(in: &cancellables)
+        
+        searchBar
+            .searchButtonClickedPublisher
+            .sink { [weak self] _ in
+                guard let self = self else {return}
+                self.actionSubject.send(.didTapSearchButton)
             }
             .store(in: &cancellables)
         
