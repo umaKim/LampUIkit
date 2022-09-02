@@ -51,6 +51,7 @@ class RecommendedLocationViewController: BaseViewContronller {
     override func viewDidLoad() {
         super.viewDidLoad()
         contentView.collectionView.delegate = self
+        
         configureCollectionView()
         updateSections()
         bind()
