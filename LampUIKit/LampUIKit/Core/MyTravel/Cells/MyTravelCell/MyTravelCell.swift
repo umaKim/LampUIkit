@@ -70,15 +70,20 @@ extension MyTravelCell: MyTravelCellHeaderCellDelegate {
 
 extension MyTravelCell: MyTravelCellCollectionViewCellDelegate {
     func myTravelCellCollectionViewCellDidTapComplete(at index: Int) {
-        models.remove(at: index)
-        updateSections()
-        delegate?.myTravelCellDelegateDidTapComplete(at: index)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
+            self?.completeTrip(at: index)
+            self?.models.remove(at: index)
+            self?.updateSections()
+            
+        }
     }
     
     func myTravelCellCollectionViewCellDidTapDelete(at index: Int) {
-        models.remove(at: index)
-        updateSections()
-        delegate?.myTravelCellDelegateDidTapDelete(at: index)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
+            self?.deleteMyTravel(at: index)
+            self?.models.remove(at: index)
+            self?.updateSections()
+        }
     }
 }
 
@@ -92,7 +97,7 @@ extension MyTravelCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         .init(width: UIScreen.main.width - 32, height: 150)
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         .init(width: UIScreen.main.width, height: 60)
     }
@@ -114,8 +119,8 @@ extension MyTravelCell {
             guard let self = self else {return nil}
             guard
                 let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: MyTravelCellCollectionViewCell.identifier,
-                for: indexPath) as? MyTravelCellCollectionViewCell
+                    withReuseIdentifier: MyTravelCellCollectionViewCell.identifier,
+                    for: indexPath) as? MyTravelCellCollectionViewCell
             else { return nil }
             cell.delegate = self
             cell.tag = indexPath.item
