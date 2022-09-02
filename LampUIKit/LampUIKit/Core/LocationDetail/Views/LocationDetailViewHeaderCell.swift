@@ -12,7 +12,6 @@ protocol LocationDetailViewHeaderCellDelegate: AnyObject {
     func locationDetailViewHeaderCellDidTapSave()
     func locationDetailViewHeaderCellDidTapReview()
     func locationDetailViewHeaderCellDidTapAr()
-    func locationDetailViewHeaderCellDidTapShare()
     func locationDetailViewHeaderCellDidTapAddToMyTrip()
     func locationDetailViewHeaderCellDidTapRemoveFromMyTrip()
 }
@@ -36,7 +35,6 @@ class ImageCollectionViewCell: UICollectionViewCell {
     
     private lazy var dismissButton: UIButton = {
         let bt = UIButton()
-//        bt.setImage(.xmark, for: .normal)
         bt.setImage(UIImage(named: "minus"), for: .normal)
         bt.widthAnchor.constraint(equalToConstant: 20).isActive = true
         bt.heightAnchor.constraint(equalToConstant: 20).isActive = true
@@ -115,53 +113,36 @@ class LocationDetailViewHeaderCell: UICollectionReusableView {
 
     private var dataSource: DataSource?
 
-//    private lazy var locationImageView: UICollectionView = {
-//        let cl = UICollectionViewFlowLayout()
-//        cl.scrollDirection = .horizontal
-//        let cv = UICollectionView(frame: .zero, collectionViewLayout: cl)
-//        cv.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: ImageCollectionViewCell.identifier)
-//        cv.delegate = self
-//        cv.backgroundColor = .red
-//        cv.isPagingEnabled = true
-//        cv.showsHorizontalScrollIndicator = false
-//        return cv
-//    }()
-    
     private let buttonSv = LocationDetailViewHeaderCellButtonStackView()
     
     private let dividerView = DividerView()
     
     private let label1: LocationDescriptionView = {
         let uv = LocationDescriptionView("관람시간", description: "09:00~18:30 (입장마감은 17:30)")
-//        uv.heightAnchor.constraint(equalToConstant: 20).isActive = true
         return uv
     }()
     
     private let label2: LocationDescriptionView = {
         let uv = LocationDescriptionView("관람요금",
                                          description: "성인 : 3,000원 (개인) |  2,400원 (단체) \n만 65세 이상 / 만 6세 이하  : 무료\n소인 : 1,500원 (개인) | 1,200원 (단체)")
-//        uv.heightAnchor.constraint(equalToConstant: 100).isActive = true
         return uv
     }()
     
     private let label3: LocationDescriptionView = {
         let uv = LocationDescriptionView("관람요금",
                                          description: "성인 : 3,000원 (개인) |  2,400원 (단체) \n만 65세 이상 / 만 6세 이하  : 무료\n소인 : 1,500원 (개인) | 1,200원 (단체)")
-//        uv.heightAnchor.constraint(equalToConstant: 100).isActive = true
         return uv
     }()
     
     private let label4: LocationDescriptionView = {
         let uv = LocationDescriptionView("관람요금",
                                          description: "성인 : 3,000원 (개인) |  2,400원 (단체) \n만 65세 이상 / 만 6세 이하  : 무료\n소인 : 1,500원 (개인) | 1,200원 (단체)")
-//        uv.heightAnchor.constraint(equalToConstant: 100).isActive = true
         return uv
     }()
     
     private let label5: LocationDescriptionView = {
         let uv = LocationDescriptionView("관람요금",
                                          description: "성인 : 3,000원 (개인) |  2,400원 (단체) \n만 65세 이상 / 만 6세 이하  : 무료\n소인 : 1,500원 (개인) | 1,200원 (단체)")
-//        uv.heightAnchor.constraint(equalToConstant: 100).isActive = true
         return uv
     }()
     
@@ -176,19 +157,7 @@ class LocationDetailViewHeaderCell: UICollectionReusableView {
         bind()
         setupUI()
         
-        configureImageViewCollecitonView()
         updateSections()
-    }
-    
-    private func configureImageViewCollecitonView() {
-//        dataSource = DataSource(collectionView: locationImageView,
-//                                cellProvider: { collectionView, indexPath, itemIdentifier in
-//            guard
-//                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: indexPath) as? ImageCollectionViewCell
-//            else { return UICollectionViewCell() }
-//            cell.configure("")
-//            return cell
-//        })
     }
     
     public func configure(_ location: RecommendedLocation, _ locationDetail: LocationDetailData) {
@@ -233,9 +202,6 @@ class LocationDetailViewHeaderCell: UICollectionReusableView {
                     
                 case .map:
                     self.delegate?.locationDetailViewHeaderCellDidTapAr()
-                    
-//                case .share:
-//                    self.delegate?.locationDetailViewHeaderCellDidTapShare()
                 }
             }
             .store(in: &cancellables)
@@ -276,11 +242,9 @@ extension LocationDetailViewHeaderCell: UICollectionViewDelegateFlowLayout {
 //MARK: - set up UI
 extension LocationDetailViewHeaderCell {
     private func setupUI() {
-        //label1, label2, label3, label4, label5
         let labelStackView = UIStackView(arrangedSubviews: [label1, label2, label3, label4, label5])
         labelStackView.alignment = .leading
         labelStackView.distribution = .fillProportionally
-//        labelStackView.spacing = 16
         labelStackView.axis = .vertical
         
         [locationImageView, buttonSv, dividerView, labelStackView, addToMyTravelButton].forEach { uv in
