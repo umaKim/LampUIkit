@@ -148,6 +148,17 @@ final class CompletedTravelCell: UICollectionViewCell {
     }
 }
 
+//MARK: - CompletedTravelCellCollectionViewCellDelegate
+extension CompletedTravelCell: CompletedTravelCellCollectionViewCellDelegate {
+    func completedTravelCellCollectionViewCellDidTapDelete(at index: Int) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {[weak self] in
+            self?.deleteCompletedTravel(at: index)
+            self?.models.remove(at: index)
+            self?.updateSections()
+        }
+    }
+}
+
 extension CompletedTravelCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         self.models.count
