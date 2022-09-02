@@ -58,7 +58,6 @@ class SearchView: BaseView {
     private func bind() {
         searchBar
             .textDidChangePublisher
-            .debounce(for: 1, scheduler: RunLoop.main)
             .sink {[weak self] text in
                 guard let self = self else {return}
                 self.actionSubject.send(.searchTextDidChange(text))
