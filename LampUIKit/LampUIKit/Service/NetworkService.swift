@@ -361,8 +361,7 @@ final class NetworkService {
         print(requestUrl)
         AF.request(requestUrl, method: .get, encoding: JSONEncoding.default)
             .validate()
-            .responseDecodable(of: MyCharacter.self) {
-                response in
+            .responseDecodable(of: MyCharacter.self) { response in
                 completion( response.result)
             }
     }
