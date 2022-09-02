@@ -204,11 +204,6 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
         
         backgroundColor = .greyshWhite
         
-//        let starStackView = UIStackView(arrangedSubviews: [starRatingImageView, UIView()])
-//        starStackView.axis = .horizontal
-//        starStackView.alignment = .leading
-//        starStackView.distribution = .fillProportionally
-        
         let descriptionSv = UIStackView(arrangedSubviews: [descriptionLabel])
         descriptionSv.axis = .horizontal
         descriptionSv.alignment = .top
