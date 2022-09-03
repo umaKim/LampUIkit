@@ -28,7 +28,7 @@ class RecommendedLocationView: BaseWhiteView {
         cv.register(SearchRecommendationCollectionViewCell.self, forCellWithReuseIdentifier: SearchRecommendationCollectionViewCell.identifier)
         cv.backgroundColor = .greyshWhite
         cv.keyboardDismissMode = .onDrag
-        cv.contentInset = .init(top: 0, left: 0, bottom: 80, right: 0)
+        cv.contentInset = .init(top: 16, left: 0, bottom: 80, right: 0)
         return cv
     }()
     
