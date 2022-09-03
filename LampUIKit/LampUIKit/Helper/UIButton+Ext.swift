@@ -37,3 +37,13 @@ extension UIButton {
         return bt
     }
 }
+
+extension UIButton {
+    func showLoading() {
+        configuration?.showsActivityIndicator = true
+    }
+    
+    func hideLoading() {
+        configuration?.showsActivityIndicator = false
+    }
+}
