@@ -36,12 +36,12 @@ class MyCharacterViewModel: BaseViewModel {
                 self.characterData = .init(characterName: info.nickName,
                                            level: "\(info.characterLevel)",
                                            imageString: info.characterImageUrl,
-                                           averageStat: "\(info.totalExp)",
+                                           averageStat: "\(info.avgExp)",
                                            mileage: "\(info.points)",
                                            gaugeDatum: [
-                                            .init(name: "탐구 게이지", rate: "\(info.exploreExp) / \(50)"),
-                                            .init(name: "인싸 게이지", rate: "\(info.socialExp) / \(50)"),
-                                            .init(name: "여행 게이지", rate: "\(info.travelExp) / \(50)")
+                                            .init(name: "탐구 게이지", rate: info.exploreExp),
+                                            .init(name: "인싸 게이지", rate: info.socialExp),
+                                            .init(name: "여행 게이지", rate: info.travelExp)
                                            ])
                 self.notifySubject.send(.reload)
             case .failure(let error):
