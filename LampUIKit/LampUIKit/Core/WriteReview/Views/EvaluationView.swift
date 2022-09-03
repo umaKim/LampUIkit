@@ -22,7 +22,7 @@ final class EvaluationView: BaseWhiteView {
     private let actionSubject = PassthroughSubject<EvaluationViewAction, Never>()
     
     private let titleLabel: UILabel = {
-       let lb = UILabel()
+        let lb = UILabel()
         lb.text = "만족도"
         lb.textAlignment = .left
         lb.textColor = .black
@@ -87,7 +87,7 @@ extension EvaluationView: UICollectionViewDataSource {
         guard
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EvaluationCollectionViewCell.identifier,
                                                           for: indexPath) as? EvaluationCollectionViewCell
-        else {return UICollectionViewCell() }
+        else { return UICollectionViewCell() }
         cell.configure(with: elements[indexPath.item])
         return cell
     }
