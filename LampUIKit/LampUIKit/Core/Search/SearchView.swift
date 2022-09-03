@@ -26,8 +26,6 @@ class SearchView: BaseView {
     private(set) lazy var acationPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<SearchViewAction, Never>()
     
-    private(set) lazy var searchBar = UISearchBar(frame: .init(x: 0, y: 0, width: self.frame.width, height: 64))
-    
     private(set) var dismissButton: UIBarButtonItem = {
         let bt = UIBarButtonItem(image: .back, style: .done, target: nil, action: nil)
         return bt
@@ -46,10 +44,19 @@ class SearchView: BaseView {
         return cv
     }()
     
+    private(set) lazy var searchController = UISearchController(searchResultsController: nil)
+    
+    func setupSearchController() {
+        searchController.searchBar.placeholder = "검색"
+        searchController.hidesNavigationBarDuringPresentation = false
+    }
+    
     override init() {
         super.init()
         bind()
         setupUI()
+        
+        setupSearchController()
     }
     
     func reload() {
@@ -57,6 +64,8 @@ class SearchView: BaseView {
     }
     
     private func bind() {
+        let searchBar = searchController.searchBar
+        
         searchBar
             .textDidChangePublisher
             .sink {[weak self] text in
@@ -109,7 +118,7 @@ class SearchView: BaseView {
     }
     
     private func setupUI() {
-        let sv = UIStackView(arrangedSubviews: [searchBar, collectionView])
+        let sv = UIStackView(arrangedSubviews: [collectionView])
         sv.alignment = .fill
         sv.distribution = .fill
         sv.axis = .vertical
