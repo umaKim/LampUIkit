@@ -123,13 +123,6 @@ class LocationDetailViewBodyCell: UICollectionViewCell {
         foodView.setSubtitle(RatingStandard.food[foodIndex])
     }
     
-    override init(frame: CGRect) {
-        self.cancellables = .init()
-        super.init(frame: frame)
-        bind()
-        setupUI()
-    }
-    
     private func bind() {
         showDetailButton
             .tapPublisher
@@ -139,8 +132,6 @@ class LocationDetailViewBodyCell: UICollectionViewCell {
             }
             .store(in: &cancellables)
     }
-    
-    private var cancellables: Set<AnyCancellable>
     
     private func setupUI() {
         let verticalSv = UIStackView(arrangedSubviews: [satisfyView, atmosphereView, surroundingView, foodView])
@@ -225,16 +216,6 @@ class ReviewLabel: UIView {
             sv.bottomAnchor.constraint(equalTo: bottomAnchor),
             sv.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
-        
-//        if setRoundDesign {
-//            subTitleLabel.layer.cornerRadius = 8
-//            subTitleLabel.layer.borderWidth = 1
-//            subTitleLabel.layer.borderColor = UIColor.midNavy.cgColor
-////            subTitleLabel.sizeToFit()
-//            subTitleLabel.frame = CGRect(x: 0, y: 0,
-//                                         width: subTitleLabel.frame.width + 16,
-//                                         height: subTitleLabel.frame.height + 6)
-//        }
     }
     
     required init?(coder: NSCoder) {

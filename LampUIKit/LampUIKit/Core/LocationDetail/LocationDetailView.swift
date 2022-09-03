@@ -38,13 +38,6 @@ final class LocationDetailView: BaseWhiteView {
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<LocationDetailViewAction, Never>()
     
-    private typealias DataSource = UICollectionViewDiffableDataSource<Section, String>
-    private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, String>
-    
-    enum Section { case main }
-    
-    private var dataSource: DataSource?
-    
     private lazy var locationImageView: UICollectionView = {
         let cl = UICollectionViewFlowLayout()
         cl.scrollDirection = .horizontal
@@ -69,11 +62,6 @@ final class LocationDetailView: BaseWhiteView {
     
     private let dividerView = DividerView()
     
-    private let label1: LocationDescriptionView = LocationDescriptionView("", description: "")
-    private let label2: LocationDescriptionView = LocationDescriptionView("", description: "")
-    private let label3: LocationDescriptionView = LocationDescriptionView("", description: "")
-    private let label4: LocationDescriptionView = LocationDescriptionView("", description: "")
-    private let label5: LocationDescriptionView = LocationDescriptionView("", description: "")
     
     public func configureDetailInfo(_ locationDetail: LocationDetailData) {
         
@@ -128,30 +116,9 @@ final class LocationDetailView: BaseWhiteView {
         label4.isHidden = true
         label5.isHidden = true
     }
-    
-    private func configureImageViewCollecitonView() {
-        dataSource = DataSource(collectionView: locationImageView,
-                                cellProvider: {[weak self] collectionView, indexPath, itemIdentifier in
-            guard let self = self else {return nil}
-            guard
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: indexPath) as? ImageCollectionViewCell
-            else { return UICollectionViewCell() }
-            cell.configure(self.photoUrls[indexPath.item])
-            cell.isDeleteButtonHidden = true
-            return cell
-        })
-    }
-    
+
     private var photoUrls: [String] = []
-    private var photoUrlsForCell: [String] = []
-    
-    private func updateSections() {
-        var snapshot = Snapshot()
-        snapshot.appendSections([.main])
-        snapshot.appendItems(photoUrlsForCell)
-        dataSource?.apply(snapshot, animatingDifferences: true)
-    }
-    
+
     private lazy var addToMyTravelButton = RectangleTextButton("내 여행지로 추가", background: .midNavy, textColor: .white, fontSize: 17)
     
     private lazy var totalTravelReviewView = TotalTravelReviewView()
@@ -210,8 +177,6 @@ final class LocationDetailView: BaseWhiteView {
         
         bind()
         setupUI()
-        
-        configureImageViewCollecitonView()
     }
     
     private func bind() {

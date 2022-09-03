@@ -111,8 +111,6 @@ class InitialQuizViewModel: BaseViewModel {
         }
     }
     
-    private var uid: String = ""
-    
     private func resultProcess() {
         notifySubject.send(.finishInitialQuiz)
     }

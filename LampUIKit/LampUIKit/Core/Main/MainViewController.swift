@@ -53,7 +53,6 @@ class MainViewController: BaseViewContronller {
         let camera = GMSCameraPosition.camera(withTarget: coord, zoom: viewModel.zoom)
        
         setGMPadding()
-
         contentView.mapView.animate(to: camera)
     }
     
@@ -65,7 +64,6 @@ class MainViewController: BaseViewContronller {
                 
             case .tip:
                 self.contentView.mapView.padding = .init(top: 100, left: 0, bottom: 85.0, right: 0)
-                
             default:
                 break
             }
@@ -364,7 +362,6 @@ extension MainViewController: SearchViewControllerDelegate {
     func searchViewControllerDidTapMapPin(at location: RecommendedLocation) {
         viewModel.appendPlace(location)
         addMarker(of: location, isSelected: true)
-        
         guard
             let lat = Double(location.mapY),
             let long = Double(location.mapX)

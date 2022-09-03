@@ -109,11 +109,6 @@ class SearchView: BaseView {
     }
     
     private func setupUI() {
-        searchBar.searchTextField.textColor = .midNavy
-        searchBar.tintColor = .midNavy
-        searchBar.barTintColor = .whiteGrey
-        searchBar.searchBarStyle = .prominent
-        
         let sv = UIStackView(arrangedSubviews: [searchBar, collectionView])
         sv.alignment = .fill
         sv.distribution = .fill

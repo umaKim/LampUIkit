@@ -9,7 +9,6 @@ import UIKit
 
 protocol LocationDetailViewControllerDelegate: AnyObject {
     func locationDetailViewControllerDidTapDismissButton()
-    func locationDetailViewControllerDidTapMapButton(_ location: RecommendedLocation)
     func locationDetailViewControllerDidTapBackButton()
 }
 
@@ -42,7 +41,6 @@ final class LocationDetailViewController: BaseViewContronller {
             navigationItem.leftBarButtonItems = [contentView.backButton]
         }
         
-        setStatusBar()
         bind()
         
         let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.black]
@@ -51,8 +49,6 @@ final class LocationDetailViewController: BaseViewContronller {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        navigationController?.setNavigationBarHidden(false, animated: false)
         viewModel.fetchLocationDetail()
     }
     

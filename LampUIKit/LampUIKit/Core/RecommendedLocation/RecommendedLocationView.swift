@@ -34,19 +34,19 @@ class RecommendedLocationView: BaseWhiteView {
     
     private(set) lazy var searchButton: UIButton = {
        let bt = UIButton()
-        bt.setImage(UIImage(systemName: "person"), for: .normal)
-        return bt
-    }()
-    
-    private(set) lazy var myCharacter: UIButton = {
-       let bt = UIButton()
-        bt.setImage(UIImage(systemName: "house"), for: .normal)
+        bt.setImage(UIImage(named: "Search"), for: .normal)
         return bt
     }()
     
     private(set) lazy var travelButton: UIButton = {
        let bt = UIButton()
-        bt.setImage(UIImage(systemName: "circle"), for: .normal)
+        bt.setImage(UIImage(named: "myTravel"), for: .normal)
+        return bt
+    }()
+    
+    private(set) lazy var myCharacter: UIButton = {
+       let bt = UIButton()
+        bt.setImage(UIImage(named: "myCharacter"), for: .normal)
         return bt
     }()
     
@@ -69,24 +69,24 @@ class RecommendedLocationView: BaseWhiteView {
             }
             .store(in: &cancellables)
         
-        myCharacter
-            .tapPublisher
-            .sink {[weak self] _ in
-                self?.actionSubject.send(.myCharacter)
-            }
-            .store(in: &cancellables)
-        
         travelButton
             .tapPublisher
             .sink {[weak self] _ in
                 self?.actionSubject.send(.myTravel)
             }
             .store(in: &cancellables)
+        
+        myCharacter
+            .tapPublisher
+            .sink {[weak self] _ in
+                self?.actionSubject.send(.myCharacter)
+            }
+            .store(in: &cancellables)
     }
     
     private func setupUI() {
         
-        customNavigationbar.setRightSideItems([searchButton, myCharacter, travelButton])
+        customNavigationbar.setRightSideItems([searchButton, travelButton, myCharacter])
         
         [customNavigationbar, collectionView].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
