@@ -110,6 +110,13 @@ class SearchViewController: BaseViewContronller {
             }
             .store(in: &cancellables)
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let position = scrollView.contentOffset.y
+        if position > (contentView.collectionView.contentSize.height - 100 - scrollView.frame.size.height) {
+            self.viewModel.fetchSearchKeywordData()
+        }
+    }
 }
 
 extension SearchViewController: SearchRecommendationCollectionViewCellDelegate {
