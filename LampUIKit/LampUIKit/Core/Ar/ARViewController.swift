@@ -92,15 +92,10 @@ class ARViewController: UIViewController {
         let coordinate = CLLocationCoordinate2D(latitude: lat,
                                                 longitude: long)
         let location6 = CLLocation(coordinate: coordinate, altitude: 300)
-//        let image6 = UIImage(named: "balloon")
-        
-//        let annotationNode = LocationAnnotationNode(location: location6, image: image6!)
         let loc = viewModel.location
-        print(loc.title)
-        print(loc.addr)
         let customBalloon = CustomBalloonView(title: loc.title, subtitle: loc.addr, imageUrlString: loc.image)
        let annotationNode = LocationAnnotationNode(location: location6, view: customBalloon)
-        annotationNode.ignoreAltitude = true
+//        annotationNode.ignoreAltitude = true
         
         contentView
             .sceneLocationView
@@ -117,11 +112,6 @@ class ARViewController: UIViewController {
             switch action {
             case .dismiss:
                 self.dismiss(animated: true)
-                
-            case .add:
-                //ADD object
-                // on Screen
-                break
             }
         }
         .store(in: &cancellables)

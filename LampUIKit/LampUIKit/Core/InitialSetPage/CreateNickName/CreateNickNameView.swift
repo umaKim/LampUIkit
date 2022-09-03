@@ -11,6 +11,7 @@ import UIKit
 enum CreateNickNameViewAction {
     case textFieldDidChange(String)
     case createAccountButtonDidTap
+    case doneKeyboard
 }
 
 class CreateNickNameView: BaseView {
@@ -36,6 +37,9 @@ class CreateNickNameView: BaseView {
         setupUI()
     }
     
+    private let toolBar = UIToolbar()
+    private let doneButton = UIBarButtonItem(title: "Done", style: .done, target: nil, action: nil)
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -48,6 +52,14 @@ class CreateNickNameView: BaseView {
     }
     
     private func bind() {
+        doneButton
+            .tapPublisher
+            .sink {[weak self] _ in
+                guard let self = self else {return }
+                self.actionSubject.send(.doneKeyboard)
+            }
+            .store(in: &cancellables)
+        
         nickNameTextField
             .textPublisher
             .compactMap({$0})
@@ -67,6 +79,9 @@ class CreateNickNameView: BaseView {
     }
     
     private func setupUI() {
+        toolBar.items = [doneButton]
+        toolBar.sizeToFit()
+        nickNameTextField.inputAccessoryView = toolBar
         
         [titleImage, nickNameTextField, createAccountButton].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false

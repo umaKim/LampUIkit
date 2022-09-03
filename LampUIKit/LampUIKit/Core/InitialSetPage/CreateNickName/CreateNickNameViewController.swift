@@ -48,6 +48,9 @@ class CreateNickNameViewController: BaseViewContronller {
                 case .textFieldDidChange(let text):
                     HapticManager.shared.feedBack(with: .soft)
                     self.viewModel.textDidChange(to: text)
+                    
+                case .doneKeyboard:
+                    self.view.endEditing(true)
                 }
             }
             .store(in: &cancellables)

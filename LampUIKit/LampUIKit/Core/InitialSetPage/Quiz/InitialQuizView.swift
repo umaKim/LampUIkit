@@ -26,12 +26,16 @@ class AnswerButton: UIButton {
         backgroundColor = .darkNavy
         layer.borderWidth = 2
         layer.borderColor = UIColor.midNavy.cgColor
+        layer.cornerRadius = 5
         widthAnchor.constraint(equalToConstant: 280).isActive = true
         heightAnchor.constraint(equalToConstant: 60).isActive = true
         
         titleLabel?.numberOfLines = 0; // Dynamic number of lines
         titleLabel?.lineBreakMode = .byWordWrapping;
         titleLabel?.textAlignment = .center
+        titleLabel?.font = .systemFont(ofSize: 17, weight: .bold)
+        
+        clipsToBounds = true
         
         titleEdgeInsets = UIEdgeInsets(top: 10,left: 10,bottom: 10,right: 10)
     }

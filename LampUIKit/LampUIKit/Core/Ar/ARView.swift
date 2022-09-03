@@ -13,7 +13,6 @@ import CombineCocoa
 
 enum ARViewAction {
     case dismiss
-    case add
 }
 
 final class ARView: BaseView {
@@ -24,32 +23,21 @@ final class ARView: BaseView {
     
     private let dismissButton: UIButton = {
         let bt = UIButton()
-        bt.setImage(UIImage(systemName: "xmark.circle"), for: .normal)
-        return bt
-    }()
-    
-    private let addButton: UIButton = {
-       let bt = UIButton()
-        bt.setTitle("Add", for: .normal)
+        bt.setImage(.xmark, for: .normal)
         return bt
     }()
     
     override init() {
         super.init()
         
-        addButton.tapPublisher.sink { _ in
-            self.actionSubject.send(.add)
-        }
-        .store(in: &cancellables)
-        
         dismissButton
             .tapPublisher
-            .sink { _ in
-                self.actionSubject.send(.dismiss)
+            .sink {[weak self] _ in
+                self?.actionSubject.send(.dismiss)
             }
             .store(in: &cancellables)
         
-        [sceneLocationView, addButton, dismissButton].forEach { uv in
+        [sceneLocationView, dismissButton].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
             addSubview(uv)
         }
@@ -59,9 +47,6 @@ final class ARView: BaseView {
             sceneLocationView.trailingAnchor.constraint(equalTo: trailingAnchor),
             sceneLocationView.bottomAnchor.constraint(equalTo: bottomAnchor),
             sceneLocationView.topAnchor.constraint(equalTo: topAnchor),
-            
-            addButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            addButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: 26),
             
             dismissButton.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             dismissButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)

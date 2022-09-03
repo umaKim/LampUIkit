@@ -15,7 +15,8 @@ class InitialSetPageViewController: BaseViewContronller {
         lb.textColor = .greyshWhite
         lb.numberOfLines = 4
         lb.textAlignment = .center
-        lb.font = .robotoBold(20)
+//        lb.font = .robotoBold(20)
+        lb.font = .systemFont(ofSize: 20, weight: .bold)
         return lb
     }()
     
@@ -34,8 +35,6 @@ class InitialSetPageViewController: BaseViewContronller {
     init(vm: InitialSetPageViewModel) {
         self.viewModel = vm
         super.init()
-        
-       
     }
     
     required init?(coder: NSCoder) {
