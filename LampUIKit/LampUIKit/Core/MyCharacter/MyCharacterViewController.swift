@@ -56,6 +56,7 @@ class MyCharacterViewController: BaseViewContronller {
             .actionPublisher
             .sink {[weak self] action in
                 guard let self = self else {return}
+                HapticManager.shared.feedBack(with: .medium)
                 switch action {
                 case .gear:
                     let vm = MyPageViewModel()
