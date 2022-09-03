@@ -31,7 +31,7 @@ class WriteReviewView: BaseWhiteView, ImageCollectionViewCellDelegate {
     
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<WriteReviewViewAction, Never>()
-
+    
     private typealias DataSource = UICollectionViewDiffableDataSource<Section, UIImage>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, UIImage>
     
@@ -42,7 +42,7 @@ class WriteReviewView: BaseWhiteView, ImageCollectionViewCellDelegate {
     private var delegate: ContentViewDelegate = ContentViewDelegate()
     
     private let contentScrollView: UIScrollView = {
-       let sv = UIScrollView()
+        let sv = UIScrollView()
         sv.showsVerticalScrollIndicator = false
         return sv
     }()
