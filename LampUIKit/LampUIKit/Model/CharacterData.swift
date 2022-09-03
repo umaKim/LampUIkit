@@ -18,5 +18,5 @@ struct CharacterData {
 
 struct GaugeData: Decodable, Hashable {
     let name: String
-    let rate: String
+    let rate: Int
 }
