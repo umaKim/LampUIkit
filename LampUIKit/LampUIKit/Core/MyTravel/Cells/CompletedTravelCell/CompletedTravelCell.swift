@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol CompletedTravelCellDelegate: AnyObject {
+    func completedTravelCellDidTapDelete(at index: Int)
+    func completedTravelCellDidTap(_ item: MyCompletedTripLocation)
+}
+
 final class CompletedTravelCell: UICollectionViewCell {
     static let identifier = "CompletedTravelCell"
     
@@ -16,6 +21,8 @@ final class CompletedTravelCell: UICollectionViewCell {
     enum Section { case main }
     
     private var dataSource: DataSource?
+    
+    weak var delegate: CompletedTravelCellDelegate?
     
     private lazy var collectionView: UICollectionView = {
         let cl = UICollectionViewFlowLayout()
@@ -162,6 +169,7 @@ extension CompletedTravelCell: CompletedTravelCellCollectionViewCellDelegate {
 
 extension CompletedTravelCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        delegate?.completedTravelCellDidTap(models[indexPath.item])
     }
 }
 
