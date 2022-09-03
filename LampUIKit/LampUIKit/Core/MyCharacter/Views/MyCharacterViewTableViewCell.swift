@@ -41,12 +41,9 @@ class MyCharacterViewTableViewCell: UITableViewCell {
     
     public func configure(with data: GaugeData) {
         self.titleLabel.text = data.name
-        
-        if let progress = Int(data.rate) {
-            self.barView.setProgress(Float(progress/100), animated: true)
-        }
-        
-        numberLabel.setText("\(data.rate)")
+        self.barView.setProgress(Float( Double(data.rate) / 50.0),
+                                 animated: true)
+        numberLabel.setText("\(data.rate) / 50")
     }
     
     private func setupUI() {
