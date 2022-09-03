@@ -4,7 +4,8 @@
 //
 //  Created by 김윤석 on 2022/07/18.
 //
-
+import CombineCocoa
+import Combine
 import UIKit
 
 protocol CompletedTravelCellDelegate: AnyObject {
@@ -60,6 +61,7 @@ final class CompletedTravelCell: UICollectionViewCell {
     
     private var models: [MyCompletedTripLocation] = []
     
+    public func configure() {
         updateSections()
     }
     
