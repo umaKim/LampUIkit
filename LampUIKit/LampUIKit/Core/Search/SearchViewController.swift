@@ -47,8 +47,12 @@ class SearchViewController: BaseViewContronller {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.searchController = contentView.searchController
+        navigationItem.title = "Search"
+        navigationItem.hidesSearchBarWhenScrolling = false
+        
         navigationController?.setNavigationBarHidden(false, animated: false)
-        contentView.searchBar.placeholder = "검색어 입력"
+        contentView.searchController.searchBar.placeholder = "검색어 입력"
 //        navigationItem.titleView = contentView.searchBar
         
         navigationItem.leftBarButtonItems = [contentView.dismissButton]
@@ -85,10 +89,13 @@ class SearchViewController: BaseViewContronller {
                     self.delegate?.searchViewControllerDidTapDismiss()
                     
                 case .searchTextDidChange(let text):
-                    self.viewModel.search(text)
+                    self.viewModel.setKeyword(text)
                     
                 case .searchDidBeginEditing:
                     self.delegate?.searchBarDidTap()
+                    
+                case .didTapSearchButton:
+                    self.viewModel.searchButtonDidTap()
                 }
             }
             .store(in: &cancellables)
@@ -129,7 +136,7 @@ extension SearchViewController: SearchRecommendationCollectionViewCellDelegate {
     }
     
     func didTapMapPin(location: RecommendedLocation) {
-        contentView.searchBar.endEditing(true)
+        contentView.searchController.searchBar.endEditing(true)
         delegate?.searchViewControllerDidTapMapPin(at: location)
     }
     
