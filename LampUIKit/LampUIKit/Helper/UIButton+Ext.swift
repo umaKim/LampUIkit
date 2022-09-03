@@ -22,6 +22,8 @@ extension UIButton {
         configuration.imagePlacement = placement
         configuration.imagePadding = imagePadding
         configuration.subtitle = subTitle
+        configuration.activityIndicatorColorTransformer = .init({ color in .darkNavy
+        })
         
         let transformer = UIConfigurationTextAttributesTransformer { incoming in
             var outgoing = incoming
