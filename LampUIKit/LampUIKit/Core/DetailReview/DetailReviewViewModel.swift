@@ -33,7 +33,7 @@ class DetailReviewViewModel: BaseViewModel {
     
     private func fetchReviews() {
         NetworkService.shared.fetchReviews(location.contentId) {[weak self] result in
-            guard let self = self else {return}
+            guard let self = self else { return }
             switch result {
             case .success(let reviews):
                 self.reviews = reviews
