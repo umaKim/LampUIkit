@@ -313,8 +313,8 @@ class DetailReviewViewCollectionViewCell: UICollectionViewCell {
         }
         
         commentLabel.text = review.content
-        likeButton.configuration?.subtitle = "\(review.numLiked ?? 0)"
-        likeButton.isSelected = review.reviewILiked ?? false
+        likeButton.configuration?.subtitle = "\(review.numLiked)"
+        likeButton.isSelected = review.reviewILiked
     }
     
     required init?(coder: NSCoder) {
