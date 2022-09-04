@@ -83,6 +83,14 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell {
         timeLabel.text = location.placeInfo
         addressLabel.text = location.placeAddress
     }
+    
+    var showDeleButton: Bool? {
+        didSet{
+            deleteButton.isHidden = !(showDeleButton ?? false)
+            completeTripButton.isHidden = showDeleButton ?? true
+        }
+    }
+    
     public func bind() {
         deleteButton.tapPublisher.sink { _ in
             self.delegate?.myTravelCellCollectionViewCellDidTapDelete(at: self.tag)
