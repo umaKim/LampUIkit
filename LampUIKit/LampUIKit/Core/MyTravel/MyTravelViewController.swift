@@ -108,6 +108,20 @@ extension MyTravelViewController: FavoriteCellDelegate {
     }
 }
 
+//MARK: - CompletedTravelCellDelegate
+extension MyTravelViewController: CompletedTravelCellDelegate {
+    func completedTravelCellDidTap(_ item: MyCompletedTripLocation) {
+        let vm = LocationDetailViewModel(item)
+        let vc = LocationDetailViewController(vm: vm)
+        vc.delegate = self
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func completedTravelCellDidTapDelete(at index: Int) {
+//        viewModel.deleteMyTravel(at: index)
+    }
+}
+
 extension MyTravelViewController: LocationDetailViewControllerDelegate {
     func locationDetailViewControllerDidTapNavigate(_ location: RecommendedLocation) {
         self.delegate?.myTravelViewControllerDidTapNavigation(location)
