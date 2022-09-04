@@ -78,6 +78,10 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         configureShadow(0.4)
+        bind()
+        setupUI()
+    }
+    
     public func configure(_ location: MyTravelLocation) {
         titleLabel.text = location.placeName
         timeLabel.text = location.placeInfo
@@ -103,6 +107,8 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell {
         .store(in: &cancellables)
         
     }
+    
+    private func setupUI() {
         
         let totalSv = UIStackView(arrangedSubviews: [titleLabel, timeLabel, addressLabel])
         totalSv.axis = .vertical
