@@ -219,7 +219,12 @@ class DetailReviewViewCollectionViewCell: UICollectionViewCell {
     private var cancellables: Set<AnyCancellable>
     
     private func bind() {
-        likeButton.tapPublisher.sink { _ in
+        likeButton.tapPublisher.sink {[weak self] _ in
+            guard
+                let self = self,
+                let reviewData = self.reviewData
+            else {return }
+            
             self.likeButton.isSelected.toggle()
             if self.likeButton.isSelected {
                 let numLiked = (self.reviewData?.numLiked ?? 0) + 1
