@@ -227,11 +227,16 @@ class DetailReviewViewCollectionViewCell: UICollectionViewCell {
             
             self.likeButton.isSelected.toggle()
             if self.likeButton.isSelected {
-                let numLiked = (self.reviewData?.numLiked ?? 0) + 1
-                self.likeButton.configuration?.subtitle = "\(numLiked)"
+                if reviewData.reviewILiked {
+                    let numLiked = (self.reviewData?.numLiked)
+                    self.likeButton.configuration?.subtitle = "\(numLiked)"
+                } else {
+                    let numLiked = (reviewData.numLiked) + 1
+                    self.likeButton.configuration?.subtitle = "\(numLiked)"
+                }
                 self.delegate?.detailReviewViewCollectionViewCellDidTapLikeButton(self.tag)
             } else {
-                let numLiked = (self.reviewData?.numLiked ?? 0) - 1
+                let numLiked = (reviewData.numLiked) - 1
                 self.likeButton.configuration?.subtitle = "\(numLiked)"
                 self.delegate?.detailReviewViewCollectionViewCellDidTapUnlikeButton(self.tag)
             }
