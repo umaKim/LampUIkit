@@ -322,6 +322,20 @@ extension MainViewController: GMSMapViewDelegate {
     }
 }
 
+//MARK: - FloatingPanelControllerDelegate
+extension MainViewController: FloatingPanelControllerDelegate {
+    func floatingPanelDidMove(_ fpc: FloatingPanelController) {
+        if fpc.state == .tip || fpc.state == .half {
+            view.endEditing(true)
+        }
+        setGMPadding()
+    }
+    
+    func floatingPanel(_ vc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout {
+        return FloatingPanelLampLayout()
+    }
+}
+
 //MARK: - LocationDetailViewControllerDelegate
 extension MainViewController: LocationDetailViewControllerDelegate {
     func locationDetailViewControllerDidTapNavigate(_ location: RecommendedLocation) {
