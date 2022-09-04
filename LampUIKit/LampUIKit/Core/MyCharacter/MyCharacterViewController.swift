@@ -150,7 +150,7 @@ class GraphHeaderView: UIView {
         _ numerator: Float,
         _ denomenator: Float
     ) {
-        numberLabel.setText("\(numerator) / \(denomenator)")
+        numberLabel.setText("\(Int(numerator)) / \(Int(denomenator))")
         graphView.setProgress(numerator/denomenator, animated: true)
     }
     
