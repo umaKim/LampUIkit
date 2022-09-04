@@ -5,7 +5,7 @@
 //  Created by 김윤석 on 2022/09/04.
 //
 
-import Foundation
+import UIKit
 
 extension String {
     var htmlToAttributedString: NSAttributedString? {
