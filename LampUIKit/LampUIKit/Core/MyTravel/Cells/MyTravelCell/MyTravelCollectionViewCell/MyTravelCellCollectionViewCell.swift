@@ -78,6 +78,18 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         configureShadow(0.4)
+    public func bind() {
+        deleteButton.tapPublisher.sink { _ in
+            self.delegate?.myTravelCellCollectionViewCellDidTapDelete(at: self.tag)
+        }
+        .store(in: &cancellables)
+        
+        completeTripButton.tapPublisher.sink { _ in
+            self.delegate?.myTravelCellCollectionViewCellDidTapComplete(at: self.tag)
+        }
+        .store(in: &cancellables)
+        
+    }
         
         let totalSv = UIStackView(arrangedSubviews: [titleLabel, timeLabel, addressLabel])
         totalSv.axis = .vertical
