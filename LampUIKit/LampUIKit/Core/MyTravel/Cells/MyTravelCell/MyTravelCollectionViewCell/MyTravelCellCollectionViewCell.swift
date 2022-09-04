@@ -78,6 +78,11 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         configureShadow(0.4)
+    public func configure(_ location: MyTravelLocation) {
+        titleLabel.text = location.placeName
+        timeLabel.text = location.placeInfo
+        addressLabel.text = location.placeAddress
+    }
     public func bind() {
         deleteButton.tapPublisher.sink { _ in
             self.delegate?.myTravelCellCollectionViewCellDidTapDelete(at: self.tag)
