@@ -61,6 +61,10 @@ final class LocationDetailView: BaseWhiteView {
     
     private let buttonSv = LocationDetailViewHeaderCellButtonStackView()
     
+    public func scrollToButtonSv() {
+        contentScrollView.setContentOffset(.init(x: 0, y: locationImageView.frame.height + 16), animated: true)
+    }
+    
     private let dividerView = DividerView()
     
     
