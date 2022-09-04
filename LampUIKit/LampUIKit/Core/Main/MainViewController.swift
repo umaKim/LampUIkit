@@ -397,7 +397,13 @@ extension MainViewController: MyTravelViewControllerDelegate {
     }
     
     func myTravelViewControllerDidTapMapButton(_ location: RecommendedLocation) {
+        fpc.move(to: .half, animated: true)
+        guard
+            let lat = Double(location.mapY),
+            let long = Double(location.mapX)
+        else { return }
         
+        self.moveTo(.init(latitude: lat, longitude: long))
     }
     
     func myTravelViewDidTap(_ item: MyTravelLocation) {
