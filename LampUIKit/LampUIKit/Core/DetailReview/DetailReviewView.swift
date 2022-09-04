@@ -249,6 +249,7 @@ class DetailReviewViewCollectionViewCell: UICollectionViewCell {
             .tapPublisher
             .sink {[weak self] _ in
                 guard let self = self else {return }
+                HapticManager.shared.feedBack(with: .heavy)
                 self.reportButton.isSelected.toggle()
                 self.delegate?.detailReviewViewCollectionViewCellDidTapReportButton(self.tag)
             }
