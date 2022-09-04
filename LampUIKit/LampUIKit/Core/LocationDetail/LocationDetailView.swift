@@ -51,6 +51,8 @@ final class LocationDetailView: BaseWhiteView {
         return cv
     }()
     
+    private lazy var pageControl: UIPageControl = UIPageControl()
+    
     private(set) var contentScrollView: UIScrollView = {
        let sv = UIScrollView()
         sv.showsVerticalScrollIndicator = false
@@ -145,8 +147,8 @@ final class LocationDetailView: BaseWhiteView {
     
     public func configure(with images: [String]) {
         photoUrls = images
-        photoUrlsForCell = images.map({$0 + UUID().uuidString})
-        updateSections()
+        pageControl.numberOfPages = images.count
+        locationImageView.reloadData()
     }
     
     public func showSkeleton() {
@@ -269,8 +271,12 @@ final class LocationDetailView: BaseWhiteView {
         labelStackView.spacing = 16
         labelStackView.axis = .vertical
         
+        pageControl.currentPage = 0
+        pageControl.isUserInteractionEnabled = true
+        
         [
             locationImageView,
+            pageControl,
             buttonSv,
             dividerView,
             labelStackView,
@@ -302,6 +308,10 @@ final class LocationDetailView: BaseWhiteView {
             locationImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             locationImageView.widthAnchor.constraint(equalToConstant: UIScreen.main.width - 32),
             locationImageView.heightAnchor.constraint(equalToConstant: UIScreen.main.width / 1.5),
+            
+            pageControl.centerXAnchor.constraint(equalTo: locationImageView.centerXAnchor),
+            pageControl.bottomAnchor.constraint(equalTo: locationImageView.bottomAnchor),
+            pageControl.heightAnchor.constraint(equalToConstant: 50),
             
             buttonSv.topAnchor.constraint(equalTo: locationImageView.bottomAnchor),
             buttonSv.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
@@ -344,6 +354,16 @@ extension LocationDetailView: UICollectionViewDataSource {
         cell.configure(self.photoUrls[indexPath.item])
         cell.isDeleteButtonHidden = true
         return cell
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let width = scrollView.bounds.size.width
+        let x = scrollView.contentOffset.x + (width/2)
+        
+        let newPage = Int(x / width)
+        if pageControl.currentPage != newPage {
+            pageControl.currentPage = newPage
+        }
     }
 }
 
