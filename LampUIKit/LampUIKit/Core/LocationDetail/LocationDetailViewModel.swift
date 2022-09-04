@@ -76,6 +76,17 @@ final class LocationDetailViewModel: BaseViewModel {
     ) {
         self.init()
         
+        self.location = .init(image: nil,
+                              contentId: myCompletedLocation.contentId,
+                              contentTypeId: myCompletedLocation.contentTypeId,
+                              title: myCompletedLocation.placeName,
+                              addr: myCompletedLocation.placeAddress,
+                              rate: nil,
+                              bookMarkIdx: "",
+                              isBookMarked: myCompletedLocation.isBookMarked,
+                              mapX: myCompletedLocation.mapX,
+                              mapY: myCompletedLocation.mapY,
+                              planIdx: myCompletedLocation.planIdx)
     }
     
     public func save() {
@@ -84,9 +95,9 @@ final class LocationDetailViewModel: BaseViewModel {
         }
         notifySubject.send(.startLoading)
         NetworkService.shared.updateBookMark(of: location.contentId, 
-                                             location.mapX,
-                                             location.mapY,
-                                             location.contentTypeId,
+                                             contentTypeId: location.contentTypeId,
+                                             mapx: location.mapX,
+                                             mapY: location.mapY,
                                              placeName: location.title,
                                              placeAddr: location.addr,
                                              completion: {[weak self] result in

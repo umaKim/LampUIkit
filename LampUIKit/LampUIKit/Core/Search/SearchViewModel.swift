@@ -137,9 +137,9 @@ class SearchViewModel: BaseViewModel {
         locations[index].isBookMarked.toggle()
         let location = locations[index]
         NetworkService.shared.updateBookMark(of: location.contentId,
-                                             location.mapX,
-                                             location.mapY,
-                                             location.contentTypeId,
+                                             contentTypeId: location.contentTypeId,
+                                             mapx: location.mapX,
+                                             mapY: location.mapY,
                                              placeName: location.title,
                                              placeAddr: location.addr,
                                              completion: {[weak self] result in
