@@ -185,6 +185,7 @@ final class LocationDetailView: BaseWhiteView {
             .tapPublisher
             .sink {[weak self] _ in
                 guard let self = self else { return }
+                HapticManager.shared.feedBack(with: .heavy)
                 self.actionSubject.send(.back)
             }
             .store(in: &cancellables)
@@ -193,6 +194,7 @@ final class LocationDetailView: BaseWhiteView {
             .tapPublisher
             .sink {[weak self] _ in
                 guard let self = self else { return }
+                HapticManager.shared.feedBack(with: .heavy)
                 self.actionSubject.send(.dismiss)
             }
             .store(in: &cancellables)
@@ -201,6 +203,7 @@ final class LocationDetailView: BaseWhiteView {
             .actionPublisher
             .sink {[weak self] action in
                 guard let self = self else { return }
+                HapticManager.shared.feedBack(with: .heavy)
                 switch action {
                 case .save:
                     self.actionSubject.send(.save)
@@ -221,6 +224,7 @@ final class LocationDetailView: BaseWhiteView {
             .tapPublisher
             .sink {[weak self] _ in
                 guard let self = self else {return}
+                HapticManager.shared.feedBack(with: .heavy)
                 self.addToMyTravelButton.isSelected.toggle()
                 if self.addToMyTravelButton.isSelected {
                     self.addToMyTravelButton.update("내여행지로 추가 취소", background: .systemGray, textColor: .white)
