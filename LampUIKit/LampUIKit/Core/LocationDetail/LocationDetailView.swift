@@ -69,6 +69,11 @@ final class LocationDetailView: BaseWhiteView {
     
     private let dividerView = DividerView()
     
+    private let label1: LocationDescriptionView = LocationDescriptionView("", description: "                                                     ")
+    private let label2: LocationDescriptionView = LocationDescriptionView("", description: "                                                     ")
+    private let label3: LocationDescriptionView = LocationDescriptionView("", description: "                                                     ")
+    private let label4: LocationDescriptionView = LocationDescriptionView("", description: "                                                     ")
+    private let label5: LocationDescriptionView = LocationDescriptionView("", description: "                                                     ")
     
     public func configureDetailInfo(_ locationDetail: LocationDetailData) {
         
@@ -191,6 +196,7 @@ final class LocationDetailView: BaseWhiteView {
     }
     
     private func bind() {
+        
         backButton
             .tapPublisher
             .sink {[weak self] _ in
