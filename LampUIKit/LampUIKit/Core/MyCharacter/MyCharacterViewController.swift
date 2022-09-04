@@ -197,6 +197,8 @@ final class HorizontalFillBar: UIProgressView {
     
         progressTintColor = fillerColor
         trackTintColor = trackColor
+        
+        heightAnchor.constraint(equalToConstant: height).isActive = true
     }
     
     required init?(coder: NSCoder) {
@@ -206,7 +208,6 @@ final class HorizontalFillBar: UIProgressView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        heightAnchor.constraint(equalToConstant: height).isActive = true
         layer.cornerRadius = height / 2
         clipsToBounds = true
     }
