@@ -225,6 +225,7 @@ class DetailReviewViewCollectionViewCell: UICollectionViewCell {
                 let reviewData = self.reviewData
             else {return }
             
+            HapticManager.shared.feedBack(with: .heavy)
             self.likeButton.isSelected.toggle()
             if self.likeButton.isSelected {
                 if reviewData.reviewILiked {
