@@ -284,6 +284,7 @@ extension MainViewController: CLLocationManagerDelegate {
     }
 }
 
+//MARK: - GMSMapViewDelegate
 extension MainViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
         let lat = position.target.latitude
@@ -381,7 +382,7 @@ extension MainViewController: SearchViewControllerDelegate {
         self.moveTo(.init(latitude: lat, longitude: long))
         
         self.view.endEditing(true)
-        fpc.move(to: .tip, animated: true)
+        fpc.move(to: .half, animated: true)
     }
     
     func searchViewControllerDidTapDismiss() {
