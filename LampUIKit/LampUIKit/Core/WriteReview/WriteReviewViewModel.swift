@@ -43,8 +43,8 @@ class WriteReviewViewModel: BaseViewModel {
         atmosphereRating != nil &&
         surroundingRating != nil &&
         foodRating != nil &&
-        comments != "" &&
-        !images.isEmpty
+        comments != ""
+//        !images.isEmpty
     }
     
     public func setStarRating(_ rating: CGFloat) {
@@ -131,7 +131,11 @@ class WriteReviewViewModel: BaseViewModel {
             case .success(let response):
                 print(response)
                 if response.isSuccess ?? false {
-                    self.postReviewImages()
+                    if !self.images.isEmpty {
+                        self.postReviewImages()
+                    } else {
+                        self.notifySubject.send(.dismiss)
+                    }
                     
                 } else {
                     self.notifySubject.send(.showMessage(response.message ?? ""))
