@@ -245,11 +245,14 @@ class DetailReviewViewCollectionViewCell: UICollectionViewCell {
         }
         .store(in: &cancellables)
         
-        reportButton.tapPublisher.sink { _ in
-            self.reportButton.isSelected.toggle()
-            self.delegate?.detailReviewViewCollectionViewCellDidTapReportButton(self.tag)
-        }
-        .store(in: &cancellables)
+        reportButton
+            .tapPublisher
+            .sink {[weak self] _ in
+                guard let self = self else {return }
+                self.reportButton.isSelected.toggle()
+                self.delegate?.detailReviewViewCollectionViewCellDidTapReportButton(self.tag)
+            }
+            .store(in: &cancellables)
     }
     
     private func setupUI() {
