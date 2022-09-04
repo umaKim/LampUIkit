@@ -43,10 +43,11 @@ final class LocationDetailView: BaseWhiteView {
         cl.scrollDirection = .horizontal
         let cv = UICollectionView(frame: .zero, collectionViewLayout: cl)
         cv.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: ImageCollectionViewCell.identifier)
-        cv.delegate = self
         cv.backgroundColor = .greyshWhite
         cv.isPagingEnabled = true
         cv.showsHorizontalScrollIndicator = false
+        cv.delegate = self
+        cv.dataSource = self
         return cv
     }()
     
@@ -318,6 +319,19 @@ final class LocationDetailView: BaseWhiteView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension LocationDetailView: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        photoUrls.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: indexPath) as? ImageCollectionViewCell else {return UICollectionViewCell()}
+        cell.configure(self.photoUrls[indexPath.item])
+        cell.isDeleteButtonHidden = true
+        return cell
     }
 }
 
