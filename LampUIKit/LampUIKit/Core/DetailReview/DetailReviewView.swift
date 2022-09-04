@@ -241,7 +241,6 @@ class DetailReviewViewCollectionViewCell: UICollectionViewCell {
                 self.likeButton.configuration?.subtitle = "\(numLiked)"
                 self.delegate?.detailReviewViewCollectionViewCellDidTapUnlikeButton(self.tag)
             }
-            
         }
         .store(in: &cancellables)
         
