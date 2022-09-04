@@ -19,8 +19,7 @@ class MyCharacterView: BaseWhiteView {
     private let actionSubject = PassthroughSubject<MyCharacterViewAction, Never>()
 
     private(set) lazy var gearButton: UIBarButtonItem = {
-        let bt = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .done, target: nil, action: nil)
-        bt.tintColor = .black
+        let bt = UIBarButtonItem(image: .gear, style: .done, target: nil, action: nil)
         return bt
     }()
     
