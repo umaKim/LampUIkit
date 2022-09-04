@@ -48,15 +48,12 @@ class SearchViewController: BaseViewContronller {
         super.viewDidLoad()
         
         navigationItem.searchController = contentView.searchController
-        navigationItem.title = "Search"
         navigationItem.hidesSearchBarWhenScrolling = false
         
         navigationController?.setNavigationBarHidden(false, animated: false)
         contentView.searchController.searchBar.placeholder = "검색어 입력"
-//        navigationItem.titleView = contentView.searchBar
         
         navigationItem.leftBarButtonItems = [contentView.dismissButton]
-//        contentView.searchBar.delegate = self
         contentView.collectionView.delegate = self
         
         bind()

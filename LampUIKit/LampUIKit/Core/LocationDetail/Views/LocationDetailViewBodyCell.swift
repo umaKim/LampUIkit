@@ -7,55 +7,6 @@
 import Combine
 import UIKit
 
-//
-//private let satisfactionEvaluationView: EvaluationView = {
-//    let models: [EvaluationModel] = [
-//        EvaluationModel(isSelected: false, title: "매우 만족"),
-//        EvaluationModel(isSelected: false, title: "만족"),
-//        EvaluationModel(isSelected: false, title: "보통")
-//    ]
-//    let uv = EvaluationView(title: "만족도", elements: models)
-//    uv.heightAnchor.constraint(equalToConstant: 60).isActive = true
-//    return uv
-//}()
-//
-//private let atmosphereEvaluationView: EvaluationView = {
-//    let models: [EvaluationModel] = [
-//        EvaluationModel(isSelected: false, title: "고즈넉한"),
-//        EvaluationModel(isSelected: false, title: "잔잔한"),
-//        EvaluationModel(isSelected: false, title: "셍기넘치는"),
-//        EvaluationModel(isSelected: false, title: "푸르른")
-//    ]
-//
-//    let uv = EvaluationView(title: "분위기", elements: models)
-//    uv.heightAnchor.constraint(equalToConstant: 60).isActive = true
-//    return uv
-//}()
-//
-//private let surroundingEvaluationView: EvaluationView = {
-//    let models: [EvaluationModel] = [
-//        EvaluationModel(isSelected: false, title: "여유로운"),
-//        EvaluationModel(isSelected: false, title: "혼잡한"),
-//        EvaluationModel(isSelected: false, title: "인파가 적당한")
-//    ]
-//
-//    let uv = EvaluationView(title: "주차 및 주변", elements: models)
-//    uv.heightAnchor.constraint(equalToConstant: 60).isActive = true
-//    return uv
-//}()
-//
-//private let foodEvaluationView: EvaluationView = {
-//    let models: [EvaluationModel] = [
-//        EvaluationModel(isSelected: false, title: "다양한 종류"),
-//        EvaluationModel(isSelected: false, title: "먹거리 없음")
-//    ]
-//
-//    let uv = EvaluationView(title: "먹거리", elements: models)
-//    uv.heightAnchor.constraint(equalToConstant: 60).isActive = true
-//    return uv
-//}()
-
-
 enum RatingStandard {
     static let comfort: [String] = ["매우 만족", "만족", "보통"]
     static let atmosphere: [String] = ["고즈넉한", "잔잔한", "셍기넘치는", "푸르른"]
