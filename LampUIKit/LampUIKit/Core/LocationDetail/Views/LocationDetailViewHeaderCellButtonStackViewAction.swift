@@ -70,33 +70,17 @@ class LocationDetailViewHeaderCellButtonStackView: UIView {
     }
     
     public func showSkeleton() {
-        
-        let skeletonAnimation = SkeletonAnimationBuilder().makeSlidingAnimation(withDirection: .leftRight)
-        
-        saveButton.showAnimatedGradientSkeleton(usingGradient: .init(colors: [.lightGray, .gray]),
-                                              animation: skeletonAnimation,
-                                              transition: .none)
-        
-        
-        arButton.showAnimatedGradientSkeleton(usingGradient: .init(colors: [.lightGray, .gray]),
-                                              animation: skeletonAnimation,
-                                              transition: .none)
-        
-        mapButton.showAnimatedGradientSkeleton(usingGradient: .init(colors: [.lightGray, .gray]),
-                                              animation: skeletonAnimation,
-                                              transition: .none)
-        
-        
-        reviewButton.showAnimatedGradientSkeleton(usingGradient: .init(colors: [.lightGray, .gray]),
-                                              animation: skeletonAnimation,
-                                              transition: .none)
+        saveButton.showLoading()
+        arButton.showLoading()
+        mapButton.showLoading()
+        reviewButton.showLoading()
     }
     
     public func hideSkeleton() {
-        saveButton.hideSkeleton()
-        arButton.hideSkeleton()
-        mapButton.hideSkeleton()
-        reviewButton.hideSkeleton()
+        saveButton.hideLoading()
+        arButton.hideLoading()
+        mapButton.hideLoading()
+        reviewButton.hideLoading()
     }
     
     private func bind() {
