@@ -238,9 +238,6 @@ extension MainViewController {
     }
     
     private func navigateMyLocationToTargetLocation(_ location: RecommendedLocation) {
-//        fpc.move(to: .init(rawValue: <#T##FloatingPanelState.RawValue#>, order: <#T##Int#>), animated: true)
-        fpc.move(to: .halfTip, animated: true)
-        
         guard
             let lat = Double(location.mapY),
             let long = Double(location.mapX)

@@ -159,6 +159,8 @@ final class LocationDetailView: BaseWhiteView {
         addToMyTravelButton.showAnimatedGradientSkeleton(usingGradient: .init(colors: [.lightGray, .gray]),
                                                          animation: skeletonAnimation,
                                                          transition: .none)
+        
+        totalTravelReviewView.showSkeleton()
     }
     
     public func hideSkeleton() {
@@ -171,6 +173,8 @@ final class LocationDetailView: BaseWhiteView {
         label5.hideSkeleton()
         
         addToMyTravelButton.hideSkeleton()
+        
+        totalTravelReviewView.hideSkeleton()
     }
     
     override init() {
