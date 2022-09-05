@@ -50,8 +50,8 @@ class DetailReviewView: BaseWhiteView {
     }
     
     private func bind() {
-        backButton.tapPublisher.sink { _ in
-            self.actionSubject.send(.back)
+        backButton.tapPublisher.sink {[weak self] _ in
+            self?.actionSubject.send(.back)
         }
         .store(in: &cancellables)
     }
