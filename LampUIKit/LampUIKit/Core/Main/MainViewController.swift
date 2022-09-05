@@ -304,7 +304,7 @@ extension MainViewController: GMSMapViewDelegate {
         else { return }
 
         let location = viewModel.recommendedPlaces[index]
-        setFloatingPanelWithLocationDetailViewController(location)
+        setFloatingPanelWithLocationDetailViewController(location, isModal: true)
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
