@@ -31,14 +31,14 @@ class LocationDescriptionView: UIView {
         super.init(frame: .zero)
         
         self.titleLabel.text = title
-        self.descriptionLabel.text = description
+        descriptionLabel.text = description.htmlToAttributedString?.string
         
         setupUI()
     }
     
     public func configure(_ title: String, _ description: String) {
         titleLabel.text = title
-        descriptionLabel.text = description
+        descriptionLabel.text = description.htmlToAttributedString?.string
     }
     
     public func showSkeleton() {
