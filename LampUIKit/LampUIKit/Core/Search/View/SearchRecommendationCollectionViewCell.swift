@@ -207,7 +207,7 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
         let descriptionSv = UIStackView(arrangedSubviews: [descriptionLabel])
         descriptionSv.axis = .horizontal
         descriptionSv.alignment = .top
-        descriptionSv.distribution = .fill
+        descriptionSv.distribution = .fillProportionally
         
         let labelStackView = UIStackView(arrangedSubviews: [titleLabel, descriptionSv, starRatingImageView])
         labelStackView.axis = .vertical
