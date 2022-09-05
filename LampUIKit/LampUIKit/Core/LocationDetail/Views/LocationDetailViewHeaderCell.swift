@@ -213,10 +213,10 @@ class LocationDetailViewHeaderCell: UICollectionReusableView {
                 self.addToMyTravelButton.isSelected.toggle()
                 
                 if self.addToMyTravelButton.isSelected {
-                    self.addToMyTravelButton.update("내여행지로 추가 취소", background: .systemGray, textColor: .white)
+                    self.addToMyTravelButton.update("내 여행지로 추가 취소", background: .systemGray, textColor: .white)
                     self.delegate?.locationDetailViewHeaderCellDidTapAddToMyTrip()
                 } else {
-                    self.addToMyTravelButton.update("내여행지로 추가", background: .midNavy, textColor: .white)
+                    self.addToMyTravelButton.update("내 여행지로 추가", background: .midNavy, textColor: .white)
                     self.delegate?.locationDetailViewHeaderCellDidTapRemoveFromMyTrip()
                 }
             }
