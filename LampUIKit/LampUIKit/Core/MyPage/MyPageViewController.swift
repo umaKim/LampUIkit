@@ -63,8 +63,8 @@ class MyPageViewController: BaseViewContronller {
                 guard let self = self else {return}
                 switch noti {
                 case .goBackToBeforeLoginPage:
-                    (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(StartPageViewController())
-                    
+//                    (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(StartPageViewController())
+                    self.changeRoot(StartPageViewController())
                 case .myInfo(let info):
                     break
                     
