@@ -90,9 +90,10 @@ extension MainViewController {
         })
     }
     
-    private func setFloatingPanelWithLocationDetailViewController(_ location: RecommendedLocation) {
+    private func setFloatingPanelWithLocationDetailViewController(_ location: RecommendedLocation, isModal: Bool = false) {
         let contentVC = LocationDetailViewController(vm: LocationDetailViewModel(location))
         contentVC.delegate = self
+        contentVC.isModal = isModal
         let nav = UINavigationController(rootViewController: contentVC)
         configureFpc(with: nav, completion: {[weak self] in
             self?.fpc.move(to: .full, animated: true)
@@ -151,6 +152,7 @@ extension MainViewController {
     private func addMarker(of location: RecommendedLocation, isSelected: Bool = false) {
         let marker = GMSMarker()
         marker.tracksViewChanges = true
+        marker.tracksInfoWindowChanges = false
         marker.appearAnimation = .pop
         let markerView = CustomMarkerView(of: location.image ?? "",
                                           type: viewModel.markerType)
