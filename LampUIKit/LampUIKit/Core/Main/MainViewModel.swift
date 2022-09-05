@@ -4,6 +4,8 @@
 //
 //  Created by 김윤석 on 2022/08/09.
 //
+import KakaoSDKUser
+import FirebaseAuth
 import CoreLocation
 import Foundation
 import Combine
@@ -13,6 +15,8 @@ enum MainViewModelNotification {
     case startLoading
     case endLoading
     case moveTo(CLLocationCoordinate2D)
+    
+    case goBackToBeforeLoginPage
 }
 
 struct Coord {
@@ -56,6 +60,40 @@ class MainViewModel: BaseViewModel  {
         guard let coord = locationManager.location?.coordinate else { return }
         self.setMyLocation(with: coord.latitude, coord.longitude)
         self.setLocation(with: coord.latitude, coord.longitude)
+        
+        checkUserAuth()
+    }
+    
+    private func checkUserAuth() {
+        network.checkUserExist(network.token) {[weak self] response in
+            guard let self = self else {return }
+            if response.isSuccess == false {
+                self.kakaoSignout()
+                self.firebaseSignout()
+            }
+        }
+    }
+    
+    private func kakaoSignout() {
+        UserApi.shared.logout {[weak self] (error) in
+            guard let self = self else {return}
+            if let error = error {
+                print(error)
+            }
+            else {
+                print("logout() success.")
+            }
+            self.notifySubject.send(.goBackToBeforeLoginPage)
+        }
+    }
+    
+    private func firebaseSignout() {
+        do {
+           try Auth.auth().signOut()
+            self.notifySubject.send(.goBackToBeforeLoginPage)
+        } catch {
+            print(error)
+        }
     }
     
     public func zoomIn() {
