@@ -126,7 +126,7 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
         
         descriptionLabel.text = location.addr
         
-        starRatingImageView.image = UIImage(named: "\(location.rate ?? 0)")
+        starRatingImageView.image = UIImage(named: "small\(location.rate ?? 0)")
         
         self.isOnPlan = location.isOnPlan ?? false
         setThisLocationButton.setImage(isOnPlan ? .init(named: "destinationCancelButton") : .init(named: "destinationSetButton"), for: .normal)
