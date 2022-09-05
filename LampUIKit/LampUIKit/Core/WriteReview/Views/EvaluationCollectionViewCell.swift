@@ -24,7 +24,6 @@ final class EvaluationCollectionViewCell: UICollectionViewCell {
         
         layer.cornerRadius = EvaluationCollectionViewCell.preferredHeight / 2
         layer.borderWidth = 1
-        layer.borderColor = UIColor.red.cgColor
         
         setupUI()
     }
