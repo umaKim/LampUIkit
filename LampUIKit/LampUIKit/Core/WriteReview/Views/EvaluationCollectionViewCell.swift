@@ -49,11 +49,15 @@ final class EvaluationCollectionViewCell: UICollectionViewCell {
         titleLabel.text = model.title
         
         if model.isSelected {
-            self.layer.borderColor = UIColor.midNavy.cgColor
-            self.titleLabel.textColor = .midNavy
+            self.layer.borderColor = UIColor.lightNavy.cgColor
+            self.titleLabel.textColor = .lightNavy
+            self.titleLabel.font = .systemFont(ofSize: 15, weight: .bold)
+            self.layer.borderWidth = 2
         } else {
             self.layer.borderColor = UIColor.systemGray.cgColor
             self.titleLabel.textColor = .systemGray
+            self.titleLabel.font = .systemFont(ofSize: 15, weight: .semibold)
+            self.layer.borderWidth = 1
         }
     }
 }
