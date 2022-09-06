@@ -1,0 +1,29 @@
+/* 
+  english.strings
+  LampUIKit
+
+  Created by 김윤석 on 2022/09/06.
+  
+*/
+
+"destinationSetButtonKr" = "destinationSetButtonEn";
+
+"destinationCancelButtonKr" = "destinationCancelButtonEn";
+
+"setMyDestinationButtonKr" = "setMyDestinationButtonEn";
+
+"gmailButtonKr" = "gmailButtonEn";
+
+"kakaoButtonKr" = "kakaoButtonEn";
+
+"appleButtonKr" = "appleButtonEn";
+
+"completeWriting_ableKr" = "completeWriting_ableEn";
+
+"completeWriting_disableKr" = "completeWriting_disableEn";
+
+" 램프에 오신 것을 환영합니다! " = "Welcome to LAMP !";
+
+"지금부터 당신에게 맞는\n램프 캐릭터 배정을 시작합니다 " = "Are you ready to be assigned LAMP character for you?";
+
+"램프의 캐릭터는 당신과\n여행 할수록 함께 성장합니다" = "The character of the lamp grows with you as you travel";

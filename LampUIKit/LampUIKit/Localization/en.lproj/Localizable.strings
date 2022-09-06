@@ -1,0 +1,31 @@
+/* 
+  Localizable.strings
+  LampUIKit
+
+  Created by 김윤석 on 2022/09/06.
+  
+*/
+
+"destinationSetButtonKr" = "destinationSetButtonEn";
+
+"destinationCancelButtonKr" = "destinationCancelButtonEn";
+
+"setMyDestinationButtonKr" = "setMyDestinationButtonEn";
+
+"gmailButtonKr" = "gmailButtonEn";
+
+"kakaoButtonKr" = "kakaoButtonEn";
+
+"appleButtonKr" = "appleButtonEn";
+
+"completeWriting_ableKr" = "completeWriting_ableEn";
+
+"completeWriting_disableKr" = "completeWriting_disableEn";
+
+" 램프에 오신 것을 환영합니다! " = "Welcome to LAMP !";
+
+"지금부터 당신에게 맞는\n램프 캐릭터 배정을 시작합니다 " = "Are you ready\nto be assigned\nLAMP character for you?";
+
+"램프의 캐릭터는 당신과\n여행 할수록 함께 성장합니다" = "The character of the lamp\n grows with you as you travel";
+
+"가입 시 당사의 서비스 약관에 동의하고 개인정보 보호정책을 읽어 당사의 데이터 수집, 사용, 공유방법을 확인했음을 인정합니다" = "By accessing this Lamp, you agree to these User and Privacy Terms. Please do not use and or participate on the app until you have read through, understand, and agree with the User and Privacy Terms.";
