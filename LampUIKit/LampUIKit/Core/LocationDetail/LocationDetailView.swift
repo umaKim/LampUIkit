@@ -86,7 +86,7 @@ final class LocationDetailView: BaseWhiteView {
             return
         }
         
-        if locationDetail.contentTypeId == "14" {
+        if locationDetail.contentTypeId == "14" || locationDetail.contentTypeId == "78" {
             label1.configure("할인정보", locationDetail.datailInfo?.discountinfo ?? "")
             label2.configure("문의 안내", locationDetail.datailInfo?.infocenterculture ?? "")
             label3.configure("쉬는 날", locationDetail.datailInfo?.restdateculture ?? "")
@@ -95,7 +95,7 @@ final class LocationDetailView: BaseWhiteView {
             return
         }
         
-        if locationDetail.contentTypeId == "15" {
+        if locationDetail.contentTypeId == "15" || locationDetail.contentTypeId == "85" {
             label1.configure("행사 장소", locationDetail.datailInfo?.eventplace ?? "")
             label2.configure("행사 기간", locationDetail.datailInfo?.eventstartdate ?? "")
             label3.configure("행사 위치 안내", locationDetail.datailInfo?.placeinfo ?? "")
@@ -104,7 +104,7 @@ final class LocationDetailView: BaseWhiteView {
             return
         }
         
-        if locationDetail.contentTypeId == "28" {
+        if locationDetail.contentTypeId == "28" || locationDetail.contentTypeId == "75" {
             label1.configure("문의 안내", locationDetail.datailInfo?.infocenterleports ?? "")
             label2.configure("개장 기간", locationDetail.datailInfo?.openperiod ?? "")
             label3.configure("쉬는 날", locationDetail.datailInfo?.restdateleports ?? "")
@@ -113,7 +113,7 @@ final class LocationDetailView: BaseWhiteView {
             return
         }
         
-        if locationDetail.contentTypeId == "39" {
+        if locationDetail.contentTypeId == "39" || locationDetail.contentTypeId == "82" {
             label1.configure("문의 안내", locationDetail.datailInfo?.infocenterfood ?? "")
             label2.configure("대표 메뉴", locationDetail.datailInfo?.firstmenu ?? "")
             label3.configure("운영 시간", locationDetail.datailInfo?.opentimefood ?? "")
