@@ -31,3 +31,9 @@ extension String {
         return htmlToAttributedString?.string ?? ""
     }
 }
+
+extension String {
+    var localized: String {
+        NSLocalizedString(self, comment: "")
+    }
+}
