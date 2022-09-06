@@ -49,6 +49,12 @@ class MainViewController: BaseViewContronller {
         moveTo(.init(latitude: viewModel.coord.latitude, longitude: viewModel.coord.longitude))
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        setFloatingPanelWithRecommendedLocationViewController()
+        viewModel.fetchItems()
+    }
+    
     private func moveTo(_ coord: CLLocationCoordinate2D) {
         let camera = GMSCameraPosition.camera(withTarget: coord, zoom: viewModel.zoom)
        
