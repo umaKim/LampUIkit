@@ -25,7 +25,6 @@ class StartPageViewController: UIViewController {
     private lazy var titleImage: UIImageView = {
         let uv = UIImageView()
         uv.image = UIImage(named: "lampTitle")
-        uv.isHidden = true
         return uv
     }()
     
@@ -57,10 +56,6 @@ class StartPageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        UserApi.shared.logout { error in
-//            print(error)
-//        }
-        
         startButton.tapPublisher.sink {[weak self] _ in
             HapticManager.shared.feedBack(with: .heavy)
             if AuthApi.hasToken() {
