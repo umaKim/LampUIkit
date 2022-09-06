@@ -116,7 +116,7 @@ class WriteReviewView: BaseWhiteView, ImageCollectionViewCellDelegate {
     }()
     
     private(set) lazy var textContextView: InputTextView = {
-       let tv = InputTextView()
+        let tv = InputTextView()
         tv.placeholderText = "내용을 입력하세요."
         tv.font = .robotoMedium(16)
         tv.backgroundColor = .greyshWhite
