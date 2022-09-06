@@ -77,6 +77,7 @@ final class LocationDetailViewController: BaseViewContronller {
                 case .map:
                     guard let location = self.viewModel.location else {return}
                     self.delegate?.locationDetailViewControllerDidTapMapButton(location)
+                    self.scrollToButtonSv()
                     
                 case .review:
                     guard let location = self.viewModel.location else {return }
@@ -126,6 +127,8 @@ final class LocationDetailViewController: BaseViewContronller {
             .store(in: &cancellables)
     }
     
+    private func scrollToButtonSv() {
+        contentView.scrollToButtonSv()
     }
     
     required init?(coder: NSCoder) {
