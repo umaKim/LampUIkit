@@ -58,6 +58,8 @@ final class NetworkService {
     
     private(set) var userAuthType: UserAuthType?
     
+    private let language = LanguageManager.shared
+    
     func setUserAuthType(_ userAuthType: UserAuthType) {
         self.userAuthType = userAuthType
     }
@@ -109,7 +111,7 @@ final class NetworkService {
         _ numberOfItems: Int = 10,
         completion: @escaping (Result<RecommendedLocationResponse, AFError>) -> Void
     ) {
-        let requestUrl = baseUrl + "/app/main/placeInfo?serviceLanguage=KorService&pageSize=\(numberOfItems)&pageNumber=1&mapX=\(location.long)&mapY=\(location.lat)&radius=\(radius)&token=" + token
+        let requestUrl = baseUrl + "/app/main/placeInfo?serviceLanguage=\(language.languageType.rawValue)&pageSize=\(numberOfItems)&pageNumber=1&mapX=\(location.long)&mapY=\(location.lat)&radius=\(radius)&token=" + token
         
         print(requestUrl)
         
@@ -121,8 +123,8 @@ final class NetworkService {
     }
     
     func fetchRecommendationFromAllOver(completion: @escaping (Result<RecommendedLocationResponse, AFError>) -> Void) {
-        let requestUrl = baseUrl + "/app/main/totalPlaceInfo?serviceLanguage=KorService&pageSize=20&pageNumber=1&token=\(token)"
-        
+        let requestUrl = baseUrl + "/app/main/totalPlaceInfo?serviceLanguage=\(language.languageType.rawValue)&pageSize=20&pageNumber=1&token=\(token)"
+        print(requestUrl)
         AF.request(requestUrl, method: .get, encoding: JSONEncoding.default)
             .validate()
             .responseDecodable(of: RecommendedLocationResponse.self) {
@@ -132,8 +134,8 @@ final class NetworkService {
     }
     
     func fetchUnvisitedLocations(completion: @escaping (Result<RecommendedLocationResponse, AFError>) -> Void) {
-        let requestUrl = baseUrl + "/app/main/totalPlaceInfo?serviceLanguage=KorService&pageSize=20&pageNumber=1&token=\(token)"
-        
+        let requestUrl = baseUrl + "/app/main/placeNotVisited?serviceLanguage=\(language.languageType.rawValue)&pageSize=20&pageNumber=1&token=\(token)"
+        print(requestUrl)
         AF.request(requestUrl, method: .get, encoding: JSONEncoding.default)
             .validate()
             .responseDecodable(of: RecommendedLocationResponse.self) {
@@ -180,7 +182,7 @@ final class NetworkService {
     }
     
     func fetchLocationDetail(_ contentId: String, _ contentTypeId: String, completion: @escaping (Result<LocationDetailResponse, AFError>) -> Void) {
-        let requestUrl = baseUrl + "/app/main/placeInfo/detail?serviceLanguage=KorService&contentTypeId=\(contentTypeId)&pageSize=4&pageNumber=1&contentId=\(contentId)&token=\(token)"
+        let requestUrl = baseUrl + "/app/main/placeInfo/detail?serviceLanguage=\(language.languageType.rawValue)&contentTypeId=\(contentTypeId)&pageSize=4&pageNumber=1&contentId=\(contentId)&token=\(token)"
         print(requestUrl)
         AF.request(requestUrl, method: .get, encoding: JSONEncoding.default)
             .validate()
@@ -242,7 +244,7 @@ final class NetworkService {
             let encodedString = keyword.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         else {return }
         
-        let requestUrl = baseUrl + "/app/main/placeInfo/keyword?serviceLanguage=KorService&keyword=\(encodedString)&pageSize=\(page)&pageNumber=\(pageNumber)&token=\(token)"
+        let requestUrl = baseUrl + "/app/main/placeInfo/keyword?serviceLanguage=\(language.languageType.rawValue)&keyword=\(encodedString)&pageSize=\(pageSize)&pageNumber=\(pageNumber)&token=\(token)"
         print(requestUrl)
         
         AF.request(requestUrl, method: .get, encoding: JSONEncoding.default)

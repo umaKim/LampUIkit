@@ -37,6 +37,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.backgroundColor = .black
         window?.backgroundColor = .greyshWhite
         window?.makeKeyAndVisible()
+        
+        let langId = Locale.preferredLanguages[0].components(separatedBy: "-")[0]
+        
+        if langId == "ko" {
+            LanguageManager.shared.setLanguage(.korean)
+        } else {
+            LanguageManager.shared.setLanguage(.enghlish)
+        }
     }
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
