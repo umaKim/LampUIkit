@@ -151,13 +151,13 @@ extension MainViewController {
     
     private func addMarker(of location: RecommendedLocation, isSelected: Bool = false) {
         let marker = GMSMarker()
-        marker.tracksViewChanges = true
+        marker.tracksViewChanges = false
         marker.tracksInfoWindowChanges = false
         marker.appearAnimation = .pop
         let markerView = CustomMarkerView(of: location.image ?? "",
                                           type: viewModel.markerType)
         marker.iconView = markerView
-        
+
         guard
             let lat = Double(location.mapY),
             let long = Double(location.mapX)
