@@ -28,31 +28,32 @@ class LoginView: UIView {
     
     private let kakao: UIButton = {
         let bt = UIButton()
-        bt.setImage(UIImage(named: "kakaoButton"), for: .normal)
+        bt.setImage(UIImage(named: "kakaoButtonKr".localized), for: .normal)
         bt.heightAnchor.constraint(equalToConstant: 50).isActive = true
         return bt
     }()
     
     private let gmail: UIButton = {
         let bt = UIButton()
-        bt.setImage(UIImage(named: "gmailButton"), for: .normal)
+        bt.setImage(UIImage(named: "gmailButtonKr".localized), for: .normal)
         bt.heightAnchor.constraint(equalToConstant: 50).isActive = true
         return bt
     }()
     
     private let apple: UIButton = {
         let bt = UIButton()
-        bt.setImage(UIImage(named: "appleButton"), for: .normal)
+        bt.setImage(UIImage(named: "appleButtonKr".localized), for: .normal)
         bt.heightAnchor.constraint(equalToConstant: 50).isActive = true
         return bt
     }()
     
     private let contractText: UILabel = {
        let lb = UILabel()
-        lb.text = "가입 시 당사의 서비스 약관에 동의하고 개인정보 보호정책을 읽어 당사의 데이터 수집, 사용, 공유방법을 확인했음을 인정합니다"
+        lb.text = "가입 시 당사의 서비스 약관에 동의하고 개인정보 보호정책을 읽어 당사의 데이터 수집, 사용, 공유방법을 확인했음을 인정합니다".localized
         lb.textAlignment = .center
         lb.numberOfLines = 10
         lb.font = .systemFont(ofSize: 14, weight: .regular)
+        lb.textColor = .bluePurple
         return lb
     }()
     
