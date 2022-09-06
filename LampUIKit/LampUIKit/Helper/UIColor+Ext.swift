@@ -15,4 +15,5 @@ extension UIColor {
     static let lightNavy = UIColor(red: 112/255, green: 112/255, blue: 255/255, alpha: 1)
     static let whiteGrey = UIColor(red: 217/255, green: 217/255, blue: 217/255, alpha: 1)
     static let opaqueGrey = UIColor(red: 175/255, green: 175/255, blue: 175/255, alpha: 1)
+    static let bluePurple = UIColor(red: 170/255, green: 170/255, blue: 170/255, alpha: 1)
 }
