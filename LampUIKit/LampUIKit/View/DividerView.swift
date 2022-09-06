@@ -11,6 +11,7 @@ class DividerView: UIView {
     init(height: CGFloat = 1) {
         super.init(frame: .zero)
         backgroundColor = .systemGray
+        
         heightAnchor.constraint(equalToConstant: height).isActive = true
     }
     
