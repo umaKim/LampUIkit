@@ -173,7 +173,7 @@ class WriteReviewView: BaseWhiteView, ImageCollectionViewCellDelegate {
     
     private(set) lazy var completeButton: UIButton = {
         let bt = UIButton()
-        bt.setImage(UIImage(named: "completeWriting_disable"), for: .normal)
+        bt.setImage(UIImage(named: "completeWriting_disableKr".localized), for: .normal)
         bt.heightAnchor.constraint(equalToConstant: 60).isActive = true
         return bt
     }()
@@ -211,7 +211,7 @@ class WriteReviewView: BaseWhiteView, ImageCollectionViewCellDelegate {
     
     public func ableCompleteButton(_ isAble: Bool) {
         self.completeButton.isEnabled = isAble
-        completeButton.setImage(UIImage(named: self.completeButton.isEnabled ? "completeWriting_able" : "completeWriting_disable"), for: .normal)
+        completeButton.setImage(UIImage(named: self.completeButton.isEnabled ? "completeWriting_ableKr".localized : "completeWriting_disable".localized), for: .normal)
     }
     
     required init?(coder: NSCoder) {

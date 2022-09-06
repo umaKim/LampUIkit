@@ -14,9 +14,9 @@ import Foundation
 class InitialSetPageViewModel {
     
     private(set) lazy var beginningMessage: [String] = [
-        " 램프에 오신 것을 환영합니다! ",
-        "지금부터 당신에게 맞는\n램프 캐릭터 배정을 시작합니다 ",
-        "램프의 캐릭터는 당신과\n여행 할수록 함께 성장합니다"
+        " 램프에 오신 것을 환영합니다! ".localized,
+        "지금부터 당신에게 맞는\n램프 캐릭터 배정을 시작합니다 ".localized,
+        "램프의 캐릭터는 당신과\n여행 할수록 함께 성장합니다".localized
     ]
     
     private var status: InitialSetPageViewStatus = .processing

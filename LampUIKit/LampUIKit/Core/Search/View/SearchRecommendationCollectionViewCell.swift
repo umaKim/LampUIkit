@@ -50,7 +50,7 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
     
     private let setThisLocationButton: UIButton = {
        let bt = UIButton()
-        bt.setImage(UIImage(named: "destinationSetButton"), for: .normal)
+        bt.setImage(UIImage(named: "destinationSetButtonKr".localized), for: .normal)
         bt.layer.cornerRadius = 2.5
         bt.heightAnchor.constraint(equalToConstant: 30).isActive = true
         return bt
@@ -129,7 +129,7 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
         starRatingImageView.image = UIImage(named: "small\(location.rate ?? 0)")
         
         self.isOnPlan = location.isOnPlan ?? false
-        setThisLocationButton.setImage(isOnPlan ? .init(named: "destinationCancelButton") : .init(named: "destinationSetButton"), for: .normal)
+        setThisLocationButton.setImage(isOnPlan ? .init(named: "destinationCancelButtonKr".localized) : .init(named: "destinationSetButtonKr".localized), for: .normal)
     }
     
     override func prepareForReuse() {
@@ -152,13 +152,13 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
                 
                 self.isOnPlan.toggle()
                 if self.isOnPlan {
-                    self.setThisLocationButton.setImage(.init(named: "destinationCancelButton"), for: .normal)
+                    self.setThisLocationButton.setImage(.init(named: "destinationCancelButtonKr".localized), for: .normal)
                     if let location = self.location {
                         self.delegate?.didTapSetThisLocationButton(at: self.tag, location)
                     }
                    
                 } else {
-                    self.setThisLocationButton.setImage(UIImage(named: "destinationSetButton"), for: .normal)
+                    self.setThisLocationButton.setImage(UIImage(named: "destinationSetButtonKr".localized), for: .normal)
                     if let location = self.location {
                         self.delegate?.didTapCancelThisLocationButton(at: self.tag, location)
                     }

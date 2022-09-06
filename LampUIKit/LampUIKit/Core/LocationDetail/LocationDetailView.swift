@@ -77,12 +77,12 @@ final class LocationDetailView: BaseWhiteView {
     
     public func configureDetailInfo(_ locationDetail: LocationDetailData) {
         
-        if locationDetail.contentTypeId == "12" {
-            label1.configure("문의 안내", locationDetail.datailInfo?.infocenter ?? "")
-            label2.configure("주차", locationDetail.datailInfo?.parking ?? "")
-            label3.configure("쉬는 날", locationDetail.datailInfo?.restdate ?? "")
-            label4.configure("운영시기", locationDetail.datailInfo?.useseason ?? "")
-            label5.configure("운영시간", locationDetail.datailInfo?.usetime ?? "")
+        if locationDetail.contentTypeId == "12" || locationDetail.contentTypeId == "76" {
+            label1.configure("문의 안내".localized, locationDetail.datailInfo?.infocenter ?? "")
+            label2.configure("주차".localized, locationDetail.datailInfo?.parking ?? "")
+            label3.configure("쉬는 날".localized, locationDetail.datailInfo?.restdate ?? "")
+            label4.configure("운영시기".localized, locationDetail.datailInfo?.useseason ?? "")
+            label5.configure("운영시간".localized, locationDetail.datailInfo?.usetime ?? "")
             return
         }
         
