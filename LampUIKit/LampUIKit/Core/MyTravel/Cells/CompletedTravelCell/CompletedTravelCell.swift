@@ -177,7 +177,7 @@ extension CompletedTravelCell: UICollectionViewDelegate {
 
 extension CompletedTravelCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        .init(width: UIScreen.main.width - 32, height: 150)
+        .init(width: UIScreen.main.width - 32, height: 170)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
