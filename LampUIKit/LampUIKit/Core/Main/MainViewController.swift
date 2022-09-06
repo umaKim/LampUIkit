@@ -240,6 +240,9 @@ extension MainViewController {
                     
                 case .moveTo(let coord):
                     self.moveTo(coord)
+                    
+                case .goBackToBeforeLoginPage:
+                    self.changeRoot(StartPageViewController())
                 }
             }
             .store(in: &cancellables)
