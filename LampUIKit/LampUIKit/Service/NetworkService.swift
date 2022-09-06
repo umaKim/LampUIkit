@@ -401,6 +401,9 @@ final class NetworkService {
                 completion(response.result)
             }
     }
+struct LikeDataPatch: Codable {
+    let token: String
+    let targetReviewId: String
 }
 
 struct CompleteTripPostData: Codable {
