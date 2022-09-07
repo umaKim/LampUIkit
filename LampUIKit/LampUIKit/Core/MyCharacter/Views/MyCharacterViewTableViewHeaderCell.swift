@@ -40,7 +40,6 @@ class MyCharacterViewTableViewHeaderCell: UITableViewHeaderFooterView {
     private lazy var characterImageView: UIImageView = {
        let uv = UIImageView()
         uv.contentMode = .scaleAspectFill
-        uv.backgroundColor = .midNavy
         uv.layer.cornerRadius = 7
         
         uv.widthAnchor.constraint(equalToConstant: 145).isActive = true
