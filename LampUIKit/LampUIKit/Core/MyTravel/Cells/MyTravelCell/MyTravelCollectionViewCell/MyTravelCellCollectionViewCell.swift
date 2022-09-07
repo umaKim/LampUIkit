@@ -99,12 +99,16 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell {
     }
     
     public func bind() {
-        deleteButton.tapPublisher.sink { _ in
+        deleteButton.tapPublisher.sink {[weak self] _ in
+            HapticManager.shared.feedBack(with: .medium)
+            guard let self = self else {return }
             self.delegate?.myTravelCellCollectionViewCellDidTapDelete(at: self.tag)
         }
         .store(in: &cancellables)
         
-        completeTripButton.tapPublisher.sink { _ in
+        completeTripButton.tapPublisher.sink {[weak self] _ in
+            HapticManager.shared.feedBack(with: .heavy)
+            guard let self = self else {return }
             self.delegate?.myTravelCellCollectionViewCellDidTapComplete(at: self.tag)
         }
         .store(in: &cancellables)
