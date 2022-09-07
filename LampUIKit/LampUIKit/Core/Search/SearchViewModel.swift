@@ -73,10 +73,10 @@ class SearchViewModel: BaseViewModel {
                     if locationResponse.result.isEmpty {
                         self.isPagenationDone = true
                     } else {
-                        self.locations.append(contentsOf: locationResponse.result)
-                        self.notifySubject.send(.reload)
                         self.increasePageNumber()
                     }
+                    self.locations.append(contentsOf: locationResponse.result)
+                    self.notifySubject.send(.reload)
                     
                 case .failure(let error):
                     print(error)
