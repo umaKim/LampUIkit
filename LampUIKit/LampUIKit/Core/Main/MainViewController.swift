@@ -52,6 +52,7 @@ class MainViewController: BaseViewContronller {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         setFloatingPanelWithRecommendedLocationViewController()
+        viewModel.setMyLocation()
         viewModel.fetchItems()
     }
     
