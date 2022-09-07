@@ -77,8 +77,6 @@ final class CompletedTravelCellCollectionViewCell: UICollectionViewCell {
             self.delegate?.completedTravelCellCollectionViewCellDidTapDelete(at: self.tag)
         }
         .store(in: &cancellables)
-        
-        setupUI()
     }
     
     private func setupUI() {
@@ -108,6 +106,8 @@ final class CompletedTravelCellCollectionViewCell: UICollectionViewCell {
     public func configure(_ model: MyCompletedTripLocation) {
         visitiedDateLabel.text = model.travelCompletedDate
         locationNameLabel.text = model.placeName
+        addressLabel.text = model.placeAddress
+        
     }
     
     required init?(coder: NSCoder) {
