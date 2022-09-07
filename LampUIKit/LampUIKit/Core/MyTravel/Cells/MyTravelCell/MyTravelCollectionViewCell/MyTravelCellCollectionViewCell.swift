@@ -25,6 +25,15 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell {
         return uv
     }()
     
+    private let locationImageView: UIImageView = {
+       let uv = UIImageView()
+        uv.layer.cornerRadius = 6
+        uv.widthAnchor.constraint(equalToConstant: 72).isActive = true
+        uv.heightAnchor.constraint(equalToConstant: 55.19).isActive = true
+        uv.clipsToBounds = true
+        return uv
+    }()
+    
     private lazy var titleLabel: UILabel = {
        let lb = UILabel()
         lb.text = "경복궁"
@@ -83,6 +92,8 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell {
     }
     
     public func configure(_ location: MyTravelLocation) {
+        locationImageView.sd_setImage(with: URL(string: location.image ?? ""),
+                                      placeholderImage: UIImage(named: "placeholder"))
         titleLabel.text = location.placeName
         timeLabel.text = location.placeInfo
         addressLabel.text = location.placeAddress
