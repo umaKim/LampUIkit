@@ -57,6 +57,7 @@ struct MyBookMarkLocation: Codable, Hashable {
 
 struct MyCompletedTripLocation: Codable, Hashable {
     let planIdx: String
+    let image: String
     let travelCompletedDate: String
     let contentId: String
     let contentTypeId: String
@@ -67,4 +68,5 @@ struct MyCompletedTripLocation: Codable, Hashable {
     let mapY: String
     let placeName: String
     let isBookMarked: Bool
+    
 }
