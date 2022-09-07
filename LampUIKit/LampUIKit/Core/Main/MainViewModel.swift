@@ -53,8 +53,24 @@ class MainViewModel: BaseViewModel  {
     
     override init() {
         super.init()
-        
         locationManager.delegate = self
+    }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        switch manager.authorizationStatus {
+        case .authorizedAlways, .authorizedWhenInUse:
+            mainFlow()
+        case .notDetermined , .denied , .restricted:
+            locationManager.requestWhenInUseAuthorization()
+        default:
+            break
+        }
+    }
+    
+    private func mainFlow() {
+        checkUserAuth()
+        
+//        locationManager.delegate = self
         locationManager.requestLocation()
         
         guard let coord = locationManager.location?.coordinate else { return }
