@@ -44,6 +44,7 @@ final class MyTravelCellHeaderCell: UICollectionReusableView {
             .tapPublisher
             .sink {[weak self] _ in
                 guard let self = self else {return}
+                HapticManager.shared.feedBack(with: .rigid)
                 self.isEditButtonTapped.toggle()
                 if self.isEditButtonTapped {
                     self.editButton.setTitle("완료", for: .normal)
