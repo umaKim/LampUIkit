@@ -56,8 +56,9 @@ class MainViewController: BaseViewContronller {
     }
     
     private func moveTo(_ coord: CLLocationCoordinate2D) {
-        let camera = GMSCameraPosition.camera(withTarget: coord, zoom: viewModel.zoom)
-       
+        let camera = GMSCameraPosition.camera(withTarget: coord,
+                                              zoom: 15.0)
+        print(viewModel.zoom)
         setGMPadding()
         contentView.mapView.animate(to: camera)
     }
