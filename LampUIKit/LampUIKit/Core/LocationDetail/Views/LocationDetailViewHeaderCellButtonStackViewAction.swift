@@ -24,7 +24,7 @@ class LocationDetailViewHeaderCellButtonStackView: UIView {
     private var cancellables: Set<AnyCancellable>
     
     private lazy var saveButton: UIButton = {
-        return .buttonMaker(image: self.isSaved ? UIImage(named: "favorite_saved") : UIImage(named: "detailSave"),
+        return .buttonMaker(image: self.isSaved ? UIImage(named: "favorite_saved") : UIImage(named: "favorite_unsaved"),
                             imagePadding: 12,
                             subTitle: "저장하기")
     }()
