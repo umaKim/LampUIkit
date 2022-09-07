@@ -20,10 +20,19 @@ final class CompletedTravelCellCollectionViewCell: UICollectionViewCell {
         return uv
     }()
     
+    private let locationImageView: UIImageView = {
+        let uv = UIImageView()
+        uv.layer.cornerRadius = 6
+        uv.widthAnchor.constraint(equalToConstant: 70).isActive = true
+        uv.heightAnchor.constraint(equalToConstant: 55).isActive = true
+        uv.clipsToBounds = true
+        return uv
+    }()
+    
     private lazy var visitiedDateLabel: UILabel = {
        let lb = UILabel()
         lb.font = .systemFont(ofSize: 18, weight: .semibold)
-        lb.textColor = .black
+        lb.textColor = .darkNavy
         return lb
     }()
     
@@ -31,6 +40,14 @@ final class CompletedTravelCellCollectionViewCell: UICollectionViewCell {
        let lb = UILabel()
         lb.font = .systemFont(ofSize: 18, weight: .semibold)
         lb.textColor = .midNavy
+        return lb
+    }()
+    
+    private lazy var addressLabel: UILabel = {
+       let lb = UILabel()
+        lb.text = "주소 어쩌구 저쩌구"
+        lb.textColor = .midNavy
+        lb.font = .systemFont(ofSize: 14, weight: .semibold)
         return lb
     }()
     
@@ -51,6 +68,7 @@ final class CompletedTravelCellCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         deleteButton.tapPublisher.sink { _ in
+        setupUI()
             self.delegate?.completedTravelCellCollectionViewCellDidTapDelete(at: self.tag)
         }
         .store(in: &cancellables)
@@ -62,20 +80,23 @@ final class CompletedTravelCellCollectionViewCell: UICollectionViewCell {
         backgroundView = backgroundImageView
         configureShadow()
         
-        [visitiedDateLabel, locationNameLabel, deleteButton].forEach { uv in
+        [visitiedDateLabel, locationNameLabel, addressLabel, deleteButton].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
             contentView.addSubview(uv)
         }
         
         NSLayoutConstraint.activate([
-            visitiedDateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 46),
+            visitiedDateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 60),
             visitiedDateLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 36),
             
             locationNameLabel.leadingAnchor.constraint(equalTo: visitiedDateLabel.leadingAnchor),
-            locationNameLabel.topAnchor.constraint(equalTo: visitiedDateLabel.bottomAnchor, constant: 20),
+            locationNameLabel.topAnchor.constraint(equalTo: visitiedDateLabel.bottomAnchor, constant: 23),
             
-            deleteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-            deleteButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            addressLabel.leadingAnchor.constraint(equalTo: locationNameLabel.leadingAnchor),
+            addressLabel.topAnchor.constraint(equalTo: locationNameLabel.bottomAnchor, constant: 13),
+            
+            deleteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 26),
+            deleteButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -46),
         ])
     }
     
