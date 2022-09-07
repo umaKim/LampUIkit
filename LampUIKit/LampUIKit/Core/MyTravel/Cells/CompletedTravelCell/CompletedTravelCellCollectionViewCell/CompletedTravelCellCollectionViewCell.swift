@@ -67,8 +67,13 @@ final class CompletedTravelCellCollectionViewCell: UICollectionViewCell {
         self.cancellables = .init()
         super.init(frame: frame)
         
-        deleteButton.tapPublisher.sink { _ in
+        bind()
         setupUI()
+    }
+    
+    private func bind() {
+        deleteButton.tapPublisher.sink {[weak self] _ in
+            guard let self = self else {return }
             self.delegate?.completedTravelCellCollectionViewCellDidTapDelete(at: self.tag)
         }
         .store(in: &cancellables)
