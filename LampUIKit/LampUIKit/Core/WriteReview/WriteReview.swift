@@ -290,7 +290,8 @@ extension WriteReviewView {
         
         textContextView.textPublisher
             .compactMap({$0})
-            .sink {[unowned self] text in
+            .sink {[weak self] text in
+                guard let self = self else {return }
                 self.actionSubject.send(.updateComment(text))
             }
             .store(in: &cancellables)
