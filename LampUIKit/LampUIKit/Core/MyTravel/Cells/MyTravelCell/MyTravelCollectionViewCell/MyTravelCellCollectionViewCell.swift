@@ -112,14 +112,18 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupUI() {
+        let titleSv = UIStackView(arrangedSubviews: [titleLabel, addressLabel])
+        titleSv.axis = .vertical
+        titleSv.distribution = .fill
+        titleSv.alignment = .fill
         
-        let totalSv = UIStackView(arrangedSubviews: [titleLabel, timeLabel, addressLabel])
-        totalSv.axis = .vertical
-        totalSv.alignment = .fill
-        totalSv.distribution = .fill
-        totalSv.spacing = 6
+        let upperSv = UIStackView(arrangedSubviews: [locationImageView, titleSv])
+        upperSv.axis = .horizontal
+        upperSv.distribution = .fill
+        upperSv.alignment = .fill
+        upperSv.spacing = 16
         
-        [containerView, totalSv, deleteButton, completeTripButton].forEach { uv in
+        [containerView, upperSv, deleteButton, completeTripButton].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
             addSubview(uv)
         }
@@ -130,15 +134,15 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell {
             containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -6),
             containerView.topAnchor.constraint(equalTo: topAnchor, constant: 6),
             
-            totalSv.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
-            totalSv.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
-            totalSv.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
+            upperSv.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
+            upperSv.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
+            upperSv.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
             
             deleteButton.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16),
             deleteButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
             
-            completeTripButton.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16),
-            completeTripButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16)
+            completeTripButton.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+            completeTripButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
         ])
     }
     
