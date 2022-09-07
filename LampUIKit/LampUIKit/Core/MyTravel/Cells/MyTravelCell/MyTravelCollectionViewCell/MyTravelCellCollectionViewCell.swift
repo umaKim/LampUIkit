@@ -43,14 +43,6 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell {
         return lb
     }()
     
-    private lazy var pinImageView: UIImageView = {
-       let uv = UIImageView()
-        uv.image = .init(systemName: "person")
-        uv.widthAnchor.constraint(equalToConstant: 20).isActive = true
-        uv.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        return uv
-    }()
-    
     private lazy var timeLabel: UILabel = {
        let lb = UILabel()
         lb.font = .systemFont(ofSize: 14, weight: .semibold)
