@@ -89,12 +89,12 @@ final class MyTravelCell: UICollectionViewCell {
 extension MyTravelCell: MyTravelCellHeaderCellDelegate {
     func myTravelCellHeaderCellDidSelectComplete() {
         showDeleteButton.toggle()
-        updateSections()
+        collectionView.reloadData()
     }
     
     func myTravelCellHeaderCellDidSelectEdit() {
         showDeleteButton.toggle()
-        updateSections()
+        collectionView.reloadData()
     }
 }
 
