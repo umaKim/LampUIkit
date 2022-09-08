@@ -12,7 +12,7 @@ extension UIImage {
     static let bell = UIImage(systemName: "bell")
     static let magnify = UIImage(systemName: "magnifyingglass")
     static let gear = UIImage(named: "setting")?.withTintColor(.midNavy, renderingMode: .alwaysOriginal)
-    static let xmark = UIImage(systemName: "xmark")
+    static let xmark = UIImage(systemName: "xmark")?.withTintColor(.midNavy, renderingMode: .alwaysOriginal)
     
     static let back = UIImage(named:"back")?.withTintColor(.midNavy, renderingMode: .alwaysOriginal)
 }
