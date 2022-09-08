@@ -33,7 +33,7 @@ class AnswerButton: UIButton {
         titleLabel?.numberOfLines = 0; // Dynamic number of lines
         titleLabel?.lineBreakMode = .byWordWrapping;
         titleLabel?.textAlignment = .center
-        titleLabel?.font = .systemFont(ofSize: 17, weight: .bold)
+        titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
         
         clipsToBounds = true
         

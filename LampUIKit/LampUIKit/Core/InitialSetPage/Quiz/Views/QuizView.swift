@@ -33,9 +33,21 @@ class QuizView: BaseView {
         return uv
     }()
     
+    private lazy var twinkle1: UIImageView = {
+       let uv = UIImageView()
+        uv.image = .init(named: "twinkle1")
+        return uv
+    }()
+    
+    private lazy var twinkle2: UIImageView = {
+       let uv = UIImageView()
+        uv.image = .init(named: "twinkle2")
+        return uv
+    }()
+    
     private lazy var questionLabel: UILabel = {
         let lb = UILabel()
-        lb.font = .robotoBold(20)
+        lb.font = .systemFont(ofSize: 20, weight: .bold)
         lb.textColor = .midNavy
         lb.numberOfLines = 0
         lb.textAlignment = .center
@@ -45,8 +57,8 @@ class QuizView: BaseView {
     
     private lazy var indexLabel: UILabel = {
         let lb = UILabel()
-        lb.font = .robotoRegular(16)
-        lb.textColor = .midNavy
+        lb.font = .systemFont(ofSize: 16, weight: .semibold)
+        lb.textColor = .lightNavy
         return lb
     }()
     
@@ -153,7 +165,7 @@ class QuizView: BaseView {
         totalSv.distribution = .fillProportionally
         totalSv.spacing = 40
         
-        [backgroundImageView, logoImageView, totalSv, nextButton].forEach { uv in
+        [backgroundImageView, logoImageView, twinkle1, twinkle2, totalSv, nextButton].forEach { uv in
             addSubview(uv)
             uv.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -163,6 +175,12 @@ class QuizView: BaseView {
             backgroundImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             backgroundImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
             backgroundImageView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -80),
+            
+            twinkle1.trailingAnchor.constraint(equalTo: questionLabel.leadingAnchor),
+            twinkle1.bottomAnchor.constraint(equalTo: questionLabel.topAnchor),
+            
+            twinkle2.leadingAnchor.constraint(equalTo: questionLabel.trailingAnchor),
+            twinkle2.topAnchor.constraint(equalTo: questionLabel.bottomAnchor),
             
             totalSv.centerXAnchor.constraint(equalTo: backgroundImageView.centerXAnchor),
             totalSv.centerYAnchor.constraint(equalTo: backgroundImageView.centerYAnchor),
@@ -176,24 +194,26 @@ class QuizView: BaseView {
     }
     
     public func setQuizData(_ data: Question) {
-        questionLabel.text = data.title
+        print(data)
+        
+        questionLabel.text = data.title?.localized
         indexLabel.text = "\(data.surveyIdx)" + " / 6"
-        button1.setTitle(data.option1, for: .normal)
-        button2.setTitle(data.option2, for: .normal)
-        button3.setTitle(data.option3, for: .normal)
+        button1.setTitle(data.option1?.localized, for: .normal)
+        button2.setTitle(data.option2?.localized, for: .normal)
+        button3.setTitle(data.option3?.localized, for: .normal)
         
         if data.option4 == nil {
             button4.isHidden = true
         } else {
             button4.isHidden = false
-            button4.setTitle(data.option4, for: .normal)
+            button4.setTitle(data.option4?.localized, for: .normal)
         }
         
         if data.option5 == nil {
             button5.isHidden = true
         } else {
             button5.isHidden = false
-            button5.setTitle(data.option5, for: .normal)
+            button5.setTitle(data.option5?.localized, for: .normal)
         }
     }
 }

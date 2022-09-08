@@ -12,10 +12,10 @@ class InitialSetPageViewController: BaseViewContronller {
 
     private lazy var beginningMessageLabel: UILabel = {
        let lb = UILabel()
-        lb.textColor = .greyshWhite
+        lb.textColor = .white
+        lb.alpha = 1
         lb.numberOfLines = 4
         lb.textAlignment = .center
-//        lb.font = .robotoBold(20)
         lb.font = .systemFont(ofSize: 20, weight: .bold)
         return lb
     }()
@@ -75,8 +75,7 @@ class InitialSetPageViewController: BaseViewContronller {
     }
     
     private func setupUI() {
-        
-        [beginningMessageLabel, darkImageView, twinkles].forEach { uv in
+        [darkImageView, twinkles, beginningMessageLabel].forEach { uv in
             view.addSubview(uv)
             uv.translatesAutoresizingMaskIntoConstraints = false
         }

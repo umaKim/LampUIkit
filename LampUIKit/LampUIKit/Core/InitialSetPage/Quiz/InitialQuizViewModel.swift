@@ -29,11 +29,11 @@ class InitialQuizViewModel: BaseViewModel {
     private let notifySubject = PassthroughSubject<InitialQuizViewModelNotify, Never>()
     
     private let characterImages: [UIImage?] = [
-        .init(named: "resultRacoon"),
-        .init(named: "resultRabbit"),
-        .init(named: "resultCat"),
-        .init(named: "resultDog"),
-        .init(named: "resultBear")
+        .init(named: "resultRacoon".localized),
+        .init(named: "resultRabbit".localized),
+        .init(named: "resultCat".localized),
+        .init(named: "resultDog".localized),
+        .init(named: "resultBear".localized)
     ]
     
     private var questions: [Question] = []
@@ -55,6 +55,7 @@ class InitialQuizViewModel: BaseViewModel {
             guard let self = self else {return}
             switch result {
             case .success(let response):
+                print(response)
                 self.questions = response
                 self.currentIndex = 0
                 self.notifySubject.send(.quizData(self.questions[self.currentIndex]))
@@ -72,11 +73,9 @@ class InitialQuizViewModel: BaseViewModel {
     public func next() {
         switch status {
         case .quiz:
-//            notifySubject.send(.setInitialSetting(false))
             quizProcess()
             
         case .result:
-//            notifySubject.send(.setInitialSetting(false))
             resultProcess()
         }
     }

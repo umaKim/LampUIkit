@@ -64,7 +64,7 @@ class CreateNickNameViewController: BaseViewContronller {
                     self.changeRoot(MainViewController(MainViewModel()))
                     
                 case .errorMessage(let message):
-                    self.presentUmaDefaultAlert(title: message)
+                    self.presentUmaDefaultAlert(title: message.localized)
                     
                 case .setInitialSetting(let bool):
                     self.isInitialSettingDone(bool)

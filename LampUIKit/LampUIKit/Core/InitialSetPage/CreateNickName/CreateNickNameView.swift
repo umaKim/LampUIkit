@@ -25,9 +25,15 @@ class CreateNickNameView: BaseView {
         return uv
     }()
     
-    private let nickNameTextField = LampRectangleTextField(placeholder: "닉네임을 정해주세요", placeHolderColor: .midNavy)
+    private let subTitleImage: UIImageView = {
+       let uv = UIImageView()
+        uv.image = .init(named: "nickNameSubtitle".localized)
+        return uv
+    }()
     
-    private let createAccountButton = RectangleTextButton("계정 생성 완료하기", background: .systemGray, textColor: .white, fontSize: 17)
+    private let nickNameTextField = LampRectangleTextField(placeholder: "닉네임을 정해주세요".localized, placeHolderColor: .midNavy)
+    
+    private let createAccountButton = RectangleTextButton("계정 생성 완료하기".localized, background: .systemGray, textColor: .white, fontSize: 17)
     
     override init() {
         self.isEnabledCreateAccountButton = false
@@ -47,7 +53,7 @@ class CreateNickNameView: BaseView {
     public var isEnabledCreateAccountButton: Bool {
         didSet {
             self.createAccountButton.isEnabled = isEnabledCreateAccountButton
-            self.createAccountButton.backgroundColor = self.createAccountButton.isEnabled ? .midNavy : .systemGray
+            self.createAccountButton.backgroundColor = self.createAccountButton.isEnabled ? .lightNavy : .systemGray
         }
     }
     
@@ -65,6 +71,7 @@ class CreateNickNameView: BaseView {
             .compactMap({$0})
             .sink {[weak self] text in
                 guard let self = self else {return}
+                self.createAccountButton.isEnabled = !text.isEmpty
                 self.actionSubject.send(.textFieldDidChange(text))
             }
             .store(in: &cancellables)
@@ -82,6 +89,8 @@ class CreateNickNameView: BaseView {
         toolBar.items = [doneButton]
         toolBar.sizeToFit()
         nickNameTextField.inputAccessoryView = toolBar
+        
+        createAccountButton.isEnabled = false
         
         [titleImage, nickNameTextField, createAccountButton].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
