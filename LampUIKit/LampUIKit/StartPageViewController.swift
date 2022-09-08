@@ -60,7 +60,14 @@ class StartPageViewController: UIViewController {
             HapticManager.shared.feedBack(with: .heavy)
             if AuthApi.hasToken() {
                 UserApi.shared.me {[weak self] user, error in
-                    guard let id = user?.id else { return }
+                    guard
+                        let id = user?.id else {
+                        self?.present(LoginViewController(vm: LoginViewModel()),
+                                      transitionType: .fromTop,
+                                      animated: true,
+                                      pushing: true)
+                        return
+                    }
                     NetworkService.shared.setUserAuthType(.kakao)
                     self?.presentMain(with: "\(id)")
                 }
