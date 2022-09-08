@@ -10,8 +10,8 @@ import UIKit
 class LocationDescriptionView: UIView {
     private lazy var titleLabel: UILabel = {
         let lb = UILabel()
-        lb.textColor = .midNavy
-        lb.font = .robotoMedium(14)
+        lb.textColor = .lightNavy
+        lb.font = .systemFont(ofSize: 14, weight: .bold)
         lb.heightAnchor.constraint(equalToConstant: 20).isActive = true
         lb.widthAnchor.constraint(equalToConstant: 80).isActive = true
         return lb
@@ -23,7 +23,7 @@ class LocationDescriptionView: UIView {
         lb.numberOfLines = 0
         lb.lineBreakMode = .byWordWrapping
         lb.textAlignment = .left
-        lb.font = .robotoMedium(14)
+        lb.font = .systemFont(ofSize: 14, weight: .semibold)
         return lb
     }()
     

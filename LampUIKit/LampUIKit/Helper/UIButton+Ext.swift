@@ -28,7 +28,7 @@ extension UIButton {
         let transformer = UIConfigurationTextAttributesTransformer { incoming in
             var outgoing = incoming
             outgoing.foregroundColor = subTitleColor
-            outgoing.font = .robotoMedium(subTitleSize)
+            outgoing.font = .systemFont(ofSize: 14, weight: .semibold)
             return outgoing
         }
         

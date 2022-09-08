@@ -11,7 +11,7 @@ class CustomNavigationBarView: BaseWhiteView {
     
     private lazy var titleLabel: UILabel = {
        let lb = UILabel()
-        lb.font = .robotoBold(20)
+        lb.font = .systemFont(ofSize: 20, weight: .bold)
         lb.textColor = .midNavy
         return lb
     }()

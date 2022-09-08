@@ -10,8 +10,8 @@ import UIKit
 class ReviewLabel: UIView {
     private let titleLabel: UILabel = {
         let lb = UILabel()
-        lb.font = .systemFont(ofSize: 15, weight: .semibold)
-        lb.textColor = .midNavy
+        lb.font = .systemFont(ofSize: 15, weight: .bold)
+        lb.textColor = .lightNavy
         lb.widthAnchor.constraint(equalToConstant: 80).isActive = true
         return lb
     }()
@@ -26,9 +26,11 @@ class ReviewLabel: UIView {
         title: String,
         subTitle: String,
         spacing: CGFloat = 16,
+        titleTextColor: UIColor = .lightNavy,
         setRoundDesign: Bool = true
     ) {
         self.titleLabel.text = title
+        self.titleLabel.textColor = titleTextColor
         super.init(frame: .zero)
         self.subTitleLabel.setText(subTitle)
         self.subTitleLabel.setRound(setRoundDesign)

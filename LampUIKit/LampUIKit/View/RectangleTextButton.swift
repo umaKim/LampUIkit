@@ -19,7 +19,7 @@ class RectangleTextButton: UIButton {
         self.setTitleColor(textColor, for: .normal)
         self.backgroundColor = background
         self.layer.cornerRadius = 5
-        self.titleLabel?.font = UIFont.systemFont(ofSize: fontSize)
+        self.titleLabel?.font = UIFont.systemFont(ofSize: fontSize, weight: .bold)
     }
     
     override var isHighlighted: Bool {
