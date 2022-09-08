@@ -6,6 +6,18 @@
   
 */
 
+"startTitle" = "startTitleEn";
+
+"resultRacoon" = "resultRacoonEn";
+
+"resultRabbit" = "resultRabbitEn";
+
+"resultCat" = "resultCatEn";
+
+"resultDog" = "resultDogEn";
+
+"resultBear" = "resultBearEn";
+
 "destinationSetButtonKr" = "destinationSetButtonEn";
 
 "destinationCancelButtonKr" = "destinationCancelButtonEn";
@@ -22,10 +34,175 @@
 
 "completeWriting_disableKr" = "completeWriting_disableEn";
 
-" 램프에 오신 것을 환영합니다! " = "Welcome to LAMP !";
+" 램프에 오신 것을 환영합니다! " = "Welcome to LAMP!";
 
 "지금부터 당신에게 맞는\n램프 캐릭터 배정을 시작합니다 " = "Are you ready\nto be assigned\nLAMP character for you?";
 
 "램프의 캐릭터는 당신과\n여행 할수록 함께 성장합니다" = "The character of the lamp\n grows with you as you travel";
 
 "가입 시 당사의 서비스 약관에 동의하고 개인정보 보호정책을 읽어 당사의 데이터 수집, 사용, 공유방법을 확인했음을 인정합니다" = "By accessing this Lamp, you agree to these User and Privacy Terms. Please do not use and or participate on the app until you have read through, understand, and agree with the User and Privacy Terms.";
+
+"가장 중요하게 생각하는 여행 요소는 무엇인가요?" = "What is the most important travel factor?" ;
+
+"경복궁 같은 역사 관련 관광지" = "Historical tourist attractions such as Gyeongbokgung Palace" ;
+
+"산, 바다 등 아름다운 자연" = "Beautiful nature such as mountains and seas" ;
+
+"전시회, 공연 등 즐거운 문화체험" = "Enjoying cultural experiences such as exhibitions and performances" ;
+
+"활동적이고 짜릿한 액티비티" = "Active and thrilling activities" ;
+
+"맛있는 음식들이 있는 맛집투어" = "A restaurant tour with delicious food" ;
+
+"좋아하는 여행 분위기는?" = "What's your favorite travel mood?";
+
+"고즈넉하고 조용한 분위기" = "Quiet and quiet atmosphere";
+
+"활기차고 신나는 분위기" = "a lively and exciting atmosphere" ;
+
+"내가 좋아하는 것들이 있으면 뭐든 좋아" = "Whatever I like, I'm fine with it" ;
+
+"여행을 하는 주된 이유는?" = "What is the main reason for traveling?" ;
+
+"많이 배우고 경험하기 위해서" = "To learn and experience a lot" ;
+
+"편안하게 휴식하고 릴렉스~하는 시간을 가지려고" = "I wanted to relax and chill" ;
+
+"신나고 즐거운 분위기를 위해서!" = "For a fun and exciting atmosphere!" ;
+
+"나를 위해서 맛있는 것도 먹고, 재밌는 것도 보려고!" = "Eat delicious food and watch fun things!" ;
+
+"꺼려하는 여행은?" = "Tell me about your least favorite trip" ;
+
+"쉬려고 간건데, 복잡하고 시끄러운 곳은 싫어!" = "I want to rest, I don't like crowded and noisy places!" ;
+
+"재밌게 즐기려고 간건데, 유적지나 박물관 같은 곳은 좀 별로.." = "I went there to have fun, so I don't like places like historical sites and museums" ;
+
+"그런거 없는데? 난 다 좋은걸!" = "There's nothing like that. I like them all!" ;
+
+"여행 중에서 제일 중요한건?" = "What is the most important thing about traveling?" ;
+
+"당근 맛있는 음식이지!" = "Delicious food!" ;
+
+"다양한 체험" = "Various experiences" ;
+
+"새롭게 습득할 수 있는 지식" = "New Knowledge" ;
+
+"난 그냥 쉬고 싶어.. :)" = "I just want to rest. :)" ;
+
+"보너스 퀴즈! 다음중 제일 좋아하는 동물은?" = "Bonus quiz! What is your favorite animal?" ;
+
+"라쿤" = "Raccoon";
+
+"토끼" = "Rabbit";
+
+"고양이" = "Cat";
+
+"강아지" = "A dog" ;
+
+"곰" = "Bear" ;
+
+"램프에 오신 것을 환영합니다!" = "Welcome to LAMP !";
+
+"지금부터 당신에게 맞는 램프 캐릭터 배정을 시작합니다" = "Are you ready to be assigned LAMP character for you?" ;
+
+"램프의 캐릭터는 당신과 여행 할수록 함께 성장합니다" = "The character of the lamp grows with you as you travel" ;
+
+"추천, 내 여행, 여행기록" = "Recommendation, My travel, Travel record" ;
+
+"이런! 검색 결과가 없네요 장소 키워드로 다시 검색해볼까요?" = "Oh no! There's no search result Please search with the location keyword again." ;
+
+"찜하기" = "Wish";
+
+"AR 길찾기" = "AR";
+
+"지도" = "Map";
+
+"후기 쓰기" = "Review" ;
+
+"관람 시간" = "Open hour";
+
+"관람 요금" = "Entrance fee";
+
+"내 여행지로 추가" = "Add to My Place" ;
+
+"이 곳의 여행 후기 (자세히 보기)" = "Review of the trip here (Read more)" ;
+
+"만족도" = "satisfaction" ;
+
+"분위기" = "mood" ;
+
+"주차 및 주변" = "Parking and Ambient" ;
+
+"먹거리" = "Food" ;
+
+"나의 여행지, 찜한 장소, 완료된 여행" = "My Place, Bookmark, completed trip" ;
+
+"편집, 완료" = "Edit, Done" ;
+
+"정렬, 최근날짜부터, 오래된순부터" = "Sort, from the latest date, from the oldest" ;
+
+"~님이 빛낸 장소의 후기" = "Review of the place that ~~ shined" ;
+
+"내가 갔다 온 여행" = "My travel" ;
+
+"작성한 여행 후기" = "My review" ;
+
+"공지사항" = "Announcement";
+
+"나의 여행 후기" = "my travel review";
+
+"알림" = "notification";
+
+"언어 설정" = "language setting";
+
+"현재 버전" = "current version";
+
+"개인정보처리방침" = "personal information processing policy";
+
+"로그아웃" = "logout";
+
+"회원탈퇴" = "member withdrawal" ;
+
+"좋았던 점, (합리적인 가격, 친절한 서비스, 다양한 편의시설, 잘 관리된 시설)" = "Good points (reasonable price, friendly service, various amenities, well-managed facilities)" ;
+
+"분위기, (아름다운 뷰, 다양한 즐길거리, 인생샷 맛집, 혼자만의 시간)" = "The mood, (beautiful view, various things to enjoy, good photos, alone time)" ;
+
+"주차 및 주변, (깨끗한, 혼잡한, 보통인)" = "Parking and Ambient, (clean, crowded, average)" ;
+
+"먹거리, (먹거리 있음, 먹거리 없음)" = "Food, (Food. No food)" ;
+
+"내용을 입력하세요" = "Please fill the contents" ;
+
+"최소 한장 이상" = "at least one sheet" ;
+
+"작성을 완료하기" = "Done" ;
+
+"신고하기" = "Report" ;
+
+"잠금된 리뷰입니다. 500 마일리지를 사용하여 리뷰를 확인하시겠습니까?" = "This is a locked review. Would you like to check your review using 500 miles?" ;
+
+"평균 게이지" = "Gauge average" ;
+
+"마일리지" = "Milage" ;
+
+"탐구 게이지, 인싸 게이지, 여행 게이지" = "Nerd Gauge, Social Gauge, Travel Gauge";
+
+"레벨 업! " = "Level up!";
+
+"마일리지 적립 완료! 오늘도 모험을 완료하셨군요!" = "Your mileage has been earned! You've completed your adventure today!";
+"~ 마일리지가 소모됩니다. 계속하시겠습니까?" = "~~ mileage will be consumed. Would you like to go on?";
+
+"이후 수정이 불가능합니다. 글 작성을 완료하시겠습니까?" = "No further modifications are possible. Are you sure you want to complete the writing?" ;
+
+"사진 없이 완료하시겠습니까? 이후 수정이 불가능합니다. 사진 업로드할 시 +500 마일리지" = "Are you sure you want to complete it without pictures? No further modifications are possible. +500 mileage for photo review" ;
+
+"신고 후 취소가 불가합니다. 이 리뷰를 신고하시겠습니까?" = "Cancellation is not possible after reporting. Do you want to report this review?" ;
+
+"닉네임을 정해주세요" = "Nickname";
+
+"계정 생성 완료하기" = "Create Account";
+
+"닉네임을 입력 해주세요" = "Please put nickname";
+
+"nickNameSubtitle" = "nickNameSubtitleEn"
