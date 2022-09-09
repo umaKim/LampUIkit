@@ -107,8 +107,6 @@ extension FavoriteCell: FavoriteCellCollectionViewCellDelegate {
     func favoriteCellCollectionViewCellDidTapDelete(at index: Int) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {[weak self] in
             self?.deleteMySaveLocations(at: index)
-            self?.models.remove(at: index)
-            self?.updateSections()
         }
     }
 }
@@ -134,7 +132,9 @@ extension FavoriteCell {
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
         snapshot.appendItems(models)
-        dataSource?.apply(snapshot, animatingDifferences: true)
+        dataSource?.apply(snapshot, animatingDifferences: true, completion: {
+            self.collectionView.reloadData()
+        })
     }
     
     private func configureCollectionView() {

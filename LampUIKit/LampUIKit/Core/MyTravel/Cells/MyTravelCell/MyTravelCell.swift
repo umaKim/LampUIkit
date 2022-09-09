@@ -119,18 +119,17 @@ extension MyTravelCell: MyTravelCellHeaderCellDelegate {
 extension MyTravelCell: MyTravelCellCollectionViewCellDelegate {
     func myTravelCellCollectionViewCellDidTapComplete(at index: Int) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
-            self?.completeTrip(at: index)
-            self?.models.remove(at: index)
-            self?.updateSections()
-            
+            self?.completeTrip(at: index, completion: {
+                self?.models.remove(at: index)
+                self?.updateSections()
+            })
         }
     }
     
     func myTravelCellCollectionViewCellDidTapDelete(at index: Int) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
             self?.deleteMyTravel(at: index)
-            self?.models.remove(at: index)
-            self?.updateSections()
+            
         }
     }
 }
@@ -157,7 +156,9 @@ extension MyTravelCell {
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
         snapshot.appendItems(models)
-        dataSource?.apply(snapshot, animatingDifferences: true)
+        dataSource?.apply(snapshot, animatingDifferences: true, completion: {
+                self.collectionView.reloadData()
+        })
     }
     
     private func configureCollectionView() {

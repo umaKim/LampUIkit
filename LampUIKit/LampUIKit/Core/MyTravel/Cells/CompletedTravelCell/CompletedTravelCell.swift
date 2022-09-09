@@ -117,7 +117,9 @@ final class CompletedTravelCell: UICollectionViewCell {
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
         snapshot.appendItems(models)
-        dataSource?.apply(snapshot, animatingDifferences: true)
+        dataSource?.apply(snapshot, animatingDifferences: true, completion: {
+            self.collectionView.reloadData()
+        })
     }
     
     private func configureCollectionView() {
@@ -167,8 +169,7 @@ extension CompletedTravelCell: CompletedTravelCellCollectionViewCellDelegate {
     func completedTravelCellCollectionViewCellDidTapDelete(at index: Int) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {[weak self] in
             self?.deleteCompletedTravel(at: index)
-            self?.models.remove(at: index)
-            self?.updateSections()
+            
         }
     }
 }
