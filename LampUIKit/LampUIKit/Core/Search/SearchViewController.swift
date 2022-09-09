@@ -83,9 +83,11 @@ class SearchViewController: BaseViewContronller {
                     break
                     
                 case .dismiss:
+                    HapticManager.shared.feedBack(with: .heavy)
                     self.delegate?.searchViewControllerDidTapDismiss()
                     
                 case .searchTextDidChange(let text):
+                    HapticManager.shared.feedBack(with: .soft)
                     self.viewModel.setKeyword(text)
                     
                 case .searchDidBeginEditing:
@@ -187,6 +189,7 @@ extension SearchViewController: LocationDetailViewControllerDelegate {
 
 extension SearchViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        HapticManager.shared.feedBack(with: .heavy)
         let vm = LocationDetailViewModel(viewModel.locations[indexPath.item])
         let vc = LocationDetailViewController(vm: vm)
         vc.delegate = self

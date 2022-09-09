@@ -77,6 +77,7 @@ final class CompletedTravelCellCollectionViewCell: UICollectionViewCell {
             self.delegate?.completedTravelCellCollectionViewCellDidTapDelete(at: self.tag)
         }
         .store(in: &cancellables)
+                HapticManager.shared.feedBack(with: .heavy)
     }
     
     private func setupUI() {

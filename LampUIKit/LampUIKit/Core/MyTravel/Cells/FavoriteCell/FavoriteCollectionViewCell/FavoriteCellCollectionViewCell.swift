@@ -86,6 +86,9 @@ final class FavoriteCellCollectionViewCell: UICollectionViewCell {
             .tapPublisher
             .sink {[weak self] _ in
                 guard let self = self else {return}
+                
+                HapticManager.shared.feedBack(with: .heavy)
+                
                 self.isSaveButtonTapped.toggle()
                 
                 if self.isSaveButtonTapped {
