@@ -54,6 +54,23 @@ class TotalTravelReviewView: UIView {
     
     private let dividerView = DividerView()
     
+    private lazy var loadingView: UIActivityIndicatorView = {
+       let activity = UIActivityIndicatorView(style: .large)
+        return activity
+    }()
+    
+    public func showSkeleton() {
+        backgroundColor = UIColor(white: 0, alpha: 0.7)
+        loadingView.isHidden = false
+        loadingView.startAnimating()
+    }
+    
+    public func hideSkeleton() {
+        backgroundColor = .clear
+        loadingView.isHidden = true
+        loadingView.stopAnimating()
+    }
+    
     public func configure(_ locationDetail: LocationDetailData) {
         guard let rate = locationDetail.totalAvgReviewRate else { return }
         let satisfactionIndex = rate.satisfaction ?? 0
@@ -108,6 +125,9 @@ class TotalTravelReviewView: UIView {
     private var cancellables: Set<AnyCancellable>
     
     private func setupUI() {
+        layer.cornerRadius = 8
+        clipsToBounds = true
+        
         let verticalSv = UIStackView(arrangedSubviews: [satisfyView, atmosphereView, surroundingView, foodView])
         verticalSv.axis = .vertical
         verticalSv.alignment = .leading
@@ -125,7 +145,7 @@ class TotalTravelReviewView: UIView {
         sv.distribution = .fill
         sv.spacing = 18
         
-        [sv, dividerView].forEach { uv in
+        [sv, dividerView, loadingView].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
             addSubview(uv)
         }
@@ -139,6 +159,9 @@ class TotalTravelReviewView: UIView {
             dividerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             dividerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             dividerView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
+            loadingView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            loadingView.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
     }
 }
