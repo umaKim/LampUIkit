@@ -126,7 +126,6 @@ extension MyTravelViewController: LocationDetailViewControllerDelegate {
     
     func locationDetailViewControllerDidTapBackButton() {
         self.navigationController?.popViewController(animated: true)
-        self.viewModel.fetch()
     }
 }
 

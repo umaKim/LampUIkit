@@ -39,14 +39,6 @@ final class FavoriteCellCollectionViewCell: UICollectionViewCell {
         return bt
     }()
     
-    private lazy var timeLabel: UILabel = {
-       let lb = UILabel()
-        lb.font = .systemFont(ofSize: 14, weight: .semibold)
-        lb.text = "09:00~18:30 (입장마감은 17:30)"
-        lb.textColor = .midNavy
-        return lb
-    }()
-    
     private lazy var addressLabel: UILabel = {
        let lb = UILabel()
         lb.text = "주소 어쩌구 저쩌구"
@@ -63,7 +55,6 @@ final class FavoriteCellCollectionViewCell: UICollectionViewCell {
         super.prepareForReuse()
         titleLabel.text = nil
         favoriteButton.setImage(nil, for: .normal)
-        timeLabel.text = nil
         addressLabel.text = nil
     }
     
@@ -102,9 +93,7 @@ final class FavoriteCellCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupUI() {
-        configureShadow(0.4)
-        
-        let totalSv = UIStackView(arrangedSubviews: [titleLabel, timeLabel, addressLabel])
+        let totalSv = UIStackView(arrangedSubviews: [titleLabel, addressLabel])
         totalSv.axis = .vertical
         totalSv.alignment = .fill
         totalSv.distribution = .fill

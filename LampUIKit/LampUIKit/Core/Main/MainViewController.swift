@@ -45,8 +45,6 @@ class MainViewController: BaseViewContronller {
         
         fpc.addPanel(toParent: self)
         fpc.delegate = self
-        
-        moveTo(.init(latitude: viewModel.coord.latitude, longitude: viewModel.coord.longitude))
     }
     
     override func viewDidAppear(_ animated: Bool) {

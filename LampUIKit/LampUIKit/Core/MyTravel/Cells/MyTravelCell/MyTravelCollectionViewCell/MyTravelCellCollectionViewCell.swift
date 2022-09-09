@@ -28,8 +28,6 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell {
     private let locationImageView: UIImageView = {
        let uv = UIImageView()
         uv.layer.cornerRadius = 6
-        uv.widthAnchor.constraint(equalToConstant: 72).isActive = true
-        uv.heightAnchor.constraint(equalToConstant: 55.19).isActive = true
         uv.clipsToBounds = true
         return uv
     }()
