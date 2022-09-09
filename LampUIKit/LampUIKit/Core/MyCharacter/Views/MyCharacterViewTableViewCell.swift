@@ -28,7 +28,7 @@ class MyCharacterViewTableViewCell: UITableViewCell {
     }()
     
     private lazy var barView: HorizontalFillBar = {
-        let uv = HorizontalFillBar(height: 13, fillerColor: .systemRed, trackColor: .whiteGrey)
+        let uv = HorizontalFillBar(height: 13, fillerColor: .clear, trackColor: .whiteGrey)
         uv.layer.cornerRadius = 13 / 2
         uv.heightAnchor.constraint(equalToConstant: 12).isActive = true
         uv.widthAnchor.constraint(equalToConstant: UIScreen.main.width - UIScreen.main.width/3).isActive = true
@@ -44,6 +44,14 @@ class MyCharacterViewTableViewCell: UITableViewCell {
         self.barView.setProgress(Float( Double(data.rate) / 50.0),
                                  animated: true)
         numberLabel.setText("\(data.rate) / 50")
+        
+        if data.name == "탐구 게이지" {
+            barView.barColor = .systemGreen
+        } else if data.name == "인싸 게이지" {
+            barView.barColor = .systemRed
+        } else if data.name == "여행 게이지" {
+            barView.barColor = .systemBlue
+        }
     }
     
     private func setupUI() {

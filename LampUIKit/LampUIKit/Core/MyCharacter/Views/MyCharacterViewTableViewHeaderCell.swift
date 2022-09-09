@@ -49,6 +49,7 @@ class MyCharacterViewTableViewHeaderCell: UITableViewHeaderFooterView {
     
     private lazy var averageStat: GraphHeaderView = {
         let uv = GraphHeaderView("평균 스탯".localized, number: 0)
+        uv.barColor = .systemBlue
         uv.heightAnchor.constraint(equalToConstant: 40).isActive = true
         return uv
     }()

@@ -134,6 +134,12 @@ class GraphHeaderView: UIView {
     
     private lazy var graphView = HorizontalFillBar(height: 13, fillerColor: .systemGreen, trackColor: .whiteGrey)
     
+    public var barColor: UIColor? {
+        didSet {
+            self.graphView.barColor = barColor
+        }
+    }
+    
     init(
         _ title: String,
         number: Int,
@@ -199,6 +205,12 @@ final class HorizontalFillBar: UIProgressView {
         trackTintColor = trackColor
         
         heightAnchor.constraint(equalToConstant: height).isActive = true
+    }
+    
+    public var barColor: UIColor? {
+        didSet {
+            progressTintColor = barColor
+        }
     }
     
     required init?(coder: NSCoder) {
