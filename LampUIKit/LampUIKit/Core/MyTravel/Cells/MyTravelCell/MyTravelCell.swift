@@ -85,8 +85,11 @@ final class MyTravelCell: UICollectionViewCell {
     
     public func deleteMyTravel(at index: Int) {
         let targetItem = models[index]
-        models.remove(at: index)
-        NetworkService.shared.removeMyTravel(targetItem)
+        
+        NetworkService.shared.removeMyTravel(targetItem) { [weak self] in
+            self?.models.remove(at: index)
+            self?.updateSections()
+        }
     }
     
     
