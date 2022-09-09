@@ -148,7 +148,7 @@ class WriteReviewViewModel: BaseViewModel {
     }
     
     private func postReviewImages() {
-        let imageDatum = images.map({$0.sd_imageData(as: .JPEG, compressionQuality: 0.75)}).compactMap({$0})
+        let imageDatum = images.map({$0.sd_imageData(as: .JPEG, compressionQuality: 0.25)}).compactMap({$0})
         NetworkService.shared.postReviewImages(with: imageDatum, location.contentId) {[weak self] result in
             guard let self = self else { return }
             switch result {
