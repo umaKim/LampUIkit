@@ -48,6 +48,7 @@ class MainViewModel: BaseViewModel  {
     private(set) var locationManager = CLLocationManager()
     
     public func appendPlace(_ locaion: RecommendedLocation) {
+        if recommendedPlaces.contains(locaion) { return }
         self.recommendedPlaces.append(locaion)
     }
     
