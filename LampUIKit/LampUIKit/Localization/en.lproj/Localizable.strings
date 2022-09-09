@@ -190,8 +190,6 @@
 
 "혼자만의 시간" = "alone time";
 
-"주차 및 주변" = "Parking and Ambient";
-
 "깨끗한" = "Clean";
 
 "혼잡한" = "Crowded";
@@ -318,7 +316,7 @@
 "운영 시간" = "Opening time" ;
 "쉬는 날" = "Day off" ;
 
-" 님\n" = "";
+" 님\n" = "\n";
 
 "안녕하세요" = "Hello~";
 
@@ -331,3 +329,7 @@
 "취소" = "Cancel";
 
 "loginSubtitle" = "loginSubtitleEn";
+
+"completeTrip" = "completeTripEn";
+
+"removeTrip" = "removeTripEn";
