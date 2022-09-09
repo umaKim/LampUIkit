@@ -72,12 +72,14 @@ final class CompletedTravelCellCollectionViewCell: UICollectionViewCell {
     }
     
     private func bind() {
-        deleteButton.tapPublisher.sink {[weak self] _ in
-            guard let self = self else {return }
-            self.delegate?.completedTravelCellCollectionViewCellDidTapDelete(at: self.tag)
-        }
-        .store(in: &cancellables)
+        deleteButton
+            .tapPublisher
+            .sink {[weak self] _ in
+                guard let self = self else {return }
                 HapticManager.shared.feedBack(with: .heavy)
+                self.delegate?.completedTravelCellCollectionViewCellDidTapDelete(at: self.tag)
+            }
+            .store(in: &cancellables)
     }
     
     private func setupUI() {
