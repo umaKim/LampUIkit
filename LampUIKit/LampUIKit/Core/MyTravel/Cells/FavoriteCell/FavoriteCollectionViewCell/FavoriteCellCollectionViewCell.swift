@@ -68,6 +68,8 @@ final class FavoriteCellCollectionViewCell: UICollectionViewCell {
         self.cancellables = .init()
         super.init(frame: frame)
         
+        configureShadow(0.4)
+        
         bind()
         setupUI()
     }
