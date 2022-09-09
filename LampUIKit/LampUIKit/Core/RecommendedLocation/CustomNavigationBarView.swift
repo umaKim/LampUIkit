@@ -27,8 +27,7 @@ class CustomNavigationBarView: BaseWhiteView {
     
     override init() {
         super.init()
-        
-        heightAnchor.constraint(equalToConstant: 80).isActive = true
+        heightAnchor.constraint(equalToConstant: 70).isActive = true
         
         [titleLabel, buttonSv].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
@@ -37,7 +36,8 @@ class CustomNavigationBarView: BaseWhiteView {
         
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
+            titleLabel.trailingAnchor.constraint(equalTo: centerXAnchor, constant: 16),
             
             buttonSv.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
             buttonSv.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
