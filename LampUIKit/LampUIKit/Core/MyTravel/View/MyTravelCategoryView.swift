@@ -138,7 +138,7 @@ extension MyTravelCategoryView {
         self.completedTravelButton.setTitleColor(.gray, for: .normal)
         
         button.alpha = 1.0
-        button.setTitleColor(.midNavy, for: .normal)
+        button.setTitleColor(.lightNavy, for: .normal)
     }
     
     private func animateIndicator(to index: Int) {
@@ -157,6 +157,5 @@ extension MyTravelCategoryView {
         }
         
         setAlpha(for: button)
-        
     }
 }
