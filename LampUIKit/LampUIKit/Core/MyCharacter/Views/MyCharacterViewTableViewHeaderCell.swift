@@ -128,6 +128,18 @@ class MileageView: UIView {
         return lb
     }()
     
+    private let twinkle1: UIImageView = {
+      let uv = UIImageView()
+        uv.image = .init(named: "twinkle1")
+        return uv
+    }()
+    
+    private let twinkle2: UIImageView = {
+       let uv = UIImageView()
+        uv.image = .init(named: "twinkle2")
+        return uv
+    }()
+    
     init() {
         super.init(frame: .zero)
         
@@ -141,12 +153,18 @@ class MileageView: UIView {
         sv.distribution = .fill
         sv.axis = .horizontal
         
-        [sv].forEach { uv in
+        [sv, twinkle1, twinkle2].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
             addSubview(uv)
         }
         
         NSLayoutConstraint.activate([
+            twinkle1.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            twinkle1.centerYAnchor.constraint(equalTo: centerYAnchor),
+            
+            twinkle2.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            twinkle2.centerYAnchor.constraint(equalTo: centerYAnchor),
+            
             sv.centerXAnchor.constraint(equalTo: centerXAnchor),
             sv.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
