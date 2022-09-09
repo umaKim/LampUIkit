@@ -41,11 +41,22 @@ class MyPageTableViewHeaderView: UIView {
         super.init(frame: .zero)
         
         nameLabel.text = myInfo.nickName + " 님 \n안녕하세요"
-//        emailLabel.text = email
         
-        visitedTravelLabel.text = "내가 갔다온 여행 \(myInfo.numOfPlan)개"
-        writtenLabel.text = "작성한 여행 후기 \(myInfo.numOfReview)개"
+        let visitedTravelLabelAttStrings = [
+            "내가 갔다 온 여행".localized.attributed,
+            "\(myInfo.numOfPlan)".lightNavyColored,
+            "개".localized.attributed].compactMap({$0})
         
+        visitedTravelLabel.attributedText = visitedTravelLabelAttStrings.joined(with: " ")
+        
+        let writtenLabelAttStrings = [
+            "작성한 여행 후기".localized.attributed,
+            "\(myInfo.numOfReview)".lightNavyColored,
+            "개".localized.attributed
+        ].compactMap({$0})
+        
+        writtenLabel.attributedText = writtenLabelAttStrings.joined(with: " ")
+
         setupUI()
     }
     
@@ -60,7 +71,7 @@ class MyPageTableViewHeaderView: UIView {
         
         let rightSv = UIStackView(arrangedSubviews: [visitedTravelLabel, writtenLabel])
         rightSv.axis = .vertical
-        rightSv.alignment = .fill
+        rightSv.alignment = .trailing
         rightSv.distribution = .fillProportionally
         rightSv.spacing = 8
         
