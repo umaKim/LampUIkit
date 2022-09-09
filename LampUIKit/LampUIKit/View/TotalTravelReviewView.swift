@@ -33,22 +33,22 @@ class TotalTravelReviewView: UIView {
     }()
     
     private lazy var satisfyView: ReviewLabel = {
-        let uv = ReviewLabel(title: "만족도".localized, subTitle: "만족", setRoundDesign: false)
+        let uv = ReviewLabel(title: "만족도", subTitle: "만족", setRoundDesign: false)
         return uv
     }()
     
     private lazy var atmosphereView: ReviewLabel = {
-        let uv = ReviewLabel(title: "분위기".localized, subTitle: "만족", setRoundDesign: false)
+        let uv = ReviewLabel(title: "분위기", subTitle: "만족", setRoundDesign: false)
         return uv
     }()
     
     private lazy var surroundingView: ReviewLabel = {
-        let uv = ReviewLabel(title: "주차 및 주변".localized, subTitle: "만족", setRoundDesign: false)
+        let uv = ReviewLabel(title: "주차 및 주변", subTitle: "만족", setRoundDesign: false)
         return uv
     }()
     
     private lazy var foodView: ReviewLabel = {
-        let uv = ReviewLabel(title: "먹거리".localized, subTitle: "만족", setRoundDesign: false)
+        let uv = ReviewLabel(title: "먹거리", subTitle: "만족", setRoundDesign: false)
         return uv
     }()
     
