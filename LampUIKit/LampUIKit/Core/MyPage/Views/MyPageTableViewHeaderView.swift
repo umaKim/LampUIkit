@@ -40,7 +40,7 @@ class MyPageTableViewHeaderView: UIView {
     init(_ myInfo: MyInfo) {
         super.init(frame: .zero)
         
-        nameLabel.text = myInfo.nickName + " 님 \n안녕하세요"
+        nameLabel.text = myInfo.nickName + " 님\n".localized + "안녕하세요".localized
         
         let visitedTravelLabelAttStrings = [
             "내가 갔다 온 여행".localized.attributed,

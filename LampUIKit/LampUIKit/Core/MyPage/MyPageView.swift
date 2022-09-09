@@ -41,7 +41,7 @@ class MyPageTableViewCell: UITableViewCell {
     }
     
     public func configure(with title: String) {
-        self.titleLabel.text = title
+        self.titleLabel.text = title.localized
     }
 }
 

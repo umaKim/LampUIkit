@@ -121,21 +121,29 @@
 
 "관람 시간, 관람 요금" = "Open hour, Entrance fee";
 
-"내 여행지로 추가" = "Add to My Place";
+"내 여행지로 추가" = "내 여행지로 추가";
 
-"이 곳의 여행 후기 (자세히 보기)" = "Review of the trip here (Read more)";
+"내 여행지로 추가 취소" = "내 여행지로 추가 취소";
 
-"만족도" = "satisfaction";
+"이 곳의 여행 후기" = "이 곳의 여행 후기";
 
-"분위기" = "mood";
+"만족도" = "Satisfaction";
 
-"주차 및 주변" = "Parking and Ambient";
+"분위기" = "Mood";
+
+"주차 및 주변" = "Surroundings";
 
 "먹거리" = "Food";
 
-"나의 여행지, 찜한 장소, 완료된 여행" = "My Place, Bookmark, completed trip" ;
+"나의 여행지" = "나의 여행지";
 
-"편집, 완료" = "Edit, Done";
+"찜한 장소" = "찜한 장소";
+
+"완료된 여행" = "Visited Places";
+
+"편집" = "Edit";
+
+"완료" = "Done";
 
 "정렬, 최근날짜부터, 오래된순부터" = "Sort, from the latest date, from the oldest";
 
@@ -143,9 +151,23 @@
 
 "내가 갔다 온 여행" = "My travel";
 
-"작성한 여행 후기" = "My review";
+"작성한 여행 후기" = "Reviews";
 
-"공지사항, 나의 여행 후기, 알림, 언어 설정, 현재 버전, 개인정보처리방침, 로그아웃, 회원탈퇴" = "Announcement, my travel review, notification, language setting, current version, personal information processing policy, logout, member withdrawal";
+"공지사항" = "Announcement";
+
+"나의 여행 후기" = "My travel review";
+
+"알림" = "notification";
+
+"언어 설정" = "language setting";
+
+"현재 버전" = "current version";
+
+"개인정보처리방침" = "personal information processing policy";
+
+"로그아웃" = "logout";
+
+"회원탈퇴" = "member withdrawal";
 
 "좋았던 점, (합리적인 가격, 친절한 서비스, 다양한 편의시설, 잘 관리된 시설)" = "Good points (reasonable price, friendly service, various amenities, well-managed facilities)";
 
@@ -155,7 +177,7 @@
 
 "먹거리, (먹거리 있음, 먹거리 없음)" = "Food, (Food. No food)";
 
-"내용을 입력하세요" = "Please fill the contents";
+"내용을 입력하세요" = "내용을 입력하세요";
 
 "최소 한장 이상" = "at least one sheet";
 
@@ -169,7 +191,11 @@
 
 "마일리지" = "Milage";
 
-"탐구 게이지, 인싸 게이지, 여행 게이지" = "Nerd Gauge, Social Gauge, Travel Gauge";
+"탐구 게이지" = "탐구 게이지";
+
+"인싸 게이지" = "인싸 게이지";
+
+"여행 게이지" = "여행 게이지";
 
 "레벨 업! " = "Level up!";
 
@@ -190,4 +216,32 @@ Do you want to report this review?";
 
 "닉네임을 입력 해주세요" = "닉네임을 입력 해주세요";
 
-"nickNameSubtitle" = "nickNameSubtitle"
+"nickNameSubtitle" = "nickNameSubtitle";
+
+"completed_selected" = "completed_selected";
+
+"destination_selected" = "destination_selected";
+
+"recommended_selected" = "recommended_selected";
+
+"지도보기" = "지도보기";
+
+"후기쓰기" = "후기쓰기";
+
+"저장하기" = "저장하기";
+
+"destinationCancelButtonKr" = "destinationCancelButtonKr";
+
+"destinationSetButtonKr" = "destinationSetButtonKr";
+
+"showDetail" = "showDetail";
+
+"여행 경험치 +10 획득" = "여행 경험치 +10 획득";
+
+"placeholder" = "placeholder";
+
+"검색어 입력" = "검색어 입력";
+
+"계정 삭제" = "Delete Account";
+
+"개" = "개";

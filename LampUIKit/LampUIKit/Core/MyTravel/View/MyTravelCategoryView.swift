@@ -23,7 +23,7 @@ final class MyTravelCategoryView: BaseWhiteView {
     
     private lazy var myTravelButton: UIButton = {
        let bt = UIButton()
-        bt.setTitle("나의 여행지", for: .normal)
+        bt.setTitle("나의 여행지".localized, for: .normal)
         bt.setTitleColor(UIColor.lightNavy, for: .normal)
         bt.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         return bt
@@ -31,7 +31,7 @@ final class MyTravelCategoryView: BaseWhiteView {
     
     private lazy var favoritePlaceButton: UIButton = {
        let bt = UIButton()
-        bt.setTitle("찜한 장소", for: .normal)
+        bt.setTitle("찜한 장소".localized, for: .normal)
         bt.setTitleColor(UIColor.gray, for: .normal)
         bt.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         return bt
@@ -39,7 +39,7 @@ final class MyTravelCategoryView: BaseWhiteView {
     
     private lazy var completedTravelButton: UIButton = {
        let bt = UIButton()
-        bt.setTitle("완료된 여행", for: .normal)
+        bt.setTitle("완료된 여행".localized, for: .normal)
         bt.setTitleColor(UIColor.gray, for: .normal)
         bt.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         return bt

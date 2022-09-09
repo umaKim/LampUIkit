@@ -27,7 +27,7 @@ final class MyTravelCellHeaderCell: UICollectionReusableView {
     
     private lazy var editButton: UIButton = {
         let bt = UIButton(type: .system)
-        bt.setTitle("편집", for: .normal)
+        bt.setTitle("편집".localized, for: .normal)
         bt.setTitleColor(.midNavy, for: .normal)
         return bt
     }()
@@ -47,10 +47,10 @@ final class MyTravelCellHeaderCell: UICollectionReusableView {
                 HapticManager.shared.feedBack(with: .rigid)
                 self.isEditButtonTapped.toggle()
                 if self.isEditButtonTapped {
-                    self.editButton.setTitle("완료", for: .normal)
+                    self.editButton.setTitle("완료".localized, for: .normal)
                     self.delegate?.myTravelCellHeaderCellDidSelectEdit()
                 } else {
-                    self.editButton.setTitle("편집", for: .normal)
+                    self.editButton.setTitle("편집".localized, for: .normal)
                     self.delegate?.myTravelCellHeaderCellDidSelectComplete()
                 }
             }

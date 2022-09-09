@@ -124,33 +124,47 @@
 
 "관람 요금" = "Entrance fee";
 
-"내 여행지로 추가" = "Add to My Place" ;
+"내 여행지로 추가" = "Add to destinations" ;
 
-"이 곳의 여행 후기 (자세히 보기)" = "Review of the trip here (Read more)" ;
+"내 여행지로 추가 취소" = "Remove from destinations";
 
-"만족도" = "satisfaction" ;
+"이 곳의 여행 후기" = "Overall review" ;
 
-"분위기" = "mood" ;
+"만족도" = "Satisfaction" ;
 
-"주차 및 주변" = "Parking and Ambient" ;
+"분위기" = "Mood" ;
+
+"주차 및 주변" = "Surroundings" ;
 
 "먹거리" = "Food" ;
 
-"나의 여행지, 찜한 장소, 완료된 여행" = "My Place, Bookmark, completed trip" ;
+"나의 여행지" = "Destinations";
 
-"편집, 완료" = "Edit, Done" ;
+"찜한 장소" = "Saved";
+
+"완료된 여행" = "Visited Places";
+
+"만족" = "Satisfied";
+
+"매우 만족" = "Very satistified";
+
+"보통" = "Mediocre";
+
+"편집" = "Edit";
+
+"완료" = "Done" ;
 
 "정렬, 최근날짜부터, 오래된순부터" = "Sort, from the latest date, from the oldest" ;
 
 "~님이 빛낸 장소의 후기" = "Review of the place that ~~ shined" ;
 
-"내가 갔다 온 여행" = "My travel" ;
+"내가 갔다 온 여행" = "Visited places" ;
 
-"작성한 여행 후기" = "My review" ;
+"작성한 여행 후기" = "Reviews" ;
 
 "공지사항" = "Announcement";
 
-"나의 여행 후기" = "my travel review";
+"나의 여행 후기" = "My travel review";
 
 "알림" = "notification";
 
@@ -160,19 +174,51 @@
 
 "개인정보처리방침" = "personal information processing policy";
 
-"로그아웃" = "logout";
+"로그아웃" = "Logout";
 
-"회원탈퇴" = "member withdrawal" ;
+"회원탈퇴" = "Delete this account" ;
 
 "좋았던 점, (합리적인 가격, 친절한 서비스, 다양한 편의시설, 잘 관리된 시설)" = "Good points (reasonable price, friendly service, various amenities, well-managed facilities)" ;
 
-"분위기, (아름다운 뷰, 다양한 즐길거리, 인생샷 맛집, 혼자만의 시간)" = "The mood, (beautiful view, various things to enjoy, good photos, alone time)" ;
+"분위기" = "The mood";
 
-"주차 및 주변, (깨끗한, 혼잡한, 보통인)" = "Parking and Ambient, (clean, crowded, average)" ;
+"아름다운 뷰" = "Beautiful view";
 
-"먹거리, (먹거리 있음, 먹거리 없음)" = "Food, (Food. No food)" ;
+"다양한 즐길거리" = "Various things to enjoy";
 
-"내용을 입력하세요" = "Please fill the contents" ;
+"인생샷 맛집" = "Good photos";
+
+"혼자만의 시간" = "alone time";
+
+"주차 및 주변" = "Parking and Ambient";
+
+"깨끗한" = "Clean";
+
+"혼잡한" = "Crowded";
+
+"보통인" = "Mediocre";
+
+"먹거리" = "Food";
+
+"잔잔한" = "Windless";
+
+"생기넘치는" = "Lively";
+
+"푸르른" = "Green";
+
+"고즈넉한" = "Serene";
+
+"여유로운" = "Relaxing";
+
+"인파가 적당한" = "Moderate";
+
+"먹거리 있음" = "Food";
+
+"다양한 종류" = "Various";
+
+"먹거리 없음" = "No food" ;
+
+"내용을 입력하세요" = "Please leave your comments about this place" ;
 
 "최소 한장 이상" = "at least one sheet" ;
 
@@ -182,11 +228,15 @@
 
 "잠금된 리뷰입니다. 500 마일리지를 사용하여 리뷰를 확인하시겠습니까?" = "This is a locked review. Would you like to check your review using 500 miles?" ;
 
-"평균 게이지" = "Gauge average" ;
+"평균 스탯" = "Average Exp" ;
 
 "마일리지" = "Milage" ;
 
-"탐구 게이지, 인싸 게이지, 여행 게이지" = "Nerd Gauge, Social Gauge, Travel Gauge";
+"탐구 게이지" = "Nerd Exp";
+
+"인싸 게이지" = "Social Exp";
+
+"여행 게이지" = "Travel Exp";
 
 "레벨 업! " = "Level up!";
 
@@ -205,4 +255,70 @@
 
 "닉네임을 입력 해주세요" = "Please put nickname";
 
-"nickNameSubtitle" = "nickNameSubtitleEn"
+"nickNameSubtitle" = "nickNameSubtitleEn";
+
+"completed_selected" = "completed_selectedEn";
+
+"destination_selected" = "destination_selectedEn";
+
+"recommended_selected" = "recommended_selectedEn";
+
+"지도보기" = "Map";
+
+"후기쓰기" = "Post review";
+
+"저장하기" = "Save";
+
+"destinationCancelButtonKr" = "destinationCancelButtonEn";
+
+"destinationSetButtonKr" = "destinationSetButtonEn";
+
+"showDetail" = "showDetailEn";
+
+"여행 경험치 +10 획득" = "you earned travel exp +10";
+
+"placeholder" = "placeholderEn";
+
+"검색어 입력" = "Search";
+
+"계정 삭제" = "Delete Account";
+
+"개" = "";
+
+"문의 안내" = "Contact Information" ;
+"주차" = "Parking" ;
+"쉬는 날" = "Day off" ;
+"운영 시기" = "Operation season" ;
+"운영 시간" = "Operation time" ;
+
+
+"할인정보" = "Discount" ;
+"문의 안내" = "Contact Information" ;
+"쉬는 날" = "Day off" ;
+"비용" = "Costs" ;
+"운영 시간" = "Operation time" ;
+
+
+"행사 장소" = "Event Place" ;
+"행사 기간" = "Event season" ;
+"행사 위치 안내" = "Event Location" ;
+"공연 시간" = "Performance time" ;
+"비용" = "Costs" ;
+
+
+"문의 안내" = "Contact Information" ;
+"개장 기간" = "Opening Period" ;
+"쉬는 날" = "Day off" ;
+"이용 요금" = "Entrance Fee" ;
+"이용 시간" = "Opening Time" ;
+
+
+"문의 안내" = "Contact Information" ;
+"대표 메뉴" = "Signiture" ;
+"운영 시간" = "Opening time" ;
+"쉬는 날" = "Day off" ;
+
+" 님\n" = "";
+"안녕하세요" = "Hello~";
+
+"성공적으로 신고했습니다" = "Reported Successfully";

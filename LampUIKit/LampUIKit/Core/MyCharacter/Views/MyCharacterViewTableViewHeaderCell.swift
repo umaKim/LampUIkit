@@ -48,7 +48,7 @@ class MyCharacterViewTableViewHeaderCell: UITableViewHeaderFooterView {
     }()
     
     private lazy var averageStat: GraphHeaderView = {
-       let uv = GraphHeaderView("평균스탯", number: 0)
+        let uv = GraphHeaderView("평균 스탯".localized, number: 0)
         uv.heightAnchor.constraint(equalToConstant: 40).isActive = true
         return uv
     }()
@@ -117,7 +117,7 @@ class MyCharacterViewTableViewHeaderCell: UITableViewHeaderFooterView {
 class MileageView: UIView {
     private let titleLabel: UILabel = {
         let lb = UILabel()
-        lb.text = "남은 마일리지 : "
+        lb.text = "마일리지".localized + ": "
         lb.font = .robotoRegular(16)
         return lb
     }()

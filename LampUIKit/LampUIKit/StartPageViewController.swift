@@ -24,7 +24,7 @@ class StartPageViewController: UIViewController {
     
     private lazy var titleImage: UIImageView = {
         let uv = UIImageView()
-        uv.image = UIImage(named: "lampTitle")
+        uv.image = UIImage(named: "startTitle".localized)
         return uv
     }()
     

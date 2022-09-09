@@ -32,19 +32,19 @@ class MainView: BaseWhiteView {
     
     private lazy var allOverButton: UIButton = {
         let bt = UIButton()
-        bt.setImage(UIImage(named: "recommended_selected"), for: .normal)
+        bt.setImage(UIImage(named: "recommended_selected".localized), for: .normal)
         return bt
     }()
     
     private lazy var destinationButton: UIButton = {
         let bt = UIButton()
-        bt.setImage(UIImage(named: "destination_selected"), for: .normal)
+        bt.setImage(UIImage(named: "destination_selected".localized), for: .normal)
         return bt
     }()
     
     private lazy var completeButton: UIButton = {
         let bt = UIButton()
-        bt.setImage(UIImage(named: "completed_selected"), for: .normal)
+        bt.setImage(UIImage(named: "completed_selected".localized), for: .normal)
         return bt
     }()
     

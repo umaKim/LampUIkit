@@ -76,21 +76,21 @@ class MyPageViewController: BaseViewContronller {
     }
     
     private var logoutAction: UIAlertAction {
-        return .init(title: "로그아웃", style: .default, handler: {[weak self] action in
+        return .init(title: "로그아웃".localized, style: .default, handler: {[weak self] action in
             guard let self = self else {return}
             self.viewModel.logout()
         })
     }
     
     private var deleteAccountAction: UIAlertAction {
-        return .init(title: "계정 삭제", style: .default, handler: {[weak self] action in
+        return .init(title: "계정 삭제".localized, style: .default, handler: {[weak self] action in
             guard let self = self else {return}
             self.viewModel.deleteAccount()
         })
     }
     
     private var cancelAction: UIAlertAction {
-        return .init(title: "취소", style: .cancel)
+        return .init(title: "취소".localized, style: .cancel)
     }
 }
 

@@ -46,7 +46,7 @@ final class EvaluationCollectionViewCell: UICollectionViewCell {
     }
     
     public func configure(with model: EvaluationModel) {
-        titleLabel.text = model.title
+        titleLabel.text = model.title.localized
         
         if model.isSelected {
             self.layer.borderColor = UIColor.lightNavy.cgColor

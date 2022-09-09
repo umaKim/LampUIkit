@@ -131,7 +131,7 @@ final class LocationDetailView: BaseWhiteView {
 
     private var photoUrls: [String] = []
 
-    private lazy var addToMyTravelButton = RectangleTextButton("내 여행지로 추가", background: .midNavy, textColor: .white, fontSize: 17)
+    private lazy var addToMyTravelButton = RectangleTextButton("내 여행지로 추가".localized, background: .clear, textColor: .white, fontSize: 17)
     
     private lazy var totalTravelReviewView = TotalTravelReviewView()
     
@@ -141,10 +141,10 @@ final class LocationDetailView: BaseWhiteView {
         
         if locationDetail.planExist?.num == 0 {
             addToMyTravelButton.isSelected = false
-            addToMyTravelButton.update("내 여행지로 추가", background: .midNavy, textColor: .white)
+            addToMyTravelButton.update("내 여행지로 추가".localized, background: .lightNavy, textColor: .white)
         } else {
             addToMyTravelButton.isSelected = true
-            addToMyTravelButton.update("내 여행지로 추가 취소", background: .systemGray, textColor: .white)
+            addToMyTravelButton.update("내 여행지로 추가 취소".localized, background: .systemGray, textColor: .white)
         }
         
         totalTravelReviewView.configure(locationDetail)
@@ -249,10 +249,10 @@ final class LocationDetailView: BaseWhiteView {
                 HapticManager.shared.feedBack(with: .heavy)
                 self.addToMyTravelButton.isSelected.toggle()
                 if self.addToMyTravelButton.isSelected {
-                    self.addToMyTravelButton.update("내 여행지로 추가 취소", background: .systemGray, textColor: .white)
+                    self.addToMyTravelButton.update("내 여행지로 추가 취소".localized, background: .systemGray, textColor: .white)
                     self.actionSubject.send(.addToMyTrip)
                 } else {
-                    self.addToMyTravelButton.update("내 여행지로 추가", background: .midNavy, textColor: .white)
+                    self.addToMyTravelButton.update("내 여행지로 추가".localized, background: .lightNavy, textColor: .white)
                     self.actionSubject.send(.removeFromMyTrip)
                 }
             }

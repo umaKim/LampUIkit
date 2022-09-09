@@ -40,7 +40,7 @@ class MyCharacterViewTableViewCell: UITableViewCell {
     private lazy var seperateView = DividerView()
     
     public func configure(with data: GaugeData) {
-        self.titleLabel.text = data.name
+        self.titleLabel.text = data.name.localized
         self.barView.setProgress(Float( Double(data.rate) / 50.0),
                                  animated: true)
         numberLabel.setText("\(data.rate) / 50")

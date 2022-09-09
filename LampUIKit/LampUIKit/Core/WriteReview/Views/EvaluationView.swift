@@ -44,7 +44,7 @@ final class EvaluationView: BaseWhiteView {
     private var elements: [EvaluationModel]
     
     init(title: String, elements: [EvaluationModel]) {
-        self.titleLabel.text = title
+        self.titleLabel.text = title.localized
         self.elements = elements
         super.init()
         
@@ -111,7 +111,7 @@ extension EvaluationView: UICollectionViewDelegate {
 
 extension EvaluationView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let name = elements[indexPath.item].title
+        let name = elements[indexPath.item].title.localized
         let width = name.size(withAttributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15, weight: .semibold)]).width + 24
         let height: CGFloat = EvaluationCollectionViewCell.preferredHeight
         return CGSize(width: width, height: height)

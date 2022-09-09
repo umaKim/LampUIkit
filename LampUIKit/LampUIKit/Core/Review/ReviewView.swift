@@ -209,7 +209,7 @@ class ReviewViewCollectionViewCell: UICollectionViewCell {
         bt.layer.borderWidth = 1
         bt.layer.borderColor = UIColor.systemGray.cgColor
         bt.titleLabel?.font = .robotoMedium(9)
-        bt.setTitle("신고하기", for: .normal)
+        bt.setTitle("신고하기".localized, for: .normal)
         bt.setTitleColor(UIColor.systemGray, for: .normal)
         bt.widthAnchor.constraint(equalToConstant: 52).isActive = true
         bt.heightAnchor.constraint(equalToConstant: 21).isActive = true

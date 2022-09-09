@@ -117,7 +117,7 @@ class WriteReviewView: BaseWhiteView, ImageCollectionViewCellDelegate {
     
     private(set) lazy var textContextView: InputTextView = {
         let tv = InputTextView()
-        tv.placeholderText = "내용을 입력하세요."
+        tv.placeholderText = "내용을 입력하세요".localized
         tv.font = .robotoMedium(16)
         tv.backgroundColor = .greyshWhite
         tv.layer.cornerRadius = 6
@@ -211,7 +211,7 @@ class WriteReviewView: BaseWhiteView, ImageCollectionViewCellDelegate {
     
     public func ableCompleteButton(_ isAble: Bool) {
         self.completeButton.isEnabled = isAble
-        completeButton.setImage(UIImage(named: self.completeButton.isEnabled ? "completeWriting_ableKr".localized : "completeWriting_disable".localized), for: .normal)
+        completeButton.setImage(UIImage(named: self.completeButton.isEnabled ? "completeWriting_ableKr".localized : "completeWriting_disableKr".localized), for: .normal)
     }
     
     required init?(coder: NSCoder) {

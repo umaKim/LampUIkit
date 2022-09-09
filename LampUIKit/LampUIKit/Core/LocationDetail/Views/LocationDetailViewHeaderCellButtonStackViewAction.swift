@@ -26,7 +26,7 @@ class LocationDetailViewHeaderCellButtonStackView: UIView {
     private lazy var saveButton: UIButton = {
         return .buttonMaker(image: self.isSaved ? UIImage(named: "favorite_saved") : UIImage(named: "favorite_unsaved"),
                             imagePadding: 12,
-                            subTitle: "저장하기")
+                            subTitle: "저장하기".localized)
     }()
     
     private let arButton: UIButton = {
@@ -38,7 +38,7 @@ class LocationDetailViewHeaderCellButtonStackView: UIView {
     private let mapButton: UIButton = {
         return .buttonMaker(image: UIImage(named: "map"),
                             imagePadding: 12,
-                            subTitle: "지도보기")
+                            subTitle: "지도보기".localized)
     }()
     
     private let navigationButton: UIButton = {
@@ -50,7 +50,7 @@ class LocationDetailViewHeaderCellButtonStackView: UIView {
     private let reviewButton: UIButton = {
         return .buttonMaker(image: UIImage(named: "detailReview"),
                             imagePadding: 12,
-                            subTitle: "후기쓰기")
+                            subTitle: "후기쓰기".localized)
     }()
     
     private var isSaved: Bool = false

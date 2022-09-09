@@ -19,7 +19,7 @@ class ReviewLabel: UIView {
     private lazy var subTitleLabel = RoundedLabelView("")
     
     public func setSubtitle(_ text: String) {
-        self.subTitleLabel.setText(text)
+        self.subTitleLabel.setText(text.localized)
     }
     
     init(
@@ -29,10 +29,10 @@ class ReviewLabel: UIView {
         titleTextColor: UIColor = .lightNavy,
         setRoundDesign: Bool = true
     ) {
-        self.titleLabel.text = title
+        self.titleLabel.text = title.localized
         self.titleLabel.textColor = titleTextColor
         super.init(frame: .zero)
-        self.subTitleLabel.setText(subTitle)
+        self.subTitleLabel.setText(subTitle.localized)
         self.subTitleLabel.setRound(setRoundDesign)
         
         let sv = UIStackView(arrangedSubviews: [titleLabel, subTitleLabel])
