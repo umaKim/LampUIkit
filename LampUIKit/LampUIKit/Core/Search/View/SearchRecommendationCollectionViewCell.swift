@@ -113,10 +113,10 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
         titleLabel.text = location.title
         
         if location.image == "" {
-            locationImageView.image = UIImage(named: "placeholder")
+            locationImageView.image = .placeholder
         }
         
-        locationImageView.sd_setImage(with: URL(string: location.image ?? ""), placeholderImage: .init(named: "placeholder"))
+        locationImageView.sd_setImage(with: URL(string: location.image ?? ""), placeholderImage: .placeholder)
         
         isFavorite = location.isBookMarked
         favoriteButton.setImage(isFavorite ? UIImage(named: "favorite_selected") : UIImage(named: "favorite_unselected"), for: .normal)

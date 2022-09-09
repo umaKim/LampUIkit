@@ -74,7 +74,7 @@ class CustomBalloonView: UIView {
         frame = .init(x: 0, y: 0, width: 300, height: 150)
         
         imageView.sd_setImage(with: URL(string: imageUrlString ?? ""),
-                              placeholderImage: UIImage(named: "placeholder"))
+                              placeholderImage: .placeholder)
         
         titleLabel.text = title
         addrLabel.text = subtitle

@@ -100,7 +100,9 @@ class InitialQuizViewModel: BaseViewModel {
                     if let image = self.characterImages[response.result.characterChosen ?? 0] {
                         self.notifySubject.send(.setCharacterImage(image))
                     } else {
-                        self.notifySubject.send(.setCharacterImage(UIImage(named: "placeholder")!))
+                        if let image: UIImage = .placeholder {
+                            self.notifySubject.send(.setCharacterImage(image))
+                        }
                     }
                     
                 case .failure(let error):

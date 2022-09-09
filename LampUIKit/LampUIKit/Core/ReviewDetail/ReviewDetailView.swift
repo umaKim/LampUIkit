@@ -30,7 +30,7 @@ class ReviewDetailImageCollectionViewCell: UICollectionViewCell {
     }
     
     public func configure(with image: String) {
-        imageView.sd_setImage(with: URL(string: image), placeholderImage: UIImage(systemName: "placeholder"))
+        imageView.sd_setImage(with: URL(string: image), placeholderImage: .placeholder)
     }
     
     private func setupUI() {

@@ -44,8 +44,12 @@ class ImageCollectionViewCell: UICollectionViewCell {
     }()
     
     public func configure(_ urlString: String) {
-        let url = URL(string: urlString)
-        imageView.sd_setImage(with: url)
+        if urlString == "placeholder" {
+            imageView.image = .init(named: urlString.localized)
+        } else {
+            let url = URL(string: urlString)
+            imageView.sd_setImage(with: url)
+        }
     }
     
     public func configure(_ image: UIImage) {

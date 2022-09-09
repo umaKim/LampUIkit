@@ -100,7 +100,7 @@ class MyCharacterViewTableViewHeaderCell: UITableViewHeaderFooterView {
     
     public func configure(with character: CharacterData) {
         characterImageView.sd_setImage(with: URL(string: character.imageString ?? ""),
-                                       placeholderImage: UIImage(named: "placeholder"))
+                                       placeholderImage: .placeholder)
         nameLabel.text = character.characterName
         levelLabel.text = "LV.\(character.level)"
         if

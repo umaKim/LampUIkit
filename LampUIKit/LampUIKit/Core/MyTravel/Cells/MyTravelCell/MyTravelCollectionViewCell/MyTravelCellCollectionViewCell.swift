@@ -85,7 +85,7 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell {
     
     public func configure(_ location: MyTravelLocation) {
         locationImageView.sd_setImage(with: URL(string: location.image ?? ""),
-                                      placeholderImage: UIImage(named: "placeholder"))
+                                      placeholderImage: .placeholder)
         titleLabel.text = location.placeName
         timeLabel.text = location.placeInfo
         addressLabel.text = location.placeAddress

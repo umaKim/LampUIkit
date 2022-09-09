@@ -151,8 +151,14 @@ final class LocationDetailView: BaseWhiteView {
     }
     
     public func configure(with images: [String]) {
-        photoUrls = images
-        pageControl.numberOfPages = images.count
+        if images.isEmpty {
+            photoUrls.append("placeholder")
+            pageControl.isHidden = true
+        } else {
+            photoUrls = images
+            pageControl.numberOfPages = images.count
+        }
+        
         locationImageView.reloadData()
     }
     

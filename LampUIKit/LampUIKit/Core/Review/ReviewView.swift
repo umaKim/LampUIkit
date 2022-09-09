@@ -309,7 +309,7 @@ class ReviewViewCollectionViewCell: UICollectionViewCell {
         self.reviewData = review
         
         let url = URL(string: (review.photoUrlArray?.first ?? ""))
-        imageView.sd_setImage(with: url, placeholderImage: .init(named: "placeholder"))
+        imageView.sd_setImage(with: url, placeholderImage: .placeholder)
         
         if let star = Double(review.star ?? "0") {
             starRatinView.image = .init(named: "\(star)")

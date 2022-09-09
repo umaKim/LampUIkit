@@ -45,8 +45,7 @@ class CustomMarkerView: UIView {
                 contentImageView.image = .init(data: data)?.rounded(with: .clear,
                                                                     width: 0)?.resize(to: 100)
             } else {
-                contentImageView.image = .init(named: "placeholder")?.rounded(with: .clear,
-                                                                              width: 0)?.resize(to: 100)
+                contentImageView.image = .placeholder
             }
         }
         
