@@ -11,8 +11,6 @@ import UIKit
 import CoreData
 import GoogleMaps
 
-//Thread 1: "Fatal: supplied item identifiers are not unique. Duplicate identifiers: {(\n    LampUIKit.RecommendedLocation(uid: D3482887-91F3-424B-9DF9-FE4BB2360823, image: Optional(\"http://tong.visitkorea.or.kr/cms/resource/62/1946562_image2_1.jpg\"), contentId: \"126747\", contentTypeId: \"12\", title: \"남산골한옥마을\", addr: \"서울특별시 중구 퇴계로34길 28\", rate: Optional(2.5), bookMarkIdx: Optional(\"\"), isBookMarked: false, mapX: \"126.9940059289\", mapY: \"37.5591248302\", planIdx: Optional(\"\"), isOnPlan: Optional(false))\n)}"
-
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
