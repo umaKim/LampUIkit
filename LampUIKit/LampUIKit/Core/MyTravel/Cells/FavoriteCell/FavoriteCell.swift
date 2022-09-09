@@ -4,7 +4,7 @@
 //
 //  Created by 김윤석 on 2022/07/18.
 //
-
+import Combine
 import UIKit
 
 protocol FavoriteCellDelegate: AnyObject {
@@ -33,13 +33,31 @@ final class FavoriteCell: UICollectionViewCell {
                     withReuseIdentifier: FavoriteCellHeaderCell.identifier)
         cv.register(FavoriteCellCollectionViewCell.self, forCellWithReuseIdentifier: FavoriteCellCollectionViewCell.identifier)
         cv.backgroundColor = .greyshWhite
+        cv.refreshControl = refreshcontrol
         return cv
     }()
     
+    private lazy var refreshcontrol = UIRefreshControl()
+    
+    private var cancellables: Set<AnyCancellable>
+    
     override init(frame: CGRect) {
+        self.cancellables = .init()
         super.init(frame: frame)
         setupUI()
-        fetchSavedTravel()
+        fetchSavedTravel(completion: {})
+        
+        refreshcontrol
+            .isRefreshingPublisher
+            .sink {[weak self] isRefreshing in
+                guard let self = self else {return }
+                if isRefreshing {
+                    self.fetchSavedTravel {
+                        self.refreshcontrol.endRefreshing()
+                    }
+                }
+            }
+            .store(in: &cancellables)
     }
     
     private var models: [MyBookMarkLocation] = []
@@ -48,14 +66,14 @@ final class FavoriteCell: UICollectionViewCell {
         self.updateSections()
     }
     
-    private func fetchSavedTravel() {
+    private func fetchSavedTravel(completion: @escaping () -> Void) {
         NetworkService.shared.fetchSavedTravel {[weak self] result in
             guard let self = self else {return}
             switch result {
             case .success(let locations):
                 self.models = locations
-//                self.notifySubject.send(.reload)
                 self.updateSections()
+                completion()
             case .failure(let error):
                 print(error)
             }

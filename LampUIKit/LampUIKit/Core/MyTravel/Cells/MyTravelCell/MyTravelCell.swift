@@ -35,13 +35,30 @@ final class MyTravelCell: UICollectionViewCell {
         cv.register(MyTravelCellCollectionViewCell.self, forCellWithReuseIdentifier: MyTravelCellCollectionViewCell.identifier)
         cv.backgroundColor = .greyshWhite
         cv.delegate = self
+        cv.refreshControl = refreshcontrol
         return cv
     }()
     
+    private lazy var refreshcontrol = UIRefreshControl()
+    
+    private var cancellables: Set<AnyCancellable>
+    
     override init(frame: CGRect) {
+        self.cancellables = .init()
         super.init(frame: frame)
         setupUI()
-        fetchMyTravel()
+        fetchMyTravel(completion: {})
+        refreshcontrol
+            .isRefreshingPublisher
+            .sink {[weak self] isRefreshing in
+                guard let self = self else {return }
+                if isRefreshing {
+                    self.fetchMyTravel {
+                        self.refreshcontrol.endRefreshing()
+                    }
+                }
+            }
+            .store(in: &cancellables)
     }
     
     private var models: [MyTravelLocation] = []
@@ -51,13 +68,14 @@ final class MyTravelCell: UICollectionViewCell {
         updateSections()
     }
     
-    private func fetchMyTravel() {
+    private func fetchMyTravel(completion: @escaping () -> Void) {
         NetworkService.shared.fetchMyTravel {[weak self] result in
             guard let self = self else {return}
             switch result {
             case .success(let locations):
                 self.models = locations
                 self.updateSections()
+                completion()
                 
             case .failure(let error):
                 print(error)

@@ -48,15 +48,17 @@ final class CompletedTravelCell: UICollectionViewCell {
         setupUI()
         fetchCompletedTravel(completion: { })
         
-        refreshcontrol.isRefreshingPublisher.sink {[weak self] isRefreshing in
-            guard let self = self else {return }
-            if isRefreshing {
-                self.fetchCompletedTravel {
-                    self.refreshcontrol.endRefreshing()
+        refreshcontrol
+            .isRefreshingPublisher
+            .sink {[weak self] isRefreshing in
+                guard let self = self else {return }
+                if isRefreshing {
+                    self.fetchCompletedTravel {
+                        self.refreshcontrol.endRefreshing()
+                    }
                 }
             }
-        }
-        .store(in: &cancellables)
+            .store(in: &cancellables)
     }
     
     private var models: [MyCompletedTripLocation] = []
