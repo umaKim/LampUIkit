@@ -97,9 +97,11 @@ final class CompletedTravelCellCollectionViewCell: UICollectionViewCell {
             
             locationNameLabel.leadingAnchor.constraint(equalTo: visitiedDateLabel.leadingAnchor),
             locationNameLabel.topAnchor.constraint(equalTo: visitiedDateLabel.bottomAnchor, constant: 23),
+            locationNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30),
             
             addressLabel.leadingAnchor.constraint(equalTo: locationNameLabel.leadingAnchor),
             addressLabel.topAnchor.constraint(equalTo: locationNameLabel.bottomAnchor, constant: 13),
+            addressLabel.trailingAnchor.constraint(equalTo: locationNameLabel.trailingAnchor),
             
             deleteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 26),
             deleteButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -46),
