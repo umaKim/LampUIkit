@@ -99,7 +99,6 @@ class RecommendedLocationViewController: BaseViewContronller {
                 }
             }
             .store(in: &cancellables)
-        
     }
     
     private func setUpNavigationView(_ text: String = "") {
