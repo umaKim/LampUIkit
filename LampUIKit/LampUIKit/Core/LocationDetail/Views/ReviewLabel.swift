@@ -12,7 +12,8 @@ class ReviewLabel: UIView {
         let lb = UILabel()
         lb.font = .systemFont(ofSize: 15, weight: .bold)
         lb.textColor = .lightNavy
-        lb.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        lb.numberOfLines = 2
+        lb.widthAnchor.constraint(equalToConstant: 100).isActive = true
         return lb
     }()
     
