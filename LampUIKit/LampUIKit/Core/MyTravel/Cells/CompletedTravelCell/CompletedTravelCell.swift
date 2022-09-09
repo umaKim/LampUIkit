@@ -97,10 +97,12 @@ final class CompletedTravelCell: UICollectionViewCell {
     
     public func deleteCompletedTravel(at index: Int) {
         let targetItem = models[index]
-        NetworkService.shared.deleteFromMyTravel(targetItem.planIdx) { result in
+        NetworkService.shared.deleteFromMyTravel(targetItem.planIdx) {[weak self] result in
             switch result {
             case .success(let response):
                 print(response)
+                self?.models.remove(at: index)
+                self?.updateSections()
             case .failure(let error):
                 print(error)
             }
