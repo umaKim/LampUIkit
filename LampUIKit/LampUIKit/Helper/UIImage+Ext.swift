@@ -15,6 +15,7 @@ extension UIImage {
     static let xmark = UIImage(systemName: "xmark")?.withTintColor(.midNavy, renderingMode: .alwaysOriginal)
     
     static let back = UIImage(named:"back")?.withTintColor(.midNavy, renderingMode: .alwaysOriginal)
+    static let placeholder = UIImage(named: "placeholder".localized) ?? .init(systemName: "house")
 }
 
 extension UIImage {
