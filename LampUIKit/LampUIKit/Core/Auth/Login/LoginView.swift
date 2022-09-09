@@ -26,6 +26,12 @@ class LoginView: UIView {
         return uv
     }()
     
+    private let subTitleImage: UIImageView = {
+       let uv = UIImageView()
+        uv.image = .init(named: "loginSubtitle".localized)
+        return uv
+    }()
+    
     private let kakao: UIButton = {
         let bt = UIButton()
         bt.setImage(UIImage(named: "kakaoButtonKr".localized), for: .normal)
@@ -89,7 +95,7 @@ class LoginView: UIView {
         stackView.distribution = .equalSpacing
         stackView.alignment = .fill
         
-        [titleImage, stackView, contractText].forEach { uv in
+        [titleImage, subTitleImage, stackView, contractText].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
             addSubview(uv)
         }
@@ -97,6 +103,9 @@ class LoginView: UIView {
         NSLayoutConstraint.activate([
             titleImage.centerXAnchor.constraint(equalTo: centerXAnchor),
             titleImage.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 100),
+            
+            subTitleImage.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 32),
+            subTitleImage.topAnchor.constraint(equalTo: titleImage.bottomAnchor, constant: 25),
             
             stackView.centerXAnchor.constraint(equalTo: centerXAnchor),
             stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
