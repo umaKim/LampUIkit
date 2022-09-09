@@ -92,7 +92,7 @@ class CreateNickNameView: BaseView {
         
         createAccountButton.isEnabled = false
         
-        [titleImage, nickNameTextField, createAccountButton].forEach { uv in
+        [titleImage, subTitleImage, nickNameTextField, createAccountButton].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
             addSubview(uv)
         }
@@ -100,6 +100,9 @@ class CreateNickNameView: BaseView {
         NSLayoutConstraint.activate([
             titleImage.centerXAnchor.constraint(equalTo: centerXAnchor),
             titleImage.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 100),
+            
+            subTitleImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
+            subTitleImage.topAnchor.constraint(equalTo: titleImage.bottomAnchor, constant: 50),
             
             nickNameTextField.centerXAnchor.constraint(equalTo: centerXAnchor),
             nickNameTextField.centerYAnchor.constraint(equalTo: centerYAnchor),
