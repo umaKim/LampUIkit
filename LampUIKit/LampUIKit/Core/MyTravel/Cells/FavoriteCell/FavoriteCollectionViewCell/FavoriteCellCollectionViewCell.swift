@@ -28,7 +28,7 @@ final class FavoriteCellCollectionViewCell: UICollectionViewCell {
        let lb = UILabel()
         lb.text = "경복궁"
         lb.textColor = .midNavy
-        lb.font = .systemFont(ofSize: 20, weight: .bold)
+        lb.font = .systemFont(ofSize: 20, weight: .semibold)
         lb.numberOfLines = 1
         return lb
     }()
