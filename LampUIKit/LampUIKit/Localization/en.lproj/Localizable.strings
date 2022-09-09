@@ -319,6 +319,15 @@
 "쉬는 날" = "Day off" ;
 
 " 님\n" = "";
+
 "안녕하세요" = "Hello~";
 
 "성공적으로 신고했습니다" = "Reported Successfully";
+
+"회원 탈퇴 하시겠습니까?" = "Do you want to delete this account?";
+
+"로그아웃 하시겠습니까?" = "Do you want to log out";
+
+"취소" = "Cancel";
+
+"loginSubtitle" = "loginSubtitleEn";
