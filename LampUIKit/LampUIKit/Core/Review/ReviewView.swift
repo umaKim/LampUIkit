@@ -90,10 +90,10 @@ class ReviewCollectionViewHeader: UICollectionReusableView {
         return uv
     }()
     
-    private lazy var satisfyView: ReviewLabel = ReviewLabel(title: "만족도", subTitle: "")
-    private lazy var atmosphereView: ReviewLabel = ReviewLabel(title: "분위기", subTitle: "")
-    private lazy var surroundingView: ReviewLabel = ReviewLabel(title: "주차 및 주변", subTitle: "")
-    private lazy var foodView: ReviewLabel = ReviewLabel(title: "먹거리", subTitle: "")
+    private lazy var satisfyView: ReviewLabel = ReviewLabel(title: "만족도", subTitle: "", titleTextColor: .midNavy)
+    private lazy var atmosphereView: ReviewLabel = ReviewLabel(title: "분위기", subTitle: "", titleTextColor: .midNavy)
+    private lazy var surroundingView: ReviewLabel = ReviewLabel(title: "주차 및 주변", subTitle: "", titleTextColor: .midNavy)
+    private lazy var foodView: ReviewLabel = ReviewLabel(title: "먹거리", subTitle: "", titleTextColor: .midNavy)
     
     private lazy var dividerView = DividerView()
     
