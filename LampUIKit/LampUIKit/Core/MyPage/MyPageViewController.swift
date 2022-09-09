@@ -45,11 +45,11 @@ class MyPageViewController: BaseViewContronller {
                 guard let self = self else {return}
                 switch action {
                 case .logoutActions:
-                    self.presentUmaActionAlert(title: "로그아웃 하시겠습니까?",
+                    self.presentUmaActionAlert(title: "로그아웃 하시겠습니까?".localized,
                                                with: self.logoutAction, self.cancelAction)
                     
                 case .deleteAccountActions:
-                    self.presentUmaActionAlert(title: "회원 탈퇴 하시겠습니까?",
+                    self.presentUmaActionAlert(title: "회원 탈퇴 하시겠습니까?".localized,
                                                with: self.deleteAccountAction, self.cancelAction)
                 case .back:
                     self.navigationController?.popViewController(animated: true)
