@@ -84,7 +84,7 @@ class RecommendedLocationViewmodel: BaseViewModel {
             mapY: location.mapY
         )
         
-        self.locations[index].isBookMarked = true
+        self.locations[index].isOnPlan = true
         
         NetworkService.shared.postAddToMyTravel(data) {[weak self] result in
             switch result {
