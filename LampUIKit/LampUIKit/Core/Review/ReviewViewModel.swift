@@ -60,7 +60,6 @@ class ReviewViewModel: BaseViewModel {
     public func didTapLike(at index: Int) {
         reviews[index].numLiked = self.reviews[index].numLiked + 1
         let idx = "\(reviews[index].reviewIdx ?? 0)"
-        print("didTapLike \(reviews[index].numLiked)")
         NetworkService.shared.patchLike(idx)
     }
     
