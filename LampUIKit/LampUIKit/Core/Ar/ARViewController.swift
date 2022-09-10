@@ -91,11 +91,10 @@ class ARViewController: UIViewController {
               let long = Double(viewModel.location.mapX) else { return }
         let coordinate = CLLocationCoordinate2D(latitude: lat,
                                                 longitude: long)
-        let location6 = CLLocation(coordinate: coordinate, altitude: 300)
+        let location6 = CLLocation(coordinate: coordinate, altitude: 250)
         let loc = viewModel.location
         let customBalloon = CustomBalloonView(title: loc.title, subtitle: loc.addr, imageUrlString: loc.image)
        let annotationNode = LocationAnnotationNode(location: location6, view: customBalloon)
-//        annotationNode.ignoreAltitude = true
         
         contentView
             .sceneLocationView
