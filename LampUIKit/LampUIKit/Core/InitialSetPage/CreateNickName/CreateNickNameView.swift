@@ -22,12 +22,14 @@ class CreateNickNameView: BaseView {
     private let titleImage: UIImageView = {
        let uv = UIImageView()
         uv.image = UIImage(named: "lampTitle")
+        uv.contentMode = .scaleAspectFit
         return uv
     }()
     
     private let subTitleImage: UIImageView = {
        let uv = UIImageView()
         uv.image = .init(named: "nickNameSubtitle".localized)
+        uv.contentMode = .scaleAspectFit
         return uv
     }()
     
@@ -92,29 +94,30 @@ class CreateNickNameView: BaseView {
         
         createAccountButton.isEnabled = false
         
-        [titleImage, subTitleImage, nickNameTextField, createAccountButton].forEach { uv in
+        let imageSv = UIStackView(arrangedSubviews: [subTitleImage, UIView()])
+        imageSv.axis = .horizontal
+        imageSv.distribution = .fill
+        imageSv.alignment = .leading
+        
+        let totalStackView = UIStackView(arrangedSubviews: [titleImage, imageSv, nickNameTextField, createAccountButton])
+        totalStackView.axis = .vertical
+        totalStackView.spacing = UIScreen.main.height/15
+        totalStackView.distribution = .fill
+        totalStackView.alignment = .fill
+        
+        [totalStackView].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
             addSubview(uv)
         }
         
         NSLayoutConstraint.activate([
-            titleImage.centerXAnchor.constraint(equalTo: centerXAnchor),
-            titleImage.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 100),
+            totalStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            totalStackView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -(UIScreen.main.height / 15)),
+            totalStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            totalStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             
-            subTitleImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
-            subTitleImage.topAnchor.constraint(equalTo: titleImage.bottomAnchor, constant: 50),
-            
-            nickNameTextField.centerXAnchor.constraint(equalTo: centerXAnchor),
-            nickNameTextField.centerYAnchor.constraint(equalTo: centerYAnchor),
-            nickNameTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            nickNameTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             nickNameTextField.heightAnchor.constraint(equalToConstant: 60),
-            
-            createAccountButton.topAnchor.constraint(equalTo: nickNameTextField.bottomAnchor, constant: 64),
-            createAccountButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            createAccountButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            createAccountButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            createAccountButton.heightAnchor.constraint(equalToConstant: 60)
+            createAccountButton.heightAnchor.constraint(equalToConstant: 60),
         ])
     }
 }
