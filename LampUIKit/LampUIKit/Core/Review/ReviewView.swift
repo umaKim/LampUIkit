@@ -229,8 +229,8 @@ class ReviewViewCollectionViewCell: UICollectionViewCell {
             self.likeButton.isSelected.toggle()
             if self.likeButton.isSelected {
                 if reviewData.reviewILiked {
-                    let numLiked = (self.reviewData?.numLiked)
-                    self.likeButton.configuration?.subtitle = "\(numLiked)"
+                    let numLiked = self.reviewData?.numLiked
+                    self.likeButton.configuration?.subtitle = "\(numLiked ?? 0)"
                 } else {
                     let numLiked = (reviewData.numLiked) + 1
                     self.likeButton.configuration?.subtitle = "\(numLiked)"
