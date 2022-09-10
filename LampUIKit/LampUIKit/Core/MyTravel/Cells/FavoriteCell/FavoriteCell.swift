@@ -87,7 +87,7 @@ final class FavoriteCell: UICollectionViewCell {
                                              mapx: "\(targetItem.mapX)",
                                              mapY: "\(targetItem.mapY)",
                                              placeName: "\(targetItem.placeName )",
-                                             placeAddr: "\(targetItem.placeAddr )") { result in
+                                             placeAddr: "\(targetItem.placeAddr )") {[weak self] result in
             
             switch result {
             case .success(let response):
