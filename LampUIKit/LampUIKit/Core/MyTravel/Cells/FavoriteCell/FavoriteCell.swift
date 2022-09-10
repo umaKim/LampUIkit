@@ -95,7 +95,8 @@ final class FavoriteCell: UICollectionViewCell {
             
             switch result {
             case .success(let response):
-                print(response)
+                self?.models.remove(at: index)
+                self?.updateSections()
             case .failure(let error):
                 print(error)
             }
