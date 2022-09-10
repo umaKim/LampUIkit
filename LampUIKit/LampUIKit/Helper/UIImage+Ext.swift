@@ -13,6 +13,7 @@ extension UIImage {
     static let magnify = UIImage(systemName: "magnifyingglass")
     static let gear = UIImage(named: "setting")?.withTintColor(.midNavy, renderingMode: .alwaysOriginal)
     static let xmark = UIImage(systemName: "xmark")?.withTintColor(.midNavy, renderingMode: .alwaysOriginal)
+    static let xmarkWhite = UIImage(systemName: "xmark")?.withTintColor(.white, renderingMode: .alwaysOriginal)
     
     static let back = UIImage(named:"back")?.withTintColor(.midNavy, renderingMode: .alwaysOriginal)
     static let placeholder = UIImage(named: "placeholder".localized) ?? .init(systemName: "house")
