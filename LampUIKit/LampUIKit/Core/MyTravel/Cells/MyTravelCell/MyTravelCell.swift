@@ -48,6 +48,15 @@ final class MyTravelCell: UICollectionViewCell {
         super.init(frame: frame)
         setupUI()
         fetchMyTravel(completion: {})
+    }
+    
+    private var models: [MyTravelLocation] = []
+    private var showDeleteButton: Bool = false
+    
+    public func configure() {
+        updateSections()
+    }
+    
         refreshcontrol
             .isRefreshingPublisher
             .sink {[weak self] isRefreshing in
@@ -59,13 +68,6 @@ final class MyTravelCell: UICollectionViewCell {
                 }
             }
             .store(in: &cancellables)
-    }
-    
-    private var models: [MyTravelLocation] = []
-    private var showDeleteButton: Bool = false
-    
-    public func configure() {
-        updateSections()
     }
     
     private func fetchMyTravel(completion: @escaping () -> Void) {
