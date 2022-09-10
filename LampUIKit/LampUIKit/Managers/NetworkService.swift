@@ -50,7 +50,7 @@ final class NetworkService {
     static let shared = NetworkService()
     
     private let baseUrl = "https://dev.twolamps.shop"
-    private var token: String = "asdf7834kj189ad8zjhkj3qthq5"
+    private(set) var token: String = "asdf7834kj189ad8zjhkj3qthq5"
     
     public func setToken(_ uid: String) {
         self.token = uid
@@ -71,7 +71,7 @@ final class NetworkService {
                                        name: "pppName",
                                        socialToken: "YK_Social",
                                        isAdmin: false)
-        
+        print(requestUrl)
         AF.request(requestUrl, method: .post, parameters: parameters, encoder: JSONParameterEncoder(), headers: nil)
             .validate()
             .responseDecodable(of: Response.self) { response in
@@ -138,8 +138,7 @@ final class NetworkService {
         print(requestUrl)
         AF.request(requestUrl, method: .get, encoding: JSONEncoding.default)
             .validate()
-            .responseDecodable(of: RecommendedLocationResponse.self) {
-                response in
+            .responseDecodable(of: RecommendedLocationResponse.self) { response in
                 completion(response.result)
             }
     }
@@ -162,6 +161,7 @@ final class NetworkService {
     func postAnswers(_ answers: [UserQuizeAnswer], completion: @escaping (Result<CharacterResponse, AFError>) -> Void) {
         
         let requestUrl = baseUrl + "/app/users/survey?token=\(token)"
+        print(requestUrl)
         AF.request(requestUrl, method: .post, parameters: answers, encoder: JSONParameterEncoder(), headers: nil)
             .validate()
             .responseDecodable(of: CharacterResponse.self) { response in
@@ -187,7 +187,6 @@ final class NetworkService {
         AF.request(requestUrl, method: .get, encoding: JSONEncoding.default)
             .validate()
             .responseDecodable(of: LocationDetailResponse.self) { response in
-                //                print(String(decoding: response.data!, as: UTF8.self))
                 completion(response.result)
             }
     }
@@ -196,8 +195,8 @@ final class NetworkService {
         
         var newParameters = parameters
         newParameters.token = token
-        
         let requestUrl = baseUrl + "/app/placeInfo/review"
+        print(requestUrl)
         AF.request(requestUrl, method: .post, parameters: newParameters, encoder: JSONParameterEncoder(), headers: nil)
             .validate()
             .responseDecodable(of: Response.self) { response in
@@ -208,7 +207,7 @@ final class NetworkService {
     func postReviewImages(with images: [Data],
                           _ contentId: String,
                           completion: @escaping ((Result<Response, AFError>) -> Void)) {
-        
+       
         let date = Date()
         
         let dateFormatter = DateFormatter()
@@ -221,6 +220,7 @@ final class NetworkService {
         let boundary = "Boundary-\(UUID().uuidString)"
         let headers: HTTPHeaders = ["Content-Type":"multipart/form-data; boundary=\(boundary)"]
         
+        print(requestUrl)
         AF.upload(multipartFormData: { (multipartFormData) in
             for image in images {
                 multipartFormData.append(image,
@@ -236,7 +236,7 @@ final class NetworkService {
     
     func fetchSearchLocations(
         _ keyword: String,
-        page: Int = 20,
+        pageSize: Int = 20,
         pageNumber: Int = 1,
         completion: @escaping (Result<RecommendedLocationResponse, AFError>) -> Void
     ) {
@@ -259,7 +259,7 @@ final class NetworkService {
         
         var newParameter = parameter
         newParameter.token = token
-        
+        print(requestUrl)
         AF.request(requestUrl, method: .post, parameters: newParameter, encoder: JSONParameterEncoder(), headers: nil)
             .validate()
             .responseDecodable(of: Response.self) { response in
@@ -269,7 +269,7 @@ final class NetworkService {
     
     func deleteFromMyTravel(_ planIdx: String, completion: @escaping (Result<Response, AFError>) -> Void) {
         let requestUrl = baseUrl + "/app/trip?token=\(token)&planIdx=\(planIdx)"
-        
+        print(requestUrl)
         AF.request(requestUrl, method: .delete, headers: nil)
             .validate()
             .responseDecodable(of: Response.self) { response in
@@ -287,16 +287,16 @@ final class NetworkService {
             }
     }
     
-    func removeMyTravel(_ item: MyTravelLocation) {
-        print(item)
+    func removeMyTravel(_ item: MyTravelLocation, completion: @escaping () -> Void) {
         let planIdx = item.planIdx
         let requestUrl = baseUrl + "/app/trip?token=\(token)&planIdx=\(planIdx)"
-        
+        print(requestUrl)
         AF.request(requestUrl, method: .delete)
             .validate()
             .responseDecodable(of: Response.self) {
                 response in
                 print(response)
+                completion()
             }
     }
     
@@ -320,14 +320,14 @@ final class NetworkService {
             }
     }
     
-    func updateBookMark(of contentId: String, _ contentTypeId: String, _ mapx: String, _ mapY: String, placeName: String, placeAddr: String, completion: @escaping (Result<Response, AFError>) -> Void) {
+    func updateBookMark(of contentId: String, contentTypeId: String, mapx: String, mapY: String, placeName: String, placeAddr: String, completion: @escaping (Result<Response, AFError>) -> Void) {
         guard
             let encodedPlaceName = placeName.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
             let encodedPlaceAddr = placeAddr.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         else { return }
         
         let requestUrl = baseUrl + "/app/main/placeInfo/bookmark?token=\(token)&contentId=\(contentId)&contentTypeId=\(contentTypeId)&mapX=\(mapx)&mapY=\(mapY)&placeName=\(encodedPlaceName)&placeAddr=\(encodedPlaceAddr)"
-        
+        print(requestUrl)
         AF.request(requestUrl, method: .patch)
             .validate()
             .responseDecodable(of: Response.self) {
@@ -337,7 +337,7 @@ final class NetworkService {
     }
     
     func fetchLocationDetailImage(_ contentId: String, completion: @escaping (Result<LocationImageResponse, AFError>) -> Void) {
-        let requestUrl = baseUrl + "/app/placeInfo/images?contentId=\(contentId)"
+        let requestUrl = baseUrl + "/app/placeInfo/images?contentId=\(contentId)&serviceLanguage=\(language.languageType.rawValue)"
         print(requestUrl)
         AF.request(requestUrl, method: .get, encoding: JSONEncoding.default)
             .validate()
@@ -352,8 +352,7 @@ final class NetworkService {
         print(requestUrl)
         AF.request(requestUrl, method: .get, encoding: JSONEncoding.default)
             .validate()
-            .responseDecodable(of: [ReviewData].self) {
-                response in
+            .responseDecodable(of: [ReviewData].self) { response in
                 completion(response.result)
             }
     }
@@ -393,7 +392,7 @@ final class NetworkService {
         newParameter.token = token
         
         let requestUrl = baseUrl + "/app/trip/complete"
-        
+        print(requestUrl)
         AF.request(requestUrl, method: .post, parameters: newParameter, encoder: JSONParameterEncoder(), headers: nil)
             .validate()
             .responseDecodable(of: Response.self) {
@@ -401,6 +400,42 @@ final class NetworkService {
                 completion(response.result)
             }
     }
+    
+    func patchLike(_ id: String) {
+        let param = LikeDataPatch(token: token, targetReviewId: id)
+        
+        let requestUrl = baseUrl + "/app/placeInfo/review/like"
+        print(requestUrl)
+        AF.request(requestUrl, method: .patch, parameters: param, encoder: JSONParameterEncoder(), headers: nil)
+            .validate()
+            .responseDecodable(of: Response.self) {
+                response in
+                print(response.result)
+            }
+    }
+    
+    func postReport(_ id: String, completion: @escaping (Result<Response, AFError>) -> Void) {
+        let param = LikeDataPatch(token: token, targetReviewId: id)
+        let requestUrl = baseUrl + "/app/placeInfo/review/report"
+        print(requestUrl)
+        AF.request(requestUrl, method: .post, parameters: param, encoder: JSONParameterEncoder(), headers: nil)
+            .validate()
+            .responseDecodable(of: Response.self) { response in
+                completion(response.result)
+            }
+    }
+    
+    func deleteReview(_ reviewIdx: Int, completion: @escaping (Result<Response, AFError>) -> Void) {
+        let requestUrl = baseUrl + "/app/placeInfo/review?token=\(token)&reviewIdx=\(reviewIdx)"
+        
+        AF.request(requestUrl, method: .delete).validate()
+            .responseDecodable(of: Response.self) {
+                response in
+                completion(response.result)
+            }
+    }
+}
+
 struct LikeDataPatch: Codable {
     let token: String
     let targetReviewId: String
@@ -427,6 +462,7 @@ struct MyCharacter: Codable {
     let socialExp: Int
     let characterLevel: Int
     let totalExp: Int
+    let avgExp: Int
     let characterImageUrl: String
 }
 
@@ -444,7 +480,7 @@ struct ReviewData: Codable, Hashable {
     let numReported: Int?
     let photoIdx: Int?
     var numLiked: Int
-    let reviewILiked: Bool?
+    let reviewILiked: Bool
     let photoUrlArray: [String]?
 }
 
@@ -458,6 +494,7 @@ struct ReviewPostData: Codable {
     let contentTypeId: String
     let placeName: String
     let starRate: String
+    let satisfaction: Int
     let mood: Int
     let surround: Int
     let foodArea: Int
