@@ -30,7 +30,7 @@ class LocationDescriptionView: UIView {
     init(_ title: String, description: String) {
         super.init(frame: .zero)
         
-        self.titleLabel.text = title
+        self.titleLabel.text = title.localized
         descriptionLabel.text = description.htmlToAttributedString?.string
         
         setupUI()
