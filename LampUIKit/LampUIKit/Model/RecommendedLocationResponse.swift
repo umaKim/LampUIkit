@@ -25,4 +25,5 @@ struct RecommendedLocation: Codable, Hashable {
     let mapY: String
     let planIdx: String?
     var isOnPlan: Bool?
+    let travelCompletedDate: String?
 }
