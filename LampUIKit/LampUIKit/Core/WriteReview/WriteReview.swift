@@ -252,41 +252,49 @@ extension WriteReviewView {
             }
             .store(in: &cancellables)
         
-        satisfactionEvaluationView.actionPublisher.sink {[weak self] action in
-            guard let self = self else {return}
-            switch action {
-            case .updateElement(let model):
-                self.actionSubject.send(.updateSatisfactionModel(model))
+        satisfactionEvaluationView
+            .actionPublisher
+            .sink {[weak self] action in
+                guard let self = self else {return}
+                switch action {
+                case .updateElement(let model):
+                    self.actionSubject.send(.updateSatisfactionModel(model))
+                }
             }
-        }
-        .store(in: &cancellables)
+            .store(in: &cancellables)
         
-        atmosphereEvaluationView.actionPublisher.sink {[weak self] action in
-            guard let self = self else {return}
-            switch action {
-            case .updateElement(let model):
-                self.actionSubject.send(.updateAtmosphereModel(model))
+        atmosphereEvaluationView
+            .actionPublisher
+            .sink {[weak self] action in
+                guard let self = self else {return}
+                switch action {
+                case .updateElement(let model):
+                    self.actionSubject.send(.updateAtmosphereModel(model))
+                }
             }
-        }
-        .store(in: &cancellables)
+            .store(in: &cancellables)
         
-        surroundingEvaluationView.actionPublisher.sink {[weak self] action in
-            guard let self = self else {return}
-            switch action {
-            case .updateElement(let model):
-                self.actionSubject.send(.updateSurroundingModel(model))
+        surroundingEvaluationView
+            .actionPublisher
+            .sink {[weak self] action in
+                guard let self = self else {return}
+                switch action {
+                case .updateElement(let model):
+                    self.actionSubject.send(.updateSurroundingModel(model))
+                }
             }
-        }
-        .store(in: &cancellables)
+            .store(in: &cancellables)
         
-        foodEvaluationView.actionPublisher.sink {[weak self] action in
-            guard let self = self else {return}
-            switch action {
-            case .updateElement(let model):
-                self.actionSubject.send(.updateFoodModel(model))
+        foodEvaluationView
+            .actionPublisher
+            .sink {[weak self] action in
+                guard let self = self else {return}
+                switch action {
+                case .updateElement(let model):
+                    self.actionSubject.send(.updateFoodModel(model))
+                }
             }
-        }
-        .store(in: &cancellables)
+            .store(in: &cancellables)
         
         textContextView.textPublisher
             .compactMap({$0})
@@ -296,11 +304,13 @@ extension WriteReviewView {
             }
             .store(in: &cancellables)
         
-        completeButton.tapPublisher.sink {[weak self] _ in
-            guard let self = self else {return}
-            self.actionSubject.send(.complete)
-        }
-        .store(in: &cancellables)
+        completeButton
+            .tapPublisher
+            .sink {[weak self] _ in
+                guard let self = self else {return}
+                self.actionSubject.send(.complete)
+            }
+            .store(in: &cancellables)
     }
 }
 
