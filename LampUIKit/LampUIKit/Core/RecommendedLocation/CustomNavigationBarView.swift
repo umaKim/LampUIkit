@@ -13,6 +13,7 @@ class CustomNavigationBarView: BaseWhiteView {
        let lb = UILabel()
         lb.font = .systemFont(ofSize: 20, weight: .bold)
         lb.textColor = .midNavy
+        lb.numberOfLines = 2
         return lb
     }()
     
