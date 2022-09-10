@@ -44,6 +44,7 @@ final class FavoriteCellCollectionViewCell: UICollectionViewCell {
         lb.text = "주소 어쩌구 저쩌구"
         lb.textColor = .midNavy
         lb.font = .systemFont(ofSize: 14, weight: .semibold)
+        lb.numberOfLines = 2
         return lb
     }()
     
@@ -97,8 +98,8 @@ final class FavoriteCellCollectionViewCell: UICollectionViewCell {
     private func setupUI() {
         let totalSv = UIStackView(arrangedSubviews: [titleLabel, addressLabel])
         totalSv.axis = .vertical
-        totalSv.alignment = .fill
-        totalSv.distribution = .fill
+        totalSv.alignment = .leading
+        totalSv.distribution = .fillProportionally
         totalSv.spacing = 6
         
         [containerView, totalSv, favoriteButton].forEach { uv in
@@ -112,12 +113,13 @@ final class FavoriteCellCollectionViewCell: UICollectionViewCell {
             containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -6),
             containerView.topAnchor.constraint(equalTo: topAnchor, constant: 6),
             
-            totalSv.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+            totalSv.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16),
+            totalSv.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -16),
             totalSv.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
-            totalSv.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
+            totalSv.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -48),
             
-            favoriteButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
-            favoriteButton.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16),
+            favoriteButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8),
+            favoriteButton.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 8),
         ])
     }
     
