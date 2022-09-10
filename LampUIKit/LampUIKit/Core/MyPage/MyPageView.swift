@@ -14,7 +14,6 @@ class MyPageTableViewCell: UITableViewCell {
     
     private let titleLabel: UILabel = {
        let lb = UILabel()
-        lb.text = "label"
         lb.textColor = .midNavy
         lb.font = .systemFont(ofSize: 16, weight: .semibold)
         return lb
