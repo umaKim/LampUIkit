@@ -210,7 +210,7 @@ extension RecommendedLocationViewController: UICollectionViewDelegate {
 
 extension RecommendedLocationViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        .init(width: UIScreen.main.bounds.width - 32, height: 175)
+        .init(width: UIScreen.main.bounds.width - 32, height: 145)
     }
 }
 
