@@ -5,6 +5,7 @@
 //  Created by 김윤석 on 2022/07/13.
 //
 
+import AuthenticationServices
 import CombineCocoa
 import Combine
 import UIKit
@@ -48,9 +49,8 @@ class LoginView: UIView {
         return bt
     }()
     
-    private let apple: UIButton = {
-        let bt = UIButton()
-        bt.setImage(UIImage(named: "appleButtonKr".localized), for: .normal)
+    private let apple:  UIControl = {
+        let bt = ASAuthorizationAppleIDButton(type: .signIn, style: .black)
         bt.heightAnchor.constraint(equalToConstant: 50).isActive = true
         return bt
     }()
@@ -66,6 +66,10 @@ class LoginView: UIView {
     }()
     
     private var cancellables: Set<AnyCancellable>
+    
+    @objc func appleSignInButtonPress() {
+        self.actionSubject.send(.apple)
+    }
     
     init() {
         self.cancellables = .init()
@@ -85,12 +89,13 @@ class LoginView: UIView {
         }
         .store(in: &cancellables)
         
-        apple.tapPublisher.sink {[weak self] _ in
-            guard let self = self else {return}
-            self.actionSubject.send(.apple)
-        }
-        .store(in: &cancellables)
+//        apple.tapPublisher.sink {[weak self] _ in
+//            guard let self = self else {return}
+//            self.actionSubject.send(.apple)
+//        }
+//        .store(in: &cancellables)
         
+        apple.addTarget(self, action: #selector(appleSignInButtonPress), for: .touchUpInside)
         
         
         let stackView = UIStackView(arrangedSubviews: [kakao, gmail, apple])

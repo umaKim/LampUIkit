@@ -13,6 +13,7 @@ import AuthenticationServices
 import GoogleSignIn
 import Firebase
 import UIKit
+import StoreKit
 
 class LoginViewController: UIViewController {
     
@@ -41,7 +42,11 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         bind()
+        
+        vc.delegate = self
     }
+    
+    private let vc = SKStoreProductViewController()
     
     private func bind() {
         contentView.actionPublisher.sink {[weak self] action in
@@ -89,6 +94,12 @@ class LoginViewController: UIViewController {
                     pushing: true)
             }
         }
+    }
+}
+
+extension LoginViewController: SKStoreProductViewControllerDelegate {
+    func productViewControllerDidFinish(_ viewController: SKStoreProductViewController) {
+        vc.dismiss(animated: true)
     }
 }
 
@@ -248,7 +259,10 @@ extension LoginViewController {
             }
         }
         else {
-            self.presentUmaDefaultAlert(title: "Install Kakao App")
+            let param = [SKStoreProductParameterITunesItemIdentifier: 362057947]
+            vc.loadProduct(withParameters: param) { result, error in
+                self.present(self.vc, animated: true)
+            }
         }
     }
     

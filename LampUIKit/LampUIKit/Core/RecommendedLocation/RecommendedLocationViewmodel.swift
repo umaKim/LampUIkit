@@ -64,10 +64,9 @@ class RecommendedLocationViewmodel: BaseViewModel {
                                              mapx: location.mapX,
                                              mapY: location.mapY,
                                              placeName: location.title,
-                                             placeAddr: location.addr,
-                                             completion: {[weak self] result in
+                                             placeAddr: location.addr) {[weak self] result in
             print(result)
-        })
+        }
     }
     
     public func postAddToMyTrip(at index: Int,_ location: RecommendedLocation) {
