@@ -161,6 +161,7 @@ class WriteReviewViewModel: BaseViewModel {
                 }
             case .failure(let error):
                 print(error)
+                self.notifySubject.send(.showMessage(error.localizedDescription))
             }
         }
     }
