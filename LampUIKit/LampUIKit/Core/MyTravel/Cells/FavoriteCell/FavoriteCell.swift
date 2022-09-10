@@ -68,7 +68,7 @@ final class FavoriteCell: UICollectionViewCell {
     
     private func fetchSavedTravel(completion: @escaping () -> Void) {
         NetworkService.shared.fetchSavedTravel {[weak self] result in
-            guard let self = self else {return}
+            guard let self = self else { return }
             switch result {
             case .success(let locations):
                 self.models = locations
