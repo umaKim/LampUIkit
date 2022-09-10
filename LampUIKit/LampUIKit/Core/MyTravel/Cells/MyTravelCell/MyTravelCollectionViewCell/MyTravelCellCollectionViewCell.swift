@@ -89,7 +89,7 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-//        backgroundImageView.image = nil
+        backgroundImageView.image = nil
         titleLabel.text = nil
         addressLabel.text = nil
     }
