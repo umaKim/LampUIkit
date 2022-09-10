@@ -139,6 +139,7 @@ extension MyTravelCell: MyTravelCellCollectionViewCellDelegate {
 
 extension MyTravelCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        HapticManager.shared.feedBack(with: .heavy)
         delegate?.myTravelCellDelegateDidTap(models[indexPath.item])
     }
 }

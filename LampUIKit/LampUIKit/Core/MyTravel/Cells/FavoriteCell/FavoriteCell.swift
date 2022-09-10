@@ -123,6 +123,7 @@ extension FavoriteCell: FavoriteCellHeaderCellDelegate {
 
 extension FavoriteCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        HapticManager.shared.feedBack(with: .heavy)
         delegate?.favoriteCellDidTap(models[indexPath.item])
     }
 }

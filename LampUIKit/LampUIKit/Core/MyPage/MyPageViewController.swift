@@ -112,7 +112,7 @@ extension MyPageViewController: UITableViewDataSource {
 extension MyPageViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         contentView.tableView.deselectRow(at: indexPath, animated: true)
-        
+        HapticManager.shared.feedBack(with: .medium)
         if viewModel.models[indexPath.item] == "나의 여행 후기" {
             let vc = MyReviewsViewController(MyReviewsViewModel())
             self.navigationController?.pushViewController(vc, animated: true)

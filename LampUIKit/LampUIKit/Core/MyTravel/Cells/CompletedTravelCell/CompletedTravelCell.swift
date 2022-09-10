@@ -176,6 +176,7 @@ extension CompletedTravelCell: CompletedTravelCellCollectionViewCellDelegate {
 
 extension CompletedTravelCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        HapticManager.shared.feedBack(with: .heavy)
         delegate?.completedTravelCellDidTap(models[indexPath.item])
     }
 }
