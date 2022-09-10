@@ -57,15 +57,14 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell {
     
     private lazy var deleteButton: UIButton = {
        let bt = UIButton()
-        let image = UIImage(systemName: "xmark")?.withTintColor(.black, renderingMode: .alwaysOriginal)
-        bt.setImage(image, for: .normal)
+        bt.setImage(UIImage(named: "removeTrip".localized), for: .normal)
         bt.isHidden = true
         return bt
     }()
     
     private lazy var completeTripButton: UIButton = {
        let bt = UIButton()
-        bt.setImage(UIImage(named: "completeTrip"), for: .normal)
+        bt.setImage(UIImage(named: "completeTrip".localized), for: .normal)
         bt.isHidden = false
         return bt
     }()
