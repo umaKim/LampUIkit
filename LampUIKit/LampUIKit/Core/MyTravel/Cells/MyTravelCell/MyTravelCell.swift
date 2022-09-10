@@ -93,12 +93,25 @@ final class MyTravelCell: UICollectionViewCell {
     }
     
     
-    public func completeTrip(at index: Int) {
+    public func completeTrip(at index: Int, completion: @escaping () -> Void) {
         let myTravel = models[index]
+        let location = CLLocationManager()
+        let coord = location.location?.coordinate
+        let lat = "\(coord?.latitude ?? 0)"
+        let long = "\(coord?.longitude ?? 0)"
         NetworkService.shared.postCompleteTrip(.init(token: "",
                                                      planIdx: myTravel.planIdx,
-                                                     mapX: myTravel.mapX ?? "",
-                                                     mapY: myTravel.mapY ?? "")) {[weak self] result in
+                                                     mapX: long,
+                                                     mapY: lat)) {[weak self] result in
+            
+            switch result {
+            case .success(let res):
+                self?.delegate?.myTravelCellDelegateDidReceiveResponse(res.message?.localized ?? "")
+                if res.isSuccess ?? false { completion() }
+                
+            case .failure(let error):
+                self?.delegate?.myTravelCellDelegateDidReceiveResponse(error.localizedDescription)
+            }
         }
     }
     
@@ -132,7 +145,6 @@ extension MyTravelCell: MyTravelCellCollectionViewCellDelegate {
     func myTravelCellCollectionViewCellDidTapDelete(at index: Int) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
             self?.deleteMyTravel(at: index)
-            
         }
     }
 }
