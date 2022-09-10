@@ -27,6 +27,7 @@ final class MyTravelCellHeaderCell: UICollectionReusableView {
     
     private lazy var editButton: UIButton = {
         let bt = UIButton(type: .system)
+        bt.titleLabel?.font = .boldSystemFont(ofSize: 15)
         bt.setTitle("편집".localized, for: .normal)
         bt.setTitleColor(.midNavy, for: .normal)
         return bt
