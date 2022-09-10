@@ -12,8 +12,9 @@ class LocationDescriptionView: UIView {
         let lb = UILabel()
         lb.textColor = .lightNavy
         lb.font = .systemFont(ofSize: 14, weight: .bold)
+        lb.numberOfLines = 2
         lb.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        lb.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        lb.widthAnchor.constraint(equalToConstant: 100).isActive = true
         return lb
     }()
     
