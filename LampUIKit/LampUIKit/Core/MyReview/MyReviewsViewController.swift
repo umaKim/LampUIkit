@@ -8,6 +8,10 @@
 import UIKit
 
 class MyReviewsViewController: BaseViewContronller {
+    func MyReviewCollectionViewCellDidTapDelete(_ index: Int) {
+        viewModel.deleteReview(at: index)
+    }
+    
 
     private typealias DataSource = UICollectionViewDiffableDataSource<Section, UserReviewData>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, UserReviewData>
@@ -68,6 +72,7 @@ class MyReviewsViewController: BaseViewContronller {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyReviewCollectionViewCell.identifier, for: indexPath) as? MyReviewCollectionViewCell
             else { return UICollectionViewCell() }
             cell.tag = indexPath.item
+            cell.delegate = self
             cell.configure(with: self.viewModel.datum[indexPath.item])
             return cell
         })

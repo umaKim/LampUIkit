@@ -50,6 +50,10 @@ class MyReviewsView: BaseWhiteView {
     }
 }
 
+protocol MyReviewCollectionViewCellDelegate: AnyObject {
+    func MyReviewCollectionViewCellDidTapDelete(_ index: Int)
+}
+
 class MyReviewCollectionViewCell: UICollectionViewCell {
     static let identifier = "MyReviewCollectionViewCell"
     
@@ -98,8 +102,17 @@ class MyReviewCollectionViewCell: UICollectionViewCell {
         return uv
     }()
     
+    private var cancellables: Set<AnyCancellable>
+    
+    weak var delegate: MyReviewCollectionViewCellDelegate?
+    
     override init(frame: CGRect) {
         super.init(frame: .zero)
+        
+        deleteButton.tapPublisher.sink { _ in
+            self.delegate?.MyReviewCollectionViewCellDidTapDelete(self.tag)
+        }
+        .store(in: &cancellables)
         
         setupUI()
     }

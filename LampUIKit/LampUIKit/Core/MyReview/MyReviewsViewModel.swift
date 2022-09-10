@@ -33,6 +33,20 @@ class MyReviewsViewModel: BaseViewModel {
             }
         }
     }
+    
+    public func deleteReview(at index: Int) {
+        NetworkService.shared.deleteReview(datum[index].reviewIdx) { result in
+            switch result {
+            case .success(let response):
+                self.datum.remove(at: index)
+                self.notifySubject.send(.reload)
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
+      
+    }
 }
 
 struct UserReviewData: Codable, Hashable {
