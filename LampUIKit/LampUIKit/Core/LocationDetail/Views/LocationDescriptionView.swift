@@ -37,8 +37,12 @@ class LocationDescriptionView: UIView {
     }
     
     public func configure(_ title: String, _ description: String) {
-        titleLabel.text = title
-        descriptionLabel.text = description.htmlToAttributedString?.string
+        titleLabel.text = title.localized
+        if description == "" {
+            descriptionLabel.text = "TBA"
+        } else {
+            descriptionLabel.text = description.htmlToAttributedString?.string
+        }
     }
     
     public func showSkeleton() {
