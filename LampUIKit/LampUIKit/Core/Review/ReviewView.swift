@@ -193,7 +193,8 @@ class ReviewViewCollectionViewCell: UICollectionViewCell {
         var config = UIButton.Configuration.tinted()
         config.baseBackgroundColor = .midNavy
         config.cornerStyle = .capsule
-        let image = UIImage(systemName: "heart")?.withTintColor(.red, renderingMode: .alwaysOriginal).resize(to: 10)
+//        let image = UIImage(systemName: "heart")?.withTintColor(.red, renderingMode: .alwaysOriginal).resize(to: 10)
+        let image = UIImage(named: "like_selected")?.resize(to: 10)
         config.image = image
         config.imagePlacement = .leading
         config.imagePadding = 6
@@ -227,18 +228,18 @@ class ReviewViewCollectionViewCell: UICollectionViewCell {
             
             HapticManager.shared.feedBack(with: .heavy)
             self.likeButton.isSelected.toggle()
+            
             if self.likeButton.isSelected {
-                if reviewData.reviewILiked {
-                    let numLiked = self.reviewData?.numLiked
-                    self.likeButton.configuration?.subtitle = "\(numLiked ?? 0)"
-                } else {
-                    let numLiked = (reviewData.numLiked) + 1
-                    self.likeButton.configuration?.subtitle = "\(numLiked)"
-                }
+                let numLiked = (reviewData.numLiked) + 1
+                self.reviewData?.numLiked = numLiked
+                self.likeButton.configuration?.subtitle = "\(numLiked)"
+                self.likeButton.setImage(UIImage(named: "like_selected")?.resize(to: 10), for: .normal)
                 self.delegate?.ReviewViewCollectionViewCellDidTapLikeButton(self.tag)
             } else {
                 let numLiked = (reviewData.numLiked) - 1
+                self.reviewData?.numLiked = numLiked
                 self.likeButton.configuration?.subtitle = "\(numLiked)"
+                self.likeButton.setImage(UIImage(named: "like_unselected")?.resize(to: 10), for: .normal)
                 self.delegate?.ReviewViewCollectionViewCellDidTapUnlikeButton(self.tag)
             }
         }
@@ -320,6 +321,8 @@ class ReviewViewCollectionViewCell: UICollectionViewCell {
         commentLabel.text = review.content
         likeButton.configuration?.subtitle = "\(review.numLiked)"
         likeButton.isSelected = review.reviewILiked
+        
+        likeButton.setImage(likeButton.isSelected ? UIImage(named: "like_selected")?.resize(to: 10) : UIImage(named: "like_unselected")?.resize(to: 10), for: .normal)
     }
     
     required init?(coder: NSCoder) {
