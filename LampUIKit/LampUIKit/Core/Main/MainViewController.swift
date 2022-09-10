@@ -97,6 +97,7 @@ extension MainViewController {
     }
     
     private func setFloatingPanelWithLocationDetailViewController(_ location: RecommendedLocation, isModal: Bool = false) {
+        
         let contentVC = LocationDetailViewController(vm: LocationDetailViewModel(location))
         contentVC.delegate = self
         contentVC.isModal = isModal
@@ -120,11 +121,11 @@ extension MainViewController {
     }
     
     private func configureFpc(with viewController: UIViewController, completion: @escaping () -> Void) {
+        
         let appearance = SurfaceAppearance()
         appearance.cornerRadius = 8.0
         appearance.backgroundColor = .clear
         fpc.surfaceView.appearance = appearance
-        
         fpc.surfaceView.grabberHandlePadding = -12.0
         
         let vc = viewController
@@ -249,12 +250,10 @@ extension MainViewController {
     }
 }
 
+//MARK: - CLLocationManagerDelegate
 extension MainViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let coord =  manager.location?.coordinate else { return }
-        let userLocationMarker = GMSMarker(position: coord)
-        userLocationMarker.icon = UIImage(named: "userMarker")
-        userLocationMarker.map = contentView.mapView
+        
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
