@@ -22,10 +22,14 @@ class MyPageViewModel: BaseViewModel {
     
     private(set) var myInfo: MyInfo?
     
-    private(set) var models: [String] = ["나의 여행 후기","로그아웃", "회원탈퇴"]
+    private(set) var models: [String] = ["나의 여행 후기", "로그아웃", "회원탈퇴"]
     
     override init() {
         super.init()
+        fetchUserInfo()
+    }
+    
+    private func fetchUserInfo() {
         NetworkService.shared.fetchMyInfo { result in
             switch result {
             case .success(let info):
@@ -36,10 +40,6 @@ class MyPageViewModel: BaseViewModel {
                 print(error)
             }
         }
-    }
-    
-    private func fetchUserInfo() {
-        
     }
     
     public func logout() {
