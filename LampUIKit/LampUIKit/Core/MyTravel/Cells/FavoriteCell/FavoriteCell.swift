@@ -44,9 +44,13 @@ final class FavoriteCell: UICollectionViewCell {
     override init(frame: CGRect) {
         self.cancellables = .init()
         super.init(frame: frame)
+        
+        bind()
         setupUI()
         fetchSavedTravel(completion: {})
-        
+    }
+    
+    private func bind() {
         refreshcontrol
             .isRefreshingPublisher
             .sink {[weak self] isRefreshing in
