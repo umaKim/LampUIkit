@@ -4,6 +4,7 @@
 //
 //  Created by 김윤석 on 2022/07/28.
 //
+
 import Combine
 import UIKit
 
@@ -22,36 +23,41 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell {
         uv.layer.cornerRadius = 6
         uv.layer.borderColor = UIColor.systemGray.cgColor
         uv.backgroundColor = .greyshWhite
+        uv.clipsToBounds = true
         return uv
     }()
     
-    private let locationImageView: UIImageView = {
+    private let backgroundImageView: UIImageView = {
        let uv = UIImageView()
         uv.layer.cornerRadius = 6
         uv.clipsToBounds = true
+        uv.contentMode = .scaleAspectFill
+        uv.image = .init(named: "BackgroundImagePlaceholder")
+        return uv
+    }()
+    
+    private let filterImageView: UIImageView = {
+       let uv = UIImageView()
+        uv.layer.cornerRadius = 6
+        uv.backgroundColor = .black.withAlphaComponent(0.2)
         return uv
     }()
     
     private lazy var titleLabel: UILabel = {
        let lb = UILabel()
         lb.text = "경복궁"
-        lb.textColor = .midNavy
+        lb.textColor = .white
         lb.font = .systemFont(ofSize: 20, weight: .bold)
         lb.numberOfLines = 1
-        return lb
-    }()
-    
-    private lazy var timeLabel: UILabel = {
-       let lb = UILabel()
-        lb.font = .systemFont(ofSize: 14, weight: .semibold)
-        lb.textColor = .midNavy
+        lb.textAlignment = .center
         return lb
     }()
     
     private lazy var addressLabel: UILabel = {
        let lb = UILabel()
-        lb.textColor = .midNavy
-        lb.font = .robotoMedium(14)
+        lb.textColor = .white
+        lb.font = .systemFont(ofSize: 14, weight: .semibold)
+        lb.textAlignment = .center
         return lb
     }()
     
@@ -80,15 +86,24 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell {
         setupUI()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+//        backgroundImageView.image = nil
+        titleLabel.text = nil
+        addressLabel.text = nil
+    }
+    
     public func configure(_ location: MyTravelLocation) {
-        locationImageView.sd_setImage(with: URL(string: location.image ?? ""),
-                                      placeholderImage: .placeholder)
+        backgroundImageView.sd_setImage(with: URL(string: location.image ?? ""),
+                                        placeholderImage: .init(named: "BackgroundImagePlaceholder"))
+        
         titleLabel.text = location.placeName
         addressLabel.text = location.placeAddress
     }
     
     var showDeleButton: Bool? {
-        didSet{
+        didSet {
             deleteButton.isHidden = !(showDeleButton ?? false)
             completeTripButton.isHidden = showDeleButton ?? true
         }
@@ -114,15 +129,16 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell {
         let titleSv = UIStackView(arrangedSubviews: [titleLabel, addressLabel])
         titleSv.axis = .vertical
         titleSv.distribution = .fill
-        titleSv.alignment = .fill
+        titleSv.alignment = .center
+        titleSv.spacing = 8
         
-        let upperSv = UIStackView(arrangedSubviews: [locationImageView, titleSv])
-        upperSv.axis = .horizontal
-        upperSv.distribution = .fill
-        upperSv.alignment = .fill
-        upperSv.spacing = 16
+        let totalSv = UIStackView(arrangedSubviews: [titleSv, completeTripButton, deleteButton])
+        totalSv.axis = .vertical
+        totalSv.distribution = .fill
+        totalSv.alignment = .fill
+        totalSv.spacing = 32
         
-        [containerView, upperSv, deleteButton, completeTripButton].forEach { uv in
+        [containerView, backgroundImageView, filterImageView, totalSv].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
             addSubview(uv)
         }
@@ -133,15 +149,20 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell {
             containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -6),
             containerView.topAnchor.constraint(equalTo: topAnchor, constant: 6),
             
-            upperSv.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
-            upperSv.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
-            upperSv.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+            backgroundImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            backgroundImageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            backgroundImageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            backgroundImageView.topAnchor.constraint(equalTo: containerView.topAnchor),
             
-            deleteButton.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16),
-            deleteButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
+            filterImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            filterImageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            filterImageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            filterImageView.topAnchor.constraint(equalTo: containerView.topAnchor),
             
-            completeTripButton.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-            completeTripButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
+            totalSv.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
+            totalSv.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
+            totalSv.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16),
+            totalSv.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -16),
         ])
     }
     
