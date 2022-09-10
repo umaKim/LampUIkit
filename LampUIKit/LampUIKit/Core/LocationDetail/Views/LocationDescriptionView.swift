@@ -25,6 +25,7 @@ class LocationDescriptionView: UIView {
         lb.lineBreakMode = .byWordWrapping
         lb.textAlignment = .left
         lb.font = .systemFont(ofSize: 14, weight: .semibold)
+        lb.widthAnchor.constraint(equalToConstant: 200).isActive = true
         return lb
     }()
     
