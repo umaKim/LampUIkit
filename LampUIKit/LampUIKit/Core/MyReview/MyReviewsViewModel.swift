@@ -58,5 +58,5 @@ struct UserReviewData: Codable, Hashable {
     let placeName: String
     let star: String
     let content: String
-    let photoUrl: String?
+    let photoUrl: [String]
 }
