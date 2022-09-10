@@ -84,7 +84,6 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell {
         locationImageView.sd_setImage(with: URL(string: location.image ?? ""),
                                       placeholderImage: .placeholder)
         titleLabel.text = location.placeName
-        timeLabel.text = location.placeInfo
         addressLabel.text = location.placeAddress
     }
     
@@ -109,7 +108,6 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell {
             self.delegate?.myTravelCellCollectionViewCellDidTapComplete(at: self.tag)
         }
         .store(in: &cancellables)
-        
     }
     
     private func setupUI() {
