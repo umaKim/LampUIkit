@@ -39,7 +39,7 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell {
     private let filterImageView: UIImageView = {
        let uv = UIImageView()
         uv.layer.cornerRadius = 6
-        uv.backgroundColor = .black.withAlphaComponent(0.2)
+        uv.backgroundColor = .black.withAlphaComponent(0.4)
         return uv
     }()
     
