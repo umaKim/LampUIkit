@@ -23,12 +23,14 @@ class LoginView: UIView {
     private let titleImage: UIImageView = {
        let uv = UIImageView()
         uv.image = UIImage(named: "lampTitle")
+        uv.contentMode = .scaleAspectFit
         return uv
     }()
     
     private let subTitleImage: UIImageView = {
        let uv = UIImageView()
         uv.image = .init(named: "loginSubtitle".localized)
+        uv.contentMode = .scaleAspectFit
         return uv
     }()
     
@@ -89,30 +91,37 @@ class LoginView: UIView {
         }
         .store(in: &cancellables)
         
+        
+        
         let stackView = UIStackView(arrangedSubviews: [kakao, gmail, apple])
         stackView.axis = .vertical
         stackView.spacing = 14
         stackView.distribution = .equalSpacing
         stackView.alignment = .fill
         
-        [titleImage, subTitleImage, stackView, contractText].forEach { uv in
+        let imageSv = UIStackView(arrangedSubviews: [subTitleImage, UIView()])
+        imageSv.axis = .horizontal
+        imageSv.distribution = .fill
+        imageSv.alignment = .leading
+        
+        let totalStackView = UIStackView(arrangedSubviews: [titleImage, imageSv, stackView])
+        totalStackView.axis = .vertical
+        totalStackView.spacing = UIScreen.main.height/15
+        totalStackView.distribution = .fill
+        totalStackView.alignment = .fill
+        
+        [totalStackView, contractText].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
             addSubview(uv)
         }
         
         NSLayoutConstraint.activate([
-            titleImage.centerXAnchor.constraint(equalTo: centerXAnchor),
-            titleImage.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 100),
+            totalStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            totalStackView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -(UIScreen.main.height / 15)),
+            totalStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            totalStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             
-            subTitleImage.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 32),
-            subTitleImage.topAnchor.constraint(equalTo: titleImage.bottomAnchor, constant: 25),
-            
-            stackView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            
-            contractText.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 64),
+            contractText.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
             contractText.centerXAnchor.constraint(equalTo: centerXAnchor),
             contractText.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50),
             contractText.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -50)
