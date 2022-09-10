@@ -11,6 +11,7 @@ protocol MyTravelCellDelegate: AnyObject {
     func myTravelCellDelegateDidTap(_ item: MyTravelLocation)
     func myTravelCellDelegateDidTapDelete(at index: Int)
     func myTravelCellDelegateDidTapComplete(at index: Int)
+    func myTravelCellDelegateDidReceiveResponse(_ message: String)
 }
 
 final class MyTravelCell: UICollectionViewCell {
