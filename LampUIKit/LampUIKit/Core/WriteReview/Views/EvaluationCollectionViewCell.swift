@@ -52,7 +52,7 @@ final class EvaluationCollectionViewCell: UICollectionViewCell {
             self.layer.borderColor = UIColor.lightNavy.cgColor
             self.titleLabel.textColor = .lightNavy
             self.titleLabel.font = .systemFont(ofSize: 15, weight: .bold)
-            self.layer.borderWidth = 2
+            self.layer.borderWidth = 1.4
         } else {
             self.layer.borderColor = UIColor.systemGray.cgColor
             self.titleLabel.textColor = .systemGray
