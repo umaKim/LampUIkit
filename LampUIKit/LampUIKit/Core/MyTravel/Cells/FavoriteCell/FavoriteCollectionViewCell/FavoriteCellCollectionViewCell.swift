@@ -27,7 +27,7 @@ final class FavoriteCellCollectionViewCell: UICollectionViewCell {
     private lazy var titleLabel: UILabel = {
        let lb = UILabel()
         lb.text = "경복궁"
-        lb.textColor = .midNavy
+        lb.textColor = .darkNavy
         lb.font = .systemFont(ofSize: 20, weight: .bold)
         lb.numberOfLines = 1
         return lb
@@ -42,7 +42,7 @@ final class FavoriteCellCollectionViewCell: UICollectionViewCell {
     private lazy var addressLabel: UILabel = {
        let lb = UILabel()
         lb.text = "주소 어쩌구 저쩌구"
-        lb.textColor = .midNavy
+        lb.textColor = .darkNavy
         lb.font = .systemFont(ofSize: 14, weight: .semibold)
         lb.numberOfLines = 2
         return lb
