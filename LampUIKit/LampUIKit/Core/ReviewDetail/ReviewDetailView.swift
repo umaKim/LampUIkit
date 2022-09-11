@@ -79,7 +79,7 @@ class ReviewDetailView: BaseWhiteView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func configure(with data: ReviewData) {
+    public func configure(with data: ReviewDetailData ) {
         commentLabel.text = data.content ?? ""
     }
     

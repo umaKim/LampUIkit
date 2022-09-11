@@ -114,7 +114,8 @@ extension ReviewViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         HapticManager.shared.feedBack(with: .rigid)
         let model = viewModel.reviews[indexPath.item]
-        let vm = ReviewDetailViewModel(model)
+        let vm = ReviewDetailViewModel(.init(photoUrlArray: model.photoUrlArray ?? [],
+                                             content: model.content ?? ""))
         let vc = ReviewDetailViewController(vm: vm)
         navigationController?.pushViewController(vc, animated: true)
     }
