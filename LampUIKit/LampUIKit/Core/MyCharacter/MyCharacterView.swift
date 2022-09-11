@@ -51,8 +51,8 @@ class MyCharacterView: BaseWhiteView {
     }
     
     private func bind() {
-        gearButton.tapPublisher.sink { _ in
-            self.actionSubject.send(.gear)
+        gearButton.tapPublisher.sink {[weak self] _ in
+            self?.actionSubject.send(.gear)
         }
         .store(in: &cancellables)
         
