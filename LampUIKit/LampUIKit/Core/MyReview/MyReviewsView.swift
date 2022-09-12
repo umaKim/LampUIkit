@@ -73,9 +73,9 @@ class MyReviewCollectionViewCell: UICollectionViewCell {
         return lb
     }()
     
-    private lazy var optionButton: UIButton = {
+    private lazy var deleteButton: UIButton = {
        let bt = UIButton()
-        bt.setImage(UIImage(named: "more"), for: .normal)
+        bt.setImage(.xmark, for: .normal)
         return bt
     }()
     
