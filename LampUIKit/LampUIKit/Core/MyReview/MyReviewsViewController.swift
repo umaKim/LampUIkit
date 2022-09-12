@@ -119,6 +119,7 @@ extension MyReviewsViewController: UICollectionViewDelegateFlowLayout {
                 ],
                 context: nil)
 
-        return CGSize(width: UIScreen.main.width - 32, height: cellSize.height + 300)
+        return CGSize(width: UIScreen.main.width - 32, height: 380)
     }
 }
+
