@@ -119,13 +119,15 @@ class MileageView: UIView {
     private let titleLabel: UILabel = {
         let lb = UILabel()
         lb.text = "마일리지".localized + ": "
-        lb.font = .robotoRegular(16)
+        lb.font = .systemFont(ofSize: 16, weight: .semibold)
+        lb.textColor = .white
         return lb
     }()
     
     private let valueLabel: UILabel = {
        let lb = UILabel()
         lb.font = .robotoBold(16)
+        lb.textColor = .white
         return lb
     }()
     
