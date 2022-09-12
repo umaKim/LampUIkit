@@ -67,8 +67,7 @@ class MyReviewCollectionViewCell: UICollectionViewCell {
     
     private lazy var dateLabel: UILabel = {
        let lb = UILabel()
-        lb.text = "2022년 8월 22일"
-        lb.font = .robotoBold(12)
+        lb.font = .systemFont(ofSize: 12, weight: .semibold)
         lb.textColor = .darkNavy
         return lb
     }()
@@ -90,10 +89,10 @@ class MyReviewCollectionViewCell: UICollectionViewCell {
         return uv
     }()
     
-    private lazy var titleLabel: UILabel = {
-        let lb = UILabel()
+    private lazy var titleLabel: MyReviewCustomTitleView = {
+        let lb = MyReviewCustomTitleView()
         lb.textColor = .darkNavy
-        lb.font = .robotoBold(20)
+        lb.font = .systemFont(ofSize: 20, weight: .bold)
         return lb
     }()
     
