@@ -5,17 +5,23 @@
 //  Created by 김윤석 on 2022/07/21.
 //
 
+import Combine
 import UIKit
+
+enum MyReviewsViewAction {
+    case back
+}
 
 class MyReviewsView: BaseWhiteView {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
+    private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
+    private let actionSubject = PassthroughSubject<MyReviewsViewAction, Never>()
+    
+    private(set) lazy var backButton: UIBarButtonItem = {
+        let bt = UIBarButtonItem(image: .back, style: .done, target: nil, action: nil)
+        return bt
+    }()
+    
     private(set) lazy var collectionView: UICollectionView = {
         let cl = UICollectionViewFlowLayout()
         cl.scrollDirection = .vertical
@@ -31,6 +37,11 @@ class MyReviewsView: BaseWhiteView {
     
     override init() {
         super.init()
+        
+        backButton.tapPublisher.sink {[weak self] _ in
+            self?.actionSubject.send(.back)
+        }
+        .store(in: &cancellables)
         
         [collectionView].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
