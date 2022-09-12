@@ -32,7 +32,8 @@ final class CompletedTravelCell: UICollectionViewCell {
         cv.register(CompletedTravelHeaderCell.self,
                     forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                     withReuseIdentifier: CompletedTravelHeaderCell.identifier)
-        cv.register(CompletedTravelCellCollectionViewCell.self, forCellWithReuseIdentifier: CompletedTravelCellCollectionViewCell.identifier)
+        cv.register(CompletedTravelCellCollectionViewCell.self,
+                    forCellWithReuseIdentifier: CompletedTravelCellCollectionViewCell.identifier)
         cv.backgroundColor = .greyshWhite
         cv.refreshControl = refreshcontrol
         return cv
@@ -72,7 +73,6 @@ final class CompletedTravelCell: UICollectionViewCell {
             guard let self = self else { return }
             switch result {
             case .success(let locations):
-                print(locations)
                 self.models = locations.map { location -> MyCompletedTripLocation in
                         .init(planIdx: location.planIdx ?? "",
                               travelCompletedDate: "",
