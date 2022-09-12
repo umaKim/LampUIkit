@@ -49,7 +49,8 @@ final class CompletedTravelCell: UICollectionViewCell {
         bind()
         setupUI()
         fetchCompletedTravel(completion: { })
-        
+    }
+    
     private var models: [MyCompletedTripLocation] = []
     
     public func configure() {
@@ -77,7 +78,8 @@ final class CompletedTravelCell: UICollectionViewCell {
             case .success(let locations):
                 self.models = locations.map { location -> MyCompletedTripLocation in
                         .init(planIdx: location.planIdx ?? "",
-                              travelCompletedDate: "",
+                              image: location.image ?? "",
+                              travelCompletedDate: location.travelCompletedDate ?? "",
                               contentId: location.contentId,
                               contentTypeId: location.contentTypeId,
                               placeInfo: "",
