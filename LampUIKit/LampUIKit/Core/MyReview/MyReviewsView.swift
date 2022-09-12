@@ -145,8 +145,9 @@ class MyReviewCollectionViewCell: UICollectionViewCell {
     private func setupUI() {
         layer.borderWidth = 1
         layer.cornerRadius = 8
+        layer.borderColor = UIColor(red: 217/250, green: 217/250, blue: 217/250, alpha: 1).cgColor
         
-        let dateSv = UIStackView(arrangedSubviews: [dateLabel, optionButton])
+        let dateSv = UIStackView(arrangedSubviews: [dateLabel, deleteButton])
         dateSv.alignment = .fill
         dateSv.distribution = .fill
         dateSv.axis = .horizontal
@@ -170,7 +171,7 @@ class MyReviewCollectionViewCell: UICollectionViewCell {
         totalSv.axis = .vertical
         totalSv.alignment = .fill
         totalSv.distribution = .fill
-        totalSv.spacing = 8
+        totalSv.spacing = 16
         
         [totalSv].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
@@ -181,7 +182,7 @@ class MyReviewCollectionViewCell: UICollectionViewCell {
             totalSv.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             totalSv.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             totalSv.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
-            totalSv.topAnchor.constraint(equalTo: topAnchor, constant: 16)
+            totalSv.topAnchor.constraint(equalTo: topAnchor, constant: 16),
         ])
     }
     
