@@ -97,6 +97,17 @@ extension MyReviewsViewController: MyReviewCollectionViewCellDelegate {
     }
 }
 
+extension MyReviewsViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        HapticManager.shared.feedBack(with: .medium)
+        let model = viewModel.datum[indexPath.item]
+        let vm = ReviewDetailViewModel(.init(photoUrlArray: model.photoUrl,
+                                             content: model.content))
+        let vc = ReviewDetailViewController(vm: vm)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
 extension MyReviewsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellSize = NSString(string: "jkwbfkewbfoubweofbweo")
