@@ -257,12 +257,17 @@ extension LoginViewController {
                     self.getUserInfo()
                 }
             }
+            
         }
         else {
-            let param = [SKStoreProductParameterITunesItemIdentifier: 362057947]
-            vc.loadProduct(withParameters: param) { result, error in
-                self.present(self.vc, animated: true)
+            UserApi.shared.loginWithKakaoAccount {[weak self] token, error in
+                guard let self = self else {return}
+                if let error = error {
                     self.presentUmaDefaultAlert(title: error.localizedDescription)
+                }
+                else {
+                    self.getUserInfo()
+                }
             }
         }
     }
