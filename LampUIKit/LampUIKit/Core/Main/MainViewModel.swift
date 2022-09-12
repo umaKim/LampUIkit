@@ -43,7 +43,7 @@ class MainViewModel: BaseViewModel  {
     
     private let network = NetworkService.shared
     
-    private(set) var zoom: Float = 15
+    private(set) var zoom: Float = 15.0
     
     private(set) var locationManager = CLLocationManager()
     
@@ -54,14 +54,17 @@ class MainViewModel: BaseViewModel  {
     
     override init() {
         super.init()
-        locationManager.delegate = self
+        checkUserAuth { [weak self] in
+            guard let self = self else {return }
+            self.locationManager.delegate = self
+        }
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         switch manager.authorizationStatus {
         case .authorizedAlways, .authorizedWhenInUse:
             mainFlow()
-        case .notDetermined , .denied , .restricted:
+        case .notDetermined, .denied, .restricted:
             locationManager.requestWhenInUseAuthorization()
         default:
             break
@@ -69,22 +72,20 @@ class MainViewModel: BaseViewModel  {
     }
     
     private func mainFlow() {
-        checkUserAuth()
-        
-//        locationManager.delegate = self
-        locationManager.requestLocation()
+        self.locationManager.requestLocation()
         
         guard let coord = locationManager.location?.coordinate else { return }
         self.setMyLocation(with: coord.latitude, coord.longitude)
         self.setLocation(with: coord.latitude, coord.longitude)
-        
-        checkUserAuth()
+        self.notifySubject.send(.moveTo(coord))
     }
     
-    private func checkUserAuth() {
+    private func checkUserAuth(completion: @escaping () -> Void) {
         network.checkUserExist(network.token) {[weak self] response in
             guard let self = self else {return }
-            if response.isSuccess == false {
+            if response.isSuccess {
+                completion()
+            } else {
                 self.kakaoSignout()
                 self.firebaseSignout()
             }
@@ -196,7 +197,7 @@ class MainViewModel: BaseViewModel  {
                                         mapX: $0.mapX ?? "",
                                         mapY: $0.mapY ?? "",
                                         planIdx: $0.planIdx,
-                                        isOnPlan: true)})
+                                        isOnPlan: true, travelCompletedDate: nil)})
                 self.markerType = .destination
                 self.notifySubject.send(.recommendedLocations(self.recommendedPlaces))
             case .failure(let error):
