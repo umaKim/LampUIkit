@@ -230,7 +230,7 @@ extension LoginViewController {
                 guard let self = self else {return}
                 // token을 넘겨주면, 성공했는지 안했는지에 대한 result값과 error값을 넘겨줌
                 if let error = error {
-                    print(error)
+                    self.presentUmaDefaultAlert(title: error.localizedDescription)
                     return
                 }
                 
@@ -251,7 +251,7 @@ extension LoginViewController {
             UserApi.shared.loginWithKakaoTalk {[weak self] (oauthToken, error) in
                 guard let self = self else {return}
                 if let error = error {
-                    print(error)
+                    self.presentUmaDefaultAlert(title: error.localizedDescription)
                 }
                 else {
                     self.getUserInfo()
@@ -262,6 +262,7 @@ extension LoginViewController {
             let param = [SKStoreProductParameterITunesItemIdentifier: 362057947]
             vc.loadProduct(withParameters: param) { result, error in
                 self.present(self.vc, animated: true)
+                    self.presentUmaDefaultAlert(title: error.localizedDescription)
             }
         }
     }
