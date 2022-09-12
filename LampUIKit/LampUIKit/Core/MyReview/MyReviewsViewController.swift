@@ -12,11 +12,7 @@ protocol MyReviewsViewControllerDelegate: AnyObject {
 }
 
 class MyReviewsViewController: BaseViewContronller {
-    func MyReviewCollectionViewCellDidTapDelete(_ index: Int) {
-        viewModel.deleteReview(at: index)
-    }
     
-
     private typealias DataSource = UICollectionViewDiffableDataSource<Section, UserReviewData>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, UserReviewData>
     
@@ -92,6 +88,12 @@ class MyReviewsViewController: BaseViewContronller {
             cell.configure(with: self.viewModel.datum[indexPath.item])
             return cell
         })
+    }
+}
+
+extension MyReviewsViewController: MyReviewCollectionViewCellDelegate {
+    func MyReviewCollectionViewCellDidTapDelete(_ index: Int) {
+        viewModel.deleteReview(at: index)
     }
 }
 
