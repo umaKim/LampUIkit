@@ -83,7 +83,6 @@ class MyReviewCollectionViewCell: UICollectionViewCell {
         uv.contentMode = .scaleAspectFill
         uv.layer.cornerRadius = 8
         uv.clipsToBounds = true
-        uv.backgroundColor = .red
         uv.widthAnchor.constraint(equalToConstant: UIScreen.main.width - 60).isActive = true
         uv.heightAnchor.constraint(equalToConstant: 161).isActive = true
         return uv
