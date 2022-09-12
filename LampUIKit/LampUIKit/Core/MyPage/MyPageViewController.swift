@@ -94,6 +94,12 @@ class MyPageViewController: BaseViewContronller {
     }
 }
 
+extension MyPageViewController: MyReviewsViewControllerDelegate {
+    func MyReviewsViewControllerDidTapBack() {
+        self.navigationController?.popViewController(animated: true)
+    }
+}
+
 extension MyPageViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.models.count
@@ -115,6 +121,7 @@ extension MyPageViewController: UITableViewDelegate {
         HapticManager.shared.feedBack(with: .medium)
         if viewModel.models[indexPath.item] == "나의 여행 후기" {
             let vc = MyReviewsViewController(MyReviewsViewModel())
+            vc.delegate = self
             self.navigationController?.pushViewController(vc, animated: true)
         } else if viewModel.models[indexPath.item] == "로그아웃" {
             contentView.presentLogOutActions()
