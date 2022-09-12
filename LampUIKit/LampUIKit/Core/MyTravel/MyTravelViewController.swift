@@ -68,19 +68,23 @@ final class MyTravelViewController: BaseViewContronller {
 }
 
 extension MyTravelViewController: MyTravelCellDelegate {
-    func myTravelCellDelegateDidTapComplete(at index: Int) {
-        viewModel.completeTrip(at: index)
+    func myTravelCellDelegateDidReceiveResponse(_ message: String) {
+        self.presentUmaDefaultAlert(title: message)
     }
     
+    func myTravelCellDelegateDidTapComplete(at index: Int) {
+//        viewModel.completeTrip(at: index)
+    }
+
     func myTravelCellDelegateDidTap(_ item: MyTravelLocation) {
         let vm = LocationDetailViewModel(item)
         let vc = LocationDetailViewController(vm: vm)
         vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
-    
+
     func myTravelCellDelegateDidTapDelete(at index: Int) {
-        viewModel.deleteMyTravel(at: index)
+//        viewModel.deleteMyTravel(at: index)
     }
 }
 
