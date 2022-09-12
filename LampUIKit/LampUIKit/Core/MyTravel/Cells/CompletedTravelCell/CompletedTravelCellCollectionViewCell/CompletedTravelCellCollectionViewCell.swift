@@ -14,48 +14,66 @@ protocol CompletedTravelCellCollectionViewCellDelegate: AnyObject {
 final class CompletedTravelCellCollectionViewCell: UICollectionViewCell {
     static let identifier = "CompletedTravelCellCollectionViewCell"
     
-    private lazy var backgroundImageView: UIImageView = {
-       let uv = UIImageView()
-        uv.image = UIImage(named: "ticketBackground")
+    private let containerView: UIView = {
+        let uv = UIView()
+        uv.layer.cornerRadius = 6
+        uv.layer.borderColor = UIColor.systemGray.cgColor
+        uv.backgroundColor = .greyshWhite
+        uv.clipsToBounds = true
         return uv
     }()
     
-    private let locationImageView: UIImageView = {
-        let uv = UIImageView()
+    private let backgroundImageView: UIImageView = {
+       let uv = UIImageView()
         uv.layer.cornerRadius = 6
-        uv.widthAnchor.constraint(equalToConstant: 70).isActive = true
-        uv.heightAnchor.constraint(equalToConstant: 55).isActive = true
+        uv.contentMode = .scaleAspectFill
         uv.clipsToBounds = true
+        uv.image = .init(named: "BackgroundImagePlaceholder")
+        return uv
+    }()
+    
+    private let filterImageView: UIImageView = {
+       let uv = UIImageView()
+        uv.layer.cornerRadius = 6
+        uv.backgroundColor = .black.withAlphaComponent(0.5)
+        return uv
+    }()
+    
+    private let tickeBackgroundImageView: UIImageView = {
+        let uv = UIImageView()
+        uv.image = .init(named: "CompletedTicket")
         return uv
     }()
     
     private lazy var visitiedDateLabel: UILabel = {
        let lb = UILabel()
-        lb.font = .systemFont(ofSize: 18, weight: .semibold)
-        lb.textColor = .darkNavy
+        lb.font = .systemFont(ofSize: 12, weight: .semibold)
+        lb.textColor = .white
+        lb.textAlignment = .center
         return lb
     }()
     
     private lazy var locationNameLabel: UILabel = {
        let lb = UILabel()
-        lb.font = .systemFont(ofSize: 18, weight: .semibold)
-        lb.textColor = .midNavy
+        lb.font = .systemFont(ofSize: 30, weight: .semibold)
+        lb.textColor = .white
+        lb.numberOfLines = 1
+        lb.textAlignment = .center
         return lb
     }()
     
     private lazy var addressLabel: UILabel = {
        let lb = UILabel()
-        lb.text = "주소 어쩌구 저쩌구"
-        lb.textColor = .midNavy
+        lb.textColor = .white
+        lb.numberOfLines = 2
         lb.font = .systemFont(ofSize: 14, weight: .semibold)
+        lb.textAlignment = .center
         return lb
     }()
     
     private lazy var deleteButton: UIButton = {
        let bt = UIButton()
-        let image = UIImage(systemName: "xmark")?.withTintColor(.black, renderingMode: .alwaysOriginal)
-        bt.setImage(image, for: .normal)
-//        bt.isHidden = true
+        bt.setImage(.xmarkWhite, for: .normal)
         return bt
     }()
     
@@ -66,6 +84,8 @@ final class CompletedTravelCellCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         self.cancellables = .init()
         super.init(frame: frame)
+        
+        configureShadow(0.4)
         
         bind()
         setupUI()
@@ -83,36 +103,60 @@ final class CompletedTravelCellCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupUI() {
-        backgroundView = backgroundImageView
-        configureShadow()
+        let totalSv = UIStackView(arrangedSubviews: [locationNameLabel, addressLabel])
+        totalSv.axis = .vertical
+        totalSv.distribution = .fillProportionally
+        totalSv.alignment = .center
+        totalSv.spacing = 8
         
-        [visitiedDateLabel, locationNameLabel, addressLabel, deleteButton].forEach { uv in
+        [containerView, backgroundImageView, filterImageView, tickeBackgroundImageView, totalSv, visitiedDateLabel, deleteButton].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
-            contentView.addSubview(uv)
+            addSubview(uv)
         }
         
         NSLayoutConstraint.activate([
-            visitiedDateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 60),
-            visitiedDateLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 36),
+            containerView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            containerView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            containerView.topAnchor.constraint(equalTo: topAnchor),
             
-            locationNameLabel.leadingAnchor.constraint(equalTo: visitiedDateLabel.leadingAnchor),
-            locationNameLabel.topAnchor.constraint(equalTo: visitiedDateLabel.bottomAnchor, constant: 23),
-            locationNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30),
+            backgroundImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            backgroundImageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            backgroundImageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            backgroundImageView.topAnchor.constraint(equalTo: containerView.topAnchor),
             
-            addressLabel.leadingAnchor.constraint(equalTo: locationNameLabel.leadingAnchor),
-            addressLabel.topAnchor.constraint(equalTo: locationNameLabel.bottomAnchor, constant: 13),
-            addressLabel.trailingAnchor.constraint(equalTo: locationNameLabel.trailingAnchor),
+            filterImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            filterImageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            filterImageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            filterImageView.topAnchor.constraint(equalTo: containerView.topAnchor),
             
-            deleteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 26),
-            deleteButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -46),
+            tickeBackgroundImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
+            tickeBackgroundImageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
+            tickeBackgroundImageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -16),
+            tickeBackgroundImageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16),
+            
+            totalSv.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 32),
+            totalSv.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -32),
+//            totalSv.topAnchor.constraint(equalTo: containerView.topAnchor),
+//            totalSv.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            totalSv.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+            
+            visitiedDateLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            visitiedDateLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            
+            deleteButton.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 8),
+            deleteButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8),
         ])
     }
     
     public func configure(_ model: MyCompletedTripLocation) {
-        visitiedDateLabel.text = model.travelCompletedDate
+        backgroundImageView.sd_setImage(with: URL(string: model.image),
+                                        placeholderImage: .init(named: "BackgroundImagePlaceholder"))
+       
         locationNameLabel.text = model.placeName
         addressLabel.text = model.placeAddress
         
+        visitiedDateLabel.text = model.travelCompletedDate
     }
     
     required init?(coder: NSCoder) {
