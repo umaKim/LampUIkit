@@ -101,6 +101,7 @@ class MyReviewCollectionViewCell: UICollectionViewCell {
         lb.textColor = .darkNavy
         lb.numberOfLines = 0
         lb.textAlignment = .center
+        lb.font = .systemFont(ofSize: 13, weight: .semibold)
         return lb
     }()
     
