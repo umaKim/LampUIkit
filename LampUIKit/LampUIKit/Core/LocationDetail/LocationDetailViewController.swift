@@ -10,6 +10,8 @@ import UIKit
 protocol LocationDetailViewControllerDelegate: AnyObject {
     func locationDetailViewControllerDidTapDismissButton()
     func locationDetailViewControllerDidTapBackButton()
+    func locationDetailViewControllerDidTapMapButton(_ location: RecommendedLocation)
+    func locationDetailViewControllerDidTapNavigate(_ location: RecommendedLocation)
 }
 
 final class LocationDetailViewController: BaseViewContronller {
