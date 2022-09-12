@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol MyReviewsViewControllerDelegate: AnyObject {
+    func MyReviewsViewControllerDidTapBack()
+}
+
 class MyReviewsViewController: BaseViewContronller {
     func MyReviewCollectionViewCellDidTapDelete(_ index: Int) {
         viewModel.deleteReview(at: index)
@@ -28,6 +32,8 @@ class MyReviewsViewController: BaseViewContronller {
         view = contentView
     }
     
+    weak var delegate: MyReviewsViewControllerDelegate?
+    
     private let viewModel: MyReviewsViewModel
     
     init(_ vm: MyReviewsViewModel) {
@@ -43,6 +49,16 @@ class MyReviewsViewController: BaseViewContronller {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationItem.leftBarButtonItems = [contentView.backButton]
+        
+        contentView.actionPublisher.sink { action in
+            switch action {
+            case .back:
+                self.delegate?.MyReviewsViewControllerDidTapBack()
+            }
+        }
+        .store(in: &cancellables)
         
         viewModel.notifyPublisher.sink {[weak self] noti in
             switch noti {
