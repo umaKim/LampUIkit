@@ -67,12 +67,10 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
     
     private let locationImageView: UIImageView = {
         let uv = UIImageView()
-        uv.image = .init(systemName: "house")
-        uv.backgroundColor = .gray
-        uv.layer.cornerRadius = 16
+        uv.layer.cornerRadius = 8
         uv.clipsToBounds = true
         uv.contentMode = .scaleAspectFill
-        uv.widthAnchor.constraint(equalToConstant: UIScreen.main.width / 2.2).isActive = true
+        uv.widthAnchor.constraint(equalToConstant: UIScreen.main.width / 2.4).isActive = true
         return uv
     }()
     
@@ -229,7 +227,7 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
         
         let totalStackView = UIStackView(arrangedSubviews: [halfStackView, locationImageView])
         totalStackView.axis = .horizontal
-        totalStackView.spacing = 16
+        totalStackView.spacing = 19
         totalStackView.alignment = .fill
         totalStackView.distribution = .fill
         
