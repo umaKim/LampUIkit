@@ -50,6 +50,7 @@ final class CompletedTravelCell: UICollectionViewCell {
         setupUI()
         fetchCompletedTravel(completion: { })
         
+    private var models: [MyCompletedTripLocation] = []
     private func bind() {
         refreshcontrol
             .isRefreshingPublisher
