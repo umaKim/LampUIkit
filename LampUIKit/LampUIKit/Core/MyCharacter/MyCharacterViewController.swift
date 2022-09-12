@@ -128,7 +128,7 @@ class GraphHeaderView: UIView {
     
     private lazy var numberLabel: CapsuleLabelView = {
        let uv = CapsuleLabelView("")
-        uv.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        uv.widthAnchor.constraint(equalToConstant: 70).isActive = true
         return uv
     }()
     
