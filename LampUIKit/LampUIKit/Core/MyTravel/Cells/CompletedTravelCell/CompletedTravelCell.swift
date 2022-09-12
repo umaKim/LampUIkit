@@ -46,9 +46,11 @@ final class CompletedTravelCell: UICollectionViewCell {
     override init(frame: CGRect) {
         self.cancellables = .init()
         super.init(frame: frame)
+        bind()
         setupUI()
         fetchCompletedTravel(completion: { })
         
+    private func bind() {
         refreshcontrol
             .isRefreshingPublisher
             .sink {[weak self] isRefreshing in
