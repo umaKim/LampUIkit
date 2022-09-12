@@ -29,8 +29,6 @@ class ReviewDetailViewController: BaseViewContronller {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        contentView.collectionView.reloadData()
         contentView.configure(with: viewModel.data)
     }
     
@@ -41,11 +39,10 @@ class ReviewDetailViewController: BaseViewContronller {
 
 extension ReviewDetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        print("cellForItemAt")
         guard
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReviewDetailImageCollectionViewCell.identifier, for: indexPath) as? ReviewDetailImageCollectionViewCell
         else {return UICollectionViewCell() }
-        cell.configure(with: viewModel.data.photoUrlArray?[indexPath.item] ?? "")
+        cell.configure(with: viewModel.data.photoUrlArray[indexPath.item])
         return cell
     }
     
