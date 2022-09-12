@@ -26,9 +26,6 @@ class MyReviewsView: BaseWhiteView {
         let cl = UICollectionViewFlowLayout()
         cl.scrollDirection = .vertical
         let cv = UICollectionView(frame: .zero, collectionViewLayout: cl)
-//        cv.register(MyReviewHeaderCell.self,
-//                    forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-//                    withReuseIdentifier: MyReviewHeaderCell.identifier)
         cv.register(MyReviewCollectionViewCell.self, forCellWithReuseIdentifier: MyReviewCollectionViewCell.identifier)
         cv.backgroundColor = .greyshWhite
         cv.contentInset = .init(top: 16, left: 0, bottom: 16, right: 0)
@@ -119,11 +116,6 @@ class MyReviewCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        
-        deleteButton.tapPublisher.sink { _ in
-            self.delegate?.MyReviewCollectionViewCellDidTapDelete(self.tag)
-        }
-        .store(in: &cancellables)
         
         setupUI()
     }
