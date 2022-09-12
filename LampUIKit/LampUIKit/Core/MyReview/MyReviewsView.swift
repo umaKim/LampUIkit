@@ -115,9 +115,21 @@ class MyReviewCollectionViewCell: UICollectionViewCell {
     weak var delegate: MyReviewCollectionViewCellDelegate?
     
     override init(frame: CGRect) {
+        self.cancellables = .init()
         super.init(frame: .zero)
         
+        bind()
         setupUI()
+    }
+    
+    private func bind() {
+        deleteButton
+            .tapPublisher
+            .sink {[weak self] _ in
+                guard let self = self else {return }
+                self.delegate?.MyReviewCollectionViewCellDidTapDelete(self.tag)
+            }
+            .store(in: &cancellables)
     }
     
     public func configure(with datum: UserReviewData) {
