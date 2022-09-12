@@ -62,12 +62,6 @@ final class CompletedTravelCell: UICollectionViewCell {
             .store(in: &cancellables)
     }
     
-    private var models: [MyCompletedTripLocation] = []
-    
-    public func configure() {
-        updateSections()
-    }
-    
     private func fetchCompletedTravel(completion: @escaping () -> Void) {
         NetworkService.shared.fetchCompletedTravel {[weak self] result in
             guard let self = self else { return }
@@ -86,7 +80,6 @@ final class CompletedTravelCell: UICollectionViewCell {
                               placeName: location.title,
                               isBookMarked: location.isBookMarked)
                 }
-//                self.notifySubject.send(.reload)
                 self.updateSections()
                 completion()
             case .failure(let error):
@@ -100,7 +93,6 @@ final class CompletedTravelCell: UICollectionViewCell {
         NetworkService.shared.deleteFromMyTravel(targetItem.planIdx) {[weak self] result in
             switch result {
             case .success(let response):
-                print(response)
                 self?.models.remove(at: index)
                 self?.updateSections()
             case .failure(let error):
@@ -169,7 +161,6 @@ extension CompletedTravelCell: CompletedTravelCellCollectionViewCellDelegate {
     func completedTravelCellCollectionViewCellDidTapDelete(at index: Int) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {[weak self] in
             self?.deleteCompletedTravel(at: index)
-            
         }
     }
 }
