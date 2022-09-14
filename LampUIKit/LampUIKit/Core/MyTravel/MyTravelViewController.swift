@@ -67,6 +67,7 @@ final class MyTravelViewController: BaseViewContronller {
     }
 }
 
+//MARK: - MyTravelCellDelegate
 extension MyTravelViewController: MyTravelCellDelegate {
     func myTravelCellDelegateDidReceiveResponse(_ message: String) {
         self.presentUmaDefaultAlert(title: message)
@@ -88,6 +89,7 @@ extension MyTravelViewController: MyTravelCellDelegate {
     }
 }
 
+//MARK: - FavoriteCellDelegate
 extension MyTravelViewController: FavoriteCellDelegate {
     func favoriteCellDidTap(_ item: MyBookMarkLocation) {
         let vm = LocationDetailViewModel(item)
@@ -115,6 +117,7 @@ extension MyTravelViewController: CompletedTravelCellDelegate {
     }
 }
 
+//MARK: - LocationDetailViewControllerDelegate
 extension MyTravelViewController: LocationDetailViewControllerDelegate {
     func locationDetailViewControllerDidTapNavigate(_ location: RecommendedLocation) {
         self.delegate?.myTravelViewControllerDidTapNavigation(location)
@@ -168,6 +171,7 @@ extension MyTravelViewController: UICollectionViewDataSource {
     }
 }
 
+//MARK: - UICollectionViewDelegateFlowLayout
 extension MyTravelViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         0
