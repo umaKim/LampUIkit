@@ -70,7 +70,7 @@ class MyCharacterViewTableViewHeaderCell: UITableViewHeaderFooterView {
         titleSv.distribution = .fill
         titleSv.alignment = .fill
         
-        let statSv = UIStackView(arrangedSubviews: [averageStat, mileageStat])
+        let statSv = UIStackView(arrangedSubviews: [averageStat])
         statSv.axis = .vertical
         statSv.distribution = .fillEqually
         statSv.alignment = .fill
@@ -82,7 +82,6 @@ class MyCharacterViewTableViewHeaderCell: UITableViewHeaderFooterView {
         }
         
         NSLayoutConstraint.activate([
-            titleSv.topAnchor.constraint(equalTo: contentView.topAnchor),
             titleSv.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             titleSv.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             
