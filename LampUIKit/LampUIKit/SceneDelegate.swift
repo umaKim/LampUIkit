@@ -25,11 +25,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController =
 //        InitialQuizViewController(vm: InitialQuizViewModel())
 //        InitialSetPageViewController(vm: InitialSetPageViewModel())
-//        StartPageViewController()
+        StartPageViewController()
 //        LoginViewController(vm: LoginViewModel())
 //            MainViewController(MainViewModel())
 //        UINavigationController(rootViewController: LampSpotViewController(vm: LampSpotViewModel()))
-        CreateNickNameViewController(CreateNickNameViewModel())
+//        CreateNickNameViewController(CreateNickNameViewModel())
         
 //        UINavigationController(rootViewController: LocationDetailViewController(vm: LocationDetailViewModel("")))
 //        UINavigationController(rootViewController: WriteReviewViewController(WriteReviewViewModel()))
@@ -42,6 +42,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         if langId == "ko" {
             LanguageManager.shared.setLanguage(.korean)
+        } else if langId == "ja" {
+            LanguageManager.shared.setLanguage(.japanese)
         } else {
             LanguageManager.shared.setLanguage(.enghlish)
         }
