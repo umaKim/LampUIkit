@@ -133,7 +133,7 @@ class MyReviewCollectionViewCell: UICollectionViewCell {
     
     public func configure(with datum: UserReviewData) {
         dateLabel.text = datum.date
-        if let url = datum.photoUrl {
+        if let url = datum.photoUrl.first {
             imageView.sd_setImage(with: URL(string: url), placeholderImage: .placeholder)
         }
         titleLabel.text = datum.placeName
