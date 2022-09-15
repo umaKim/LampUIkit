@@ -98,11 +98,12 @@ final class LocationDetailViewController: BaseViewContronller {
                     if
                         let location = self.viewModel.location,
                         let locationDetail = self.viewModel.locationDetail {
-                        let vm = DetailReviewViewModel(location, locationDetail)
-                        let vc = DetailReviewViewController(vm: vm)
+                        let vm = ReviewViewModel(location, locationDetail)
+                        let vc = ReviewViewController(vm: vm)
                         self.navigationController?.pushViewController(vc, animated: true)
                     }
                 }
+                
             }
             .store(in: &cancellables)
         
