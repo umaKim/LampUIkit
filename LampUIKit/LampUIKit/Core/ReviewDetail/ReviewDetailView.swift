@@ -66,6 +66,7 @@ class ReviewDetailView: BaseWhiteView {
        let lb = UILabel()
         lb.font = .systemFont(ofSize: 16, weight: .semibold)
         lb.numberOfLines = 0
+        lb.textColor = .white
         return lb
     }()
     
