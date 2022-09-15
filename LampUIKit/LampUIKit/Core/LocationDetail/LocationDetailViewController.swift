@@ -36,6 +36,8 @@ final class LocationDetailViewController: BaseViewContronller {
         title = viewModel.location?.title
     }
     
+    var isModal: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if isModal {
