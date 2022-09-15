@@ -80,7 +80,7 @@ class ReviewDetailView: BaseWhiteView {
     }
     
     public func configure(with data: ReviewDetailData ) {
-        commentLabel.text = data.content ?? ""
+        commentLabel.text = data.content
     }
     
     private func setupUI() {
