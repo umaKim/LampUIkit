@@ -157,28 +157,31 @@ extension MainViewController {
     }
     
     private func addMarker(of location: RecommendedLocation, isSelected: Bool = false) {
-        let marker = GMSMarker()
-        marker.tracksViewChanges = false
-        marker.tracksInfoWindowChanges = false
-        marker.appearAnimation = .pop
-        let markerView = CustomMarkerView(of: location.image ?? "",
-                                          type: viewModel.markerType)
-        marker.iconView = markerView
-
-        guard
-            let lat = Double(location.mapY),
-            let long = Double(location.mapX)
-        else { return }
-        
-        marker.position = .init(latitude: lat, longitude: long)
-        marker.title = location.title
-        marker.map = contentView.mapView
-        
-        if isSelected {
-            contentView.mapView.selectedMarker = marker
+        DispatchQueue.global().async {
+            guard
+                let lat = Double(location.mapY),
+                let long = Double(location.mapX)
+            else { return }
+            
+            let marker = GMSMarker()
+            marker.tracksViewChanges = false
+            marker.tracksInfoWindowChanges = false
+            marker.appearAnimation = .pop
+            marker.title = location.title
+            
+            let markerView = CustomMarkerView(of: location.image ?? "",
+                                              type: self.viewModel.markerType)
+            
+            DispatchQueue.main.async {
+                marker.iconView = markerView
+                marker.position = .init(latitude: lat, longitude: long)
+                marker.map = self.contentView.mapView
+                
+                if isSelected {
+                    self.contentView.mapView.selectedMarker = marker
+                }
+            }
         }
-        
-        marker.tracksInfoWindowChanges = true
     }
 }
 
@@ -202,6 +205,7 @@ extension MainViewController {
                     self.zoomOut()
                     
                 case .refresh:
+                    self.contentView.mapView.clear()
                     self.viewModel.fetchItems()
                     
                 case .myLocation:
