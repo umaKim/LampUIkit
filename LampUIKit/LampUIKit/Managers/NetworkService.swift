@@ -270,7 +270,7 @@ final class NetworkService {
     func deleteFromMyTravel(_ planIdx: String, completion: @escaping (Result<Response, AFError>) -> Void) {
         let requestUrl = baseUrl + "/app/trip?token=\(token)&planIdx=\(planIdx)"
         print(requestUrl)
-        AF.request(requestUrl, method: .delete, headers: nil)
+        AF.request(requestUrl, method: .delete)
             .validate()
             .responseDecodable(of: Response.self) { response in
                 completion(response.result)
@@ -293,8 +293,7 @@ final class NetworkService {
         print(requestUrl)
         AF.request(requestUrl, method: .delete)
             .validate()
-            .responseDecodable(of: Response.self) {
-                response in
+            .responseDecodable(of: Response.self) { response in
                 print(response)
                 completion()
             }
