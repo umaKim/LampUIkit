@@ -181,7 +181,7 @@ final class LocationDetailViewModel: BaseViewModel {
         )
         
         NetworkService.shared.postAddToMyTravel(data) {[weak self] result in
-            guard let self = self else {return}
+            guard let self = self else { return }
             switch result {
             case .success(let response):
                 print(response)
