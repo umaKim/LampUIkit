@@ -10,6 +10,7 @@ import Foundation
 
 enum RecommendedLocationViewmodelNotify {
     case updateAddress(String)
+    case showMessage(String)
     case reload
 }
 
@@ -89,7 +90,7 @@ class RecommendedLocationViewmodel: BaseViewModel {
             switch result {
             case .success(let response):
                 print(response)
-                
+                self?.notifySubject.send(.showMessage(response.message ?? ""))
             case .failure(let error):
                 print(error)
             }
@@ -103,10 +104,10 @@ class RecommendedLocationViewmodel: BaseViewModel {
             switch result {
             case .success(let response):
                 print(response)
-                //MARK: - show alert
-                
+                self?.notifySubject.send(.showMessage(response.message ?? ""))
             case .failure(let error):
                 print(error)
+                self?.notifySubject.send(.showMessage(error.localizedDescription))
             }
         }
     }
