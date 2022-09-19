@@ -26,11 +26,8 @@ class CustomMarkerView: UIView {
     init() {
         self.imageUrl = ""
         self.markerType = .recommended
-        self.cancellables = .init()
         super.init(frame: .init(x: 0, y: 0, width: width, height: height))
     }
-    
-    private var cancellables: Set<AnyCancellable>
     
     public func configure(completion: @escaping () -> Void) {
         DispatchQueue.global().async {
