@@ -147,23 +147,23 @@ final class LocationDetailViewModel: BaseViewModel {
         
         var contentInfo: String = ""
         
-        if locationDetail?.contentTypeId == "12" {
+        if locationDetail?.contentTypeId == "12" || locationDetail?.contentTypeId == "76"  {
             contentInfo = locationDetail?.datailInfo?.usetime ?? ""
         }
         
-        if locationDetail?.contentTypeId == "14" {
+        if locationDetail?.contentTypeId == "14" || locationDetail?.contentTypeId == "78" {
             contentInfo = locationDetail?.datailInfo?.usetimeculture ?? ""
         }
         
-        if locationDetail?.contentTypeId == "15" {
+        if locationDetail?.contentTypeId == "15" || locationDetail?.contentTypeId == "85"{
             contentInfo = locationDetail?.datailInfo?.eventstartdate ?? ""
         }
         
-        if locationDetail?.contentTypeId == "28" {
+        if locationDetail?.contentTypeId == "28" || locationDetail?.contentTypeId == "75"{
             contentInfo = locationDetail?.datailInfo?.usetimeleports ?? ""
         }
         
-        if locationDetail?.contentTypeId == "39" {
+        if locationDetail?.contentTypeId == "39" || locationDetail?.contentTypeId == "82" {
             contentInfo = locationDetail?.datailInfo?.opentimefood ?? ""
         }
 
