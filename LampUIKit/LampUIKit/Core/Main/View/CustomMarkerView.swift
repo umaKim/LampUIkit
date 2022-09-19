@@ -4,7 +4,6 @@
 //
 //  Created by 김윤석 on 2022/08/22.
 //
-
 import UIKit
 
 class CustomMarkerView: UIView {
@@ -25,37 +24,61 @@ class CustomMarkerView: UIView {
     private let height = 60
     
     init() {
+        self.imageUrl = ""
+        self.markerType = .recommended
+        self.cancellables = .init()
         super.init(frame: .init(x: 0, y: 0, width: width, height: height))
     }
     
+    private var cancellables: Set<AnyCancellable>
+    
+    public func configure(completion: @escaping () -> Void) {
+        DispatchQueue.global().async {
+            do {
+                if let url = URL(string: self.imageUrl),
+                   let data = try? Data(contentsOf: url) {
+                    DispatchQueue.main.async {
+                        self.contentImageView.image = .init(data: data)?.rounded(with: .clear,
+                                                                                 width: 0)?.resize(to: 100)
+                        completion()
+                    }
+                    
+                } else {
+                    DispatchQueue.main.async {
+                        self.contentImageView.image = .placeholder
+                    }
+                }
+            }
+            
+        }
+    }
+    
+    private var imageUrl: String
+    private var markerType: MapMarkerType
+    
     convenience init(of imageUrl: String, type markerType: MapMarkerType) {
         self.init()
+        self.imageUrl = imageUrl
+        self.markerType = markerType
+        
         switch markerType {
         case .recommended:
             outerImageView.image = .init(named: "circleRecommended")
+            
         case .destination:
             outerImageView.image = .init(named: "circleDestination")
+            
         case .completed:
             outerImageView.image = .init(named: "circleCompleted")
         }
         
-        do {
-            if let url = URL(string: imageUrl),
-               let data = try? Data(contentsOf: url) {
-                contentImageView.image = .init(data: data)?.rounded(with: .clear,
-                                                                    width: 0)?.resize(to: 100)
-            } else {
-                contentImageView.image = .placeholder
-            }
-        }
+        self.contentImageView.layer.cornerRadius = CGFloat(self.width/2)
+        self.contentImageView.clipsToBounds = true
+        self.addSubview(self.contentImageView)
+        self.contentImageView.frame = .init(x: 0, y: 0, width: self.width, height: self.height - 8)
         
-        contentImageView.layer.cornerRadius = CGFloat(width/2)
-        contentImageView.clipsToBounds = true
-        addSubview(contentImageView)
-        contentImageView.frame = .init(x: 0, y: 0, width: width, height: height - 8)
-        
-        addSubview(outerImageView)
-        outerImageView.frame = .init(x: 0, y: 0, width: width, height: height)
+        self.addSubview(self.outerImageView)
+        self.outerImageView.frame = .init(x: 0, y: 0, width: self.width, height: self.height)
     }
     
     required init?(coder: NSCoder) {
