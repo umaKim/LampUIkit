@@ -12,6 +12,7 @@ enum SearchViewModelNotify {
     case reload
     case startLoading
     case endLoading
+    case showMessage(String)
 }
 
 class SearchViewModel: BaseViewModel {
@@ -107,9 +108,11 @@ class SearchViewModel: BaseViewModel {
             switch result {
             case .success(let response):
                 print(response)
+                self.notifySubject.send(.showMessage(response.message ?? ""))
                 
             case .failure(let error):
                 print(error)
+                self.notifySubject.send(.showMessage(error.localizedDescription))
             }
         }
     }
@@ -124,10 +127,11 @@ class SearchViewModel: BaseViewModel {
             switch result {
             case .success(let response):
                 print(response)
-                //MARK: - show alert
+                self.notifySubject.send(.showMessage(response.message ?? ""))
 
             case .failure(let error):
                 print(error)
+                self.notifySubject.send(.showMessage(error.localizedDescription))
             }
         }
     }

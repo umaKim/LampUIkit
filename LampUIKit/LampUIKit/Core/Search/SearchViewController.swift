@@ -112,6 +112,9 @@ class SearchViewController: BaseViewContronller {
                     
                 case .endLoading:
                     self.dismissLoadingView()
+                    
+                case .showMessage(let text):
+                    self.presentUmaBottomAlert(message: text)
                 }
             }
             .store(in: &cancellables)
