@@ -168,20 +168,19 @@ extension MainViewController {
             marker.tracksInfoWindowChanges = false
             marker.appearAnimation = .pop
             marker.title = location.title
+                let markerView = CustomMarkerView(of: location.image ?? "",
+                                                  type: self.viewModel.markerType)
+        
+        markerView.configure {
+            marker.iconView = markerView
             
-            let markerView = CustomMarkerView(of: location.image ?? "",
-                                              type: self.viewModel.markerType)
-            
-            DispatchQueue.main.async {
-                marker.iconView = markerView
-                marker.position = .init(latitude: lat, longitude: long)
-                marker.map = self.contentView.mapView
+            marker.position = .init(latitude: lat, longitude: long)
+            marker.map = self.contentView.mapView
+        }
                 
                 if isSelected {
                     self.contentView.mapView.selectedMarker = marker
                 }
-            }
-        }
     }
 }
 
