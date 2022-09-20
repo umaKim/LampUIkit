@@ -103,7 +103,6 @@ class RecommendedLocationViewmodel: BaseViewModel {
         NetworkService.shared.deleteFromMyTravel("\(planIdx)") {[weak self] result  in
             switch result {
             case .success(let response):
-                print(response)
                 self?.notifySubject.send(.showMessage(response.message ?? ""))
             case .failure(let error):
                 print(error)
@@ -111,5 +110,4 @@ class RecommendedLocationViewmodel: BaseViewModel {
             }
         }
     }
-    
 }
