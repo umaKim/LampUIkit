@@ -13,7 +13,7 @@ import GoogleMaps
 import Combine
 
 class MainViewController: BaseViewContronller {
-
+    
     private let contentView: MainView = MainView()
     
     private let viewModel: MainViewModel
@@ -57,7 +57,6 @@ class MainViewController: BaseViewContronller {
     private func moveTo(_ coord: CLLocationCoordinate2D) {
         let camera = GMSCameraPosition.camera(withTarget: coord,
                                               zoom: 15.0)
-        print(viewModel.zoom)
         setGMPadding()
         contentView.mapView.animate(to: camera)
     }
@@ -82,6 +81,7 @@ class MainViewController: BaseViewContronller {
     
     private lazy var locationsSubject = PassthroughSubject<[RecommendedLocation], Never>()
     private lazy var locationinfo = CurrentValueSubject<Coord, Never>(viewModel.coord)
+    
 }
 
 //MARK: - Configure with FPC
@@ -157,19 +157,19 @@ extension MainViewController {
     }
     
     private func addMarker(of location: RecommendedLocation, isSelected: Bool = false) {
-        DispatchQueue.global().async {
-            guard
-                let lat = Double(location.mapY),
-                let long = Double(location.mapX)
-            else { return }
-            
-            let marker = GMSMarker()
-            marker.tracksViewChanges = false
-            marker.tracksInfoWindowChanges = false
-            marker.appearAnimation = .pop
-            marker.title = location.title
-                let markerView = CustomMarkerView(of: location.image ?? "",
-                                                  type: self.viewModel.markerType)
+        guard
+            let lat = Double(location.mapY),
+            let long = Double(location.mapX)
+        else { return }
+        
+        let marker = GMSMarker()
+        marker.tracksViewChanges = false
+        marker.tracksInfoWindowChanges = false
+        marker.appearAnimation = .pop
+        marker.title = location.title
+        
+        let markerView = CustomMarkerView(of: location.image ?? "",
+                                          type: self.viewModel.markerType)
         
         markerView.configure {
             marker.iconView = markerView
@@ -177,11 +177,12 @@ extension MainViewController {
             marker.position = .init(latitude: lat, longitude: long)
             marker.map = self.contentView.mapView
         }
-                
-                if isSelected {
-                    self.contentView.mapView.selectedMarker = marker
-                }
+        
+        if isSelected {
+            self.contentView.mapView.selectedMarker = marker
+        }
     }
+    
 }
 
 //MARK: - Bind
@@ -235,10 +236,10 @@ extension MainViewController {
                     self.contentView.mapView.clear()
                     self.addMarkers(of: locations)
                     self.locationsSubject.send(locations)
-
+                    
                 case .startLoading:
                     self.showLoadingView()
-
+                    
                 case .endLoading:
                     self.dismissLoadingView()
                     
@@ -280,7 +281,7 @@ extension MainViewController: GMSMapViewDelegate {
         guard
             let index = viewModel.recommendedPlaces.firstIndex(where: {$0.title == marker.title})
         else { return }
-
+        
         let location = viewModel.recommendedPlaces[index]
         setFloatingPanelWithLocationDetailViewController(location, isModal: true)
     }
