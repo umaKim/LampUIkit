@@ -43,8 +43,6 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell {
     
     private lazy var starRatingImageView: UIImageView = {
        let uv = UIImageView()
-        uv.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        uv.heightAnchor.constraint(equalToConstant: 20).isActive = true
         return uv
     }()
     
