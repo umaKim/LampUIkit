@@ -119,14 +119,12 @@ class SearchViewModel: BaseViewModel {
     
     public func deleteFromMyTrip(at index: Int, _ location: RecommendedLocation) {
         guard let planIdx = location.planIdx else { return }
-        
         locations[index].isOnPlan = false
         
         NetworkService.shared.deleteFromMyTravel("\(planIdx)") {[weak self] result  in
             guard let self = self else {return}
             switch result {
             case .success(let response):
-                print(response)
                 self.notifySubject.send(.showMessage(response.message ?? ""))
 
             case .failure(let error):
@@ -148,7 +146,6 @@ class SearchViewModel: BaseViewModel {
                                              placeAddr: location.addr,
                                              completion: {[weak self] result in
             guard let self = self else {return}
-            print(result)
         })
     }
 }
