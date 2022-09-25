@@ -13,29 +13,113 @@ enum UserAuthType {
     case firebase
 }
 
-final class NetworkService {
-    static let shared = NetworkService()
+protocol Networkable {
+    func setToken(_ uid: String)
+    
+    func setUserAuthType(_ userAuthType: UserAuthType)
+    
+    func checkUserExist(_ uid: String, completion: @escaping (UserExistCheckResponse) -> Void)
+    
+    func deleteUser(completion: @escaping (Result<Response, AFError>) -> Void)
+    
+    func fetchRecommendation(
+        _ location: Location,
+        _ radius: Float,
+        _ numberOfItems: Int,
+        completion: @escaping (Result<RecommendedLocationResponse, AFError>) -> Void
+    )
+    
+    func fetchRecommendationFromAllOver(completion: @escaping (Result<RecommendedLocationResponse, AFError>) -> Void)
+    
+    func fetchUnvisitedLocations(completion: @escaping (Result<RecommendedLocationResponse, AFError>) -> Void)
+    
+    func fetchQuestions(
+        completion: @escaping (Result<[Question], AFError>) -> Void
+    )
+    
+    func postAnswers(
+        _ answers: [UserQuizeAnswer],
+        completion: @escaping (Result<CharacterResponse, AFError>) -> Void
+    )
+    
+    func postNickName(
+        _ nickName: String,
+        completion: @escaping (Result<Response, AFError>) -> Void
+    )
+    
+    func fetchLocationDetail(
+        _ contentId: String,
+        _ contentTypeId: String,
+        completion: @escaping (Result<LocationDetailResponse, AFError>) -> Void
+    )
+    
+    func postReview(_ parameters: ReviewPostData, completion: @escaping (Result<Response, AFError>) -> Void)
+    
+    func postReviewImages(with images: [Data],
+                   _ contentId: String,
+                   completion: @escaping ((Result<Response, AFError>) -> Void))
+    
+    func fetchSearchLocations(
+        _ keyword: String,
+        pageSize: Int,
+        pageNumber: Int,
+        completion: @escaping (Result<RecommendedLocationResponse, AFError>) -> Void
+    )
+    
+    func postAddToMyTravel(_ parameter: PostAddToMyTripData, completion: @escaping (Result<Response, AFError>) -> Void)
+    
+    func deleteFromMyTravel(_ planIdx: String, completion: @escaping (Result<Response, AFError>) -> Void)
+    
+    func fetchMyTravel(completion: @escaping (Result<[MyTravelLocation], AFError>) -> Void)
+    
+    func removeMyTravel(_ item: MyTravelLocation, completion: @escaping () -> Void)
+    
+    func fetchSavedTravel(completion: @escaping (Result<[MyBookMarkLocation], AFError>) -> Void)
+    
+    func fetchCompletedTravel(completion: @escaping (Result<[RecommendedLocation], AFError>) -> Void)
+    
+    func updateBookMark(of contentId: String, contentTypeId: String, mapx: String, mapY: String, placeName: String, placeAddr: String, completion: @escaping (Result<Response, AFError>) -> Void)
+    
+    func fetchLocationDetailImage(_ contentId: String, completion: @escaping (Result<LocationImageResponse, AFError>) -> Void)
+    
+    func fetchReviews(_ contentId: String, completion: @escaping (Result<[ReviewData], AFError>) -> Void)
+    
+    func fetchCharacterInfo(completion: @escaping (Result<MyCharacter, AFError>) -> Void)
+    
+    func fetchMyInfo(completion: @escaping (Result<MyInfo, AFError>) -> Void)
+    
+    func fetchMyReviews(completion: @escaping( Result<[UserReviewData], AFError>) -> Void)
+    
+    func postCompleteTrip(_ param: CompleteTripPostData, completion: @escaping (Result<Response, AFError>) -> Void)
+    
+    func patchLike(_ id: String)
+    
+    func postReport(_ id: String, completion: @escaping (Result<Response, AFError>) -> Void)
+    
+    func deleteReview(_ reviewIdx: Int, completion: @escaping (Result<Response, AFError>) -> Void)
+}
+
+final class NetworkManager: Networkable {
+    static let shared = NetworkManager()
     
     private let baseUrl = "https://dev.twolamps.shop"
-    private(set) var token: String = "asdf7834kj189ad8zjhkj3qthq5"
-    
-    public func setToken(_ uid: String) {
-        self.token = uid
-    }
+    private(set) var token: String = ""
     
     private(set) var userAuthType: UserAuthType?
     
     private let language = LanguageManager.shared
     
-    func setUserAuthType(_ userAuthType: UserAuthType) {
+    public func setToken(_ uid: String) {
+        self.token = uid
+    }
+    
+    public func setUserAuthType(_ userAuthType: UserAuthType) {
         self.userAuthType = userAuthType
     }
     
-    }
-    
-    func checkUserExist(_ uid: String, completion: @escaping (UserExistCheckResponse) -> Void) {
+    public func checkUserExist(_ uid: String, completion: @escaping (UserExistCheckResponse) -> Void) {
         let requestUrl = baseUrl + "/app/users?token=\(uid)"
-        print(requestUrl)
+        
         AF.request(requestUrl, method: .get, encoding: JSONEncoding.default)
             .validate()
             .responseDecodable(of: UserExistCheckResponse.self) { response in
@@ -49,9 +133,9 @@ final class NetworkService {
             }
     }
     
-    func deleteUser(completion: @escaping (Result<Response, AFError>) -> Void) {
+    public func deleteUser(completion: @escaping (Result<Response, AFError>) -> Void) {
         let requestUrl = baseUrl + "/app/users/delete?token=\(token)"
-        print(requestUrl)
+        
         AF.request( requestUrl, method: .patch)
             .validate()
             .responseDecodable(of: Response.self) { response in
@@ -59,7 +143,7 @@ final class NetworkService {
             }
     }
     
-    func fetchRecommendation(
+    public func fetchRecommendation(
         _ location: Location,
         _ radius: Float,
         _ numberOfItems: Int = 10,
@@ -67,18 +151,17 @@ final class NetworkService {
     ) {
         let requestUrl = baseUrl + "/app/main/placeInfo?serviceLanguage=\(language.languageType.rawValue)&pageSize=\(numberOfItems)&pageNumber=1&mapX=\(location.long)&mapY=\(location.lat)&radius=\(radius)&token=" + token
         
-        print(requestUrl)
-        
         AF.request(requestUrl, method: .get, encoding: JSONEncoding.default)
             .validate()
             .responseDecodable(of: RecommendedLocationResponse.self) { response in
+                print(response.result)
                 completion(response.result)
             }
     }
     
-    func fetchRecommendationFromAllOver(completion: @escaping (Result<RecommendedLocationResponse, AFError>) -> Void) {
+    public func fetchRecommendationFromAllOver(completion: @escaping (Result<RecommendedLocationResponse, AFError>) -> Void) {
         let requestUrl = baseUrl + "/app/main/totalPlaceInfo?serviceLanguage=\(language.languageType.rawValue)&pageSize=20&pageNumber=1&token=\(token)"
-        print(requestUrl)
+        
         AF.request(requestUrl, method: .get, encoding: JSONEncoding.default)
             .validate()
             .responseDecodable(of: RecommendedLocationResponse.self) {
@@ -87,9 +170,9 @@ final class NetworkService {
             }
     }
     
-    func fetchUnvisitedLocations(completion: @escaping (Result<RecommendedLocationResponse, AFError>) -> Void) {
+    public func fetchUnvisitedLocations(completion: @escaping (Result<RecommendedLocationResponse, AFError>) -> Void) {
         let requestUrl = baseUrl + "/app/main/placeNotVisited?serviceLanguage=\(language.languageType.rawValue)&pageSize=20&pageNumber=1&token=\(token)"
-        print(requestUrl)
+        
         AF.request(requestUrl, method: .get, encoding: JSONEncoding.default)
             .validate()
             .responseDecodable(of: RecommendedLocationResponse.self) { response in
@@ -97,13 +180,11 @@ final class NetworkService {
             }
     }
     
-    func fetchQuestions(
+    public func fetchQuestions(
         completion: @escaping (Result<[Question], AFError>) -> Void
     ) {
         
         let requestUrl = baseUrl + "/app/users/survey"
-        
-        print(requestUrl)
         
         AF.request(requestUrl, method: .get, encoding: JSONEncoding.default)
             .validate()
@@ -112,10 +193,12 @@ final class NetworkService {
             }
     }
     
-    func postAnswers(_ answers: [UserQuizeAnswer], completion: @escaping (Result<CharacterResponse, AFError>) -> Void) {
-        
+    public func postAnswers(
+        _ answers: [UserQuizeAnswer],
+        completion: @escaping (Result<CharacterResponse, AFError>) -> Void
+    ) {
         let requestUrl = baseUrl + "/app/users/survey?token=\(token)"
-        print(requestUrl)
+        
         AF.request(requestUrl, method: .post, parameters: answers, encoder: JSONParameterEncoder(), headers: nil)
             .validate()
             .responseDecodable(of: CharacterResponse.self) { response in
@@ -123,11 +206,14 @@ final class NetworkService {
             }
     }
     
-    func postNickName(_ nickName: String, completion: @escaping (Result<Response, AFError>) -> Void) {
+    public func postNickName(
+        _ nickName: String,
+        completion: @escaping (Result<Response, AFError>) -> Void
+    ) {
         let parameters = NickNameSettingData(nickname: nickName, socialToken: token, isAdmin: 0)
         
         let requestUrl = baseUrl + "/app/users"
-        print(requestUrl)
+        
         AF.request(requestUrl, method: .post, parameters: parameters, encoder: JSONParameterEncoder(), headers: nil)
             .validate()
             .responseDecodable(of: Response.self) { response in
@@ -135,7 +221,11 @@ final class NetworkService {
             }
     }
     
-    func fetchLocationDetail(_ contentId: String, _ contentTypeId: String, completion: @escaping (Result<LocationDetailResponse, AFError>) -> Void) {
+    public func fetchLocationDetail(
+        _ contentId: String,
+        _ contentTypeId: String,
+        completion: @escaping (Result<LocationDetailResponse, AFError>) -> Void
+    ) {
         let requestUrl = baseUrl + "/app/main/placeInfo/detail?serviceLanguage=\(language.languageType.rawValue)&contentTypeId=\(contentTypeId)&pageSize=4&pageNumber=1&contentId=\(contentId)&token=\(token)"
         print(requestUrl)
         AF.request(requestUrl, method: .get, encoding: JSONEncoding.default)
@@ -145,12 +235,12 @@ final class NetworkService {
             }
     }
     
-    func postReview(_ parameters: ReviewPostData, completion: @escaping (Result<Response, AFError>) -> Void) {
+    public func postReview(_ parameters: ReviewPostData, completion: @escaping (Result<Response, AFError>) -> Void) {
         
         var newParameters = parameters
         newParameters.token = token
         let requestUrl = baseUrl + "/app/placeInfo/review"
-        print(requestUrl)
+        
         AF.request(requestUrl, method: .post, parameters: newParameters, encoder: JSONParameterEncoder(), headers: nil)
             .validate()
             .responseDecodable(of: Response.self) { response in
@@ -158,7 +248,7 @@ final class NetworkService {
             }
     }
     
-    func postReviewImages(with images: [Data],
+    public func postReviewImages(with images: [Data],
                           _ contentId: String,
                           completion: @escaping ((Result<Response, AFError>) -> Void)) {
        
@@ -174,7 +264,6 @@ final class NetworkService {
         let boundary = "Boundary-\(UUID().uuidString)"
         let headers: HTTPHeaders = ["Content-Type":"multipart/form-data; boundary=\(boundary)"]
         
-        print(requestUrl)
         AF.upload(multipartFormData: { (multipartFormData) in
             for image in images {
                 multipartFormData.append(image,
@@ -188,7 +277,7 @@ final class NetworkService {
         }
     }
     
-    func fetchSearchLocations(
+    public func fetchSearchLocations(
         _ keyword: String,
         pageSize: Int = 20,
         pageNumber: Int = 1,
@@ -199,7 +288,6 @@ final class NetworkService {
         else {return }
         
         let requestUrl = baseUrl + "/app/main/placeInfo/keyword?serviceLanguage=\(language.languageType.rawValue)&keyword=\(encodedString)&pageSize=\(pageSize)&pageNumber=\(pageNumber)&token=\(token)"
-        print(requestUrl)
         
         AF.request(requestUrl, method: .get, encoding: JSONEncoding.default)
             .validate()
@@ -208,12 +296,12 @@ final class NetworkService {
             }
     }
     
-    func postAddToMyTravel(_ parameter: PostAddToMyTripData, completion: @escaping (Result<Response, AFError>) -> Void) {
+    public func postAddToMyTravel(_ parameter: PostAddToMyTripData, completion: @escaping (Result<Response, AFError>) -> Void) {
         let requestUrl = baseUrl + "/app/trip"
         
         var newParameter = parameter
         newParameter.token = token
-        print(requestUrl)
+        
         AF.request(requestUrl, method: .post, parameters: newParameter, encoder: JSONParameterEncoder(), headers: nil)
             .validate()
             .responseDecodable(of: Response.self) { response in
@@ -221,9 +309,9 @@ final class NetworkService {
             }
     }
     
-    func deleteFromMyTravel(_ planIdx: String, completion: @escaping (Result<Response, AFError>) -> Void) {
+    public func deleteFromMyTravel(_ planIdx: String, completion: @escaping (Result<Response, AFError>) -> Void) {
         let requestUrl = baseUrl + "/app/trip?token=\(token)&planIdx=\(planIdx)"
-        print(requestUrl)
+        
         AF.request(requestUrl, method: .delete)
             .validate()
             .responseDecodable(of: Response.self) { response in
@@ -231,9 +319,9 @@ final class NetworkService {
             }
     }
     
-    func fetchMyTravel(completion: @escaping (Result<[MyTravelLocation], AFError>) -> Void) {
+    public func fetchMyTravel(completion: @escaping (Result<[MyTravelLocation], AFError>) -> Void) {
         let requestUrl = baseUrl + "/app/trip?token=\(token)"
-        print(requestUrl)
+        
         AF.request(requestUrl, method: .get, encoding: JSONEncoding.default)
             .validate()
             .responseDecodable(of: [MyTravelLocation].self) { response in
@@ -241,21 +329,20 @@ final class NetworkService {
             }
     }
     
-    func removeMyTravel(_ item: MyTravelLocation, completion: @escaping () -> Void) {
+    public func removeMyTravel(_ item: MyTravelLocation, completion: @escaping () -> Void) {
         let planIdx = item.planIdx
         let requestUrl = baseUrl + "/app/trip?token=\(token)&planIdx=\(planIdx)"
-        print(requestUrl)
+        
         AF.request(requestUrl, method: .delete)
             .validate()
             .responseDecodable(of: Response.self) { response in
-                print(response)
                 completion()
             }
     }
     
-    func fetchSavedTravel(completion: @escaping (Result<[MyBookMarkLocation], AFError>) -> Void) {
+    public func fetchSavedTravel(completion: @escaping (Result<[MyBookMarkLocation], AFError>) -> Void) {
         let requestUrl = baseUrl + "/app/trip/bookmark?token=\(token)"
-        print(requestUrl)
+        
         AF.request(requestUrl, method: .get, encoding: JSONEncoding.default)
             .validate()
             .responseDecodable(of: [MyBookMarkLocation].self) { response in
@@ -263,9 +350,9 @@ final class NetworkService {
             }
     }
     
-    func fetchCompletedTravel(completion: @escaping (Result<[RecommendedLocation], AFError>) -> Void) {
+    public func fetchCompletedTravel(completion: @escaping (Result<[RecommendedLocation], AFError>) -> Void) {
         let requestUrl = baseUrl + "/app/trip/complete?token=\(token)"
-        print(requestUrl)
+        
         AF.request(requestUrl, method: .get, encoding: JSONEncoding.default)
             .validate()
             .responseDecodable(of: [RecommendedLocation].self) { response in
@@ -273,14 +360,14 @@ final class NetworkService {
             }
     }
     
-    func updateBookMark(of contentId: String, contentTypeId: String, mapx: String, mapY: String, placeName: String, placeAddr: String, completion: @escaping (Result<Response, AFError>) -> Void) {
+    public func updateBookMark(of contentId: String, contentTypeId: String, mapx: String, mapY: String, placeName: String, placeAddr: String, completion: @escaping (Result<Response, AFError>) -> Void) {
         guard
             let encodedPlaceName = placeName.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
             let encodedPlaceAddr = placeAddr.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         else { return }
         
         let requestUrl = baseUrl + "/app/main/placeInfo/bookmark?token=\(token)&contentId=\(contentId)&contentTypeId=\(contentTypeId)&mapX=\(mapx)&mapY=\(mapY)&placeName=\(encodedPlaceName)&placeAddr=\(encodedPlaceAddr)"
-        print(requestUrl)
+       
         AF.request(requestUrl, method: .patch)
             .validate()
             .responseDecodable(of: Response.self) {
@@ -289,9 +376,9 @@ final class NetworkService {
             }
     }
     
-    func fetchLocationDetailImage(_ contentId: String, completion: @escaping (Result<LocationImageResponse, AFError>) -> Void) {
+    public func fetchLocationDetailImage(_ contentId: String, completion: @escaping (Result<LocationImageResponse, AFError>) -> Void) {
         let requestUrl = baseUrl + "/app/placeInfo/images?contentId=\(contentId)&serviceLanguage=\(language.languageType.rawValue)"
-        print(requestUrl)
+        
         AF.request(requestUrl, method: .get, encoding: JSONEncoding.default)
             .validate()
             .responseDecodable(of: LocationImageResponse.self) {
@@ -300,9 +387,9 @@ final class NetworkService {
             }
     }
     
-    func fetchReviews(_ contentId: String, completion: @escaping (Result<[ReviewData], AFError>) -> Void) {
+    public func fetchReviews(_ contentId: String, completion: @escaping (Result<[ReviewData], AFError>) -> Void) {
         let requestUrl = baseUrl + "/app/placeInfo/review?token=\(token)&contentId=\(contentId)"
-        print(requestUrl)
+        
         AF.request(requestUrl, method: .get, encoding: JSONEncoding.default)
             .validate()
             .responseDecodable(of: [ReviewData].self) { response in
@@ -310,9 +397,9 @@ final class NetworkService {
             }
     }
     
-    func fetchCharacterInfo(completion: @escaping (Result<MyCharacter, AFError>) -> Void) {
+    public func fetchCharacterInfo(completion: @escaping (Result<MyCharacter, AFError>) -> Void) {
         let requestUrl = baseUrl + "/app/users/myCharacter?token=\(token)"
-        print(requestUrl)
+       
         AF.request(requestUrl, method: .get, encoding: JSONEncoding.default)
             .validate()
             .responseDecodable(of: MyCharacter.self) { response in
@@ -320,9 +407,9 @@ final class NetworkService {
             }
     }
     
-    func fetchMyInfo(completion: @escaping (Result<MyInfo, AFError>) -> Void) {
+    public func fetchMyInfo(completion: @escaping (Result<MyInfo, AFError>) -> Void) {
         let requestUrl = baseUrl + "/app/users/myPage?token=\(token)"
-        print(requestUrl)
+       
         AF.request(requestUrl, method: .get, encoding: JSONEncoding.default)
             .validate()
             .responseDecodable(of: MyInfo.self) { response in
@@ -330,9 +417,9 @@ final class NetworkService {
             }
     }
     
-    func fetchMyReviews(completion: @escaping( Result<[UserReviewData], AFError>) -> Void) {
+    public func fetchMyReviews(completion: @escaping( Result<[UserReviewData], AFError>) -> Void) {
         let requesUrl = baseUrl + "/app/users/myReviews?token=\(token)"
-        print(requesUrl)
+        
         AF.request(requesUrl, method: .get, encoding: JSONEncoding.default)
             .validate()
             .responseDecodable(of: [UserReviewData].self) { response in
@@ -340,12 +427,12 @@ final class NetworkService {
             }
     }
     
-    func postCompleteTrip(_ param: CompleteTripPostData, completion: @escaping (Result<Response, AFError>) -> Void) {
+    public func postCompleteTrip(_ param: CompleteTripPostData, completion: @escaping (Result<Response, AFError>) -> Void) {
         var newParameter = param
         newParameter.token = token
         
         let requestUrl = baseUrl + "/app/trip/complete"
-        print(requestUrl)
+        
         AF.request(requestUrl, method: .post, parameters: newParameter, encoder: JSONParameterEncoder(), headers: nil)
             .validate()
             .responseDecodable(of: Response.self) {
@@ -354,11 +441,10 @@ final class NetworkService {
             }
     }
     
-    func patchLike(_ id: String) {
+    public func patchLike(_ id: String) {
         let param = LikeDataPatch(token: token, targetReviewId: id)
-        
         let requestUrl = baseUrl + "/app/placeInfo/review/like"
-        print(requestUrl)
+        
         AF.request(requestUrl, method: .patch, parameters: param, encoder: JSONParameterEncoder(), headers: nil)
             .validate()
             .responseDecodable(of: Response.self) {
@@ -367,10 +453,10 @@ final class NetworkService {
             }
     }
     
-    func postReport(_ id: String, completion: @escaping (Result<Response, AFError>) -> Void) {
+    public func postReport(_ id: String, completion: @escaping (Result<Response, AFError>) -> Void) {
         let param = LikeDataPatch(token: token, targetReviewId: id)
         let requestUrl = baseUrl + "/app/placeInfo/review/report"
-        print(requestUrl)
+        
         AF.request(requestUrl, method: .post, parameters: param, encoder: JSONParameterEncoder(), headers: nil)
             .validate()
             .responseDecodable(of: Response.self) { response in
@@ -378,7 +464,7 @@ final class NetworkService {
             }
     }
     
-    func deleteReview(_ reviewIdx: Int, completion: @escaping (Result<Response, AFError>) -> Void) {
+    public func deleteReview(_ reviewIdx: Int, completion: @escaping (Result<Response, AFError>) -> Void) {
         let requestUrl = baseUrl + "/app/placeInfo/review?token=\(token)&reviewIdx=\(reviewIdx)"
         
         AF.request(requestUrl, method: .delete).validate()

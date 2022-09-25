@@ -71,7 +71,7 @@ final class FavoriteCell: UICollectionViewCell {
     }
     
     private func fetchSavedTravel(completion: @escaping () -> Void) {
-        NetworkService.shared.fetchSavedTravel {[weak self] result in
+        NetworkManager.shared.fetchSavedTravel {[weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let locations):
@@ -86,7 +86,7 @@ final class FavoriteCell: UICollectionViewCell {
     
     public func deleteMySaveLocations(at index: Int) {
         let targetItem = models[index]
-        NetworkService.shared.updateBookMark(of: "\(targetItem.contentId)",
+        NetworkManager.shared.updateBookMark(of: "\(targetItem.contentId)",
                                              contentTypeId: "\(targetItem.contentTypeId)",
                                              mapx: "\(targetItem.mapX)",
                                              mapY: "\(targetItem.mapY)",

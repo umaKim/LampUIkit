@@ -72,7 +72,7 @@ final class CompletedTravelCell: UICollectionViewCell {
     }
     
     private func fetchCompletedTravel(completion: @escaping () -> Void) {
-        NetworkService.shared.fetchCompletedTravel {[weak self] result in
+        NetworkManager.shared.fetchCompletedTravel {[weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let locations):
@@ -100,7 +100,7 @@ final class CompletedTravelCell: UICollectionViewCell {
     
     public func deleteCompletedTravel(at index: Int) {
         let targetItem = models[index]
-        NetworkService.shared.deleteFromMyTravel(targetItem.planIdx) {[weak self] result in
+        NetworkManager.shared.deleteFromMyTravel(targetItem.planIdx) {[weak self] result in
             switch result {
             case .success(let response):
                 self?.models.remove(at: index)
