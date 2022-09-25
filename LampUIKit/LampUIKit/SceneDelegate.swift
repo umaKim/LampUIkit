@@ -25,7 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController =
 //        InitialQuizViewController(vm: InitialQuizViewModel())
 //        InitialSetPageViewController(vm: InitialSetPageViewModel())
-        StartPageViewController()
+        StartPageViewController(StartPageView(), StartPageViewModel())
 //        LoginViewController(vm: LoginViewModel())
 //            MainViewController(MainViewModel())
 //        UINavigationController(rootViewController: LampSpotViewController(vm: LampSpotViewModel()))
