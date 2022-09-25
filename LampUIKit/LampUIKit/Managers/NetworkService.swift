@@ -8,39 +8,6 @@
 import Alamofire
 import Foundation
 
-class JsonNetworkService {
-    static let shared = JsonNetworkService()
-    
-    private let baseURL = "http://api.visitkorea.or.kr/openapi/service/rest/DataLabService/tmapTotalTarItsBroDDList?"
-    
-    enum Key {
-        static let bigData = "0IPKAzuqgRL%2BlJLFKeV4YTkgTV%2B90JKXrqf81CWgLhY%2BmtJBbP61uC7JH%2BiiYAlIfP2cFE7bKY1vmI5MGX45Pg%3D%3D"
-    }
-    
-    func fetchRecomendingPlaces() {
-        
-        let requestUrl = baseURL + "serviceKey=\(Key.bigData)" + "&MobileOS=ETC" + "&MobileApp=AppTest" + "&baseYm=202106" + "&_type=json"
-        
-        AF.request(requestUrl, method: .get)
-            .validate()
-            .responseDecodable(of: RecomendingPlaceResponse.self){ response in
-                print(response.result)
-            }
-    }
-}
-
-struct RecomendingPlaceResponse: Codable {
-    let responsew: RecomendingPlaceHeader
-}
-
-struct RecomendingPlaceHeader: Codable {
-    let header: RecomendingPlace
-}
-
-struct RecomendingPlace: Codable {
-    let responseTime: String
-}
-
 enum UserAuthType {
     case kakao
     case firebase
@@ -64,19 +31,6 @@ final class NetworkService {
         self.userAuthType = userAuthType
     }
     
-    func login() {
-        let requestUrl = baseUrl + "/app/users"
-        let parameters = LoginUserData(email: "yk@gmail.com",
-                                       nickname: "trump",
-                                       name: "pppName",
-                                       socialToken: "YK_Social",
-                                       isAdmin: false)
-        print(requestUrl)
-        AF.request(requestUrl, method: .post, parameters: parameters, encoder: JSONParameterEncoder(), headers: nil)
-            .validate()
-            .responseDecodable(of: Response.self) { response in
-                print(response)
-            }
     }
     
     func checkUserExist(_ uid: String, completion: @escaping (UserExistCheckResponse) -> Void) {
