@@ -7,7 +7,30 @@
 import Combine
 import UIKit
 
+protocol Actionable { }
+
 class BaseWhiteView: UIView {
+    init() {
+        self.cancellables = .init()
+        super.init(frame: .zero)
+
+        backgroundColor = .greyshWhite
+    }
+
+    var cancellables: Set<AnyCancellable>
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+class BaseView<T: Actionable>: UIView {
+    
+    private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
+    private let actionSubject = PassthroughSubject<T, Never>()
+    
+    var cancellables: Set<AnyCancellable>
+    
     init() {
         self.cancellables = .init()
         super.init(frame: .zero)
@@ -15,22 +38,12 @@ class BaseWhiteView: UIView {
         backgroundColor = .greyshWhite
     }
     
-    var cancellables: Set<AnyCancellable>
+    public func sendAction(_ input: T) {
+        actionSubject.send(input)
+    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
 
-class BaseView: UIView {
-    init() {
-        self.cancellables = .init()
-        super.init(frame: .zero)
-    }
-    
-    var cancellables: Set<AnyCancellable>
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}

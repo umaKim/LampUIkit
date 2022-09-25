@@ -7,22 +7,26 @@
 import Combine
 import UIKit
 
-class BaseViewContronller: UIViewController {
-    
+class BaseViewController<CV, VM>: UIViewController {
     var cancellables: Set<AnyCancellable>
     
-    init() {
+    let contentView: CV
+    let viewModel: VM
+    
+    init(
+        _ cv: CV,
+        _ vm: VM
+    ) {
+        self.contentView = cv
+        self.viewModel = vm
         self.cancellables = .init()
         super.init(nibName: nil, bundle: nil)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    
-        navigationItem.largeTitleDisplayMode = .never
-        navigationController?.navigationBar.backgroundColor = .greyshWhite
-        navigationController?.navigationBar.barTintColor = .greyshWhite
-        navigationController?.navigationBar.isTranslucent = false
+    override func loadView() {
+        super.loadView()
+        
+        view = contentView as? UIView
     }
     
     required init?(coder: NSCoder) {

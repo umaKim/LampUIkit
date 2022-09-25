@@ -8,10 +8,20 @@
 import Combine
 import Foundation
 
-class BaseViewModel: NSObject {
+protocol Notifiable { }
+
+class BaseViewModel<T: Notifiable>: NSObject {
+    private(set) lazy var notifyPublisher = notifySubject.eraseToAnyPublisher()
+    private let notifySubject = PassthroughSubject<T, Never>()
+    
+    var cancellables: Set<AnyCancellable>
+    
     override init() {
         self.cancellables = .init()
     }
     
-    var cancellables: Set<AnyCancellable>
+    public func sendNotification(_ input: T) {
+        notifySubject.send(input)
+    }
+    
 }
