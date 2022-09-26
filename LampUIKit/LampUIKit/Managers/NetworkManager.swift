@@ -154,7 +154,6 @@ final class NetworkManager: Networkable {
         AF.request(requestUrl, method: .get, encoding: JSONEncoding.default)
             .validate()
             .responseDecodable(of: RecommendedLocationResponse.self) { response in
-                print(response.result)
                 completion(response.result)
             }
     }
@@ -227,7 +226,6 @@ final class NetworkManager: Networkable {
         completion: @escaping (Result<LocationDetailResponse, AFError>) -> Void
     ) {
         let requestUrl = baseUrl + "/app/main/placeInfo/detail?serviceLanguage=\(language.languageType.rawValue)&contentTypeId=\(contentTypeId)&pageSize=4&pageNumber=1&contentId=\(contentId)&token=\(token)"
-        print(requestUrl)
         AF.request(requestUrl, method: .get, encoding: JSONEncoding.default)
             .validate()
             .responseDecodable(of: LocationDetailResponse.self) { response in
@@ -449,7 +447,6 @@ final class NetworkManager: Networkable {
             .validate()
             .responseDecodable(of: Response.self) {
                 response in
-                print(response.result)
             }
     }
     
