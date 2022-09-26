@@ -12,15 +12,6 @@ enum EvaluationViewAction {
     case updateElement(Int)
 }
 
-struct EvaluationModel {
-    var isSelected: Bool
-    var title: String
-}
-
-final class EvaluationView: BaseWhiteView {
-    private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
-    private let actionSubject = PassthroughSubject<EvaluationViewAction, Never>()
-    
     private let titleLabel: UILabel = {
         let lb = UILabel()
         lb.text = "만족도"

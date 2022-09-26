@@ -17,10 +17,6 @@ enum SearchViewModelNotify {
 
 class SearchViewModel: BaseViewModel {
     
-    private(set) lazy var notifyPublisher = notifySubject.eraseToAnyPublisher()
-    private let notifySubject = PassthroughSubject<SearchViewModelNotify, Never>()
-    
-    private let service: NetworkService
     
     private(set) var locations = [RecommendedLocation]()
     

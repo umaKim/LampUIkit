@@ -42,7 +42,6 @@ class CustomBalloonView: UIView {
     
     init() {
         super.init(frame: .init(x: 0, y: 0, width: 200, height: 100))
-//        super.init(frame: .init(x: 0, y: 0, width: 400, height: 200))
         
         layer.cornerRadius = 6
     }

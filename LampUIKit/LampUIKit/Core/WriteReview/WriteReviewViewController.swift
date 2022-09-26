@@ -7,25 +7,6 @@
 
 import UIKit
 
-class WriteReviewViewController: BaseViewContronller {
-    private let viewModel: WriteReviewViewModel
-    
-    init(_ vm: WriteReviewViewModel) {
-        self.viewModel = vm
-        super.init()
-    }
-    
-    private let contentView = WriteReviewView()
-    
-    override func loadView() {
-        super.loadView()
-        view = contentView
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     private func checkMaxLength(_ textView: UITextView, maxLength: Int = 300) {
         if textView.text.count > maxLength {
             textView.deleteBackward()
@@ -87,7 +68,6 @@ class WriteReviewViewController: BaseViewContronller {
                 self.contentView.ableCompleteButton(isAble)
                 
             case .dismiss:
-                //                self.dismiss(animated: true)
                 self.navigationController?.popViewController(animated: true)
                 
             case .showMessage(let message):

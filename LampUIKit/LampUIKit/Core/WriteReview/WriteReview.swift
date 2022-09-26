@@ -29,9 +29,6 @@ class WriteReviewView: BaseWhiteView, ImageCollectionViewCellDelegate {
         updateSections()
     }
     
-    private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
-    private let actionSubject = PassthroughSubject<WriteReviewViewAction, Never>()
-    
     private typealias DataSource = UICollectionViewDiffableDataSource<Section, UIImage>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, UIImage>
     
@@ -359,15 +356,12 @@ extension WriteReviewView {
         imageCounterSv.distribution = .fill
         
         let totalStackView = UIStackView(arrangedSubviews: [profileView,
-                                                            dividerView1,
                                                             starRatingView,
                                                             evaluationStackView,
                                                             textContextView,
                                                             characterCounterSv,
-                                                            dividerView2,
                                                             selectedImageCollectionView,
                                                             imageCounterSv,
-                                                            dividerView3,
                                                             completeButton])
         totalStackView.axis = .vertical
         totalStackView.distribution = .fill
@@ -395,7 +389,6 @@ extension WriteReviewView {
             
             totalStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             totalStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-//            totalStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             totalStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
             
             starRatingView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
