@@ -7,7 +7,7 @@
 import Combine
 import Foundation
 
-enum LocationDetailViewModelNotify {
+enum LocationDetailViewModelNotification: Notifiable {
     case startLoading
     case endLoading
     
@@ -15,10 +15,7 @@ enum LocationDetailViewModelNotify {
     case locationDetailImages([String])
 }
 
-final class LocationDetailViewModel: BaseViewModel {
-    private(set) lazy var notifyPublisher = notifySubject.eraseToAnyPublisher()
-    private let notifySubject = PassthroughSubject<LocationDetailViewModelNotify, Never>()
-    
+final class LocationDetailViewModel: BaseViewModel<LocationDetailViewModelNotification> {
     private(set) var locationDetail: LocationDetailData?
     private(set) var location: RecommendedLocation?
    
@@ -29,6 +26,8 @@ final class LocationDetailViewModel: BaseViewModel {
     convenience init(_ location: RecommendedLocation) {
         self.init()
         self.location = location
+        
+        print(location)
     }
     
     convenience init(
@@ -37,7 +36,7 @@ final class LocationDetailViewModel: BaseViewModel {
         self.init()
         
         self.location = .init(
-            image: nil,
+            image: myTravelLocation.image,
             contentId: "\(myTravelLocation.contentId)",
             contentTypeId: "\(myTravelLocation.contentTypeId)",
             title: myTravelLocation.placeName,
@@ -47,7 +46,8 @@ final class LocationDetailViewModel: BaseViewModel {
             isBookMarked: myTravelLocation.isBookMarked,
             mapX: myTravelLocation.mapX ?? "",
             mapY: myTravelLocation.mapY ?? "",
-            planIdx: "\(myTravelLocation.planIdx)"
+            planIdx: "\(myTravelLocation.planIdx)",
+            travelCompletedDate: nil
         )
     }
     
@@ -67,7 +67,8 @@ final class LocationDetailViewModel: BaseViewModel {
             isBookMarked: true,
             mapX: myBookMarkLocation.mapX,
             mapY: myBookMarkLocation.mapY,
-            planIdx: "\(myBookMarkLocation.placeIdx)"
+            planIdx: "\(myBookMarkLocation.placeIdx)",
+            travelCompletedDate: nil
         )
     }
     
@@ -76,7 +77,7 @@ final class LocationDetailViewModel: BaseViewModel {
     ) {
         self.init()
         
-        self.location = .init(image: nil,
+        self.location = .init(image: myCompletedLocation.image,
                               contentId: myCompletedLocation.contentId,
                               contentTypeId: myCompletedLocation.contentTypeId,
                               title: myCompletedLocation.placeName,
@@ -86,15 +87,15 @@ final class LocationDetailViewModel: BaseViewModel {
                               isBookMarked: myCompletedLocation.isBookMarked,
                               mapX: myCompletedLocation.mapX,
                               mapY: myCompletedLocation.mapY,
-                              planIdx: myCompletedLocation.planIdx)
+                              planIdx: myCompletedLocation.planIdx,
+                              travelCompletedDate: nil
+                              )
     }
     
     public func save() {
-        guard let location = location else {
-            return
-        }
-        notifySubject.send(.startLoading)
-        NetworkService.shared.updateBookMark(of: location.contentId, 
+        guard let location = location else {return}
+        sendNotification(.startLoading)
+        NetworkManager.shared.updateBookMark(of: location.contentId, 
                                              contentTypeId: location.contentTypeId,
                                              mapx: location.mapX,
                                              mapY: location.mapY,
@@ -102,7 +103,7 @@ final class LocationDetailViewModel: BaseViewModel {
                                              placeAddr: location.addr,
                                              completion: {[weak self] result in
             guard let self = self else {return}
-            self.notifySubject.send(.endLoading)
+            self.sendNotification(.endLoading)
         })
     }
     
@@ -112,28 +113,25 @@ final class LocationDetailViewModel: BaseViewModel {
             let contentId = location?.contentId,
             let contentTypeId = location?.contentTypeId
         else { return }
-        notifySubject.send(.startLoading)
-        NetworkService.shared.fetchLocationDetail(contentId, contentTypeId) {[weak self] result in
+        sendNotification(.startLoading)
+        NetworkManager.shared.fetchLocationDetail(contentId, contentTypeId) {[weak self] result in
+            self?.sendNotification(.endLoading)
             guard let self = self else {return }
             switch result {
             case .success(let locationDetail):
                 self.locationDetail = locationDetail.result
-                self.notifySubject.send(.sendLocationDetail(self.locationDetail))
-               
+                self.sendNotification(.sendLocationDetail(self.locationDetail))
             case .failure(let error):
                 print(error)
             }
-            
-            self.notifySubject.send(.endLoading)
         }
         
-        NetworkService.shared.fetchLocationDetailImage(contentId) {[weak self] result in
+        NetworkManager.shared.fetchLocationDetailImage(contentId) {[weak self] result in
             guard let self = self else {return }
             switch result {
             case .success(let response):
                 let images = response.image
-                self.notifySubject.send(.locationDetailImages(images))
-                
+                self.sendNotification(.locationDetailImages(images))
             case .failure(let error):
                 print(error)
             }
@@ -180,7 +178,7 @@ final class LocationDetailViewModel: BaseViewModel {
             mapY: location.mapY
         )
         
-        NetworkService.shared.postAddToMyTravel(data) {[weak self] result in
+        NetworkManager.shared.postAddToMyTravel(data) {[weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let response):
@@ -194,7 +192,7 @@ final class LocationDetailViewModel: BaseViewModel {
     
     private func deleteFromMyTrip() {
         guard let planIdx = locationDetail?.planExist?.planIdx else { return }
-        NetworkService.shared.deleteFromMyTravel("\(planIdx)") {[weak self] result  in
+        NetworkManager.shared.deleteFromMyTravel("\(planIdx)") {[weak self] result  in
             guard let self = self else {return}
             switch result {
             case .success(let response):
@@ -214,19 +212,6 @@ final class LocationDetailViewModel: BaseViewModel {
     }
     
     public func removeFromMyTrip() {
-        deleteFromMyTrip()
+        postAddToMyTrip()
     }
-}
-
-struct PostAddToMyTripData: Codable {
-    var token: String
-    let contentId: String
-    let contentTypeId: String
-    let image: String
-    let placeName: String
-    let placeInfo: String
-    let placeAddress: String
-    let userMemo: String
-    let mapX: String
-    let mapY: String
 }

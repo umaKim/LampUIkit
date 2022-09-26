@@ -9,55 +9,17 @@ import CombineCocoa
 import Combine
 import UIKit
 
-class MyPageTableViewCell: UITableViewCell {
-    static let identifier = "MyPageTableViewCell"
-    
-    private let titleLabel: UILabel = {
-       let lb = UILabel()
-        lb.textColor = .midNavy
-        lb.font = .systemFont(ofSize: 16, weight: .semibold)
-        return lb
-    }()
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        backgroundColor = .greyshWhite
-        
-        [titleLabel].forEach { uv in
-            uv.translatesAutoresizingMaskIntoConstraints = false
-            contentView.addSubview(uv)
-        }
-        
-        NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
-        ])
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    public func configure(with title: String) {
-        self.titleLabel.text = title.localized
-    }
-}
-
-enum MyPageViewAction {
+enum MyPageViewAction: Actionable {
     case back
     case logoutActions
     case deleteAccountActions
 }
 
-class MyPageView: BaseWhiteView {
+class MyPageView: BaseView<MyPageViewAction> {
     private(set) lazy var backButton: UIBarButtonItem = {
         let bt = UIBarButtonItem(image: .back, style: .done, target: nil, action: nil)
         return bt
     }()
-    
-    private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
-    private let actionSubject = PassthroughSubject<MyPageViewAction, Never>()
     
     private(set) lazy var tableView: UITableView = {
        let tv = UITableView()
@@ -81,17 +43,17 @@ class MyPageView: BaseWhiteView {
     }
     
     public func presentLogOutActions() {
-        self.actionSubject.send(.logoutActions)
+        sendAction(.logoutActions)
     }
     
     public func presentDeleteAccountActions() {
-        self.actionSubject.send(.deleteAccountActions)
+        sendAction(.deleteAccountActions)
     }
     
     private func bind() {
         backButton.tapPublisher.sink {[weak self] _ in
             guard let self = self else {return}
-            self.actionSubject.send(.back)
+            self.sendAction(.back)
         }
         .store(in: &cancellables)
     }

@@ -23,35 +23,14 @@ class CustomMarkerView: UIView {
     private let width = 55
     private let height = 60
     
+    private var imageUrl: String
+    private var markerType: MapMarkerType
+    
     init() {
         self.imageUrl = ""
         self.markerType = .recommended
         super.init(frame: .init(x: 0, y: 0, width: width, height: height))
     }
-    
-    public func configure(completion: @escaping () -> Void) {
-        DispatchQueue.global().async {
-            do {
-                if let url = URL(string: self.imageUrl),
-                   let data = try? Data(contentsOf: url) {
-                    DispatchQueue.main.async {
-                        self.contentImageView.image = .init(data: data)?.rounded(with: .clear,
-                                                                                 width: 0)?.resize(to: 100)
-                        completion()
-                    }
-                    
-                } else {
-                    DispatchQueue.main.async {
-                        self.contentImageView.image = .placeholder
-                    }
-                }
-            }
-            
-        }
-    }
-    
-    private var imageUrl: String
-    private var markerType: MapMarkerType
     
     convenience init(of imageUrl: String, type markerType: MapMarkerType) {
         self.init()
@@ -76,6 +55,27 @@ class CustomMarkerView: UIView {
         
         self.addSubview(self.outerImageView)
         self.outerImageView.frame = .init(x: 0, y: 0, width: self.width, height: self.height)
+    }
+    
+    public func configure(completion: @escaping () -> Void) {
+        DispatchQueue.global().async {
+            do {
+                if let url = URL(string: self.imageUrl),
+                   let data = try? Data(contentsOf: url) {
+                    DispatchQueue.main.async {
+                        self.contentImageView.image = .init(data: data)?.rounded(with: .clear,
+                                                                                 width: 0)?.resize(to: 100)
+                        completion()
+                    }
+                    
+                } else {
+                    DispatchQueue.main.async {
+                        self.contentImageView.image = .placeholder
+                    }
+                }
+            }
+            
+        }
     }
     
     required init?(coder: NSCoder) {

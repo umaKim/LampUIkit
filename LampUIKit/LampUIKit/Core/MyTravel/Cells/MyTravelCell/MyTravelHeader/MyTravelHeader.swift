@@ -17,14 +17,6 @@ final class MyTravelCellHeaderCell: UICollectionReusableView {
     
     weak var delegate: MyTravelCellHeaderCellDelegate?
     
-    private lazy var goalDateLabel: UILabel = {
-       let ul = UILabel()
-        ul.text = "목표 날짜"
-        ul.textColor = .black
-        ul.font = .systemFont(ofSize: 15, weight: .semibold)
-        return ul
-    }()
-    
     private lazy var editButton: UIButton = {
         let bt = UIButton(type: .system)
         bt.titleLabel?.font = .boldSystemFont(ofSize: 15)
@@ -41,6 +33,11 @@ final class MyTravelCellHeaderCell: UICollectionReusableView {
         self.cancellables = .init()
         super.init(frame: frame)
         
+        bind()
+        setupUI()
+    }
+    
+    private func bind() {
         editButton
             .tapPublisher
             .sink {[weak self] _ in
@@ -56,7 +53,9 @@ final class MyTravelCellHeaderCell: UICollectionReusableView {
                 }
             }
             .store(in: &cancellables)
-        
+    }
+    
+    private func setupUI() {
         [editButton].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
             addSubview(uv)

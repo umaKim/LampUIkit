@@ -7,13 +7,11 @@
 import Combine
 import UIKit
 
-enum MyCharacterViewModelNotify {
+enum MyCharacterViewModelNotification: Notifiable {
     case reload
 }
 
-class MyCharacterViewModel: BaseViewModel {
-    private(set) lazy var notifyPublisher = notifySubject.eraseToAnyPublisher()
-    private let notifySubject = PassthroughSubject<MyCharacterViewModelNotify, Never>()
+class MyCharacterViewModel: BaseViewModel<MyCharacterViewModelNotification> {
     
     private let characterImage: [UIImage?] = [
         .init(named: "bear"),
@@ -28,7 +26,7 @@ class MyCharacterViewModel: BaseViewModel {
     override init() {
         super.init()
         
-        NetworkService.shared.fetchCharacterInfo {[weak self] result in
+        NetworkManager.shared.fetchCharacterInfo {[weak self] result in
             guard let self = self else {return}
             switch result {
             case .success(let info):
@@ -43,7 +41,7 @@ class MyCharacterViewModel: BaseViewModel {
                                             .init(name: "인싸 게이지", rate: info.socialExp),
                                             .init(name: "여행 게이지", rate: info.travelExp)
                                            ])
-                self.notifySubject.send(.reload)
+                self.sendNotification(.reload)
             case .failure(let error):
                 print(error.localizedDescription)
             }

@@ -11,7 +11,7 @@ protocol MyReviewsViewControllerDelegate: AnyObject {
     func MyReviewsViewControllerDidTapBack()
 }
 
-class MyReviewsViewController: BaseViewContronller {
+class MyReviewsViewController: BaseViewController<MyReviewsView, MyReviewsViewModel> {
     
     private typealias DataSource = UICollectionViewDiffableDataSource<Section, UserReviewData>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, UserReviewData>
@@ -20,32 +20,11 @@ class MyReviewsViewController: BaseViewContronller {
     
     private var dataSource: DataSource?
     
-    private let contentView = MyReviewsView()
-    
-    override func loadView() {
-        super.loadView()
-        
-        view = contentView
-    }
-    
     weak var delegate: MyReviewsViewControllerDelegate?
-    
-    private let viewModel: MyReviewsViewModel
-    
-    init(_ vm: MyReviewsViewModel) {
-        viewModel = vm
-        super.init()
-        
-        title = "나의 여행 후기"
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        title = "나의 여행 후기"
         navigationItem.leftBarButtonItems = [contentView.backButton]
         
         contentView.actionPublisher.sink { action in
@@ -103,22 +82,13 @@ extension MyReviewsViewController: UICollectionViewDelegate {
         let model = viewModel.datum[indexPath.item]
         let vm = ReviewDetailViewModel(.init(photoUrlArray: model.photoUrl,
                                              content: model.content))
-        let vc = ReviewDetailViewController(vm: vm)
+        let vc = ReviewDetailViewController(ReviewDetailView(), vm)
         navigationController?.pushViewController(vc, animated: true)
     }
 }
 
 extension MyReviewsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellSize = NSString(string: "jkwbfkewbfoubweofbweo")
-            .boundingRect(
-                with: CGSize(width:  UIScreen.main.width - 32, height: CGFloat.greatestFiniteMagnitude),
-                options: .usesLineFragmentOrigin,
-                attributes: [
-                    NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)
-                ],
-                context: nil)
-
         return CGSize(width: UIScreen.main.width - 32, height: 380)
     }
 }

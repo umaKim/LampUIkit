@@ -7,39 +7,36 @@
 import Combine
 import Foundation
 
-enum MyReviewsViewmodelNotification {
+enum MyReviewsViewmodelNotification: Notifiable {
     case reload
 }
 
-class MyReviewsViewModel: BaseViewModel {
-    
-    private(set) lazy var notifyPublisher = notifySubject.eraseToAnyPublisher()
-    private let notifySubject = PassthroughSubject<MyReviewsViewmodelNotification, Never>()
+class MyReviewsViewModel: BaseViewModel<MyReviewsViewmodelNotification> {
     
     private(set) lazy var datum: [UserReviewData] = []
     
     override init() {
         super.init()
         
-        NetworkService.shared.fetchMyReviews {[weak self] result in
+        NetworkManager.shared.fetchMyReviews {[weak self] result in
             guard let self = self else {return}
             switch result {
             case .success(let response):
                 self.datum = response
-                self.notifySubject.send(.reload)
+                self.sendNotification(.reload)
                 
             case .failure(let error):
-                break
+                print(error)
             }
         }
     }
     
     public func deleteReview(at index: Int) {
-        NetworkService.shared.deleteReview(datum[index].reviewIdx) { result in
+        NetworkManager.shared.deleteReview(datum[index].reviewIdx) { result in
             switch result {
-            case .success(let response):
+            case .success(_):
                 self.datum.remove(at: index)
-                self.notifySubject.send(.reload)
+                self.sendNotification(.reload)
                 
             case .failure(let error):
                 print(error)
@@ -47,16 +44,4 @@ class MyReviewsViewModel: BaseViewModel {
         }
       
     }
-}
-
-struct UserReviewData: Codable, Hashable {
-    let userId: Int
-    let contentId: String
-    let reviewIdx: Int
-    let date: String
-    let contentTypeId: String
-    let placeName: String
-    let star: String
-    let content: String
-    let photoUrl: [String]
 }

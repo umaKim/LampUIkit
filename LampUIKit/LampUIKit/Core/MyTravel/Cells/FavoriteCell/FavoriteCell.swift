@@ -94,7 +94,7 @@ final class FavoriteCell: UICollectionViewCell {
                                              placeAddr: "\(targetItem.placeAddr )") {[weak self] result in
             
             switch result {
-            case .success(let response):
+            case .success(_):
                 self?.models.remove(at: index)
                 self?.updateSections()
             case .failure(let error):
@@ -126,6 +126,7 @@ extension FavoriteCell: FavoriteCellHeaderCellDelegate {
     }
 }
 
+//MARK: - UICollectionViewDelegate
 extension FavoriteCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         HapticManager.shared.feedBack(with: .heavy)
@@ -190,6 +191,7 @@ extension FavoriteCell {
     }
 }
 
+//MARK: - UICollectionViewDelegateFlowLayout
 extension FavoriteCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         .init(width: UIScreen.main.width - 32, height: 120)

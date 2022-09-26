@@ -67,19 +67,19 @@ class LoginViewController: UIViewController {
     }
     
     private func changeRootViewcontroller(with uid: String) {
-        NetworkService.shared.setToken(uid)
-        self.changeRoot(MainViewController(MainViewModel()))
+        NetworkManager.shared.setToken(uid)
+        self.changeRoot(MainViewController(MainView(), MainViewModel()))
     }
     
     private func checkIfUserAlreadyExist(with uid: String) {
-        NetworkService.shared.checkUserExist(uid) {[weak self] res in
+        NetworkManager.shared.checkUserExist(uid) {[weak self] res in
             guard let self = self else {return}
             if res.isSuccess {
                 //TODO: - move to mainView
                 if res.nicknameExist ?? false {
                     self.changeRootViewcontroller(with: uid)
                 } else {
-                    self.present(CreateNickNameViewController(CreateNickNameViewModel()),
+                    self.present(CreateNickNameViewController(CreateNickNameView(), CreateNickNameViewModel()),
                                  transitionType: .fromTop,
                                  animated: true,
                                  pushing: true)
@@ -88,7 +88,7 @@ class LoginViewController: UIViewController {
             } else {
                 //TODO: - move to QuizView
                 self.present(
-                    InitialSetPageViewController(vm: InitialSetPageViewModel()),
+                    InitialSetPageViewController(InitialSetPageView(), InitialSetPageViewModel()),
                     transitionType: .fromTop,
                     animated: true,
                     pushing: true)
@@ -191,7 +191,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                 ///Main 화면으로 보내기
                 
                 guard let uid = authResult?.user.uid else {return }
-                NetworkService.shared.setUserAuthType(.firebase)
+                NetworkManager.shared.setUserAuthType(.firebase)
                 self.checkIfUserAlreadyExist(with: uid)
             }
         }
@@ -235,7 +235,7 @@ extension LoginViewController {
                 }
                 
                 guard let uid = result?.user.uid else {return }
-                NetworkService.shared.setUserAuthType(.firebase)
+                NetworkManager.shared.setUserAuthType(.firebase)
                 self.checkIfUserAlreadyExist(with: uid)
             }
         }
@@ -283,7 +283,7 @@ extension LoginViewController {
             }
             else {
                 guard let id = user?.id else {return }
-                NetworkService.shared.setUserAuthType(.kakao)
+                NetworkManager.shared.setUserAuthType(.kakao)
                 self.checkIfUserAlreadyExist(with: "\(id)")
             }
         }

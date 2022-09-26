@@ -7,7 +7,11 @@
 
 import Foundation
 
-class ARViewModel: BaseViewModel {
+enum ARViewModelNotification: Notifiable {
+    
+}
+
+class ARViewModel: BaseViewModel<ARViewModelNotification> {
     
     private(set) var location: RecommendedLocation
     

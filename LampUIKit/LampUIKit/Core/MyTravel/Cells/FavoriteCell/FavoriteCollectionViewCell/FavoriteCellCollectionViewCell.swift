@@ -52,6 +52,16 @@ final class FavoriteCellCollectionViewCell: UICollectionViewCell {
     
     private var isSaveButtonTapped: Bool = true
     
+    override init(frame: CGRect) {
+        self.cancellables = .init()
+        super.init(frame: frame)
+        
+        configureShadow(0.4)
+        
+        bind()
+        setupUI()
+    }
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         titleLabel.text = nil
@@ -63,16 +73,6 @@ final class FavoriteCellCollectionViewCell: UICollectionViewCell {
         titleLabel.text = model.placeName
         favoriteButton.setImage(UIImage(named: "favorite_saved"), for: .normal)
         addressLabel.text = model.placeAddr
-    }
-    
-    override init(frame: CGRect) {
-        self.cancellables = .init()
-        super.init(frame: frame)
-        
-        configureShadow(0.4)
-        
-        bind()
-        setupUI()
     }
     
     private func bind() {

@@ -15,31 +15,17 @@ protocol LocationDetailViewControllerDelegate: AnyObject {
     func locationDetailViewControllerDidTapNavigate(_ location: RecommendedLocation)
 }
 
-final class LocationDetailViewController: BaseViewContronller {
-    
-    private(set) var contentView = LocationDetailView()
-    
-    override func loadView() {
-        super.loadView()
-        
-        view = contentView
-    }
-    
-    private let viewModel: LocationDetailViewModel
+final class LocationDetailViewController: BaseViewController<LocationDetailView, LocationDetailViewModel> {
     
     weak var delegate: LocationDetailViewControllerDelegate?
-    
-    init(vm: LocationDetailViewModel) {
-        self.viewModel = vm
-        super.init()
-        
-        title = viewModel.location?.title
-    }
     
     var isModal: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        title = viewModel.location?.title
+        
         if isModal {
             navigationItem.rightBarButtonItems = [contentView.dismissButton]
         } else {
@@ -77,7 +63,7 @@ final class LocationDetailViewController: BaseViewContronller {
                 case .ar:
                     guard let location = self.viewModel.location else { return }
                     let vm = ARViewModel(location)
-                    let vc = ARViewController(vm)
+                    let vc = ARViewController(ARView(), vm)
                     self.present(vc, animated: true)
                     
                 case .map:
@@ -88,7 +74,7 @@ final class LocationDetailViewController: BaseViewContronller {
                 case .review:
                     guard let location = self.viewModel.location else {return }
                     let vm = WriteReviewViewModel(location)
-                    let vc = WriteReviewViewController(vm)
+                    let vc = WriteReviewViewController(WriteReviewView(), vm)
                     self.navigationController?.pushViewController(vc, animated: true)
                     
                 case .addToMyTrip:
@@ -102,7 +88,8 @@ final class LocationDetailViewController: BaseViewContronller {
                         let location = self.viewModel.location,
                         let locationDetail = self.viewModel.locationDetail {
                         let vm = ReviewViewModel(location, locationDetail)
-                        let vc = ReviewViewController(vm: vm)
+//                        let vc = ReviewViewController(vm: vm)
+                        let vc = ReviewViewController(ReviewView(), vm)
                         self.navigationController?.pushViewController(vc, animated: true)
                     }
                 }
@@ -136,9 +123,5 @@ final class LocationDetailViewController: BaseViewContronller {
     
     private func scrollToButtonSv() {
         contentView.scrollToButtonSv()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }

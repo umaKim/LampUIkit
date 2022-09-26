@@ -75,7 +75,7 @@ final class MyTravelCell: UICollectionViewCell {
     }
     
     private func fetchMyTravel(completion: @escaping () -> Void) {
-        NetworkService.shared.fetchMyTravel {[weak self] result in
+        NetworkManager.shared.fetchMyTravel {[weak self] result in
             guard let self = self else {return}
             switch result {
             case .success(let locations):
@@ -92,9 +92,27 @@ final class MyTravelCell: UICollectionViewCell {
     public func deleteMyTravel(at index: Int) {
         let targetItem = models[index]
         
-        NetworkService.shared.removeMyTravel(targetItem) { [weak self] in
-            self?.models.remove(at: index)
-            self?.updateSections()
+        let data = PostAddToMyTripData(token: "",
+                                       contentId: targetItem.contentId,
+                                       contentTypeId: targetItem.contentTypeId,
+                                       image: targetItem.image ?? "",
+                                       placeName: targetItem.placeName,
+                                       placeInfo: targetItem.placeInfo,
+                                       placeAddress: targetItem.placeAddress,
+                                       userMemo: targetItem.userMemo ?? "",
+                                       mapX: targetItem.mapX ?? "",
+                                       mapY: targetItem.mapY ?? "")
+        
+        NetworkManager.shared.postAddToMyTravel(data) {[weak self] result in
+            switch result {
+            case .success(let response):
+                print(response)
+                self?.models.remove(at: index)
+                self?.updateSections()
+                
+            case .failure(let error):
+                print(error)
+            }
         }
     }
     
@@ -105,7 +123,7 @@ final class MyTravelCell: UICollectionViewCell {
         let coord = location.location?.coordinate
         let lat = "\(coord?.latitude ?? 0)"
         let long = "\(coord?.longitude ?? 0)"
-        NetworkService.shared.postCompleteTrip(.init(token: "",
+        NetworkManager.shared.postCompleteTrip(.init(token: "",
                                                      planIdx: myTravel.planIdx,
                                                      mapX: long,
                                                      mapY: lat)) {[weak self] result in

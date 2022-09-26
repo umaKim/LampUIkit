@@ -8,7 +8,7 @@ import CombineCocoa
 import Combine
 import UIKit
 
-class InitialSetPageViewController: BaseViewContronller {
+class InitialSetPageViewController: BaseViewController<InitialSetPageView, InitialSetPageViewModel> {
 
     private lazy var beginningMessageLabel: UILabel = {
        let lb = UILabel()
@@ -30,17 +30,6 @@ class InitialSetPageViewController: BaseViewContronller {
          return uv
     }()
     
-    private let viewModel: InitialSetPageViewModel
-    
-    init(vm: InitialSetPageViewModel) {
-        self.viewModel = vm
-        super.init()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     private var runCount = 0
     
     override func viewDidLoad() {
@@ -58,7 +47,7 @@ class InitialSetPageViewController: BaseViewContronller {
             guard let self = self else {return}
             if self.runCount == 3 {
                 timer.invalidate()
-                let vc = InitialQuizViewController(vm: InitialQuizViewModel())
+                let vc = InitialQuizViewController(InitialQuizView(), InitialQuizViewModel())
                 self.present(vc, transitionType: .fromTop, animated: true, pushing: true)
                 
             } else {

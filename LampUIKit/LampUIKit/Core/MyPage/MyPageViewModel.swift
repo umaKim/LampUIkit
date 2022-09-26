@@ -9,17 +9,14 @@ import FirebaseAuth
 import Combine
 import Foundation
 
-enum MyPageViewModelNotify {
+enum MyPageViewModelNotification: Notifiable {
     case goBackToBeforeLoginPage
     
     case myInfo(MyInfo)
     case reload
 }
 
-class MyPageViewModel: BaseViewModel {
-    private(set) lazy var notifyPublisher = notifySubject.eraseToAnyPublisher()
-    private let notifySubject = PassthroughSubject<MyPageViewModelNotify, Never>()
-    
+class MyPageViewModel: BaseViewModel<MyPageViewModelNotification> {
     private(set) var myInfo: MyInfo?
     
     private(set) var models: [String] = ["나의 여행 후기", "로그아웃", "회원탈퇴"]
@@ -30,11 +27,11 @@ class MyPageViewModel: BaseViewModel {
     }
     
     private func fetchUserInfo() {
-        NetworkService.shared.fetchMyInfo { result in
+        NetworkManager.shared.fetchMyInfo { result in
             switch result {
             case .success(let info):
                 self.myInfo = info
-                self.notifySubject.send(.reload)
+                self.sendNotification(.reload)
                 
             case .failure(let error):
                 print(error)
@@ -43,7 +40,7 @@ class MyPageViewModel: BaseViewModel {
     }
     
     public func logout() {
-        switch NetworkService.shared.userAuthType {
+        switch NetworkManager.shared.userAuthType {
         case .kakao:
             kakaoSignout()
             
@@ -56,19 +53,20 @@ class MyPageViewModel: BaseViewModel {
     }
     
     public func deleteAccount() {
-        NetworkService.shared.deleteUser {[weak self] result in
+        NetworkManager.shared.deleteUser {[weak self] result in
             guard let self = self else {return}
             switch result {
             case .success(let response):
                 if response.isSuccess ?? false {
                     
-                    switch NetworkService.shared.userAuthType {
+                    switch NetworkManager.shared.userAuthType {
                     case .kakao:
                         self.kakaoSignout()
                         
                     case .firebase:
                         Auth.auth().currentUser?.delete(completion: { _ in
-                            self.notifySubject.send(.goBackToBeforeLoginPage)
+//                            self.notifySubject.send(.goBackToBeforeLoginPage)
+                            self.sendNotification(.goBackToBeforeLoginPage)
                         })
                         
                     case .none:
@@ -91,14 +89,16 @@ class MyPageViewModel: BaseViewModel {
             else {
                 print("logout() success.")
             }
-            self.notifySubject.send(.goBackToBeforeLoginPage)
+//            self.notifySubject.send(.goBackToBeforeLoginPage)
+            self.sendNotification(.goBackToBeforeLoginPage)
         }
     }
     
     private func firebaseSignout() {
         do {
            try Auth.auth().signOut()
-            self.notifySubject.send(.goBackToBeforeLoginPage)
+//            self.notifySubject.send(.goBackToBeforeLoginPage)
+            self.sendNotification(.goBackToBeforeLoginPage)
         } catch {
             print(error)
         }

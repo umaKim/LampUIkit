@@ -8,16 +8,13 @@ import CombineCocoa
 import Combine
 import UIKit
 
-enum MyCharacterViewAction {
+enum MyCharacterViewAction: Actionable {
     case gear
     case dismiss
 }
 
-class MyCharacterView: BaseWhiteView {
+class MyCharacterView: BaseView<MyCharacterViewAction> {
     
-    private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
-    private let actionSubject = PassthroughSubject<MyCharacterViewAction, Never>()
-
     private(set) lazy var gearButton: UIBarButtonItem = {
         let bt = UIBarButtonItem(image: .gear, style: .done, target: nil, action: nil)
         return bt
@@ -52,7 +49,7 @@ class MyCharacterView: BaseWhiteView {
     
     private func bind() {
         gearButton.tapPublisher.sink {[weak self] _ in
-            self?.actionSubject.send(.gear)
+            self?.sendAction(.gear)
         }
         .store(in: &cancellables)
         
@@ -60,7 +57,7 @@ class MyCharacterView: BaseWhiteView {
             .tapPublisher
             .sink {[weak self] _ in
                 guard let self = self else {return}
-                self.actionSubject.send(.dismiss)
+                self.sendAction(.dismiss)
             }
             .store(in: &cancellables)
     }

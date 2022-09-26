@@ -91,6 +91,16 @@ final class CompletedTravelCellCollectionViewCell: UICollectionViewCell {
         setupUI()
     }
     
+    public func configure(_ model: MyCompletedTripLocation) {
+        backgroundImageView.sd_setImage(with: URL(string: model.image),
+                                        placeholderImage: .init(named: "BackgroundImagePlaceholder"))
+       
+        locationNameLabel.text = model.placeName
+        addressLabel.text = model.placeAddress
+        
+        visitiedDateLabel.text = model.travelCompletedDate
+    }
+    
     private func bind() {
         deleteButton
             .tapPublisher
@@ -137,8 +147,6 @@ final class CompletedTravelCellCollectionViewCell: UICollectionViewCell {
             
             totalSv.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 32),
             totalSv.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -32),
-//            totalSv.topAnchor.constraint(equalTo: containerView.topAnchor),
-//            totalSv.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
             totalSv.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
             
             visitiedDateLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
@@ -147,16 +155,6 @@ final class CompletedTravelCellCollectionViewCell: UICollectionViewCell {
             deleteButton.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 8),
             deleteButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8),
         ])
-    }
-    
-    public func configure(_ model: MyCompletedTripLocation) {
-        backgroundImageView.sd_setImage(with: URL(string: model.image),
-                                        placeholderImage: .init(named: "BackgroundImagePlaceholder"))
-       
-        locationNameLabel.text = model.placeName
-        addressLabel.text = model.placeAddress
-        
-        visitiedDateLabel.text = model.travelCompletedDate
     }
     
     required init?(coder: NSCoder) {

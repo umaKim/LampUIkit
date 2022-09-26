@@ -16,13 +16,6 @@ class MyPageTableViewHeaderView: UIView {
         return lb
     }()
     
-//    private lazy var emailLabel: UILabel = {
-//        let lb = UILabel()
-//        lb.font = .robotoMedium(13)
-//        lb.textColor = .opaqueGrey
-//        return lb
-//    }()
-    
     private lazy var visitedTravelLabel: UILabel = {
         let lb = UILabel()
         lb.font = .robotoMedium(14)

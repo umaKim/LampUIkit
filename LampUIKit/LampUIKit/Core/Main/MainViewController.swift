@@ -12,27 +12,9 @@ import FloatingPanel
 import GoogleMaps
 import Combine
 
-class MainViewController: BaseViewContronller {
-    
-    private let contentView: MainView = MainView()
-    
-    private let viewModel: MainViewModel
+class MainViewController: BaseViewController<MainView, MainViewModel> {
     
     private var fpc = FloatingPanelController()
-    
-    init(_ vm: MainViewModel) {
-        self.viewModel = vm
-        super.init()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    override func loadView() {
-        super.loadView()
-        
-        view = contentView
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,7 +69,7 @@ class MainViewController: BaseViewContronller {
 //MARK: - Configure with FPC
 extension MainViewController {
     private func setFloatingPanelWithSearchViewController() {
-        let contentVC = SearchViewController(vm: SearchViewModel())
+        let contentVC = SearchViewController(SearchView(), SearchViewModel())
         contentVC.delegate = self
         let nav = UINavigationController(rootViewController: contentVC)
         configureFpc(with: nav, completion: {[weak self] in
@@ -97,8 +79,7 @@ extension MainViewController {
     }
     
     private func setFloatingPanelWithLocationDetailViewController(_ location: RecommendedLocation, isModal: Bool = false) {
-        
-        let contentVC = LocationDetailViewController(vm: LocationDetailViewModel(location))
+        let contentVC = LocationDetailViewController(LocationDetailView(), LocationDetailViewModel(location))
         contentVC.delegate = self
         contentVC.isModal = isModal
         let nav = UINavigationController(rootViewController: contentVC)
@@ -111,7 +92,7 @@ extension MainViewController {
     private func setFloatingPanelWithRecommendedLocationViewController() {
         let vm = RecommendedLocationViewmodel(locationsSubject.eraseToAnyPublisher(),
                                               locationinfo)
-        let contentVC = RecommendedLocationViewController(vm)
+        let contentVC = RecommendedLocationViewController(RecommendedLocationView(), vm)
         contentVC.delegate = self
         let nav = UINavigationController(rootViewController: contentVC)
         configureFpc(with: nav) { [weak self] in
@@ -171,18 +152,18 @@ extension MainViewController {
         let markerView = CustomMarkerView(of: location.image ?? "",
                                           type: self.viewModel.markerType)
         
-        markerView.configure {
+        markerView.configure { [weak self] in
+            guard let self = self else {return }
             marker.iconView = markerView
-            
+           
             marker.position = .init(latitude: lat, longitude: long)
             marker.map = self.contentView.mapView
-        }
-        
-        if isSelected {
-            self.contentView.mapView.selectedMarker = marker
+            
+            if isSelected {
+                self.contentView.mapView.selectedMarker = marker
+            }
         }
     }
-    
 }
 
 //MARK: - Bind
@@ -247,7 +228,7 @@ extension MainViewController {
                     self.moveTo(coord)
                     
                 case .goBackToBeforeLoginPage:
-                    self.changeRoot(StartPageViewController())
+                    self.changeRoot(StartPageViewController(StartPageView(), StartPageViewModel()))
                 }
             }
             .store(in: &cancellables)

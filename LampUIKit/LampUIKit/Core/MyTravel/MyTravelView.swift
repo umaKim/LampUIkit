@@ -13,15 +13,12 @@ enum MenuTabBarButtonType: Int {
     case completedTravel = 2
 }
 
-enum MyTravelViewAction {
+enum MyTravelViewAction: Actionable {
 //    case gear
     case dismiss
 }
 
-class MyTravelView: UIView {
-    
-    private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
-    private let actionSubject = PassthroughSubject<MyTravelViewAction, Never>()
+class MyTravelView: BaseView<MyTravelViewAction> {
     
     private(set) var dismissButton: UIBarButtonItem = {
         let bt = UIBarButtonItem(image: .back, style: .done, target: nil, action: nil)
@@ -49,11 +46,8 @@ class MyTravelView: UIView {
                                     animated: true)
     }
     
-    private var cancellables: Set<AnyCancellable>
-    
-    init() {
-        self.cancellables = .init()
-        super.init(frame: .zero)
+    override init() {
+        super.init()
         
         bind()
         setupUI()
@@ -69,7 +63,7 @@ class MyTravelView: UIView {
             .sink {[weak self] _ in
                 guard let self = self else {return}
                 HapticManager.shared.feedBack(with: .rigid)
-                self.actionSubject.send(.dismiss)
+                self.sendAction(.dismiss)
             }
             .store(in: &cancellables)
         

@@ -175,6 +175,7 @@ extension CompletedTravelCell: CompletedTravelCellCollectionViewCellDelegate {
     }
 }
 
+//MARK: - UICollectionViewDelegate
 extension CompletedTravelCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         HapticManager.shared.feedBack(with: .heavy)
@@ -182,6 +183,7 @@ extension CompletedTravelCell: UICollectionViewDelegate {
     }
 }
 
+//MARK: - UICollectionViewDelegateFlowLayout
 extension CompletedTravelCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         .init(width: UIScreen.main.width - 32, height: 170)

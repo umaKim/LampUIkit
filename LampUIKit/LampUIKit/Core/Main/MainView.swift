@@ -10,7 +10,7 @@ import Combine
 import UIKit
 import GoogleMaps
 
-enum MainViewAction {
+enum MainViewAction: Actionable {
     case allOver
     case unvisited
     case completed
@@ -23,10 +23,7 @@ enum MainViewAction {
     case refresh
 }
 
-class MainView: BaseWhiteView {
-    
-    private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
-    private let actionSubject = PassthroughSubject<MainViewAction, Never>()
+class MainView: BaseView<MainViewAction> {
     
     private(set) var mapView = GMSMapView()
     
@@ -81,7 +78,7 @@ class MainView: BaseWhiteView {
             .tapPublisher
             .sink {[weak self] _ in
                 guard let self = self else {return}
-                self.actionSubject.send(.allOver)
+                self.sendAction(.allOver)
             }
             .store(in: &cancellables)
         
@@ -89,7 +86,7 @@ class MainView: BaseWhiteView {
             .tapPublisher
             .sink {[weak self] _ in
                 guard let self = self else {return}
-                self.actionSubject.send(.unvisited)
+                self.sendAction(.unvisited)
             }
             .store(in: &cancellables)
         
@@ -97,7 +94,7 @@ class MainView: BaseWhiteView {
             .tapPublisher
             .sink {[weak self] _ in
                 guard let self = self else {return}
-                self.actionSubject.send(.completed)
+                self.sendAction(.completed)
             }
             .store(in: &cancellables)
         
@@ -105,7 +102,7 @@ class MainView: BaseWhiteView {
             .tapPublisher
             .sink {[weak self] _ in
                 guard let self = self else {return}
-                self.actionSubject.send(.zoomIn)
+                self.sendAction(.zoomIn)
             }
             .store(in: &cancellables)
         
@@ -113,7 +110,7 @@ class MainView: BaseWhiteView {
             .tapPublisher
             .sink {[weak self] _ in
                 guard let self = self else {return}
-                self.actionSubject.send(.zoomOut)
+                self.sendAction(.zoomOut)
             }
             .store(in: &cancellables)
         
@@ -121,7 +118,7 @@ class MainView: BaseWhiteView {
             .tapPublisher
             .sink { [weak self] _ in
                 guard let self = self else {return}
-                self.actionSubject.send(.refresh)
+                self.sendAction(.refresh)
             }
             .store(in: &cancellables)
         
@@ -129,7 +126,7 @@ class MainView: BaseWhiteView {
             .tapPublisher
             .sink {[weak self] _ in
                 guard let self = self else {return}
-                self.actionSubject.send(.myLocation)
+                self.sendAction(.myLocation)
             }
             .store(in: &cancellables)
     }
@@ -165,9 +162,6 @@ class MainView: BaseWhiteView {
             
             zoomSv.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             zoomSv.centerYAnchor.constraint(equalTo: centerYAnchor),
-            
-            //            myTravelButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            //            myTravelButton.topAnchor.constraint(equalTo: zoomSv.bottomAnchor, constant: 16),
             
             mapView.leadingAnchor.constraint(equalTo: leadingAnchor),
             mapView.trailingAnchor.constraint(equalTo: trailingAnchor),

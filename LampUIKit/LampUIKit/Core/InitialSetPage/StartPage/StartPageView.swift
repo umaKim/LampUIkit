@@ -15,9 +15,6 @@ enum StartPageViewAction: Actionable {
 
 final class StartPageView: BaseView<StartPageViewAction> {
     
-//    private(set) lazy var actionPublisher = acrtionSubject.eraseToAnyPublisher()
-//    private let acrtionSubject = PassthroughSubject<StartPageViewAction, Never>()
-    
     private lazy var background: UIImageView = {
         let uv = UIImageView()
         uv.image = UIImage(named: "startImage")

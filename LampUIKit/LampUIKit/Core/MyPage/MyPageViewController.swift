@@ -7,27 +7,8 @@
 import UmaBasicAlertKit
 import UIKit
 
-class MyPageViewController: BaseViewContronller {
+class MyPageViewController: BaseViewController<MyPageView, MyPageViewModel> {
 
-    private let contentView = MyPageView()
-    
-    override func loadView() {
-        super.loadView()
-        
-        view = contentView
-    }
-    
-    private let viewModel: MyPageViewModel
-    
-    init(vm: MyPageViewModel) {
-        self.viewModel = vm
-        super.init()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         contentView.tableView.dataSource = self
@@ -63,8 +44,8 @@ class MyPageViewController: BaseViewContronller {
                 guard let self = self else {return}
                 switch noti {
                 case .goBackToBeforeLoginPage:
-//                    (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(StartPageViewController())
-                    self.changeRoot(StartPageViewController())
+                    self.changeRoot(StartPageViewController(StartPageView(), StartPageViewModel()))
+                    
                 case .myInfo(let info):
                     break
                     
@@ -120,7 +101,7 @@ extension MyPageViewController: UITableViewDelegate {
         contentView.tableView.deselectRow(at: indexPath, animated: true)
         HapticManager.shared.feedBack(with: .medium)
         if viewModel.models[indexPath.item] == "나의 여행 후기" {
-            let vc = MyReviewsViewController(MyReviewsViewModel())
+            let vc = MyReviewsViewController(MyReviewsView(), MyReviewsViewModel())
             vc.delegate = self
             self.navigationController?.pushViewController(vc, animated: true)
         } else if viewModel.models[indexPath.item] == "로그아웃" {

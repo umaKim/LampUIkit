@@ -8,7 +8,7 @@ import SkeletonView
 import Combine
 import UIKit
 
-enum LocationDetailViewAction {
+enum LocationDetailViewAction: Actionable {
     case back
     case dismiss
     
@@ -23,7 +23,7 @@ enum LocationDetailViewAction {
     case showDetailReview
 }
 
-final class LocationDetailView: BaseWhiteView {
+final class LocationDetailView: BaseView<LocationDetailViewAction> {
     
     private(set) lazy var backButton: UIBarButtonItem = {
         let bt = UIBarButtonItem(image: .back, style: .done, target: nil, action: nil)
@@ -34,9 +34,6 @@ final class LocationDetailView: BaseWhiteView {
         let bt = UIBarButtonItem(image: .xmark, style: .done, target: nil, action: nil)
         return bt
     }()
-    
-    private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
-    private let actionSubject = PassthroughSubject<LocationDetailViewAction, Never>()
     
     private lazy var locationImageView: UICollectionView = {
         let cl = UICollectionViewFlowLayout()
@@ -208,7 +205,7 @@ final class LocationDetailView: BaseWhiteView {
             .sink {[weak self] _ in
                 guard let self = self else { return }
                 HapticManager.shared.feedBack(with: .heavy)
-                self.actionSubject.send(.back)
+                self.sendAction(.back)
             }
             .store(in: &cancellables)
         
@@ -217,7 +214,7 @@ final class LocationDetailView: BaseWhiteView {
             .sink {[weak self] _ in
                 guard let self = self else { return }
                 HapticManager.shared.feedBack(with: .heavy)
-                self.actionSubject.send(.dismiss)
+                self.sendAction(.dismiss)
             }
             .store(in: &cancellables)
         
@@ -228,16 +225,16 @@ final class LocationDetailView: BaseWhiteView {
                 HapticManager.shared.feedBack(with: .heavy)
                 switch action {
                 case .save:
-                    self.actionSubject.send(.save)
+                    self.sendAction(.save)
                     
                 case .ar:
-                    self.actionSubject.send(.ar)
+                    self.sendAction(.ar)
                     
                 case .map:
-                    self.actionSubject.send(.map)
+                    self.sendAction(.map)
                     
                 case .review:
-                    self.actionSubject.send(.review)
+                    self.sendAction(.review)
                 }
             }
             .store(in: &cancellables)
@@ -250,10 +247,10 @@ final class LocationDetailView: BaseWhiteView {
                 self.addToMyTravelButton.isSelected.toggle()
                 if self.addToMyTravelButton.isSelected {
                     self.addToMyTravelButton.update("내 여행지로 추가 취소".localized, background: .systemGray, textColor: .white)
-                    self.actionSubject.send(.addToMyTrip)
+                    self.sendAction(.addToMyTrip)
                 } else {
                     self.addToMyTravelButton.update("내 여행지로 추가".localized, background: .lightNavy, textColor: .white)
-                    self.actionSubject.send(.removeFromMyTrip)
+                    self.sendAction(.removeFromMyTrip)
                 }
             }
             .store(in: &cancellables)
@@ -264,7 +261,7 @@ final class LocationDetailView: BaseWhiteView {
                 guard let self = self else {return}
                 switch action {
                 case .showDetail:
-                    self.actionSubject.send(.showDetailReview)
+                    self.sendAction(.showDetailReview)
                 }
             }
             .store(in: &cancellables)
@@ -304,10 +301,10 @@ final class LocationDetailView: BaseWhiteView {
         totalTravelReviewView.isSkeletonable = true
         
         NSLayoutConstraint.activate([
-            contentScrollView.topAnchor.constraint(equalTo: topAnchor),
+            contentScrollView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             contentScrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
             contentScrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            contentScrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            contentScrollView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
             
             contentView.topAnchor.constraint(equalTo: contentScrollView.topAnchor),
             contentView.leadingAnchor.constraint(equalTo: contentScrollView.leadingAnchor),
@@ -356,6 +353,7 @@ final class LocationDetailView: BaseWhiteView {
     }
 }
 
+//MARK: - UICollectionViewDataSource
 extension LocationDetailView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         photoUrls.count
@@ -381,6 +379,7 @@ extension LocationDetailView: UICollectionViewDataSource {
     }
 }
 
+//MARK: - UICollectionViewDelegateFlowLayout
 extension LocationDetailView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return .init(width: UIScreen.main.width - 32,

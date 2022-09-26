@@ -6,38 +6,15 @@
 //
 
 import UIKit
-
 import Combine
 
-class InitialQuizViewController: BaseViewContronller {
+class InitialQuizViewController: BaseViewController<InitialQuizView, InitialQuizViewModel> {
 
-    private let contentView = InitialQuizView()
-    
-    private let viewModel: InitialQuizViewModel
-    
-    init(vm: InitialQuizViewModel) {
-        self.viewModel = vm
-        super.init()
-     
-        NetworkService.shared.login()
-        
-        bind()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func loadView() {
-        super.loadView()
-        
-        view = contentView
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         isInitialSettingDone(false)
+        bind()
     }
     
     private func bind() {
@@ -83,7 +60,7 @@ class InitialQuizViewController: BaseViewContronller {
                     self.contentView.setCharacterImage(image)
                     
                 case .finishInitialQuiz:
-                    self.present(CreateNickNameViewController(CreateNickNameViewModel()), transitionType: .fromTop, animated: true, pushing: true)
+                    self.present(CreateNickNameViewController(CreateNickNameView(), CreateNickNameViewModel()), transitionType: .fromTop, animated: true, pushing: true)
                     
                 }
             }

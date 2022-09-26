@@ -10,30 +10,15 @@ import CoreLocation
 import Foundation
 import Combine
 
-enum MainViewModelNotification {
+enum MainViewModelNotification: Notifiable {
     case recommendedLocations([RecommendedLocation])
     case startLoading
     case endLoading
     case moveTo(CLLocationCoordinate2D)
-    
     case goBackToBeforeLoginPage
 }
 
-struct Coord {
-    let latitude: Double
-    let longitude: Double
-}
-
-enum MapMarkerType {
-    case recommended
-    case destination
-    case completed
-}
-
-class MainViewModel: BaseViewModel  {
-    
-    private(set) lazy var notifyPublisher = notifySubject.eraseToAnyPublisher()
-    private let notifySubject = PassthroughSubject<MainViewModelNotification, Never>()
+class MainViewModel: BaseViewModel<MainViewModelNotification>  {
     
     private(set) var recommendedPlaces: [RecommendedLocation] = []
     private(set) var markerType: MapMarkerType = .recommended
@@ -41,7 +26,7 @@ class MainViewModel: BaseViewModel  {
     private(set) var coord: Coord = .init(latitude: 0, longitude: 0)
     private(set) var myLocation: Coord = .init(latitude: 0, longitude: 0)
     
-    private let network = NetworkService.shared
+    private let network = NetworkManager.shared
     
     private(set) var zoom: Float = 15.0
     
@@ -77,7 +62,7 @@ class MainViewModel: BaseViewModel  {
         guard let coord = locationManager.location?.coordinate else { return }
         self.setMyLocation(with: coord.latitude, coord.longitude)
         self.setLocation(with: coord.latitude, coord.longitude)
-        self.notifySubject.send(.moveTo(coord))
+        self.sendNotification(.moveTo(coord))
     }
     
     private func checkUserAuth(completion: @escaping () -> Void) {
@@ -101,14 +86,14 @@ class MainViewModel: BaseViewModel  {
             else {
                 print("logout() success.")
             }
-            self.notifySubject.send(.goBackToBeforeLoginPage)
+            self.sendNotification(.goBackToBeforeLoginPage)
         }
     }
     
     private func firebaseSignout() {
         do {
-           try Auth.auth().signOut()
-            self.notifySubject.send(.goBackToBeforeLoginPage)
+            try Auth.auth().signOut()
+            self.sendNotification(.goBackToBeforeLoginPage)
         } catch {
             print(error)
         }
@@ -125,17 +110,17 @@ class MainViewModel: BaseViewModel  {
     }
     
     public func fetchItems() {
-        notifySubject.send(.startLoading)
+        sendNotification(.startLoading)
         let location = Location(lat: coord.latitude, long: coord.longitude)
         network.fetchRecommendation(location, zoom.zoomLevel, 20) {[weak self] result in
-            
+            self?.sendNotification(.endLoading)
             guard let self = self else {return}
             switch result {
             case .success(let items):
                 self.recommendedPlaces = items.result
                 self.markerType = .recommended
-                self.notifySubject.send(.recommendedLocations(items.result))
-                self.notifySubject.send(.endLoading)
+                self.sendNotification(.recommendedLocations(items.result))
+                
             case .failure(let error):
                 print(error)
                 print(error.localizedDescription)
@@ -150,7 +135,7 @@ class MainViewModel: BaseViewModel  {
     public func setMyLocation() {
         guard let coord = locationManager.location?.coordinate else { return }
         self.setLocation(with: coord.latitude, coord.longitude)
-        self.notifySubject.send(.moveTo(coord))
+        self.sendNotification(.moveTo(coord))
     }
     
     public func setLocation(with latitude: Double, _ longitude: Double) {
@@ -162,26 +147,27 @@ class MainViewModel: BaseViewModel  {
     }
     
     public func fetchAllOver() {
-        notifySubject.send(.startLoading)
-        network.fetchRecommendationFromAllOver { result in
+        sendNotification(.startLoading)
+        network.fetchRecommendationFromAllOver {[weak self] result in
+            guard let self = self else { return }
+            self.sendNotification(.endLoading)
             switch result {
             case .success(let items):
                 self.recommendedPlaces = items.result
                 self.markerType = .recommended
-                self.notifySubject.send(.recommendedLocations(items.result))
+                self.sendNotification(.recommendedLocations(items.result))
                 
             case .failure(let error):
-                print(error)
                 print(error.localizedDescription)
             }
-            
-            self.notifySubject.send(.endLoading)
         }
     }
     
     public func fetchUnvisited() {
-        notifySubject.send(.startLoading)
-        network.fetchMyTravel { result in
+        sendNotification(.startLoading)
+        network.fetchMyTravel {[weak self] result in
+            guard let self = self else { return }
+            self.sendNotification(.endLoading)
             switch result {
             case .success(let locations):
                 self.recommendedPlaces = locations.map({
@@ -198,26 +184,28 @@ class MainViewModel: BaseViewModel  {
                                         planIdx: $0.planIdx,
                                         isOnPlan: true, travelCompletedDate: nil)})
                 self.markerType = .destination
-                self.notifySubject.send(.recommendedLocations(self.recommendedPlaces))
+                self.sendNotification(.recommendedLocations(self.recommendedPlaces))
             case .failure(let error):
                 print(error)
             }
-            self.notifySubject.send(.endLoading)
+            
         }
     }
     
     public func fetchCompleted() {
-        notifySubject.send(.startLoading)
-        network.fetchCompletedTravel { result in
+        sendNotification(.startLoading)
+        network.fetchCompletedTravel {[weak self] result in
+            guard let self = self else {return }
+            self.sendNotification(.endLoading)
             switch result {
             case .success(let items):
                 self.recommendedPlaces = items
                 self.markerType = .completed
-                self.notifySubject.send(.recommendedLocations(items))
+                self.sendNotification(.recommendedLocations(items))
             case .failure(let error):
                 print(error)
             }
-            self.notifySubject.send(.endLoading)
+           
         }
     }
 }

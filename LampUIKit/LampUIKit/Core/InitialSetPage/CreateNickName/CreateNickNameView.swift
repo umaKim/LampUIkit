@@ -8,16 +8,16 @@ import CombineCocoa
 import Combine
 import UIKit
 
-enum CreateNickNameViewAction {
+enum CreateNickNameViewAction: Actionable {
     case textFieldDidChange(String)
     case createAccountButtonDidTap
     case doneKeyboard
 }
 
-class CreateNickNameView: BaseView {
+class CreateNickNameView: BaseView<CreateNickNameViewAction> {
 
-    private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
-    private let actionSubject = PassthroughSubject<CreateNickNameViewAction, Never>()
+//    private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
+//    private let actionSubject = PassthroughSubject<CreateNickNameViewAction, Never>()
     
     private let titleImage: UIImageView = {
        let uv = UIImageView()
@@ -64,7 +64,8 @@ class CreateNickNameView: BaseView {
             .tapPublisher
             .sink {[weak self] _ in
                 guard let self = self else {return }
-                self.actionSubject.send(.doneKeyboard)
+//                self.actionSubject.send(.doneKeyboard)
+                self.sendAction(.doneKeyboard)
             }
             .store(in: &cancellables)
         
@@ -74,7 +75,8 @@ class CreateNickNameView: BaseView {
             .sink {[weak self] text in
                 guard let self = self else {return}
                 self.createAccountButton.isEnabled = !text.isEmpty
-                self.actionSubject.send(.textFieldDidChange(text))
+//                self.actionSubject.send(.textFieldDidChange(text))
+                self.sendAction(.textFieldDidChange(text))
             }
             .store(in: &cancellables)
         
@@ -82,7 +84,8 @@ class CreateNickNameView: BaseView {
             .tapPublisher
             .sink {[weak self] _ in
                 guard let self = self else {return}
-                self.actionSubject.send(.createAccountButtonDidTap)
+//                self.actionSubject.send(.createAccountButtonDidTap)
+                self.sendAction(.createAccountButtonDidTap)
             }
             .store(in: &cancellables)
     }

@@ -7,16 +7,11 @@
 import Combine
 import UIKit
 
-enum InitialQuizViewModelNotify {
-    //    case question(String)
+enum InitialQuizViewModelNotification: Notifiable {
     case index(String)
-    //    case answers(String, String, String)
     case quizData(Question)
     case setCharacterImage(UIImage)
-    
     case finishInitialQuiz
-    
-//    case setInitialSetting(Bool)
 }
 
 enum InitialQuizViewStatus {
@@ -24,10 +19,7 @@ enum InitialQuizViewStatus {
     case result
 }
 
-class InitialQuizViewModel: BaseViewModel {
-    private(set) lazy var notifyPublisher = notifySubject.eraseToAnyPublisher()
-    private let notifySubject = PassthroughSubject<InitialQuizViewModelNotify, Never>()
-    
+class InitialQuizViewModel: BaseViewModel<InitialQuizViewModelNotification> {
     private let characterImages: [UIImage?] = [
         .init(named: "resultRacoon".localized),
         .init(named: "resultRabbit".localized),
@@ -51,14 +43,14 @@ class InitialQuizViewModel: BaseViewModel {
     
     private func fetch() {
         //TODO: Bind with network
-        NetworkService.shared.fetchQuestions {[weak self] result in
+        NetworkManager.shared.fetchQuestions {[weak self] result in
             guard let self = self else {return}
             switch result {
             case .success(let response):
                 print(response)
                 self.questions = response
                 self.currentIndex = 0
-                self.notifySubject.send(.quizData(self.questions[self.currentIndex]))
+                self.sendNotification(.quizData(self.questions[self.currentIndex]))
             case .failure(let error):
                 print(error)
             }
@@ -84,24 +76,24 @@ class InitialQuizViewModel: BaseViewModel {
         if currentIndex != 5 {
             if answers.contains(where: {$0.questionId == self.currentIndex}) {
                 currentIndex += 1
-                notifySubject.send(.quizData(self.questions[currentIndex]))
+                sendNotification(.quizData(self.questions[currentIndex]))
             } else {
                 //TODO: show alert
                 print("please choose something")
             }
         } else {
             //MARK: - post answers after answering all questions
-            NetworkService.shared.postAnswers(answers) {[weak self] result in
+            NetworkManager.shared.postAnswers(answers) {[weak self] result in
                 guard let self = self else {return}
                 switch result {
                 case .success(let response):
                     self.status = .result
                     
                     if let image = self.characterImages[response.result.characterChosen ?? 0] {
-                        self.notifySubject.send(.setCharacterImage(image))
+                        self.sendNotification(.setCharacterImage(image))
                     } else {
                         if let image: UIImage = .placeholder {
-                            self.notifySubject.send(.setCharacterImage(image))
+                            self.sendNotification(.setCharacterImage(image))
                         }
                     }
                     
@@ -113,6 +105,6 @@ class InitialQuizViewModel: BaseViewModel {
     }
     
     private func resultProcess() {
-        notifySubject.send(.finishInitialQuiz)
+        self.sendNotification(.finishInitialQuiz)
     }
 }

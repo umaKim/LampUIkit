@@ -12,102 +12,55 @@ import CombineCocoa
 import UIKit
 import Lottie
 
-class StartPageViewController: UIViewController {
-
-    private lazy var background: UIImageView = {
-        let uv = UIImageView()
-        uv.image = UIImage(named: "startImage")
-        return uv
-    }()
-    
-    private lazy var animaionView = AnimationView(name: "TwinkleAnimation")
-    
-    private lazy var titleImage: UIImageView = {
-        let uv = UIImageView()
-        uv.image = UIImage(named: "startTitle".localized)
-        return uv
-    }()
-    
-    private lazy var startButton: UIButton = {
-        let bt = UIButton()
-        bt.setImage(UIImage(named: "startButton"), for: .normal)
-        bt.widthAnchor.constraint(equalToConstant: 62).isActive = true
-        bt.heightAnchor.constraint(equalToConstant: 62).isActive = true
-        return bt
-    }()
-    
-    private var cancellables: Set<AnyCancellable>
-    
-    init() {
-        self.cancellables = .init()
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func presentMain(with uid: String) {
-        NetworkService.shared.setToken(uid)
-        present(UINavigationController(rootViewController:  MainViewController(MainViewModel())),
-                transitionType: .fromTop,
-                animated: true, pushing: true)
-    }
+class StartPageViewController: BaseViewController<StartPageView, StartPageViewModel> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        startButton.tapPublisher.sink {[weak self] _ in
-            HapticManager.shared.feedBack(with: .heavy)
-            if AuthApi.hasToken() {
-                UserApi.shared.me {[weak self] user, error in
-                    guard
-                        let id = user?.id else {
+        
+        bind()
+    }
+    
+    private func bind() {
+        contentView
+            .actionPublisher
+            .sink {[weak self] action in
+                switch action {
+                case .startButtonDidTap:
+                    HapticManager.shared.feedBack(with: .heavy)
+                    if AuthApi.hasToken() {
+                        UserApi.shared.me {[weak self] user, error in
+                            guard
+                                let id = user?.id else {
+                                self?.present(LoginViewController(vm: LoginViewModel()),
+                                              transitionType: .fromTop,
+                                              animated: true,
+                                              pushing: true)
+                                return
+                            }
+                            NetworkManager.shared.setUserAuthType(.kakao)
+                            self?.presentMain(with: "\(id)")
+                        }
+                    }
+                    else if let uid = Auth.auth().currentUser?.uid {
+                        NetworkManager.shared.setUserAuthType(.firebase)
+                        self?.presentMain(with: uid)
+                    } else {
                         self?.present(LoginViewController(vm: LoginViewModel()),
                                       transitionType: .fromTop,
                                       animated: true,
                                       pushing: true)
-                        return
                     }
-                    NetworkService.shared.setUserAuthType(.kakao)
-                    self?.presentMain(with: "\(id)")
                 }
             }
-            else if let uid = Auth.auth().currentUser?.uid {
-                NetworkService.shared.setUserAuthType(.firebase)
-                self?.presentMain(with: uid)
-            } else {
-                self?.present(LoginViewController(vm: LoginViewModel()),
-                             transitionType: .fromTop,
-                             animated: true,
-                             pushing: true)
-            }
-        }
-        .store(in: &cancellables)
-        
-        animaionView.loopMode = .loop
-        animaionView.play()
-        
-        [background, animaionView, titleImage, startButton].forEach { uv in
-            uv.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(uv)
-        }
-        
-        NSLayoutConstraint.activate([
-            background.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            background.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            background.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            background.topAnchor.constraint(equalTo: view.topAnchor),
-            
-            animaionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            animaionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            animaionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            animaionView.topAnchor.constraint(equalTo: view.topAnchor),
-            
-            titleImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            titleImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
-            
-            startButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-        ])
+            .store(in: &cancellables)
     }
+    
+    private func presentMain(with uid: String) {
+        NetworkManager.shared.setToken(uid)
+        let nav = UINavigationController(rootViewController: MainViewController(MainView(), MainViewModel()))
+        present(nav,
+                transitionType: .fromTop,
+                animated: true, pushing: true)
+    }
+    
 }

@@ -11,13 +11,13 @@ import UIKit
 import Combine
 import CombineCocoa
 
-enum ARViewAction {
+enum ARViewAction: Actionable {
     case dismiss
 }
 
-final class ARView: BaseView {
-    private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
-    private let actionSubject = PassthroughSubject<ARViewAction, Never>()
+final class ARView: BaseView<ARViewAction> {
+//    private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
+//    private let actionSubject = PassthroughSubject<ARViewAction, Never>()
     
     private(set) var sceneLocationView = SceneLocationView()
     
@@ -33,7 +33,8 @@ final class ARView: BaseView {
         dismissButton
             .tapPublisher
             .sink {[weak self] _ in
-                self?.actionSubject.send(.dismiss)
+//                self?.actionSubject.send(.dismiss)
+                self?.sendAction(.dismiss)
             }
             .store(in: &cancellables)
         

@@ -232,6 +232,7 @@ class LocationDetailViewHeaderCell: UICollectionReusableView {
     }
 }
 
+//MARK: - UICollectionViewDelegateFlowLayout
 extension LocationDetailViewHeaderCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return .init(width: UIScreen.main.width-32,

@@ -11,33 +11,14 @@ protocol MyCharacterViewControllerDelegate: AnyObject {
     func myCharacterViewControllerDidTapDismiss()
 }
 
-class MyCharacterViewController: BaseViewContronller {
+class MyCharacterViewController: BaseViewController<MyCharacterView, MyCharacterViewModel> {
 
     private typealias DataSource = UITableViewDiffableDataSource<Section, GaugeData>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, GaugeData>
     
     enum Section { case main }
     
-    private let contentView = MyCharacterView()
-    
     private var dataSource: DataSource?
-    
-    override func loadView() {
-        super.loadView()
-        view = contentView
-    }
-    
-    private let viewModel: MyCharacterViewModel
-    
-    init(vm: MyCharacterViewModel) {
-        self.viewModel = vm
-        super.init()
-        
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     weak var delegate: MyCharacterViewControllerDelegate?
     
@@ -52,6 +33,11 @@ class MyCharacterViewController: BaseViewContronller {
         navigationItem.leftBarButtonItems = [contentView.dismissButton]
         navigationItem.rightBarButtonItems = [contentView.gearButton]
         
+        bind()
+    }
+    
+    private func bind() {
+        
         contentView
             .actionPublisher
             .sink {[weak self] action in
@@ -60,7 +46,7 @@ class MyCharacterViewController: BaseViewContronller {
                 switch action {
                 case .gear:
                     let vm = MyPageViewModel()
-                    let vc = MyPageViewController(vm: vm)
+                    let vc = MyPageViewController(MyPageView(), vm)
                     self.navigationController?.pushViewController(vc, animated: true)
                     
                 case .dismiss:
@@ -106,6 +92,7 @@ class MyCharacterViewController: BaseViewContronller {
     }
 }
 
+//MARK: - UITableViewDelegate
 extension MyCharacterViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard
@@ -114,113 +101,5 @@ extension MyCharacterViewController: UITableViewDelegate {
         else { return nil }
         header.configure(with: data)
         return header
-    }
-}
-
-class GraphHeaderView: UIView {
-    private lazy var titleLabel: UILabel = {
-       let lb = UILabel()
-        lb.text = "평균 스탯"
-        lb.textColor = .lightNavy
-        lb.font = .robotoBold(13)
-        return lb
-    }()
-    
-    private lazy var numberLabel: CapsuleLabelView = {
-       let uv = CapsuleLabelView("")
-        uv.widthAnchor.constraint(equalToConstant: 70).isActive = true
-        return uv
-    }()
-    
-    private lazy var graphView = HorizontalFillBar(height: 13, fillerColor: .systemGreen, trackColor: .whiteGrey)
-    
-    public var barColor: UIColor? {
-        didSet {
-            self.graphView.barColor = barColor
-        }
-    }
-    
-    init(
-        _ title: String,
-        number: Int,
-        color: UIColor = .systemGray
-    ) {
-        super.init(frame: .zero)
-        
-        titleLabel.text = title
-        
-        setupUI()
-    }
-    
-    public func setValue(
-        _ numerator: Float,
-        _ denomenator: Float
-    ) {
-        numberLabel.setText("\(Int(numerator)) / \(Int(denomenator))")
-        graphView.setProgress(numerator/denomenator, animated: true)
-    }
-    
-    private func setupUI() {
-        let headerSv = UIStackView(arrangedSubviews: [titleLabel, numberLabel])
-        headerSv.axis = .horizontal
-        headerSv.distribution = .fill
-        headerSv.alignment = .fill
-        
-        let totalSv = UIStackView(arrangedSubviews: [headerSv, graphView])
-        totalSv.axis = .vertical
-        totalSv.distribution = .equalSpacing
-        totalSv.alignment = .fill
-        
-        totalSv.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(totalSv)
-        
-        NSLayoutConstraint.activate([
-            totalSv.leadingAnchor.constraint(equalTo: leadingAnchor),
-            totalSv.trailingAnchor.constraint(equalTo: trailingAnchor),
-            totalSv.bottomAnchor.constraint(equalTo: bottomAnchor),
-            totalSv.topAnchor.constraint(equalTo: topAnchor)
-        ])
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
-
-final class HorizontalFillBar: UIProgressView {
-    private let height: CGFloat
-    
-    init(
-        height: CGFloat,
-        fillerColor: UIColor,
-        trackColor: UIColor
-    ) {
-        self.height = height
-        super.init(frame: .zero)
-        
-        progressViewStyle = .bar
-    
-        progressTintColor = fillerColor
-        trackTintColor = trackColor
-        
-        heightAnchor.constraint(equalToConstant: height).isActive = true
-    }
-    
-    public var barColor: UIColor? {
-        didSet {
-            progressTintColor = barColor
-        }
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        layer.cornerRadius = height / 2
-        clipsToBounds = true
     }
 }

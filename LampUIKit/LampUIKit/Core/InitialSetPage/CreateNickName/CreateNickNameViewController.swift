@@ -5,23 +5,11 @@
 //  Created by 김윤석 on 2022/08/14.
 //
 
+import Combine
 import UIKit
 
-class CreateNickNameViewController: BaseViewContronller {
+class CreateNickNameViewController: BaseViewController<CreateNickNameView, CreateNickNameViewModel> {
 
-    private let contentView = CreateNickNameView()
-    
-    private let viewModel: CreateNickNameViewModel
-    
-    init(_ vm: CreateNickNameViewModel) {
-        self.viewModel = vm
-        super.init()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func loadView() {
         super.loadView()
         view = contentView
@@ -61,7 +49,7 @@ class CreateNickNameViewController: BaseViewContronller {
                 guard let self = self else {return}
                 switch noti {
                 case .moveToMain:
-                    self.changeRoot(MainViewController(MainViewModel()))
+                    self.changeRoot(MainViewController(MainView(), MainViewModel()))
                     
                 case .errorMessage(let message):
                     self.presentUmaDefaultAlert(title: message.localized)

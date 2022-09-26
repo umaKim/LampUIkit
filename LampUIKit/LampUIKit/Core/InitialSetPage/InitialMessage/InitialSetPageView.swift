@@ -7,7 +7,11 @@
 
 import UIKit
 
-class InitialSetPageView: BaseView {
+enum InitialSetPageViewAction: Actionable {
+    
+}
+
+class InitialSetPageView: BaseView<InitialSetPageViewAction> {
 
     override init() {
         super.init()

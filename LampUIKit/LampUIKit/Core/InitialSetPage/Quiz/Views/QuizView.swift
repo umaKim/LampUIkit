@@ -7,7 +7,7 @@
 import Combine
 import UIKit
 
-enum QuizViewAction {
+enum QuizViewAction: Actionable {
     case button1
     case button2
     case button3
@@ -16,10 +16,7 @@ enum QuizViewAction {
     case next
 }
 
-class QuizView: BaseView {
-    
-    private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
-    private let actionSubject = PassthroughSubject<QuizViewAction, Never>()
+class QuizView: BaseView<QuizViewAction> {
     
     private lazy var backgroundImageView: UIImageView = {
         let uv = UIImageView(image: UIImage(named: "testBackground"))
@@ -103,35 +100,35 @@ class QuizView: BaseView {
     private func bind() {
         button1.tapPublisher.sink {[weak self] _ in
             guard let self = self else {return}
-            self.actionSubject.send(.button1)
+            self.sendAction(.button1)
             self.buttonToggle(self.button1)
         }
         .store(in: &cancellables)
 
         button2.tapPublisher.sink {[weak self] _ in
             guard let self = self else {return}
-            self.actionSubject.send(.button2)
+            self.sendAction(.button2)
             self.buttonToggle(self.button2)
         }
         .store(in: &cancellables)
 
         button3.tapPublisher.sink {[weak self] _ in
             guard let self = self else {return}
-            self.actionSubject.send(.button3)
+            self.sendAction(.button3)
             self.buttonToggle(self.button3)
         }
         .store(in: &cancellables)
         
         button4.tapPublisher.sink {[weak self] _ in
             guard let self = self else {return}
-            self.actionSubject.send(.button4)
+            self.sendAction(.button4)
             self.buttonToggle(self.button4)
         }
         .store(in: &cancellables)
         
         button5.tapPublisher.sink {[weak self] _ in
             guard let self = self else {return}
-            self.actionSubject.send(.button5)
+            self.sendAction(.button5)
             self.buttonToggle(self.button5)
         }
         .store(in: &cancellables)
@@ -145,7 +142,7 @@ class QuizView: BaseView {
                                   options: .curveEaseInOut,
                                   animations: nil,
                                   completion: nil)
-                self.actionSubject.send(.next)
+                self.sendAction(.next)
                 self.resetAllButtonBackGroundColor()
             }
             .store(in: &cancellables)
