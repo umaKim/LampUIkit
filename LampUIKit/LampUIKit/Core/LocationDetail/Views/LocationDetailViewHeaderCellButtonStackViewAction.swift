@@ -13,7 +13,7 @@ enum LocationDetailViewHeaderCellButtonStackViewAction {
     case save
     case ar
     case map
-    case navigation
+//    case navigation
     case review
 }
 
@@ -41,11 +41,11 @@ class LocationDetailViewHeaderCellButtonStackView: UIView {
                             subTitle: "지도보기".localized)
     }()
     
-    private let navigationButton: UIButton = {
-        return .buttonMaker(image: UIImage(systemName: "person"),
-                            imagePadding: 12,
-                            subTitle: "길안내")
-    }()
+//    private let navigationButton: UIButton = {
+//        return .buttonMaker(image: UIImage(systemName: "person"),
+//                            imagePadding: 12,
+//                            subTitle: "길안내")
+//    }()
     
     private let reviewButton: UIButton = {
         return .buttonMaker(image: UIImage(named: "detailReview"),
@@ -115,13 +115,13 @@ class LocationDetailViewHeaderCellButtonStackView: UIView {
             }
             .store(in: &cancellables)
         
-        navigationButton
-            .tapPublisher
-            .sink {[weak self] _ in
-                guard let self = self else {return}
-                self.actionSubject.send(.navigation)
-            }
-            .store(in: &cancellables)
+//        navigationButton
+//            .tapPublisher
+//            .sink {[weak self] _ in
+//                guard let self = self else {return}
+//                self.actionSubject.send(.navigation)
+//            }
+//            .store(in: &cancellables)
         
         reviewButton
             .tapPublisher
