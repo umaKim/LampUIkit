@@ -7,6 +7,8 @@
 
 import UIKit
 
+class WriteReviewViewController: BaseViewController<WriteReviewView, WriteReviewViewModel> {
+
     private func checkMaxLength(_ textView: UITextView, maxLength: Int = 300) {
         if textView.text.count > maxLength {
             textView.deleteBackward()
@@ -87,6 +89,7 @@ import UIKit
     }
 }
 
+//MARK: - UITextViewDelegate
 extension WriteReviewViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         checkMaxLength(textView)
@@ -95,6 +98,7 @@ extension WriteReviewViewController: UITextViewDelegate {
     }
 }
 
+//MARK: - UIImagePickerControllerDelegate & UINavigationControllerDelegate
 extension WriteReviewViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         

@@ -13,26 +13,9 @@ protocol MyTravelViewControllerDelegate: AnyObject {
     func myTravelViewControllerDidTapNavigation(_ location: RecommendedLocation)
 }
 
-final class MyTravelViewController: BaseViewContronller {
-    private let contentView = MyTravelView()
-    
-    private let viewModel: MyTravelViewModel
+final class MyTravelViewController: BaseViewController<MyTravelView, MyTravelViewModel> {
     
     weak var delegate: MyTravelViewControllerDelegate?
-    
-    override func loadView() {
-        super.loadView()
-        view = contentView
-    }
-    
-    init(vm: MyTravelViewModel) {
-        self.viewModel = vm
-        super.init()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,18 +57,18 @@ extension MyTravelViewController: MyTravelCellDelegate {
     }
     
     func myTravelCellDelegateDidTapComplete(at index: Int) {
-//        viewModel.completeTrip(at: index)
+        
     }
 
     func myTravelCellDelegateDidTap(_ item: MyTravelLocation) {
         let vm = LocationDetailViewModel(item)
-        let vc = LocationDetailViewController(vm: vm)
+        let vc = LocationDetailViewController(LocationDetailView(), vm)
         vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
 
     func myTravelCellDelegateDidTapDelete(at index: Int) {
-//        viewModel.deleteMyTravel(at: index)
+        
     }
 }
 
@@ -93,13 +76,13 @@ extension MyTravelViewController: MyTravelCellDelegate {
 extension MyTravelViewController: FavoriteCellDelegate {
     func favoriteCellDidTap(_ item: MyBookMarkLocation) {
         let vm = LocationDetailViewModel(item)
-        let vc = LocationDetailViewController(vm: vm)
+        let vc = LocationDetailViewController(LocationDetailView(), vm)
         vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
-    
+
     func favoriteCellDidTapDelete(at index: Int) {
-        viewModel.deleteMySaveLocations(at: index)
+        
     }
 }
 
@@ -107,13 +90,13 @@ extension MyTravelViewController: FavoriteCellDelegate {
 extension MyTravelViewController: CompletedTravelCellDelegate {
     func completedTravelCellDidTap(_ item: MyCompletedTripLocation) {
         let vm = LocationDetailViewModel(item)
-        let vc = LocationDetailViewController(vm: vm)
+        let vc = LocationDetailViewController(LocationDetailView(), vm)
         vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
     
     func completedTravelCellDidTapDelete(at index: Int) {
-//        viewModel.deleteMyTravel(at: index)
+        
     }
 }
 

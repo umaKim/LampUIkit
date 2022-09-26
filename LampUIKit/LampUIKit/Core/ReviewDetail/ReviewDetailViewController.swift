@@ -7,33 +7,14 @@
 
 import UIKit
 
-class ReviewDetailViewController: BaseViewContronller {
-    
-    private let contentView = ReviewDetailView()
-    
-    private let viewModel: ReviewDetailViewModel
-    
-    override func loadView() {
-        super.loadView()
-        
-        view = contentView
-    }
-    
-    init(vm: ReviewDetailViewModel) {
-        self.viewModel = vm
-        super.init()
-        
-        contentView.collectionView.dataSource = self
-        contentView.collectionView.delegate = self
-    }
+class ReviewDetailViewController: BaseViewController<ReviewDetailView, ReviewDetailViewModel> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        contentView.collectionView.dataSource = self
+        contentView.collectionView.delegate = self
+        
         contentView.configure(with: viewModel.data)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }
 
@@ -47,11 +28,7 @@ extension ReviewDetailViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        if let url = viewModel.data.photoUrlArray {
-            return url.count
-        }
-        return 0
+        return viewModel.data.photoUrlArray.count
     }
 }
 

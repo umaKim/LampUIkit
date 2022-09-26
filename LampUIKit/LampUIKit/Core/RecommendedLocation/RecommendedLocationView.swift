@@ -8,16 +8,13 @@ import Combine
 import CombineCocoa
 import UIKit
 
-enum RecommendedLocationViewAction {
+enum RecommendedLocationViewAction: Actionable {
     case search
     case myCharacter
     case myTravel
 }
 
-class RecommendedLocationView: BaseWhiteView {
-    private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
-    private let actionSubject = PassthroughSubject<RecommendedLocationViewAction, Never>()
-    
+class RecommendedLocationView: BaseView<RecommendedLocationViewAction> {
     private(set) lazy var customNavigationbar = CustomNavigationBarView()
     
     private(set) var collectionView: UICollectionView = {
@@ -65,21 +62,21 @@ class RecommendedLocationView: BaseWhiteView {
         searchButton
             .tapPublisher
             .sink {[weak self] _ in
-                self?.actionSubject.send(.search)
+                self?.sendAction(.search)
             }
             .store(in: &cancellables)
         
         travelButton
             .tapPublisher
             .sink {[weak self] _ in
-                self?.actionSubject.send(.myTravel)
+                self?.sendAction(.myTravel)
             }
             .store(in: &cancellables)
         
         myCharacter
             .tapPublisher
             .sink {[weak self] _ in
-                self?.actionSubject.send(.myCharacter)
+                self?.sendAction(.myCharacter)
             }
             .store(in: &cancellables)
     }

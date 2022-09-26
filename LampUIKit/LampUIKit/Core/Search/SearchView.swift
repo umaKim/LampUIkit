@@ -8,7 +8,7 @@ import Combine
 import CombineCocoa
 import UIKit
 
-enum SearchViewAction {
+enum SearchViewAction: Actionable {
     case all
     case recommend
     case travel
@@ -21,7 +21,7 @@ enum SearchViewAction {
     case didTapSearchButton
 }
 
-class SearchView: BaseView {
+class SearchView: BaseView<SearchViewAction> {
     
     private(set) lazy var acationPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<SearchViewAction, Never>()

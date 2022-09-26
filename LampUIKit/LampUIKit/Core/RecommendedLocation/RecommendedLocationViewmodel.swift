@@ -8,16 +8,13 @@ import Combine
 import GoogleMaps
 import Foundation
 
-enum RecommendedLocationViewmodelNotify {
+enum RecommendedLocationViewmodelNotification: Notifiable {
     case updateAddress(String)
     case showMessage(String)
     case reload
 }
 
-class RecommendedLocationViewmodel: BaseViewModel {
-    
-    private(set) lazy var notifyPublisher = notifySubject.eraseToAnyPublisher()
-    private let notifySubject = PassthroughSubject<RecommendedLocationViewmodelNotify, Never>()
+class RecommendedLocationViewmodel: BaseViewModel<RecommendedLocationViewmodelNotification> {
     
     private let geocoder = GMSGeocoder()
     
@@ -33,7 +30,7 @@ class RecommendedLocationViewmodel: BaseViewModel {
         locatonsSubject
             .sink {[weak self] locations in
                 self?.locations = locations
-                self?.notifySubject.send(.reload)
+                self?.sendNotification(.reload)
             }
             .store(in: &cancellables)
         
@@ -49,18 +46,17 @@ class RecommendedLocationViewmodel: BaseViewModel {
                     let sublocality = address.subLocality ?? ""
 
                     let addressString = administrativeArea + " " + locality + " " + sublocality
-                    print(addressString)
-                    self?.notifySubject.send(.updateAddress(addressString))
+                    self?.sendNotification(.updateAddress(addressString))
                 }
             }
         }
         .store(in: &cancellables)
     }
     
-    public func save(_ index: Int) {
+    public func saveLocation(_ index: Int) {
         locations[index].isBookMarked.toggle()
         let location = locations[index]
-        NetworkService.shared.updateBookMark(of: location.contentId,
+        NetworkManager.shared.updateBookMark(of: location.contentId,
                                              contentTypeId: location.contentTypeId,
                                              mapx: location.mapX,
                                              mapY: location.mapY,
@@ -86,13 +82,12 @@ class RecommendedLocationViewmodel: BaseViewModel {
         
         self.locations[index].isOnPlan = true
         
-        NetworkService.shared.postAddToMyTravel(data) {[weak self] result in
+        NetworkManager.shared.postAddToMyTravel(data) {[weak self] result in
             switch result {
             case .success(let response):
-                print(response)
-                self?.notifySubject.send(.showMessage(response.message ?? ""))
+                self?.sendNotification(.showMessage(response.message ?? ""))
             case .failure(let error):
-                print(error)
+                self?.sendNotification(.showMessage(error.localizedDescription))
             }
         }
     }
@@ -100,13 +95,12 @@ class RecommendedLocationViewmodel: BaseViewModel {
     public func deleteFromMyTrip(at index: Int, _ location: RecommendedLocation) {
         guard let planIdx = location.planIdx else { return }
         self.locations[index].isOnPlan = false
-        NetworkService.shared.deleteFromMyTravel("\(planIdx)") {[weak self] result  in
+        NetworkManager.shared.deleteFromMyTravel("\(planIdx)") {[weak self] result  in
             switch result {
             case .success(let response):
-                self?.notifySubject.send(.showMessage(response.message ?? ""))
+                self?.sendNotification(.showMessage(response.message ?? ""))
             case .failure(let error):
-                print(error)
-                self?.notifySubject.send(.showMessage(error.localizedDescription))
+                self?.sendNotification(.showMessage(error.localizedDescription))
             }
         }
     }

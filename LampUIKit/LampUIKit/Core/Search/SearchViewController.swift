@@ -15,7 +15,7 @@ protocol SearchViewControllerDelegate: AnyObject {
     func searchBarDidTap()
 }
 
-class SearchViewController: BaseViewContronller {
+class SearchViewController: BaseViewController<SearchView, SearchViewModel> {
     
     private typealias DataSource = UICollectionViewDiffableDataSource<Section, RecommendedLocation>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, RecommendedLocation>
@@ -25,24 +25,6 @@ class SearchViewController: BaseViewContronller {
     private var dataSource: DataSource?
     
     weak var delegate: SearchViewControllerDelegate?
-    
-    private(set) lazy var contentView = SearchView()
-    
-    private let viewModel: SearchViewModel
-    
-    init(vm: SearchViewModel) {
-        self.viewModel = vm
-        super.init()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func loadView() {
-        super.loadView()
-        view = contentView
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -143,7 +125,7 @@ extension SearchViewController: SearchRecommendationCollectionViewCellDelegate {
     }
     
     func didTapCancelThisLocationButton(at index: Int, _ location: RecommendedLocation) {
-        viewModel.deleteFromMyTrip(at: index, location)
+        viewModel.postAddToMyTrip(at: index, location)
     }
 }
 
@@ -194,7 +176,7 @@ extension SearchViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         HapticManager.shared.feedBack(with: .heavy)
         let vm = LocationDetailViewModel(viewModel.locations[indexPath.item])
-        let vc = LocationDetailViewController(vm: vm)
+        let vc = LocationDetailViewController(LocationDetailView(), vm)
         vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }

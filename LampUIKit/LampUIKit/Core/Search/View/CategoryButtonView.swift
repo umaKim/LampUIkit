@@ -8,17 +8,14 @@ import CombineCocoa
 import Combine
 import UIKit
 
-enum CategoryButtonViewAction {
+enum CategoryButtonViewAction: Actionable {
     case all
     case recommend
     case travel
     case notVisit
 }
 
-class CategoryButtonView: BaseWhiteView {
-    
-    private(set) lazy var actionPublisher = actionSubect.eraseToAnyPublisher()
-    private let actionSubect = PassthroughSubject<CategoryButtonViewAction, Never>()
+class CategoryButtonView: BaseView<CategoryButtonViewAction> {
     
     private let allButton: RectangleTextButton = {
         let bt = RectangleTextButton("전국", background: .white, textColor: .lightNavy, fontSize: 15)
@@ -58,25 +55,25 @@ class CategoryButtonView: BaseWhiteView {
     private func bind() {
         allButton.tapPublisher.sink {[weak self] _ in
             guard let self = self else {return}
-            self.actionSubect.send(.all)
+            self.sendAction(.all)
         }
         .store(in: &cancellables)
         
         recommendOrderButton.tapPublisher.sink {[weak self] _ in
             guard let self = self else {return}
-            self.actionSubect.send(.recommend)
+            self.sendAction(.recommend)
         }
         .store(in: &cancellables)
         
         travelButton.tapPublisher.sink {[weak self] _ in
             guard let self = self else {return}
-            self.actionSubect.send(.travel)
+            self.sendAction(.travel)
         }
         .store(in: &cancellables)
         
         notVisitButton.tapPublisher.sink {[weak self] _ in
             guard let self = self else {return}
-            self.actionSubect.send(.notVisit)
+            self.sendAction(.notVisit)
         }.store(in: &cancellables)
     }
     

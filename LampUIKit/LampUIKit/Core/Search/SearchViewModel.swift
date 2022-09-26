@@ -8,19 +8,20 @@
 import Combine
 import Foundation
 
-enum SearchViewModelNotify {
+enum SearchViewModelNotification: Notifiable {
     case reload
     case startLoading
     case endLoading
     case showMessage(String)
 }
 
-class SearchViewModel: BaseViewModel {
+class SearchViewModel: BaseViewModel<SearchViewModelNotification> {
     
+    private let service: NetworkManager
     
     private(set) var locations = [RecommendedLocation]()
     
-    init(_ service: NetworkService = NetworkService.shared) {
+    init(_ service: NetworkManager = NetworkManager.shared) {
         self.service = service
         super.init()
     }
@@ -61,8 +62,9 @@ class SearchViewModel: BaseViewModel {
         
         if isFetching == false {
             isFetching = true
-            notifySubject.send(.startLoading)
+            sendNotification(.startLoading)
             service.fetchSearchLocations(text, pageNumber: pageNumber) {[weak self] result in
+                self?.sendNotification(.endLoading)
                 guard let self = self else {return}
                 self.isFetching = false
                 switch result {
@@ -73,12 +75,12 @@ class SearchViewModel: BaseViewModel {
                         self.increasePageNumber()
                     }
                     self.locations.append(contentsOf: locationResponse.result)
-                    self.notifySubject.send(.reload)
+                    self.sendNotification(.reload)
                     
                 case .failure(let error):
                     print(error)
                 }
-                self.notifySubject.send(.endLoading)
+               
             }
         }
     }
@@ -99,16 +101,13 @@ class SearchViewModel: BaseViewModel {
         
         locations[index].isOnPlan = true
         
-        NetworkService.shared.postAddToMyTravel(data) {[weak self] result in
+        NetworkManager.shared.postAddToMyTravel(data) {[weak self] result in
             guard let self = self else {return}
             switch result {
             case .success(let response):
-                print(response)
-                self.notifySubject.send(.showMessage(response.message ?? ""))
-                
+                self.sendNotification(.showMessage(response.message ?? ""))
             case .failure(let error):
-                print(error)
-                self.notifySubject.send(.showMessage(error.localizedDescription))
+                self.sendNotification(.showMessage(error.localizedDescription))
             }
         }
     }
@@ -117,15 +116,13 @@ class SearchViewModel: BaseViewModel {
         guard let planIdx = location.planIdx else { return }
         locations[index].isOnPlan = false
         
-        NetworkService.shared.deleteFromMyTravel("\(planIdx)") {[weak self] result  in
+        NetworkManager.shared.deleteFromMyTravel("\(planIdx)") {[weak self] result  in
             guard let self = self else {return}
             switch result {
             case .success(let response):
-                self.notifySubject.send(.showMessage(response.message ?? ""))
-
+                self.sendNotification(.showMessage(response.message ?? ""))
             case .failure(let error):
-                print(error)
-                self.notifySubject.send(.showMessage(error.localizedDescription))
+                self.sendNotification(.showMessage(error.localizedDescription))
             }
         }
     }
@@ -134,14 +131,13 @@ class SearchViewModel: BaseViewModel {
     public func save(_ index: Int) {
         locations[index].isBookMarked.toggle()
         let location = locations[index]
-        NetworkService.shared.updateBookMark(of: location.contentId,
+        NetworkManager.shared.updateBookMark(of: location.contentId,
                                              contentTypeId: location.contentTypeId,
                                              mapx: location.mapX,
                                              mapY: location.mapY,
                                              placeName: location.title,
                                              placeAddr: location.addr,
                                              completion: {[weak self] result in
-            guard let self = self else {return}
         })
     }
 }

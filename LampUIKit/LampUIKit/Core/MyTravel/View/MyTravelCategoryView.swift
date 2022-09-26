@@ -9,17 +9,13 @@ import CombineCocoa
 import Combine
 import UIKit
 
-enum MenuBarButtonAction {
+enum MenuBarButtonAction: Actionable {
     case didTapMyTravel
     case didTapFavoritePlace
     case didTapCompletedTravel
 }
 
-final class MyTravelCategoryView: BaseWhiteView {
-    
-    private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
-    private let actionSubject = PassthroughSubject<MenuBarButtonAction, Never>()
-    private var cancellable: Set<AnyCancellable>
+final class MyTravelCategoryView: BaseView<MenuBarButtonAction> {
     
     private lazy var myTravelButton: UIButton = {
        let bt = UIButton()
@@ -54,7 +50,6 @@ final class MyTravelCategoryView: BaseWhiteView {
     private let separatorView = DividerView()
     
     override init() {
-        self.cancellable = .init()
         super.init()
         
         bind()
@@ -63,19 +58,19 @@ final class MyTravelCategoryView: BaseWhiteView {
     
     private func bind() {
         myTravelButton.tapPublisher.sink {[weak self] _ in
-            self?.actionSubject.send(.didTapMyTravel)
+            self?.sendAction(.didTapMyTravel)
         }
-        .store(in: &cancellable)
+        .store(in: &cancellables)
         
         favoritePlaceButton.tapPublisher.sink {[weak self] _ in
-            self?.actionSubject.send(.didTapFavoritePlace)
+            self?.sendAction(.didTapFavoritePlace)
         }
-        .store(in: &cancellable)
+        .store(in: &cancellables)
         
         completedTravelButton.tapPublisher.sink {[weak self] _ in
-            self?.actionSubject.send(.didTapCompletedTravel)
+            self?.sendAction(.didTapCompletedTravel)
         }
-        .store(in: &cancellable)
+        .store(in: &cancellables)
     }
     
     private func setupUI() {

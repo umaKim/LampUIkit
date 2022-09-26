@@ -15,7 +15,7 @@ protocol RecommendedLocationViewControllerDelegate: AnyObject {
     func recommendedLocationViewControllerDidTapNavigation(location: RecommendedLocation)
 }
 
-class RecommendedLocationViewController: BaseViewContronller {
+class RecommendedLocationViewController: BaseViewController<RecommendedLocationView, RecommendedLocationViewmodel> {
    
     private typealias DataSource = UICollectionViewDiffableDataSource<Section, RecommendedLocation>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, RecommendedLocation>
@@ -23,25 +23,6 @@ class RecommendedLocationViewController: BaseViewContronller {
     enum Section { case main }
     
     private var dataSource: DataSource?
-    
-    private(set) var contentView = RecommendedLocationView()
-    
-    private let viewModel: RecommendedLocationViewmodel
-    
-    init(_ vm: RecommendedLocationViewmodel) {
-        self.viewModel = vm
-        super.init()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func loadView() {
-        super.loadView()
-        
-        view = contentView
-    }
     
     weak var delegate: RecommendedLocationViewControllerDelegate?
     
@@ -66,19 +47,19 @@ class RecommendedLocationViewController: BaseViewContronller {
                 HapticManager.shared.feedBack(with: .heavy)
                 switch action {
                 case .search:
-                    let vc = SearchViewController(vm: SearchViewModel())
+                    let vc = SearchViewController(SearchView(), SearchViewModel())
                     vc.delegate = self
                     self?.delegate?.recommendedLocationViewControllerDidTapSearch()
                     self?.navigationController?.pushViewController(vc, animated: true)
                     
                 case .myCharacter:
-                    let vc = MyCharacterViewController(vm: MyCharacterViewModel())
+                    let vc = MyCharacterViewController(MyCharacterView(), MyCharacterViewModel())
                     vc.delegate = self
                     self?.delegate?.recommendedLocationViewControllerDidTapMyCharacter()
                     self?.navigationController?.pushViewController(vc, animated: true)
                     
                 case .myTravel:
-                    let vc = MyTravelViewController(vm: MyTravelViewModel())
+                    let vc = MyTravelViewController(MyTravelView(), MyTravelViewModel())
                     vc.delegate = self
                     self?.delegate?.recommendedLocationViewControllerDidTapMyTravel()
                     self?.navigationController?.pushViewController(vc, animated: true)
@@ -96,6 +77,9 @@ class RecommendedLocationViewController: BaseViewContronller {
                     
                 case .reload:
                     self?.updateSections()
+                    
+                case .showMessage(let message):
+                    break
                 }
             }
             .store(in: &cancellables)
@@ -198,29 +182,32 @@ extension RecommendedLocationViewController: MyTravelViewControllerDelegate {
     }
 }
 
+//MARK: - UICollectionViewDelegate
 extension RecommendedLocationViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         HapticManager.shared.feedBack(with: .medium)
         let vm = LocationDetailViewModel(viewModel.locations[indexPath.item])
-        let vc = LocationDetailViewController(vm: vm)
+        let vc = LocationDetailViewController(LocationDetailView(), vm)
         vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
 }
 
+//MARK: - UICollectionViewDelegateFlowLayout
 extension RecommendedLocationViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         .init(width: UIScreen.main.bounds.width - 32, height: 145)
     }
 }
 
+//MARK: - SearchRecommendationCollectionViewCellDelegate
 extension RecommendedLocationViewController: SearchRecommendationCollectionViewCellDelegate {
     func didTapCancelThisLocationButton(at index: Int, _ location: RecommendedLocation) {
-        viewModel.deleteFromMyTrip(at: index, location)
+        viewModel.postAddToMyTrip(at: index, location)
     }
     
     func didTapFavoriteButton(at index: Int, _ location: RecommendedLocation) {
-        viewModel.save(index)
+        viewModel.saveLocation(index)
     }
     
     func didTapSetThisLocationButton(at index: Int, _ location: RecommendedLocation) {

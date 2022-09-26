@@ -7,7 +7,6 @@
 import SDWebImage
 import UIKit
 
-
 class ReviewDetailImageCollectionViewCell: UICollectionViewCell {
     static let identifier = "ReviewDetailImageCollectionViewCell"
     

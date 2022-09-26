@@ -8,7 +8,7 @@
 import Combine
 import UIKit
 
-enum WriteReviewViewModelNotify {
+enum WriteReviewViewModelNotification: Notifiable {
     case ableCompleteButton(Bool)
     case dismiss
     case showMessage(String)
@@ -18,9 +18,7 @@ enum WriteReviewViewModelNotify {
     case endLoading
 }
 
-class WriteReviewViewModel: BaseViewModel {
-    private(set) lazy var notifyPublisher = notifySubject.eraseToAnyPublisher()
-    private let notifySubject = PassthroughSubject<WriteReviewViewModelNotify, Never>()
+class WriteReviewViewModel: BaseViewModel<WriteReviewViewModelNotification> {
     
     private var starRating: CGFloat = 2.5
     private var comfortRating: Int?
@@ -44,53 +42,52 @@ class WriteReviewViewModel: BaseViewModel {
         surroundingRating != nil &&
         foodRating != nil &&
         comments != ""
-//        !images.isEmpty
     }
     
     public func setStarRating(_ rating: CGFloat) {
         self.starRating = rating
-        self.notifySubject.send(.ableCompleteButton(ableCompleteButton))
+        self.sendNotification(.ableCompleteButton(ableCompleteButton))
     }
     
     public func setComfortRating( _ rating: Int) {
         self.comfortRating = rating + 1
-        self.notifySubject.send(.ableCompleteButton(ableCompleteButton))
+        self.sendNotification(.ableCompleteButton(ableCompleteButton))
     }
     
     public func setAtmosphereRating( _ rating: Int) {
         self.atmosphereRating = rating + 1
-        self.notifySubject.send(.ableCompleteButton(ableCompleteButton))
+        self.sendNotification(.ableCompleteButton(ableCompleteButton))
     }
     
     public func setSurroundingRating( _ rating: Int) {
         self.surroundingRating = rating + 1
-        self.notifySubject.send(.ableCompleteButton(ableCompleteButton))
+        self.sendNotification(.ableCompleteButton(ableCompleteButton))
     }
     
     public func setFoodRating( _ rating: Int) {
         self.foodRating = rating + 1
-        self.notifySubject.send(.ableCompleteButton(ableCompleteButton))
+        self.sendNotification(.ableCompleteButton(ableCompleteButton))
     }
     
     public func setComments( _ comments: String) {
         self.comments = comments
-        self.notifySubject.send(.ableCompleteButton(ableCompleteButton))
+        self.sendNotification(.ableCompleteButton(ableCompleteButton))
     }
     
     public func addImage( _ image: UIImage) {
         if isAbleToAddMoreImages() {
             images.append(image)
-            self.notifySubject.send(.numberOfImages(self.images.count))
-            self.notifySubject.send(.ableCompleteButton(ableCompleteButton))
+            self.sendNotification(.numberOfImages(self.images.count))
+            self.sendNotification(.ableCompleteButton(ableCompleteButton))
         } else {
-            notifySubject.send(.showMessage("사진은 3개로 제한됩니다."))
+            sendNotification(.showMessage("사진은 3개로 제한됩니다."))
         }
     }
     
     public func removeImage(at index: Int) {
         images.remove(at: index)
-        self.notifySubject.send(.numberOfImages(self.images.count))
-        self.notifySubject.send(.ableCompleteButton(ableCompleteButton))
+        sendNotification(.numberOfImages(self.images.count))
+        sendNotification(.ableCompleteButton(ableCompleteButton))
     }
     
     private func isAbleToAddMoreImages() -> Bool {
@@ -122,23 +119,22 @@ class WriteReviewViewModel: BaseViewModel {
             content: comments
         )
         
-        self.notifySubject.send(.startLoading)
-        NetworkService.shared.postReview(model) {[weak self] result in
+        self.sendNotification(.startLoading)
+        NetworkManager.shared.postReview(model) {[weak self] result in
             guard let self = self else {return}
-            self.notifySubject.send(.endLoading)
+            self.sendNotification(.endLoading)
             
             switch result {
             case .success(let response):
-                print(response)
                 if response.isSuccess ?? false {
                     if !self.images.isEmpty {
                         self.postReviewImages()
                     } else {
-                        self.notifySubject.send(.dismiss)
+                        self.sendNotification(.dismiss)
                     }
                     
                 } else {
-                    self.notifySubject.send(.showMessage(response.message ?? ""))
+                    self.sendNotification(.showMessage(response.message ?? ""))
                 }
                 
             case .failure(let error):
@@ -149,19 +145,17 @@ class WriteReviewViewModel: BaseViewModel {
     
     private func postReviewImages() {
         let imageDatum = images.map({$0.sd_imageData(as: .JPEG, compressionQuality: 0.25)}).compactMap({$0})
-        NetworkService.shared.postReviewImages(with: imageDatum, location.contentId) {[weak self] result in
+        NetworkManager.shared.postReviewImages(with: imageDatum, location.contentId) {[weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let response):
-                print(response)
                 if response.isSuccess ?? false {
-                    self.notifySubject.send(.dismiss)
+                    self.sendNotification(.dismiss)
                 } else {
-                    self.notifySubject.send(.showMessage(response.message ?? ""))
+                    self.sendNotification(.showMessage(response.message ?? ""))
                 }
             case .failure(let error):
-                print(error)
-                self.notifySubject.send(.showMessage(error.localizedDescription))
+                self.sendNotification(.showMessage(error.localizedDescription))
             }
         }
     }

@@ -12,7 +12,11 @@ struct ReviewDetailData {
     let content: String
 }
 
-class ReviewDetailViewModel: BaseViewModel {
+enum ReviewDetailViewModelNotification: Notifiable {
+    
+}
+
+class ReviewDetailViewModel: BaseViewModel<ReviewDetailViewModelNotification> {
     
     private(set) var data: ReviewDetailData
     

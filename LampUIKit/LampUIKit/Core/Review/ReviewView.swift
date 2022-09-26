@@ -8,14 +8,11 @@ import SwiftUI
 import Combine
 import UIKit
 
-enum ReviewViewAction {
+enum ReviewViewAction: Actionable {
     case back
 }
 
-class ReviewView: BaseWhiteView {
-    private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
-    private let actionSubject = PassthroughSubject<ReviewViewAction, Never>()
-
+class ReviewView: BaseView<ReviewViewAction> {
     private(set) lazy var backButton: UIBarButtonItem = {
         let bt = UIBarButtonItem(image: .back, style: .done, target: nil, action: nil)
         return bt
@@ -51,7 +48,7 @@ class ReviewView: BaseWhiteView {
     
     private func bind() {
         backButton.tapPublisher.sink {[weak self] _ in
-            self?.actionSubject.send(.back)
+            self?.sendAction(.back)
         }
         .store(in: &cancellables)
     }
@@ -193,12 +190,11 @@ class ReviewViewCollectionViewCell: UICollectionViewCell {
         var config = UIButton.Configuration.tinted()
         config.baseBackgroundColor = .midNavy
         config.cornerStyle = .capsule
-//        let image = UIImage(systemName: "heart")?.withTintColor(.red, renderingMode: .alwaysOriginal).resize(to: 10)
         let image = UIImage(named: "like_selected")?.resize(to: 10)
         config.image = image
         config.imagePlacement = .leading
         config.imagePadding = 6
-        
+        config.subtitle = ""
         let bt = UIButton(configuration: config)
         bt.frame = .init(x: 0, y: 0, width: 62, height: 21)
         return bt
@@ -244,6 +240,8 @@ class ReviewViewCollectionViewCell: UICollectionViewCell {
             }
         }
         .store(in: &cancellables)
+        
+        likeButton.subtitleLabel?.textColor = .lightNavy
         
         reportButton
             .tapPublisher

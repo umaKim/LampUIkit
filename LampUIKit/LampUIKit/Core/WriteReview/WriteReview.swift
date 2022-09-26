@@ -10,7 +10,7 @@ import CombineCocoa
 import Combine
 import UIKit
 
-enum WriteReviewViewAction {
+enum WriteReviewViewAction: Actionable {
     case updateStarRating(CGFloat)
     case updateSatisfactionModel(Int)
     case updateAtmosphereModel(Int)
@@ -22,9 +22,9 @@ enum WriteReviewViewAction {
     case complete
 }
 
-class WriteReviewView: BaseWhiteView, ImageCollectionViewCellDelegate {
+class WriteReviewView: BaseView<WriteReviewViewAction>, ImageCollectionViewCellDelegate {
     func imageCollectionViewCellDidTapDelete(_ index: Int) {
-        actionSubject.send(.removeImage(index))
+        sendAction(.removeImage(index))
         photos.remove(at: index)
         updateSections()
     }
@@ -219,7 +219,7 @@ class WriteReviewView: BaseWhiteView, ImageCollectionViewCellDelegate {
 //MARK: - ImageCollectionHeaderViewDelegate
 extension WriteReviewView: ImageCollectionHeaderViewDelegate {
     func imageCollectionHeaderViewDidTapAdd() {
-        actionSubject.send(.addPhoto)
+        sendAction(.addPhoto)
     }
 }
 
@@ -245,7 +245,7 @@ extension WriteReviewView {
             .$starValue
             .sink {[weak self] value in
                 guard let self = self else {return}
-                self.actionSubject.send(.updateStarRating(value))
+                self.sendAction(.updateStarRating(value))
             }
             .store(in: &cancellables)
         
@@ -255,7 +255,7 @@ extension WriteReviewView {
                 guard let self = self else {return}
                 switch action {
                 case .updateElement(let model):
-                    self.actionSubject.send(.updateSatisfactionModel(model))
+                    self.sendAction(.updateSurroundingModel(model))
                 }
             }
             .store(in: &cancellables)
@@ -266,7 +266,7 @@ extension WriteReviewView {
                 guard let self = self else {return}
                 switch action {
                 case .updateElement(let model):
-                    self.actionSubject.send(.updateAtmosphereModel(model))
+                    self.sendAction(.updateSurroundingModel(model))
                 }
             }
             .store(in: &cancellables)
@@ -277,7 +277,7 @@ extension WriteReviewView {
                 guard let self = self else {return}
                 switch action {
                 case .updateElement(let model):
-                    self.actionSubject.send(.updateSurroundingModel(model))
+                    self.sendAction(.updateSurroundingModel(model))
                 }
             }
             .store(in: &cancellables)
@@ -288,7 +288,7 @@ extension WriteReviewView {
                 guard let self = self else {return}
                 switch action {
                 case .updateElement(let model):
-                    self.actionSubject.send(.updateFoodModel(model))
+                    self.sendAction(.updateFoodModel(model))
                 }
             }
             .store(in: &cancellables)
@@ -297,7 +297,7 @@ extension WriteReviewView {
             .compactMap({$0})
             .sink {[weak self] text in
                 guard let self = self else {return }
-                self.actionSubject.send(.updateComment(text))
+                self.sendAction(.updateComment(text))
             }
             .store(in: &cancellables)
         
@@ -305,7 +305,7 @@ extension WriteReviewView {
             .tapPublisher
             .sink {[weak self] _ in
                 guard let self = self else {return}
-                self.actionSubject.send(.complete)
+                self.sendAction(.complete)
             }
             .store(in: &cancellables)
     }

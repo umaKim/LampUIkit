@@ -7,14 +7,12 @@
 import Combine
 import Foundation
 
-enum ReviewViewModelNotify {
+enum ReviewViewModelNotification: Notifiable {
     case reload
     case message(String)
 }
 
-class ReviewViewModel: BaseViewModel {
-    private(set) lazy var notifyPublisher = notifySubject.eraseToAnyPublisher()
-    private let notifySubject = PassthroughSubject<ReviewViewModelNotify, Never>()
+class ReviewViewModel: BaseViewModel<ReviewViewModelNotification> {
     
     private(set) var location: RecommendedLocation
     private(set) var locationDetail: LocationDetailData
@@ -32,12 +30,12 @@ class ReviewViewModel: BaseViewModel {
     }
     
     private func fetchReviews() {
-        NetworkService.shared.fetchReviews(location.contentId) {[weak self] result in
+        NetworkManager.shared.fetchReviews(location.contentId) {[weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let reviews):
                 self.reviews = reviews
-                self.notifySubject.send(.reload)
+                self.sendNotification(.reload)
             case .failure(let error):
                 print(error)
             }
@@ -46,13 +44,13 @@ class ReviewViewModel: BaseViewModel {
     
     public func didTapReport(at index: Int) {
         let idx = "\(reviews[index].reviewIdx ?? 0)"
-        NetworkService.shared.postReport(idx) { result in
+        NetworkManager.shared.postReport(idx) { result in
             switch result {
-            case .success(let response):
-                self.notifySubject.send(.message("성공적으로 신고했습니다."))
+            case .success(let _):
+                self.sendNotification(.message("성공적으로 신고했습니다"))
                 
             case .failure(let error):
-                self.notifySubject.send(.message(error.localizedDescription))
+                self.sendNotification(.message(error.localizedDescription))
             }
         }
     }
@@ -60,12 +58,12 @@ class ReviewViewModel: BaseViewModel {
     public func didTapLike(at index: Int) {
         reviews[index].numLiked = self.reviews[index].numLiked + 1
         let idx = "\(reviews[index].reviewIdx ?? 0)"
-        NetworkService.shared.patchLike(idx)
+        NetworkManager.shared.patchLike(idx)
     }
     
     public func didTapUnLike(at index: Int) {
         reviews[index].numLiked = self.reviews[index].numLiked - 1
         let idx = "\(reviews[index].reviewIdx ?? 0)"
-        NetworkService.shared.patchLike(idx)
+        NetworkManager.shared.patchLike(idx)
     }
 }

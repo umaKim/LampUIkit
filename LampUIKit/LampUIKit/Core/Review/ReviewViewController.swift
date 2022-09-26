@@ -5,34 +5,17 @@
 //  Created by 김윤석 on 2022/07/24.
 //
 
+import Combine
 import UIKit
 
-class ReviewViewController: BaseViewContronller {
+class ReviewViewController: BaseViewController<ReviewView, ReviewViewModel> {
     private typealias DataSource = UICollectionViewDiffableDataSource<Section, ReviewData>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, ReviewData>
     
     enum Section { case main }
     
-    private let contentView = ReviewView()
-
     private var dataSource: DataSource?
 
-    init(vm: ReviewViewModel) {
-        self.viewModel = vm
-        super.init()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private let viewModel: ReviewViewModel
-    
-    override func loadView() {
-        super.loadView()
-        view = contentView
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -110,17 +93,19 @@ class ReviewViewController: BaseViewContronller {
     }
 }
 
+//MARK: - UICollectionViewDelegate
 extension ReviewViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         HapticManager.shared.feedBack(with: .rigid)
         let model = viewModel.reviews[indexPath.item]
         let vm = ReviewDetailViewModel(.init(photoUrlArray: model.photoUrlArray ?? [],
                                              content: model.content ?? ""))
-        let vc = ReviewDetailViewController(vm: vm)
+        let vc = ReviewDetailViewController(ReviewDetailView(), vm)
         navigationController?.pushViewController(vc, animated: true)
     }
 }
 
+//MARK: - UICollectionViewDelegateFlowLayout
 extension ReviewViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         let indexPath = IndexPath(row: 0, section: section)
@@ -149,6 +134,7 @@ extension ReviewViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+//MARK: - ReviewViewCollectionViewCellDelegate
 extension ReviewViewController: ReviewViewCollectionViewCellDelegate {
     func ReviewViewCollectionViewCellDidTapUnlikeButton(_ index: Int) {
         viewModel.didTapLike(at: index)

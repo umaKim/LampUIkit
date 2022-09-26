@@ -8,10 +8,11 @@
 import Combine
 import UIKit
 
-enum EvaluationViewAction {
+enum EvaluationViewAction: Actionable {
     case updateElement(Int)
 }
 
+final class EvaluationView: BaseView<EvaluationViewAction> {
     private let titleLabel: UILabel = {
         let lb = UILabel()
         lb.text = "만족도"
@@ -90,7 +91,7 @@ extension EvaluationView: UICollectionViewDelegate {
         elements[indexPath.item].isSelected.toggle()
         HapticManager.shared.feedBack(with: .heavy)
         if elements[indexPath.item].isSelected {
-            actionSubject.send(.updateElement(indexPath.item))
+            self.sendAction(.updateElement(indexPath.item))
             collectionView.reloadData()
         }
     }
