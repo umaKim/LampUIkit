@@ -8,44 +8,37 @@
 import Combine
 import Foundation
 
-enum CreateNickNameViewModelNotify {
+enum CreateNickNameViewModelNotification: Notifiable {
     case moveToMain
     case errorMessage(String)
     case setInitialSetting(Bool)
     case isEnableConfirmButton(Bool)
 }
 
-class CreateNickNameViewModel: BaseViewModel {
-    private(set) lazy var notifyPublisher = notifySubject.eraseToAnyPublisher()
-    private let notifySubject = PassthroughSubject<CreateNickNameViewModelNotify, Never>()
+class CreateNickNameViewModel: BaseViewModel<CreateNickNameViewModelNotification> {
     
     private var nickName: String = ""
     
-    override init() {
-        super.init()
-        
-    }
-    
     public func createAccount() {
-        NetworkService.shared.postNickName(nickName) {[weak self] result in
+        NetworkManager.shared.postNickName(nickName) {[weak self] result in
             guard let self = self else {return}
             switch result {
             case .success(let response):
                 if response.isSuccess ?? false {
-                    self.notifySubject.send(.setInitialSetting(true))
-                    self.notifySubject.send(.moveToMain)
+                    self.sendNotification(.setInitialSetting(true))
+                    self.sendNotification(.moveToMain)
                 } else {
-                    self.notifySubject.send(.errorMessage(response.message ?? ""))
+                    self.sendNotification(.errorMessage(response.message ?? ""))
                 }
                 
             case .failure(let error):
-                self.notifySubject.send(.errorMessage(error.localizedDescription))
+                self.sendNotification(.errorMessage(error.localizedDescription))
             }
         }
     }
     
     public func textDidChange(to text: String) {
         self.nickName = text
-        self.notifySubject.send(.isEnableConfirmButton(!nickName.isEmpty))
+        self.sendNotification(.isEnableConfirmButton(!nickName.isEmpty))
     }
 }
