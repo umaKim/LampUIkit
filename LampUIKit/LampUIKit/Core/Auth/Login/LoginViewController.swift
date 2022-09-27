@@ -189,7 +189,6 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                 // User is signed in to Firebase with Apple.
                 // ...
                 ///Main 화면으로 보내기
-                
                 guard let uid = authResult?.user.uid else {return }
                 NetworkManager.shared.setUserAuthType(.firebase)
                 self.checkIfUserAlreadyExist(with: uid)
@@ -246,7 +245,6 @@ extension LoginViewController {
 //MARK: - KAKAO
 extension LoginViewController {
     func startKakaoLogin() {
-        // ✅ 카카오톡 설치 여부 확인
         if (UserApi.isKakaoTalkLoginAvailable()) {
             UserApi.shared.loginWithKakaoTalk {[weak self] (oauthToken, error) in
                 guard let self = self else {return}
@@ -272,10 +270,7 @@ extension LoginViewController {
         }
     }
     
-    // ✅ 사용자 정보를 성공적으로 가져오면 화면전환 한다.
     private func getUserInfo() {
-        
-        // ✅ 사용자 정보 가져오기
         UserApi.shared.me() {[weak self] (user, error) in
             guard let self = self else {return}
             if let error = error {

@@ -21,19 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         window = UIWindow(windowScene: windowScene)
-//        window?.rootViewController = LoginViewController(vm: LoginViewModel())
-        window?.rootViewController =
-//        InitialQuizViewController(vm: InitialQuizViewModel())
-//        InitialSetPageViewController(vm: InitialSetPageViewModel())
-        StartPageViewController(StartPageView(), StartPageViewModel())
-//        LoginViewController(vm: LoginViewModel())
-//            MainViewController(MainViewModel())
-//        UINavigationController(rootViewController: LampSpotViewController(vm: LampSpotViewModel()))
-//        CreateNickNameViewController(CreateNickNameViewModel())
-        
-//        UINavigationController(rootViewController: LocationDetailViewController(vm: LocationDetailViewModel("")))
-//        UINavigationController(rootViewController: WriteReviewViewController(WriteReviewViewModel()))
-//        UINavigationController(rootViewController: SearchViewController(vm: SearchViewModel()))
+        window?.rootViewController = StartPageViewController(StartPageView(), StartPageViewModel())
         window?.backgroundColor = .black
         window?.backgroundColor = .greyshWhite
         window?.makeKeyAndVisible()
@@ -68,25 +56,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let isInitialSettingDone = isInitialSettingDone else { return }
         
         if !isInitialSettingDone {
-            //TODO: - signout everything
-            
             UserApi.shared.logout {(error) in
                 if let error = error {
                     print(error)
-                }
-                else {
-                    print("Kakao logout() success.")
                 }
             }
             
             do {
                try Auth.auth().signOut()
-                print("Firebase sigout")
             } catch {
                 print(error)
             }
-            
-            print("logout() success.")
         }
     }
     
@@ -100,15 +80,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillResignActive(_ scene: UIScene) {
         // Called when the scene will move from an active state to an inactive state.
         // This may occur due to temporary interruptions (ex. an incoming phone call).
-        
-        print("sceneWillResignActive")
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
-        
-        print("sceneWillEnterForeground")
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
@@ -117,8 +93,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
 
         // Save changes in the application's managed object context when the application transitions to the background.
-        
-        print("sceneDidEnterBackground")
         
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
