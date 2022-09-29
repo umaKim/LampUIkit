@@ -9,13 +9,7 @@ import CombineCocoa
 import UIKit
 
 enum SearchViewAction: Actionable {
-    case all
-    case recommend
-    case travel
-    case notVisit
-    
     case dismiss
-    
     case searchTextDidChange(String)
     case searchDidBeginEditing
     case didTapSearchButton

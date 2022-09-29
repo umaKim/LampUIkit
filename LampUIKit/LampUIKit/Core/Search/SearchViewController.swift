@@ -39,7 +39,7 @@ class SearchViewController: BaseViewController<SearchView, SearchViewModel> {
         contentView.collectionView.delegate = self
         
         bind()
-        configureCollectionView()   
+        configureCollectionView()
     }
     
     private func bind() {
@@ -48,22 +48,6 @@ class SearchViewController: BaseViewController<SearchView, SearchViewModel> {
             .sink {[weak self] action in
                 guard let self = self else {return}
                 switch action {
-                case .all:
-                    //Relod
-                    break
-                    
-                case .recommend:
-                    //Relod
-                    break
-                    
-                case .travel:
-                    //Relod
-                    break
-                    
-                case .notVisit:
-                    //Reload
-                    break
-                    
                 case .dismiss:
                     HapticManager.shared.feedBack(with: .heavy)
                     self.delegate?.searchViewControllerDidTapDismiss()
