@@ -11,8 +11,6 @@ extension String {
     var htmlToAttributedString: NSAttributedString? {
         guard let data = data(using: .utf8) else { return nil }
         do {
-            let font = UIFont.systemFont(ofSize: 72)
-            let attributes = [NSAttributedString.Key.font: font]
             let string = try NSAttributedString(data: data,
                                                 options: [
                                                   .documentType:
