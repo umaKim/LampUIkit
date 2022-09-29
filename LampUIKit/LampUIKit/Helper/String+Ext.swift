@@ -38,6 +38,13 @@ extension String {
     var htmlToString: String {
         return htmlToAttributedString?.string ?? ""
     }
+    
+    func colored(with color: UIColor) -> NSMutableAttributedString? {
+        let attribtuedString = NSMutableAttributedString(string: self)
+        let range = (self as NSString).range(of: self)
+        attribtuedString.addAttribute(.foregroundColor, value: color, range: range)
+        return attribtuedString
+    }
 }
 
 extension String {
