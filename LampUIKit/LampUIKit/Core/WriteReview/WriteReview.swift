@@ -255,7 +255,7 @@ extension WriteReviewView {
                 guard let self = self else {return}
                 switch action {
                 case .updateElement(let model):
-                    self.sendAction(.updateSurroundingModel(model))
+                    self.sendAction(.updateSatisfactionModel(model))
                 }
             }
             .store(in: &cancellables)
@@ -266,7 +266,7 @@ extension WriteReviewView {
                 guard let self = self else {return}
                 switch action {
                 case .updateElement(let model):
-                    self.sendAction(.updateSurroundingModel(model))
+                    self.sendAction(.updateAtmosphereModel(model))
                 }
             }
             .store(in: &cancellables)
