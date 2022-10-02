@@ -37,6 +37,8 @@ final class LocationDetailViewController: BaseViewController<LocationDetailView,
         let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.black]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
         navigationController?.setNavigationBarHidden(false, animated: false)
+        
+        navigationController?.navigationBar.barTintColor = .greyshWhite
     }
     
     override func viewDidAppear(_ animated: Bool) {
