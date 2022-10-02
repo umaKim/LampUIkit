@@ -48,18 +48,7 @@ class ReviewDetailImageCollectionViewCell: UICollectionViewCell {
 }
 
 class ReviewDetailView: BaseWhiteView {
-    
-    private(set) var collectionView: UICollectionView = {
-        let cl = UICollectionViewFlowLayout()
-        cl.scrollDirection = .horizontal
-        
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: cl)
-        cv.register(ReviewDetailImageCollectionViewCell.self,
-                    forCellWithReuseIdentifier: ReviewDetailImageCollectionViewCell.identifier)
-        cv.isPagingEnabled = true
-        cv.showsHorizontalScrollIndicator = false
-        return cv
-    }()
+    private(set) var collectionView = ImageViewCollectionView()
     
     private let commentLabel: UILabel = {
        let lb = UILabel()
@@ -80,6 +69,7 @@ class ReviewDetailView: BaseWhiteView {
     }
     
     public func configure(with data: ReviewDetailData ) {
+        collectionView.setupPhotoUrls(data.photoUrlArray)
         commentLabel.text = data.content
     }
     
@@ -90,6 +80,8 @@ class ReviewDetailView: BaseWhiteView {
         labelSv.axis = .horizontal
         labelSv.distribution = .fill
         labelSv.alignment = .top
+        
+        collectionView.backgroundColor = .black
         
         [collectionView, labelSv].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
