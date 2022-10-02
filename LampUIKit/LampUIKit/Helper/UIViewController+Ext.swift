@@ -95,3 +95,33 @@ extension UIViewController {
         }
     }
 }
+
+fileprivate var emptyStateView: GFEmptyStateView?
+
+extension UIView {
+    func showEmptyStateView(with message: String, in view: UIView) {
+        emptyStateView = GFEmptyStateView(message: message)
+        
+        guard let emptyStateView = emptyStateView else {return}
+        view.addSubview(emptyStateView)
+        emptyStateView.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            emptyStateView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            emptyStateView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+
+    func restoreViews() {
+        emptyStateView?.removeFromSuperview()
+        emptyStateView = nil
+    }
+    
+    func showEmptyStateView(on view: UIView, when isState: Bool, with message: String) {
+        if isState {
+            self.showEmptyStateView(with: message, in: view)
+        } else {
+            self.restoreViews()
+        }
+    }
+}
