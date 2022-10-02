@@ -126,6 +126,7 @@ extension RecommendedLocationViewController {
     }
 }
 
+//MARK: - LocationDetailViewControllerDelegate
 extension RecommendedLocationViewController: LocationDetailViewControllerDelegate {
     func locationDetailViewControllerDidTapNavigate(_ location: RecommendedLocation) {
         self.delegate?.recommendedLocationViewControllerDidTapNavigation(location: location)
@@ -144,6 +145,7 @@ extension RecommendedLocationViewController: LocationDetailViewControllerDelegat
     }
 }
 
+//MARK: - SearchViewControllerDelegate
 extension RecommendedLocationViewController: SearchViewControllerDelegate {
     func searchViewControllerDidTapNavigation(at location: RecommendedLocation) {
         self.delegate?.recommendedLocationViewControllerDidTapNavigation(location: location)
@@ -162,12 +164,14 @@ extension RecommendedLocationViewController: SearchViewControllerDelegate {
     }
 }
 
+//MARK: - MyCharacterViewControllerDelegate
 extension RecommendedLocationViewController: MyCharacterViewControllerDelegate {
     func myCharacterViewControllerDidTapDismiss() {
         self.navigationController?.popViewController(animated: true)
     }
 }
 
+//MARK: - MyTravelViewControllerDelegate
 extension RecommendedLocationViewController: MyTravelViewControllerDelegate {
     func myTravelViewControllerDidTapNavigation(_ location: RecommendedLocation) {
         delegate?.recommendedLocationViewControllerDidTapNavigation(location: location)
