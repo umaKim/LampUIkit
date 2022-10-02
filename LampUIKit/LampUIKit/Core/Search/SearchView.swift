@@ -17,15 +17,12 @@ enum SearchViewAction: Actionable {
 
 class SearchView: BaseView<SearchViewAction> {
     
-    private(set) lazy var acationPublisher = actionSubject.eraseToAnyPublisher()
-    private let actionSubject = PassthroughSubject<SearchViewAction, Never>()
-    
     private(set) var dismissButton: UIBarButtonItem = {
         let bt = UIBarButtonItem(image: .back, style: .done, target: nil, action: nil)
         return bt
     }()
     
-    private let categoryButtons = CategoryButtonView()
+    private(set) lazy var searchController = UISearchController(searchResultsController: nil)
     
     private(set) var collectionView: UICollectionView = {
         let cl = UICollectionViewFlowLayout()
@@ -38,33 +35,28 @@ class SearchView: BaseView<SearchViewAction> {
         return cv
     }()
     
-    private(set) lazy var searchController = UISearchController(searchResultsController: nil)
+    override init() {
+        super.init()
+        
+        setupSearchController()
+        bind()
+        setupUI()
+    }
     
-    func setupSearchController() {
+    private func setupSearchController() {
         searchController.searchBar.placeholder = "검색"
         searchController.hidesNavigationBarDuringPresentation = false
     }
     
-    override init() {
-        super.init()
-        bind()
-        setupUI()
-        
-        setupSearchController()
-    }
-    
-    func reload() {
-        collectionView.reloadData()
-    }
-    
     private func bind() {
         let searchBar = searchController.searchBar
+        searchBar.showsCancelButton = false
         
         searchBar
             .textDidChangePublisher
             .sink {[weak self] text in
                 guard let self = self else {return}
-                self.actionSubject.send(.searchTextDidChange(text))
+                self.sendAction(.searchTextDidChange(text))
             }
             .store(in: &cancellables)
         
@@ -73,7 +65,7 @@ class SearchView: BaseView<SearchViewAction> {
             .didBeginEditingPublisher
             .sink {[weak self] _ in
                 guard let self = self else {return}
-                self.actionSubject.send(.searchDidBeginEditing)
+                self.sendAction(.searchDidBeginEditing)
             }
             .store(in: &cancellables)
         
@@ -81,7 +73,7 @@ class SearchView: BaseView<SearchViewAction> {
             .searchButtonClickedPublisher
             .sink { [weak self] _ in
                 guard let self = self else {return}
-                self.actionSubject.send(.didTapSearchButton)
+                self.sendAction(.didTapSearchButton)
             }
             .store(in: &cancellables)
         
@@ -89,24 +81,7 @@ class SearchView: BaseView<SearchViewAction> {
             .tapPublisher
             .sink {[weak self] _ in
                 guard let self = self else {return}
-                self.actionSubject.send(.dismiss)
-            }
-            .store(in: &cancellables)
-        
-        categoryButtons
-            .actionPublisher
-            .sink {[weak self] action in
-                guard let self = self else {return}
-                switch action {
-                case .all:
-                    self.actionSubject.send(.all)
-                case .recommend:
-                    self.actionSubject.send(.recommend)
-                case .travel:
-                    self.actionSubject.send(.travel)
-                case .notVisit:
-                    self.actionSubject.send(.notVisit)
-                }
+                self.sendAction(.dismiss)
             }
             .store(in: &cancellables)
     }

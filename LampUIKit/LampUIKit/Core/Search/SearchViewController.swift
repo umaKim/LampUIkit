@@ -44,7 +44,7 @@ class SearchViewController: BaseViewController<SearchView, SearchViewModel> {
     
     private func bind() {
         contentView
-            .acationPublisher
+            .actionPublisher
             .sink {[weak self] action in
                 guard let self = self else {return}
                 switch action {
@@ -85,34 +85,9 @@ class SearchViewController: BaseViewController<SearchView, SearchViewModel> {
             }
             .store(in: &cancellables)
     }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let position = scrollView.contentOffset.y
-        if position > (contentView.collectionView.contentSize.height - 100 - scrollView.frame.size.height) {
-            self.viewModel.fetchSearchKeywordData()
-        }
-    }
 }
 
-extension SearchViewController: SearchRecommendationCollectionViewCellDelegate {
-    func didTapFavoriteButton(at index: Int, _ location: RecommendedLocation) {
-        viewModel.save(index)
-    }
-    
-    func didTapSetThisLocationButton(at index: Int, _ location: RecommendedLocation) {
-        viewModel.postAddToMyTrip(at: index, location)
-    }
-    
-    func didTapMapPin(location: RecommendedLocation) {
-        contentView.searchController.searchBar.endEditing(true)
-        delegate?.searchViewControllerDidTapMapPin(at: location)
-    }
-    
-    func didTapCancelThisLocationButton(at index: Int, _ location: RecommendedLocation) {
-        viewModel.postAddToMyTrip(at: index, location)
-    }
-}
-
+//MARK: - CollectionView
 extension SearchViewController {
     private func updateSections() {
         var snapshot = Snapshot()
@@ -138,6 +113,28 @@ extension SearchViewController {
     }
 }
 
+
+//MARK: - SearchRecommendationCollectionViewCellDelegate
+extension SearchViewController: SearchRecommendationCollectionViewCellDelegate {
+    func didTapFavoriteButton(at index: Int, _ location: RecommendedLocation) {
+        viewModel.save(index)
+    }
+    
+    func didTapSetThisLocationButton(at index: Int, _ location: RecommendedLocation) {
+        viewModel.postAddToMyTrip(at: index, location)
+    }
+    
+    func didTapMapPin(location: RecommendedLocation) {
+        contentView.searchController.searchBar.endEditing(true)
+        delegate?.searchViewControllerDidTapMapPin(at: location)
+    }
+    
+    func didTapCancelThisLocationButton(at index: Int, _ location: RecommendedLocation) {
+        viewModel.postAddToMyTrip(at: index, location)
+    }
+}
+
+//MARK: - LocationDetailViewControllerDelegate
 extension SearchViewController: LocationDetailViewControllerDelegate {
     func locationDetailViewControllerDidTapNavigate(_ location: RecommendedLocation) {
         self.delegate?.searchViewControllerDidTapNavigation(at: location)
@@ -156,6 +153,7 @@ extension SearchViewController: LocationDetailViewControllerDelegate {
     }
 }
 
+//MARK: - UICollectionViewDelegate
 extension SearchViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         HapticManager.shared.feedBack(with: .heavy)
@@ -166,6 +164,7 @@ extension SearchViewController: UICollectionViewDelegate {
     }
 }
 
+//MARK: - UICollectionViewDelegateFlowLayout
 extension SearchViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         .init(width: UIScreen.main.bounds.width - 32, height: 145)

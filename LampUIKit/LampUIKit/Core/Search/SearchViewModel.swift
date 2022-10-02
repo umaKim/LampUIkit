@@ -69,18 +69,13 @@ class SearchViewModel: BaseViewModel<SearchViewModelNotification> {
                 self.isFetching = false
                 switch result {
                 case .success(let locationResponse):
-                    if locationResponse.result.isEmpty {
-                        self.isPagenationDone = true
-                    } else {
-                        self.increasePageNumber()
-                    }
+                    self.isPagenationDone = true
                     self.locations.append(contentsOf: locationResponse.result)
                     self.sendNotification(.reload)
                     
                 case .failure(let error):
                     print(error)
                 }
-               
             }
         }
     }
