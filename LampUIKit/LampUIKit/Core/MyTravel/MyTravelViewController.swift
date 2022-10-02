@@ -130,7 +130,6 @@ extension MyTravelViewController: UICollectionViewDataSource {
             guard
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyTravelCell.identifier, for: indexPath) as? MyTravelCell
             else { return UICollectionViewCell() }
-            cell.configure()
             cell.delegate = self
             return cell
             
@@ -138,7 +137,6 @@ extension MyTravelViewController: UICollectionViewDataSource {
             guard
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FavoriteCell.identifier, for: indexPath) as? FavoriteCell
             else { return UICollectionViewCell() }
-            cell.configure()
             cell.delegate = self
             return cell
             
@@ -146,7 +144,6 @@ extension MyTravelViewController: UICollectionViewDataSource {
             guard
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CompletedTravelCell.identifier, for: indexPath) as? CompletedTravelCell
             else { return UICollectionViewCell() }
-            cell.configure()
             cell.delegate = self
             return cell
         }
