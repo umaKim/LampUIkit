@@ -2,7 +2,7 @@
   Localizable.strings
   LampUIKit
 
-  Created by 김윤석 on 2022/09/06.
+  Created by 김윤석 on 2022/10/03.
   
 */
 
@@ -333,3 +333,33 @@
 "completeTrip" = "completeTripEn";
 
 "removeTrip" = "removeTripEn";
+
+"이 지역에서는 발견된 여행 장소들이 없내요. 새로운 지역에서 새로고침을 해주세요." = "There are no places to travel for this location. Please refresh on different location.";
+
+"가고 싶은 장소에 나의 여행지 설정 버튼을 눌러 목적지를 추가하세요!" = "Add your destination to the place you want to go by pressing the ‘Set My Destination?’ button!";
+
+"여행지 사진에 있는 별을 눌러 장소를 찜해볼까요?" = "Please press the star button to add place to wish list.";
+
+"여행지에 도착한 후 완료 버튼을 눌러 내 여행을 기록하세요!" = "Press the Complete button to record your trip when you arrive at your destination!";
+
+"이런! 아직 여행 후기가 없어요. 리뷰를 작성하고 마일리지를 모아보세요!" = "Opps! There is no review that you wrote. Write a review and get your mileages!";
+
+"검색된 장소가 없네요" = "No place was searched";
+
+"filterHistory" = "filterHistoryEn";
+
+"filterCulture" = "filterCultureEn";
+
+"filterCusine" = "filterCusineEn";
+
+"filterSports" = "filterSportsEn";
+
+"filterForest" = "filterForestEn";
+
+"언어선택" = "Language selection";
+
+"한국어" = "Korean";
+
+"영어" = "English";
+
+"일본어" = "Japanese";
