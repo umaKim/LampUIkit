@@ -19,15 +19,12 @@ final class LocationDetailViewModel: BaseViewModel<LocationDetailViewModelNotifi
     private(set) var locationDetail: LocationDetailData?
     private(set) var location: RecommendedLocation?
    
-    override init() {
         super.init()
     }
     
     convenience init(_ location: RecommendedLocation) {
         self.init()
         self.location = location
-        
-        print(location)
     }
     
     convenience init(
