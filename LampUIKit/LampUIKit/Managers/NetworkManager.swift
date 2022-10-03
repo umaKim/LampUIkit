@@ -158,6 +158,20 @@ final class NetworkManager: Networkable {
             }
     }
     
+    public func fetchCategoryPlaces(
+        _ location: Location,
+        _ category: CategoryType,
+        completion: @escaping (Result<RecommendedLocationResponse, AFError>) -> Void
+    ) {
+        let requestUrl = baseUrl +  "/app/main/category?pageSize=5&pageNumber=1&mapX=\(location.long)&mapY=\(location.lat)&token=\(token)&category=\(category.rawValue)&serviceLanguage=\(language.languageType.rawValue)"
+        print(requestUrl)
+        AF.request(requestUrl, method: .patch, encoding: JSONEncoding.default)
+            .validate()
+            .responseDecodable(of: RecommendedLocationResponse.self) {response in
+                completion(response.result)
+            }
+    }
+    
     public func fetchRecommendationFromAllOver(completion: @escaping (Result<RecommendedLocationResponse, AFError>) -> Void) {
         let requestUrl = baseUrl + "/app/main/totalPlaceInfo?serviceLanguage=\(language.languageType.rawValue)&pageSize=20&pageNumber=1&token=\(token)"
         
