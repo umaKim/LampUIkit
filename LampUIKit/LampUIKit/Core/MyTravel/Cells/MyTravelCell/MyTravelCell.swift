@@ -56,7 +56,11 @@ final class MyTravelCell: UICollectionViewCell {
     private var models: [MyTravelLocation] = []
     private var showDeleteButton: Bool = false
     
-    public func configure() {
+    private var viewModel: MyTravelCellViewModel?
+    
+    public func configure(_ vm: MyTravelCellViewModel) {
+        self.viewModel = vm
+        
         updateSections()
     }
     
@@ -246,5 +250,25 @@ extension MyTravelCell {
             collectionView.topAnchor.constraint(equalTo: topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+    }
+}
+
+enum MyTravelCellViewModelNotifiction: Notifiable {
+    
+}
+
+class MyTravelCellViewModel: BaseViewModel<MyTravelCellViewModelNotifiction> {
+    
+    private let network: Networkable
+    
+    init(
+        _ network: Networkable = NetworkManager.shared
+    ) {
+        self.network = network
+        super.init()
+    }
+    
+    public func fetch() {
+        
     }
 }
