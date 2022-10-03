@@ -48,7 +48,6 @@ extension String {
 
 extension String {
     var localized: String {
-        
         let selectedLanguage = LanguageManager.shared.localizeLang
         let path = Bundle.main.path(forResource: selectedLanguage, ofType: "lproj")
         let bundle = Bundle(path: path!)
