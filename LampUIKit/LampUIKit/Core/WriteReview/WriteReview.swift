@@ -22,12 +22,6 @@ enum WriteReviewViewAction: Actionable {
     case complete
 }
 
-class WriteReviewView: BaseView<WriteReviewViewAction>, ImageCollectionViewCellDelegate {
-    func imageCollectionViewCellDidTapDelete(_ index: Int) {
-        sendAction(.removeImage(index))
-        photos.remove(at: index)
-        updateSections()
-    }
     
     private typealias DataSource = UICollectionViewDiffableDataSource<Section, UIImage>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, UIImage>
@@ -213,6 +207,15 @@ class WriteReviewView: BaseView<WriteReviewViewAction>, ImageCollectionViewCellD
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+//MARK: - ImageCollectionViewCellDelegate
+extension WriteReviewView: ImageCollectionViewCellDelegate {
+    func imageCollectionViewCellDidTapDelete(_ index: Int) {
+        sendAction(.removeImage(index))
+        photos.remove(at: index)
+        updateSections()
     }
 }
 
