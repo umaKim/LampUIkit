@@ -11,6 +11,23 @@ class ReviewDetailViewController: BaseViewController<ReviewDetailView, ReviewDet
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationItem.leftBarButtonItems = [contentView.backButton]
+        
+        bind()
         contentView.configure(with: viewModel.data)
+    }
+    
+    private func bind() {
+        contentView
+            .actionPublisher
+            .sink {[weak self] action in
+                guard let self = self else {return }
+                switch action {
+                case .back:
+                    self.navigationController?.popViewController(animated: true)
+                }
+            }
+            .store(in: &cancellables)
     }
 }

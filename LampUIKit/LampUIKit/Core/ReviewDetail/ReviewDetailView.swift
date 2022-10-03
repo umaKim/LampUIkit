@@ -7,9 +7,13 @@
 import SDWebImage
 import UIKit
 
+enum ReviewDetailViewAction: Actionable {
+    case back
 }
 
-class ReviewDetailView: BaseWhiteView {
+class ReviewDetailView: BaseView<ReviewDetailViewAction> {
+    private(set) lazy var backButton = UIBarButtonItem(image: .back, style: .done, target: nil, action: nil)
+    
     private(set) var collectionView = ImageViewCollectionView()
     
     private let commentLabel: UILabel = {
@@ -23,6 +27,7 @@ class ReviewDetailView: BaseWhiteView {
     override init() {
         super.init()
         
+        bind()
         setupUI()
     }
     
@@ -33,6 +38,16 @@ class ReviewDetailView: BaseWhiteView {
     public func configure(with data: ReviewDetailData ) {
         collectionView.setupPhotoUrls(data.photoUrlArray)
         commentLabel.text = data.content
+    }
+    
+    private func bind() {
+        backButton
+            .tapPublisher
+            .sink {[weak self] _ in
+                guard let self = self else {return }
+                self.sendAction(.back)
+            }
+            .store(in: &cancellables)
     }
     
     private func setupUI() {
