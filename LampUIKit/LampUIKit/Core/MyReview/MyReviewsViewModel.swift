@@ -14,8 +14,12 @@ enum MyReviewsViewmodelNotification: Notifiable {
 class MyReviewsViewModel: BaseViewModel<MyReviewsViewmodelNotification> {
     
     private(set) lazy var datum: [UserReviewData] = []
+    private let network: Networkable
     
-    override init() {
+    init(
+        _ network: Networkable = NetworkManager.shared
+    ) {
+        self.network = network
         super.init()
         
         NetworkManager.shared.fetchMyReviews {[weak self] result in

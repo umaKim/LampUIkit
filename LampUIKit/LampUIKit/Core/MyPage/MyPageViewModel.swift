@@ -20,8 +20,12 @@ class MyPageViewModel: BaseViewModel<MyPageViewModelNotification> {
     private(set) var myInfo: MyInfo?
     
     private(set) var models: [String] = ["나의 여행 후기", "언어선택", "로그아웃", "회원탈퇴"]
+    private let network: Networkable
     
-    override init() {
+    init(
+        _ network: Networkable = NetworkManager.shared
+    ) {
+        self.network = network
         super.init()
         fetchUserInfo()
     }

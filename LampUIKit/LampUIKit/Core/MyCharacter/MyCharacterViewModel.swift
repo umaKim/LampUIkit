@@ -22,8 +22,12 @@ class MyCharacterViewModel: BaseViewModel<MyCharacterViewModelNotification> {
     ]
     
     private(set) var characterData: CharacterData?
+    private let network: Networkable
     
-    override init() {
+    init(
+        _ network: Networkable = NetworkManager.shared
+    ) {
+        self.network = network
         super.init()
         
         NetworkManager.shared.fetchCharacterInfo {[weak self] result in

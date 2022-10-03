@@ -17,13 +17,16 @@ class ReviewViewModel: BaseViewModel<ReviewViewModelNotification> {
     private(set) var location: RecommendedLocation
     private(set) var locationDetail: LocationDetailData
     private(set) var reviews: [ReviewData] = []
+    private let network: Networkable
     
     init(
         _ location: RecommendedLocation,
-        _ locationDetail: LocationDetailData
+        _ locationDetail: LocationDetailData,
+        _ network: Networkable = NetworkManager.shared
     ) {
         self.location = location
         self.locationDetail = locationDetail
+        self.network = network
         super.init()
         
         fetchReviews()

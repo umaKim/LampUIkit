@@ -21,7 +21,9 @@ final class LocationDetailViewModel: BaseViewModel<LocationDetailViewModelNotifi
    
     private let networkService: Networkable
     
-    init(_ networkService: Networkable = NetworkManager.shared) {
+    init(
+        _ networkService: Networkable = NetworkManager.shared
+    ) {
         self.networkService = networkService
         super.init()
     }
