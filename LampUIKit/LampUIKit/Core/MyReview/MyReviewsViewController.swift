@@ -73,6 +73,10 @@ class MyReviewsViewController: BaseViewController<MyReviewsView, MyReviewsViewMo
             return cell
         })
     }
+    
+    deinit {
+        self.view.restoreViews()
+    }
 }
 
 extension MyReviewsViewController: MyReviewCollectionViewCellDelegate {
