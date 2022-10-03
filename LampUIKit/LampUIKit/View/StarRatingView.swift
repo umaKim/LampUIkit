@@ -9,7 +9,7 @@ import AxisRatingBar
 import SwiftUI
 
 class ContentViewDelegate: ObservableObject {
-    @Published var starValue: CGFloat = 2.5
+    @Published var starValue: CGFloat = 0
 }
 
 struct CustomRatingBar: View {

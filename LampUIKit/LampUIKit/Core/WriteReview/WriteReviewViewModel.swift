@@ -20,7 +20,7 @@ enum WriteReviewViewModelNotification: Notifiable {
 
 class WriteReviewViewModel: BaseViewModel<WriteReviewViewModelNotification> {
     
-    private var starRating: CGFloat = 2.5
+    private var starRating: CGFloat = 0
     private var comfortRating: Int?
     private var atmosphereRating: Int?
     private var surroundingRating: Int?
