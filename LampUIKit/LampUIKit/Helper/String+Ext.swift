@@ -31,6 +31,7 @@ extension String {
     
     var lightNavyColored: NSAttributedString {
         let att = [NSAttributedString.Key.foregroundColor: UIColor.lightNavy]
+        return NSAttributedString(string: self, attributes: att)
     }
     
     var htmlToString: String {
