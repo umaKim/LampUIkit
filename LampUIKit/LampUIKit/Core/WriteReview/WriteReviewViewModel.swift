@@ -30,8 +30,14 @@ class WriteReviewViewModel: BaseViewModel<WriteReviewViewModelNotification> {
     
     private(set) var location: RecommendedLocation
     
-    init(_ location: RecommendedLocation) {
+    private let network: Networkable
+    
+    init(
+        _ location: RecommendedLocation,
+        _ network: NetworkManager = NetworkManager.shared
+    ) {
         self.location = location
+        self.network = network
         super.init()
     }
     
