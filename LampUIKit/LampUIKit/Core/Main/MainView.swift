@@ -15,6 +15,12 @@ enum MainViewAction: Actionable {
     case unvisited
     case completed
     
+    case history
+    case nature
+    case art
+    case activity
+    case food
+    
     case myLocation
     
     case zoomIn
@@ -43,6 +49,41 @@ class MainView: BaseView<MainViewAction> {
         let bt = UIButton()
         bt.setImage(UIImage(named: "completed_selected".localized), for: .normal)
         return bt
+    }()
+    
+    private lazy var historyButton: UIButton = {
+        let bt = UIButton()
+         bt.setImage(.init(named: "filterHistory".localized), for: .normal)
+         return bt
+    }()
+    
+    private lazy var cultureButton: UIButton = {
+       let bt = UIButton()
+        bt.setImage(.init(named: "filterCulture".localized), for: .normal)
+        return bt
+    }()
+    
+    private lazy var cusineButton: UIButton = {
+       let bt = UIButton()
+        bt.setImage(.init(named: "filterCusine".localized), for: .normal)
+        return bt
+    }()
+    
+    private lazy var sportsButton: UIButton = {
+       let bt = UIButton()
+        bt.setImage(.init(named: "filterSports".localized), for: .normal)
+        return bt
+    }()
+    
+    private lazy var forestButton: UIButton = {
+       let bt = UIButton()
+        bt.setImage(.init(named: "filterForest".localized), for: .normal)
+        return bt
+    }()
+    
+    lazy var buttonsView: HorizontalScrollView = {
+        let view = HorizontalScrollView()
+        return view
     }()
     
     private lazy var zoomInButton = SquareButton(UIImage(systemName: "plus")?.withTintColor(.darkNavy, renderingMode: .alwaysOriginal))
@@ -98,6 +139,36 @@ class MainView: BaseView<MainViewAction> {
             }
             .store(in: &cancellables)
         
+        historyButton.tapPublisher.sink { [weak self] _ in
+            guard let self = self else {return }
+            self.sendAction(.history)
+        }
+        .store(in: &cancellables)
+        
+        cultureButton.tapPublisher.sink {[weak self] _ in
+            guard let self = self else {return }
+            self.sendAction(.art)
+        }
+        .store(in: &cancellables)
+        
+        cusineButton.tapPublisher.sink {[weak self] _ in
+            guard let self = self else {return }
+            self.sendAction(.food)
+        }
+        .store(in: &cancellables)
+        
+        sportsButton.tapPublisher.sink {[weak self] _ in
+            guard let self = self else {return }
+            self.sendAction(.activity)
+        }
+        .store(in: &cancellables)
+        
+        forestButton.tapPublisher.sink {[weak self] _ in
+            guard let self = self else {return }
+            self.sendAction(.nature)
+        }
+        .store(in: &cancellables)
+        
         zoomInButton
             .tapPublisher
             .sink {[weak self] _ in
@@ -132,11 +203,7 @@ class MainView: BaseView<MainViewAction> {
     }
     
     private func setupUI() {
-        let filterSv = UIStackView(arrangedSubviews: [allOverButton, destinationButton, completeButton])
-        filterSv.axis = .horizontal
-        filterSv.distribution = .equalSpacing
-        filterSv.alignment = .fill
-        filterSv.spacing = 16
+        buttonsView.model = [allOverButton, destinationButton, completeButton, historyButton, cultureButton, cusineButton, sportsButton, forestButton]
         
         let zoomSv = UIStackView(arrangedSubviews: [zoomInButton, zoomOutButton])
         zoomSv.axis = .vertical
@@ -145,14 +212,16 @@ class MainView: BaseView<MainViewAction> {
         zoomSv.layer.cornerRadius = 20
         zoomSv.clipsToBounds = true
         
-        [mapView, filterSv, refreshButton, myLocationButton, zoomSv].forEach { uv in
+        [mapView, buttonsView, refreshButton, myLocationButton, zoomSv].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
             addSubview(uv)
         }
         
         NSLayoutConstraint.activate([
-            filterSv.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
-            filterSv.centerXAnchor.constraint(equalTo: centerXAnchor),
+            buttonsView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
+            buttonsView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            buttonsView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            buttonsView.heightAnchor.constraint(equalToConstant: 50),
             
             refreshButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             refreshButton.bottomAnchor.constraint(equalTo: myLocationButton.topAnchor, constant: -16),

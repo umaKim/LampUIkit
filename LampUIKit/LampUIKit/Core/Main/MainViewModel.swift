@@ -205,7 +205,24 @@ class MainViewModel: BaseViewModel<MainViewModelNotification>  {
             case .failure(let error):
                 print(error)
             }
-           
+        }
+    }
+    
+    public func fetchPlaces(for category: CategoryType) {
+        sendNotification(.startLoading)
+        let location = Location(lat: coord.latitude, long: coord.longitude)
+        network.fetchCategoryPlaces(location, category) {[weak self] result in
+            guard let self = self else {return}
+            self.sendNotification(.endLoading)
+            switch result {
+            case .success(let items):
+                self.recommendedPlaces = items.result
+                self.markerType = .recommended
+                self.sendNotification(.recommendedLocations(items.result))
+                
+            case .failure(let error):
+                print(error)
+            }
         }
     }
 }

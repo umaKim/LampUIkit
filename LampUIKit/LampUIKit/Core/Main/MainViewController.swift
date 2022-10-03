@@ -204,6 +204,21 @@ extension MainViewController {
                     
                 case .completed:
                     self.viewModel.fetchCompleted()
+                    
+                case .history:
+                    self.viewModel.fetchPlaces(for: .history)
+                
+                case .nature:
+                    self.viewModel.fetchPlaces(for: .nature)
+                    
+                case .art:
+                    self.viewModel.fetchPlaces(for: .art)
+                
+                case .activity:
+                    self.viewModel.fetchPlaces(for: .activity)
+                
+                case .food:
+                    self.viewModel.fetchPlaces(for: .food)
                 }
             }
             .store(in: &cancellables)
