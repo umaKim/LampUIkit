@@ -47,6 +47,11 @@ extension String {
 
 extension String {
     var localized: String {
-        NSLocalizedString(self, comment: "")
+        
+        let selectedLanguage = LanguageManager.shared.localizeLang
+        let path = Bundle.main.path(forResource: selectedLanguage, ofType: "lproj")
+        let bundle = Bundle(path: path!)
+        let localizedText = bundle!.localizedString(forKey: self, value: nil, table: nil)
+        return localizedText
     }
 }
