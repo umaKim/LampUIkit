@@ -13,12 +13,6 @@ enum ReviewViewAction: Actionable {
 }
 
 class ReviewView: BaseView<ReviewViewAction> {
-    private(set) lazy var backButton: UIBarButtonItem = {
-        let bt = UIBarButtonItem(image: .back, style: .done, target: nil, action: nil)
-        return bt
-    }()
-    
-    private(set) var reportButton: UIBarButtonItem = .init(image: UIImage(named: ""), style: .done, target: nil, action: nil)
     
     private(set) var collectionView: UICollectionView = {
         let cl = UICollectionViewFlowLayout()
@@ -47,10 +41,6 @@ class ReviewView: BaseView<ReviewViewAction> {
     }
     
     private func bind() {
-        backButton.tapPublisher.sink {[weak self] _ in
-            self?.sendAction(.back)
-        }
-        .store(in: &cancellables)
     }
     
     private func setupUI() {

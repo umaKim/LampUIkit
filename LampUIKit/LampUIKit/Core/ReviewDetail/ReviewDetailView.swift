@@ -7,44 +7,6 @@
 import SDWebImage
 import UIKit
 
-class ReviewDetailImageCollectionViewCell: UICollectionViewCell {
-    static let identifier = "ReviewDetailImageCollectionViewCell"
-    
-    private lazy var imageView: UIImageView = {
-       let uv = UIImageView()
-        uv.layer.cornerRadius = 6
-        uv.clipsToBounds = true
-        uv.contentMode = .scaleAspectFit
-        return uv
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        setupUI()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    public func configure(with image: String) {
-        imageView.sd_setImage(with: URL(string: image), placeholderImage: .placeholder)
-    }
-    
-    private func setupUI() {
-        [imageView].forEach { uv in
-            uv.translatesAutoresizingMaskIntoConstraints = false
-            contentView.addSubview(uv)
-        }
-        
-        NSLayoutConstraint.activate([
-            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            imageView.topAnchor.constraint(equalTo: contentView.topAnchor)
-        ])
-    }
 }
 
 class ReviewDetailView: BaseWhiteView {

@@ -106,7 +106,6 @@ final class MyTravelCell: UICollectionViewCell {
         NetworkManager.shared.postAddToMyTravel(data) {[weak self] result in
             switch result {
             case .success(let response):
-                print(response)
                 self?.models.remove(at: index)
                 self?.updateSections()
                 
@@ -233,9 +232,7 @@ extension MyTravelCell {
     }
     
     private func setupUI() {
-        configureCollectionView()
         
-        backgroundColor = .systemCyan
         showEmptyStateView(with: Message.emptyMyTravel)
         
         [collectionView].forEach { uv in

@@ -22,7 +22,6 @@ class ReviewViewController: BaseViewController<ReviewView, ReviewViewModel> {
         contentView.collectionView.delegate = self
         
         navigationItem.leftBarButtonItems = [contentView.backButton]
-        navigationItem.rightBarButtonItems = [contentView.reportButton]
         
         configureCollectionView()
         updateSections()

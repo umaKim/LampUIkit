@@ -60,7 +60,6 @@ class SearchViewModel: BaseViewModel<SearchViewModelNotification> {
     public func search(_ text: String) {
         guard !isPagenationDone else { return }
         
-        if isFetching == false {
             isFetching = true
             sendNotification(.startLoading)
             service.fetchSearchLocations(text, pageNumber: pageNumber) {[weak self] result in
