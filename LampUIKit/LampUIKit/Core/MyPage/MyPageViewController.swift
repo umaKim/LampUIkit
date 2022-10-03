@@ -19,7 +19,49 @@ class MyPageViewController: BaseViewController<MyPageView, MyPageViewModel> {
         bind()
     }
     
+    func restartApplication() {
+        let viewController = StartPageViewController(StartPageView(), StartPageViewModel())
+
+        guard
+            let window = UIApplication.shared.keyWindow,
+            let rootViewController = window.rootViewController
+
+        else {
+            return
+        }
+
+        viewController.view.frame = rootViewController.view.frame
+        viewController.view.layoutIfNeeded()
+
+        UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve, animations: {
+            window.rootViewController = viewController
+        })
+    }
+    
+    private func setLanguage(as language: String) {
+        
+        UserDefaults.standard.set([language], forKey: "AppleLanguages")
+        if UserDefaults.standard.synchronize() {
+            self.restartApplication()
+        }
+    }
+    
     private func bind() {
+        let actionR = UIAlertAction(title: "한국어".localized, style: .default) {[weak self] action in
+            LanguageManager.shared.setLanguage(.korean)
+            self?.setLanguage(as: "ko")
+        }
+        let actionG = UIAlertAction(title: "영어".localized, style: .default) {[weak self] action in
+            LanguageManager.shared.setLanguage(.enghlish)
+            self?.setLanguage(as: "en")
+        }
+        let actionB = UIAlertAction(title: "일본어".localized, style: .default) {[weak self] action in
+            LanguageManager.shared.setLanguage(.japanese)
+            self?.setLanguage(as: "ja")
+        }
+        
+        let cancelAction = UIAlertAction(title: "취소".localized, style: .cancel) { action in }
+        
         contentView
             .actionPublisher
             .sink {[weak self] action in
@@ -34,6 +76,12 @@ class MyPageViewController: BaseViewController<MyPageView, MyPageViewModel> {
                                                with: self.deleteAccountAction, self.cancelAction)
                 case .back:
                     self.navigationController?.popViewController(animated: true)
+                    
+                case .languageSelection:
+                    self.presentUmaActionAlert(
+                        title: "언어 선택".localized,
+                        with: actionR, actionG, actionB, cancelAction
+                            )
                 }
             }
             .store(in: &cancellables)
@@ -104,6 +152,8 @@ extension MyPageViewController: UITableViewDelegate {
             let vc = MyReviewsViewController(MyReviewsView(), MyReviewsViewModel())
             vc.delegate = self
             self.navigationController?.pushViewController(vc, animated: true)
+        } else if viewModel.models[indexPath.item] == "언어선택" {
+            contentView.presentLanguageSelection()
         } else if viewModel.models[indexPath.item] == "로그아웃" {
             contentView.presentLogOutActions()
         } else if viewModel.models[indexPath.item] == "회원탈퇴" {

@@ -19,7 +19,7 @@ enum MyPageViewModelNotification: Notifiable {
 class MyPageViewModel: BaseViewModel<MyPageViewModelNotification> {
     private(set) var myInfo: MyInfo?
     
-    private(set) var models: [String] = ["나의 여행 후기", "로그아웃", "회원탈퇴"]
+    private(set) var models: [String] = ["나의 여행 후기", "언어선택", "로그아웃", "회원탈퇴"]
     
     override init() {
         super.init()

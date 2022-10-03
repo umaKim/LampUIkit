@@ -11,6 +11,7 @@ import UIKit
 
 enum MyPageViewAction: Actionable {
     case back
+    case languageSelection
     case logoutActions
     case deleteAccountActions
 }
@@ -40,6 +41,10 @@ class MyPageView: BaseView<MyPageViewAction> {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    public func presentLanguageSelection() {
+        sendAction(.languageSelection)
     }
     
     public func presentLogOutActions() {
