@@ -119,7 +119,9 @@ final class CompletedTravelCell: UICollectionViewCell {
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
         snapshot.appendItems(models)
-        dataSource?.apply(snapshot, animatingDifferences: true, completion: {
+        dataSource?.apply(snapshot, animatingDifferences: true, completion: {[weak self] in
+            guard let self = self else {return }
+            self.collectionView.backgroundColor = self.models.isEmpty ? .clear : .greyshWhite
             self.collectionView.reloadData()
         })
     }
@@ -148,7 +150,7 @@ final class CompletedTravelCell: UICollectionViewCell {
     }
     
     private func setupUI() {
-        configureCollectionView()
+        showEmptyStateView(with: Message.emptyCompletedTravel)
         
         backgroundColor = .systemCyan
         

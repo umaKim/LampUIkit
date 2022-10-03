@@ -200,8 +200,10 @@ extension MyTravelCell {
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
         snapshot.appendItems(models)
-        dataSource?.apply(snapshot, animatingDifferences: true, completion: {
-                self.collectionView.reloadData()
+        dataSource?.apply(snapshot, animatingDifferences: true, completion: { [weak self] in
+            guard let self = self else {return }
+            self.collectionView.backgroundColor = self.models.isEmpty ? .clear : .greyshWhite
+            self.collectionView.reloadData()
         })
     }
     
