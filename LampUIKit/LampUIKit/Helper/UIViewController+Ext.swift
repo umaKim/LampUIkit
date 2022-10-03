@@ -96,11 +96,11 @@ extension UIViewController {
     }
 }
 
-fileprivate var emptyStateView: GFEmptyStateView?
+fileprivate var emptyStateView: EmptyStateView?
 
 extension UIView {
     func showEmptyStateView(with message: String) {
-        let emptyStateView = GFEmptyStateView(message: message)
+        let emptyStateView = EmptyStateView(message: message)
         
         addSubview(emptyStateView)
         emptyStateView.translatesAutoresizingMaskIntoConstraints = false
@@ -112,7 +112,7 @@ extension UIView {
     }
     
     func showEmptyStateView(with message: String, in view: UIView) {
-        emptyStateView = GFEmptyStateView(message: message)
+        emptyStateView = EmptyStateView(message: message)
         
         guard let emptyStateView = emptyStateView else {return}
         view.addSubview(emptyStateView)

@@ -34,6 +34,7 @@ class MyTravelView: BaseView<MyTravelViewAction> {
         cv.register(MyTravelCell.self, forCellWithReuseIdentifier: MyTravelCell.identifier)
         cv.register(FavoriteCell.self, forCellWithReuseIdentifier: FavoriteCell.identifier)
         cv.register(CompletedTravelCell.self, forCellWithReuseIdentifier: CompletedTravelCell.identifier)
+        cv.backgroundColor = .greyshWhite
         cv.isPagingEnabled = true
         cv.showsHorizontalScrollIndicator = false
         return cv
