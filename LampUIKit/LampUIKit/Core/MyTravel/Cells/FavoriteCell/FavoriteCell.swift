@@ -175,9 +175,7 @@ extension FavoriteCell {
     }
     
     private func setupUI() {
-        configureCollectionView()
         
-        backgroundColor = .systemCyan
         showEmptyStateView(with: Message.emptyFavorite)
         
         [collectionView].forEach { uv in
