@@ -178,6 +178,8 @@ extension FavoriteCell {
         
         showEmptyStateView(with: Message.emptyFavorite)
         
+        configureCollectionView()
+        
         [collectionView].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
             contentView.addSubview(uv)

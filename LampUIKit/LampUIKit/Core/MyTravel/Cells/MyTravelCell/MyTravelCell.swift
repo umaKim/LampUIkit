@@ -239,6 +239,8 @@ extension MyTravelCell {
         
         showEmptyStateView(with: Message.emptyMyTravel)
         
+        configureCollectionView()
+        
         [collectionView].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
             contentView.addSubview(uv)

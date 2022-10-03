@@ -152,6 +152,7 @@ final class CompletedTravelCell: UICollectionViewCell {
     private func setupUI() {
         showEmptyStateView(with: Message.emptyCompletedTravel)
         
+        configureCollectionView()
         
         [collectionView].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
