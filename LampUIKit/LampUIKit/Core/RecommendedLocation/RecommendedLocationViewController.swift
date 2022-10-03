@@ -98,6 +98,10 @@ class RecommendedLocationViewController: BaseViewController<RecommendedLocationV
         titleView.addSubview(label)
         navigationItem.titleView = titleView
     }
+    
+    deinit {
+        self.view.restoreViews()
+    }
 }
 
 extension RecommendedLocationViewController {
