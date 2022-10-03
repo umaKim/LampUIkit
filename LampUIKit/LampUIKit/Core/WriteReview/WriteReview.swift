@@ -22,6 +22,7 @@ enum WriteReviewViewAction: Actionable {
     case complete
 }
 
+class WriteReviewView: BaseView<WriteReviewViewAction> {
     
     private typealias DataSource = UICollectionViewDiffableDataSource<Section, UIImage>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, UIImage>
