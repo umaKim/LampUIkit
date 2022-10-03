@@ -109,25 +109,6 @@ class MainViewModel: BaseViewModel<MainViewModelNotification>  {
         zoom = zoom - 1
     }
     
-    public func fetchItems() {
-        sendNotification(.startLoading)
-        let location = Location(lat: coord.latitude, long: coord.longitude)
-        network.fetchRecommendation(location, zoom.zoomLevel, 20) {[weak self] result in
-            self?.sendNotification(.endLoading)
-            guard let self = self else {return}
-            switch result {
-            case .success(let items):
-                self.recommendedPlaces = items.result
-                self.markerType = .recommended
-                self.sendNotification(.recommendedLocations(items.result))
-                
-            case .failure(let error):
-                print(error)
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
     public func setMyZoomLevel(_ level: Float) {
         zoom = level
     }
@@ -144,6 +125,24 @@ class MainViewModel: BaseViewModel<MainViewModelNotification>  {
     
     public func setMyLocation(with latitude: Double, _ longitude: Double) {
         self.myLocation = .init(latitude: latitude, longitude: longitude)
+    }
+    
+    public func fetchItems() {
+        sendNotification(.startLoading)
+        let location = Location(lat: coord.latitude, long: coord.longitude)
+        network.fetchRecommendation(location, zoom.zoomLevel, 20) {[weak self] result in
+            self?.sendNotification(.endLoading)
+            guard let self = self else { return }
+            switch result {
+            case .success(let items):
+                self.recommendedPlaces = items.result
+                self.markerType = .recommended
+                self.sendNotification(.recommendedLocations(items.result))
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     public func fetchAllOver() {
