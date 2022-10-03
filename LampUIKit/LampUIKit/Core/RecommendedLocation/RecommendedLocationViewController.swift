@@ -105,7 +105,10 @@ extension RecommendedLocationViewController {
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
         snapshot.appendItems(viewModel.locations)
-        dataSource?.apply(snapshot, animatingDifferences: true)
+        dataSource?.apply(snapshot, animatingDifferences: true, completion: {[weak self] in
+            guard let self = self else { return }
+            self.contentView.collectionView.backgroundColor = self.viewModel.locations.isEmpty ? .clear : .greyshWhite
+        })
     }
     
     private func configureCollectionView() {

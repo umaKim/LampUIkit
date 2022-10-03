@@ -82,6 +82,7 @@ class RecommendedLocationView: BaseView<RecommendedLocationViewAction> {
     }
     
     private func setupUI() {
+        showEmptyStateView(with: Message.emptyRecommended)
         
         customNavigationbar.setRightSideItems([searchButton, travelButton, myCharacter])
         

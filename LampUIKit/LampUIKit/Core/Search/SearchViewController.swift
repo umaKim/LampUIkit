@@ -93,7 +93,12 @@ extension SearchViewController {
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
         snapshot.appendItems(viewModel.locations)
-        dataSource?.apply(snapshot, animatingDifferences: true)
+        dataSource?.apply(snapshot, animatingDifferences: true, completion: {[weak self] in
+            guard let self = self else {return }
+            self.view.showEmptyStateView(on: self.contentView.collectionView,
+                                         when: self.viewModel.locations.isEmpty,
+                                         with: Message.emptySearch)
+        })
     }
     
     private func configureCollectionView() {

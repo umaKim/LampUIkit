@@ -234,6 +234,7 @@ extension MyTravelCell {
         configureCollectionView()
         
         backgroundColor = .systemCyan
+        showEmptyStateView(with: Message.emptyMyTravel)
         
         [collectionView].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
