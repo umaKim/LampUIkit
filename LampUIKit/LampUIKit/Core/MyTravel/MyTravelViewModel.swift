@@ -12,6 +12,6 @@ enum MyTravelViewModelNotification: Notifiable {
     case reload
 }
 
-class MyTravelViewModel: BaseWhiteView {
+class MyTravelViewModel: BaseViewModel<MyTravelViewModelNotification> {
     
 }
