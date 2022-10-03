@@ -35,20 +35,7 @@ final class LocationDetailView: BaseView<LocationDetailViewAction> {
         return bt
     }()
     
-    private lazy var locationImageView: UICollectionView = {
-        let cl = UICollectionViewFlowLayout()
-        cl.scrollDirection = .horizontal
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: cl)
-        cv.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: ImageCollectionViewCell.identifier)
-        cv.backgroundColor = .greyshWhite
-        cv.isPagingEnabled = true
-        cv.showsHorizontalScrollIndicator = false
-        cv.delegate = self
-        cv.dataSource = self
-        return cv
-    }()
-    
-    private lazy var pageControl: UIPageControl = UIPageControl()
+    private lazy var locationImageView = ImageViewCollectionView()
     
     private(set) var contentScrollView: UIScrollView = {
        let sv = UIScrollView()
@@ -126,8 +113,6 @@ final class LocationDetailView: BaseView<LocationDetailViewAction> {
         label5.isHidden = true
     }
 
-    private var photoUrls: [String] = []
-
     private lazy var addToMyTravelButton = RectangleTextButton("내 여행지로 추가".localized, background: .clear, textColor: .white, fontSize: 17)
     
     private lazy var totalTravelReviewView = TotalTravelReviewView()
@@ -148,14 +133,7 @@ final class LocationDetailView: BaseView<LocationDetailViewAction> {
     }
     
     public func configure(with images: [String]) {
-        if images.isEmpty {
-            photoUrls.append("placeholder")
-            pageControl.isHidden = true
-        } else {
-            photoUrls = images
-            pageControl.numberOfPages = images.count
-        }
-        
+        locationImageView.setupPhotoUrls(images.isEmpty ? ["placeholder"] : images)
         locationImageView.reloadData()
     }
     
@@ -280,12 +258,12 @@ final class LocationDetailView: BaseView<LocationDetailViewAction> {
         labelStackView.spacing = 16
         labelStackView.axis = .vertical
         
-        pageControl.currentPage = 0
-        pageControl.isUserInteractionEnabled = true
+        locationImageView.backgroundColor = .greyshWhite
+        locationImageView.clipsToBounds = true
+        locationImageView.layer.cornerRadius = 6
         
         [
             locationImageView,
-            pageControl,
             buttonSv,
             dividerView,
             labelStackView,
@@ -318,10 +296,6 @@ final class LocationDetailView: BaseView<LocationDetailViewAction> {
             locationImageView.widthAnchor.constraint(equalToConstant: UIScreen.main.width - 32),
             locationImageView.heightAnchor.constraint(equalToConstant: 280),
             
-            pageControl.centerXAnchor.constraint(equalTo: locationImageView.centerXAnchor),
-            pageControl.bottomAnchor.constraint(equalTo: locationImageView.bottomAnchor),
-            pageControl.heightAnchor.constraint(equalToConstant: 50),
-            
             buttonSv.topAnchor.constraint(equalTo: locationImageView.bottomAnchor),
             buttonSv.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             buttonSv.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
@@ -350,43 +324,5 @@ final class LocationDetailView: BaseView<LocationDetailViewAction> {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-}
-
-//MARK: - UICollectionViewDataSource
-extension LocationDetailView: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        photoUrls.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: indexPath) as? ImageCollectionViewCell
-        else {return UICollectionViewCell()}
-        cell.configure(self.photoUrls[indexPath.item])
-        cell.isDeleteButtonHidden = true
-        return cell
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let width = scrollView.bounds.size.width
-        let x = scrollView.contentOffset.x + (width/2)
-        
-        let newPage = Int(x / width)
-        if pageControl.currentPage != newPage {
-            pageControl.currentPage = newPage
-        }
-    }
-}
-
-//MARK: - UICollectionViewDelegateFlowLayout
-extension LocationDetailView: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: UIScreen.main.width - 32,
-                     height: UIScreen.main.width / 1.5)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        0
     }
 }
