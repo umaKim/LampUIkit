@@ -283,7 +283,7 @@ extension MainViewController: GMSMapViewDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        HapticManager.shared.feedBack(with: .heavy)
+        HapticManager.shared.feedBack(with: .medium)
         return false
     }
     
