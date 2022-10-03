@@ -164,7 +164,7 @@ final class NetworkManager: Networkable {
         completion: @escaping (Result<RecommendedLocationResponse, AFError>) -> Void
     ) {
         let requestUrl = baseUrl +  "/app/main/category?pageSize=5&pageNumber=1&mapX=\(location.long)&mapY=\(location.lat)&token=\(token)&category=\(category.rawValue)&serviceLanguage=\(language.languageType.rawValue)"
-        print(requestUrl)
+        
         AF.request(requestUrl, method: .patch, encoding: JSONEncoding.default)
             .validate()
             .responseDecodable(of: RecommendedLocationResponse.self) {response in
@@ -182,6 +182,7 @@ final class NetworkManager: Networkable {
                 completion(response.result)
             }
     }
+    
     
     public func fetchUnvisitedLocations(completion: @escaping (Result<RecommendedLocationResponse, AFError>) -> Void) {
         let requestUrl = baseUrl + "/app/main/placeNotVisited?serviceLanguage=\(language.languageType.rawValue)&pageSize=20&pageNumber=1&token=\(token)"
