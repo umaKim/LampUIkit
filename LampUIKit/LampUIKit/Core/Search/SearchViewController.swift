@@ -42,6 +42,12 @@ class SearchViewController: BaseViewController<SearchView, SearchViewModel> {
         configureCollectionView()
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if(contentView.collectionView.contentOffset.y >= (contentView.collectionView.contentSize.height - contentView.collectionView.bounds.size.height)) {
+            viewModel.isPaginating = true
+            viewModel.fetchSearchKeywordData()
+        }
+    }
     private func bind() {
         contentView
             .actionPublisher

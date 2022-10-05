@@ -39,9 +39,12 @@ final class CompletedTravelCell: UICollectionViewCell {
         fetchCompletedTravel(completion: { })
     }
     
-    private var models: [MyCompletedTripLocation] = []
+    private var viewModel: CompletedTravelCellViewModel?
     
-    public func configure() {
+    public func configure(_ vm: CompletedTravelCellViewModel) {
+        self.viewModel = vm
+        
+        fetchCompletedTravel()
         updateSections()
     }
     

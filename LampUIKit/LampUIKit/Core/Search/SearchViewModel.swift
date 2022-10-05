@@ -32,6 +32,12 @@ class SearchViewModel: BaseViewModel<SearchViewModelNotification> {
         pageNumber += 1
     }
     
+    public var isPaginating: Bool? {
+        didSet {
+            self.isPagenationDone = !(isPaginating ?? false)
+        }
+    }
+    
     public func setKeyword(_ text: String) {
         self.searchKeyword = text
         self.initializeAllStates()
@@ -60,8 +66,12 @@ class SearchViewModel: BaseViewModel<SearchViewModelNotification> {
     public func search(_ text: String) {
         guard !isPagenationDone else { return }
         
+        if isFetching == false,
+           searchKeyword != "" {
+            
             isFetching = true
             sendNotification(.startLoading)
+            
             service.fetchSearchLocations(text, pageNumber: pageNumber) {[weak self] result in
                 self?.sendNotification(.endLoading)
                 guard let self = self else {return}
