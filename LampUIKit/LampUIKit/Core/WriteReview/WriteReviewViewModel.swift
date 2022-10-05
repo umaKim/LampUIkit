@@ -83,7 +83,7 @@ class WriteReviewViewModel: BaseViewModel<WriteReviewViewModelNotification> {
     public func addImage( _ image: UIImage) {
         if isAbleToAddMoreImages() {
             images.append(image)
-            self.sendNotification(.numberOfImages(self.images.count))
+            self.sendNotification(.numberOfImages(images.count))
             self.sendNotification(.ableCompleteButton(ableCompleteButton))
         } else {
             sendNotification(.showMessage("사진은 3개로 제한됩니다."))
@@ -92,7 +92,7 @@ class WriteReviewViewModel: BaseViewModel<WriteReviewViewModelNotification> {
     
     public func removeImage(at index: Int) {
         images.remove(at: index)
-        sendNotification(.numberOfImages(self.images.count))
+        sendNotification(.numberOfImages(images.count))
         sendNotification(.ableCompleteButton(ableCompleteButton))
     }
     
@@ -127,6 +127,7 @@ class WriteReviewViewModel: BaseViewModel<WriteReviewViewModelNotification> {
         
         self.sendNotification(.startLoading)
         NetworkManager.shared.postReview(model) {[weak self] result in
+        network.postReview(model) {[weak self] result in
             guard let self = self else {return}
             self.sendNotification(.endLoading)
             
