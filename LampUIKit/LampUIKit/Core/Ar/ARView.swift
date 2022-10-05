@@ -16,9 +16,6 @@ enum ARViewAction: Actionable {
 }
 
 final class ARView: BaseView<ARViewAction> {
-//    private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
-//    private let actionSubject = PassthroughSubject<ARViewAction, Never>()
-    
     private(set) var sceneLocationView = SceneLocationView()
     
     private let dismissButton: UIButton = {
@@ -30,14 +27,21 @@ final class ARView: BaseView<ARViewAction> {
     override init() {
         super.init()
         
+        bind()
+        setupUI()
+    }
+    
+    private func bind() {
         dismissButton
             .tapPublisher
             .sink {[weak self] _ in
-//                self?.actionSubject.send(.dismiss)
+                HapticManager.shared.feedBack(with: .medium)
                 self?.sendAction(.dismiss)
             }
             .store(in: &cancellables)
-        
+    }
+    
+    private func setupUI() {
         [sceneLocationView, dismissButton].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
             addSubview(uv)

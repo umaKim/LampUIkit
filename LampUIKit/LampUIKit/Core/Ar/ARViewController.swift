@@ -22,10 +22,10 @@ class ARViewController: BaseViewController<ARView, ARViewModel> {
               let long = Double(viewModel.location.mapX) else { return }
         let coordinate = CLLocationCoordinate2D(latitude: lat,
                                                 longitude: long)
-        let location6 = CLLocation(coordinate: coordinate, altitude: 250)
+        let location = CLLocation(coordinate: coordinate, altitude: 250)
         let loc = viewModel.location
         let customBalloon = CustomBalloonView(title: loc.title, subtitle: loc.addr, imageUrlString: loc.image)
-        let annotationNode = LocationAnnotationNode(location: location6, view: customBalloon)
+        let annotationNode = LocationAnnotationNode(location: location, view: customBalloon)
         
         contentView
             .sceneLocationView
