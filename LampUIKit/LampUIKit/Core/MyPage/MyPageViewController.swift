@@ -19,7 +19,7 @@ class MyPageViewController: BaseViewController<MyPageView, MyPageViewModel> {
         bind()
     }
     
-    func restartApplication() {
+    private func restartApplication() {
         let viewController = StartPageViewController(StartPageView(), StartPageViewModel())
 
         guard
@@ -39,7 +39,6 @@ class MyPageViewController: BaseViewController<MyPageView, MyPageViewModel> {
     }
     
     private func setLanguage(as language: String) {
-        
         UserDefaults.standard.set([language], forKey: "AppleLanguages")
         if UserDefaults.standard.synchronize() {
             self.restartApplication()
@@ -79,7 +78,7 @@ class MyPageViewController: BaseViewController<MyPageView, MyPageViewModel> {
                     
                 case .languageSelection:
                     self.presentUmaActionAlert(
-                        title: "언어 선택".localized,
+                        title: "언어선택".localized,
                         with: actionR, actionG, actionB, cancelAction
                             )
                 }
@@ -123,12 +122,14 @@ class MyPageViewController: BaseViewController<MyPageView, MyPageViewModel> {
     }
 }
 
+//MARK: - MyReviewsViewControllerDelegate
 extension MyPageViewController: MyReviewsViewControllerDelegate {
     func MyReviewsViewControllerDidTapBack() {
         self.navigationController?.popViewController(animated: true)
     }
 }
 
+//MARK: - UITableViewDataSource
 extension MyPageViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.models.count
@@ -144,6 +145,7 @@ extension MyPageViewController: UITableViewDataSource {
     }
 }
 
+//MARK: - UITableViewDelegate
 extension MyPageViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         contentView.tableView.deselectRow(at: indexPath, animated: true)
