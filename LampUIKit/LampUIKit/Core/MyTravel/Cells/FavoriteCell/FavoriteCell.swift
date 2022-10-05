@@ -24,18 +24,7 @@ final class FavoriteCell: UICollectionViewCell {
     
     weak var delegate: FavoriteCellDelegate?
     
-    private lazy var collectionView: UICollectionView = {
-        let cl = UICollectionViewFlowLayout()
-        cl.scrollDirection = .vertical
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: cl)
-        cv.register(FavoriteCellHeaderCell.self,
-                    forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                    withReuseIdentifier: FavoriteCellHeaderCell.identifier)
-        cv.register(FavoriteCellCollectionViewCell.self, forCellWithReuseIdentifier: FavoriteCellCollectionViewCell.identifier)
-        cv.backgroundColor = .greyshWhite
-        cv.refreshControl = refreshcontrol
-        return cv
-    }()
+    private let collectionView = BaseCollectionViewWithHeader<FavoriteCellHeaderCell, FavoriteCellCollectionViewCell>()
     
     private lazy var refreshcontrol = UIRefreshControl()
     

@@ -27,19 +27,7 @@ final class MyTravelCell: UICollectionViewCell {
     
     private var dataSource: DataSource?
     
-    private lazy var collectionView: UICollectionView = {
-        let cl = UICollectionViewFlowLayout()
-        cl.scrollDirection = .vertical
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: cl)
-        cv.register(MyTravelCellHeaderCell.self,
-                    forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                    withReuseIdentifier: MyTravelCellHeaderCell.identifier)
-        cv.register(MyTravelCellCollectionViewCell.self, forCellWithReuseIdentifier: MyTravelCellCollectionViewCell.identifier)
-        cv.backgroundColor = .greyshWhite
-        cv.delegate = self
-        cv.refreshControl = refreshcontrol
-        return cv
-    }()
+    private lazy var collectionView = BaseCollectionViewWithHeader<MyTravelCellHeaderCell, MyTravelCellCollectionViewCell>()
     
     private lazy var refreshcontrol = UIRefreshControl()
     

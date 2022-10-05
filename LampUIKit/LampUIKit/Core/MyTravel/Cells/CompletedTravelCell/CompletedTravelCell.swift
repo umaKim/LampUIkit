@@ -25,19 +25,7 @@ final class CompletedTravelCell: UICollectionViewCell {
     
     weak var delegate: CompletedTravelCellDelegate?
     
-    private lazy var collectionView: UICollectionView = {
-        let cl = UICollectionViewFlowLayout()
-        cl.scrollDirection = .vertical
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: cl)
-        cv.register(CompletedTravelHeaderCell.self,
-                    forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                    withReuseIdentifier: CompletedTravelHeaderCell.identifier)
-        cv.register(CompletedTravelCellCollectionViewCell.self,
-                    forCellWithReuseIdentifier: CompletedTravelCellCollectionViewCell.identifier)
-        cv.backgroundColor = .greyshWhite
-        cv.refreshControl = refreshcontrol
-        return cv
-    }()
+    private let collectionView = BaseCollectionViewWithHeader<CompletedTravelHeaderCell, CompletedTravelCellCollectionViewCell>()
     
     private lazy var refreshcontrol = UIRefreshControl()
     
