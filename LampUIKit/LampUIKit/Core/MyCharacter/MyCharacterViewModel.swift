@@ -30,7 +30,7 @@ class MyCharacterViewModel: BaseViewModel<MyCharacterViewModelNotification> {
         self.network = network
         super.init()
         
-        NetworkManager.shared.fetchCharacterInfo {[weak self] result in
+        network.fetchCharacterInfo {[weak self] result in
             guard let self = self else {return}
             switch result {
             case .success(let info):
