@@ -13,7 +13,7 @@ protocol MyTravelCellCollectionViewCellDelegate: AnyObject {
     func myTravelCellCollectionViewCellDidTapComplete(at index: Int)
 }
 
-final class MyTravelCellCollectionViewCell: UICollectionViewCell {
+final class MyTravelCellCollectionViewCell: UICollectionViewCell, BodyCellable {
     static let identifier = "MyTravelCellCollectionViewCell"
     
     weak var delegate: MyTravelCellCollectionViewCellDelegate?

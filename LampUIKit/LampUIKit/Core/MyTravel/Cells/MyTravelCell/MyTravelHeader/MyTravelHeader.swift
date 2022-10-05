@@ -12,7 +12,7 @@ protocol MyTravelCellHeaderCellDelegate:AnyObject {
     func myTravelCellHeaderCellDidSelectComplete()
 }
 
-final class MyTravelCellHeaderCell: UICollectionReusableView {
+final class MyTravelCellHeaderCell: UICollectionReusableView, HeaderCellable {
     static let identifier = "MyTravelCellHeaderCell"
     
     weak var delegate: MyTravelCellHeaderCellDelegate?
