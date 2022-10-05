@@ -17,17 +17,7 @@ enum RecommendedLocationViewAction: Actionable {
 class RecommendedLocationView: BaseView<RecommendedLocationViewAction> {
     private(set) lazy var customNavigationbar = CustomNavigationBarView()
     
-    private(set) var collectionView: UICollectionView = {
-        let cl = UICollectionViewFlowLayout()
-        cl.scrollDirection = .vertical
-        cl.minimumLineSpacing = 18
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: cl)
-        cv.register(SearchRecommendationCollectionViewCell.self, forCellWithReuseIdentifier: SearchRecommendationCollectionViewCell.identifier)
-        cv.backgroundColor = .greyshWhite
-        cv.keyboardDismissMode = .onDrag
-        cv.contentInset = .init(top: 16, left: 0, bottom: 80, right: 0)
-        return cv
-    }()
+    private(set) var collectionView = BaseCollectionView<SearchRecommendationCollectionViewCell>(.vertical, 18)
     
     private(set) lazy var searchButton: UIButton = {
        let bt = UIButton()
@@ -82,6 +72,9 @@ class RecommendedLocationView: BaseView<RecommendedLocationViewAction> {
     }
     
     private func setupUI() {
+        collectionView.keyboardDismissMode = .onDrag
+        collectionView.contentInset = .init(top: 16, left: 0, bottom: 80, right: 0)
+        
         showEmptyStateView(with: Message.emptyRecommended)
         
         customNavigationbar.setRightSideItems([searchButton, travelButton, myCharacter])

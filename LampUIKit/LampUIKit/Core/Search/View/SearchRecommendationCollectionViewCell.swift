@@ -18,7 +18,7 @@ protocol SearchRecommendationCollectionViewCellDelegate: AnyObject {
     func didTapFavoriteButton(at index: Int, _ location: RecommendedLocation)
 }
 
-class SearchRecommendationCollectionViewCell: UICollectionViewCell {
+class SearchRecommendationCollectionViewCell: UICollectionViewCell, BodyCellable {
     static let identifier = "SearchRecommendationCollectionViewCell"
     
     weak var delegate: SearchRecommendationCollectionViewCellDelegate?

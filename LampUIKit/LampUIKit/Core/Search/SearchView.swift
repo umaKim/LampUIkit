@@ -24,16 +24,7 @@ class SearchView: BaseView<SearchViewAction> {
     
     private(set) lazy var searchController = UISearchController(searchResultsController: nil)
     
-    private(set) var collectionView: UICollectionView = {
-        let cl = UICollectionViewFlowLayout()
-        cl.scrollDirection = .vertical
-        cl.minimumLineSpacing = 18
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: cl)
-        cv.register(SearchRecommendationCollectionViewCell.self, forCellWithReuseIdentifier: SearchRecommendationCollectionViewCell.identifier)
-        cv.backgroundColor = .greyshWhite
-        cv.keyboardDismissMode = .onDrag
-        return cv
-    }()
+    private(set) var collectionView = BaseCollectionView<SearchRecommendationCollectionViewCell>(.vertical, 18)
     
     override init() {
         super.init()
@@ -87,6 +78,8 @@ class SearchView: BaseView<SearchViewAction> {
     }
     
     private func setupUI() {
+        collectionView.keyboardDismissMode = .onDrag
+        
         let sv = UIStackView(arrangedSubviews: [collectionView])
         sv.alignment = .fill
         sv.distribution = .fill

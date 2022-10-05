@@ -31,3 +31,22 @@ class BaseCollectionViewWithHeader<HEADERCELL: HeaderCellable, BODYCELL: BodyCel
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+class BaseCollectionView<BODYCELL: BodyCellable>: UICollectionView {
+    init(
+        _ scrollDirection: UICollectionView.ScrollDirection = .vertical,
+        _ minimumLineSpacing: CGFloat
+    ) {
+        let cl = UICollectionViewFlowLayout()
+        cl.scrollDirection = scrollDirection
+        cl.minimumLineSpacing = minimumLineSpacing
+        super.init(frame: .zero, collectionViewLayout: cl)
+        
+        register(BODYCELL.self, forCellWithReuseIdentifier: BODYCELL.identifier)
+        backgroundColor = .greyshWhite
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
