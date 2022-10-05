@@ -32,11 +32,20 @@ class MyReviewsView: BaseView<MyReviewsViewAction> {
     override init() {
         super.init()
         
-        backButton.tapPublisher.sink {[weak self] _ in
+        bind()
+        setupUI()
+    }
+    
+    private func bind() {
+        backButton
+            .tapPublisher
+            .sink {[weak self] _ in
             self?.sendAction(.back)
         }
         .store(in: &cancellables)
-        
+    }
+    
+    private func setupUI() {
         [collectionView].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
             addSubview(uv)
