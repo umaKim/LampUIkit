@@ -8,9 +8,7 @@
 import Combine
 import Foundation
 
-enum MyTravelViewModelNotification: Notifiable {
-    case reload
-}
+enum MyTravelViewModelNotification: Notifiable { }
 
 class MyTravelViewModel: BaseViewModel<MyTravelViewModelNotification> {
     
