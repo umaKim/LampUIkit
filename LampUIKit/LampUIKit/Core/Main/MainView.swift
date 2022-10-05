@@ -81,8 +81,8 @@ class MainView: BaseView<MainViewAction> {
         return bt
     }()
     
-    lazy var buttonsView: HorizontalScrollView = {
-        let view = HorizontalScrollView()
+    lazy var buttonsView: HorizontalScrollButtonView = {
+        let view = HorizontalScrollButtonView()
         return view
     }()
     
