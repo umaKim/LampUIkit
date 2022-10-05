@@ -11,7 +11,7 @@ protocol FavoriteCellCollectionViewCellDelegate: AnyObject {
     func favoriteCellCollectionViewCellDidTapDelete(at index: Int)
 }
 
-final class FavoriteCellCollectionViewCell: UICollectionViewCell {
+final class FavoriteCellCollectionViewCell: UICollectionViewCell, BodyCellable {
     static let identifier = "FavoriteCellCollectionViewCell"
     
     weak var delegate: FavoriteCellCollectionViewCellDelegate?

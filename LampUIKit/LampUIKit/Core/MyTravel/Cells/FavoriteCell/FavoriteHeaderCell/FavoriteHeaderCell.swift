@@ -12,7 +12,7 @@ protocol FavoriteCellHeaderCellDelegate:AnyObject {
     func favoriteCellHeaderCellDidSelectComplete()
 }
 
-final class FavoriteCellHeaderCell: UICollectionReusableView {
+final class FavoriteCellHeaderCell: UICollectionReusableView, HeaderCellable {
     static let identifier = "FavoriteCellHeaderCell"
     
     weak var delegate: FavoriteCellHeaderCellDelegate?

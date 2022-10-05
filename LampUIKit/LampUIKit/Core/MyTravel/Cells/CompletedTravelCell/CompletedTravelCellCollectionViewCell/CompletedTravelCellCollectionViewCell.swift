@@ -11,7 +11,7 @@ protocol CompletedTravelCellCollectionViewCellDelegate: AnyObject {
     func completedTravelCellCollectionViewCellDidTapDelete(at index: Int)
 }
 
-final class CompletedTravelCellCollectionViewCell: UICollectionViewCell {
+final class CompletedTravelCellCollectionViewCell: UICollectionViewCell, BodyCellable {
     static let identifier = "CompletedTravelCellCollectionViewCell"
     
     private let containerView: UIView = {

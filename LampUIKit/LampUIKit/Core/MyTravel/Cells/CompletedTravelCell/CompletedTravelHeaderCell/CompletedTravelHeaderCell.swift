@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class CompletedTravelHeaderCell: UICollectionReusableView {
+final class CompletedTravelHeaderCell: UICollectionReusableView, HeaderCellable {
     static let identifier = "CompletedTravelHeaderCell"
    
     override init(frame: CGRect) {
