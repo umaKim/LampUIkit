@@ -53,6 +53,23 @@ final class MyTravelCell: UICollectionViewCell {
     }
     
     private func bind() {
+        viewModel?
+            .notifyPublisher
+            .sink(receiveValue: {[weak self] notification in
+                guard let self = self else {return }
+                switch notification {
+                case .reload:
+                    self.updateSections()
+                    
+                case .showMessage(let message):
+                    self.delegate?.myTravelCellDelegateDidReceiveResponse(message)
+                    
+                case .endRefreshing:
+                    self.refreshcontrol.endRefreshing()
+                }
+            })
+            .store(in: &cancellables)
+        
         refreshcontrol
             .isRefreshingPublisher
             .sink {[weak self] isRefreshing in

@@ -40,6 +40,22 @@ final class FavoriteCell: UICollectionViewCell {
     }
     
     private func bind() {
+        viewModel?
+            .notifyPublisher
+            .sink(receiveValue: { noti in
+                switch noti {
+                case .reload:
+                    self.updateSections()
+                    
+                case .endRefreshing:
+                    self.refreshcontrol.endRefreshing()
+                    
+                case .showMessage(_):
+                    break
+                }
+            })
+            .store(in: &cancellables)
+        
         refreshcontrol
             .isRefreshingPublisher
             .sink {[weak self] isRefreshing in

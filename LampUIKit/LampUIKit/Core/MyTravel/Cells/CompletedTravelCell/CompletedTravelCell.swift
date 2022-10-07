@@ -47,6 +47,20 @@ final class CompletedTravelCell: UICollectionViewCell {
     }
     
     private func bind() {
+        viewModel?
+            .notifyPublisher
+            .sink(receiveValue: {[weak self] noti in
+                guard let self = self else { return }
+                switch noti {
+                case .endRefreshing:
+                    self.refreshcontrol.endRefreshing()
+                    
+                case .reload:
+                    self.updateSections()
+                }
+            })
+            .store(in: &cancellables)
+        
         refreshcontrol
             .isRefreshingPublisher
             .sink {[weak self] isRefreshing in
