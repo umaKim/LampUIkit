@@ -32,6 +32,12 @@ class MyReviewsViewController: BaseViewController<MyReviewsView, MyReviewsViewMo
         navigationItem.leftBarButtonItems = [contentView.backButton]
         navigationController?.navigationBar.barTintColor = .greyshWhite
         
+        bind()
+        configureCollectionView()
+        updateSections()
+    }
+    
+    private func bind() {
         contentView.actionPublisher.sink { action in
             switch action {
             case .back:
