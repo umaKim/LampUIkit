@@ -34,9 +34,7 @@ final class CompletedTravelCell: UICollectionViewCell {
     override init(frame: CGRect) {
         self.cancellables = .init()
         super.init(frame: frame)
-        bind()
         setupUI()
-        fetchCompletedTravel(completion: { })
     }
     
     private var viewModel: CompletedTravelCellViewModel?
@@ -54,52 +52,9 @@ final class CompletedTravelCell: UICollectionViewCell {
             .sink {[weak self] isRefreshing in
                 guard let self = self else {return }
                 if isRefreshing {
-                    self.fetchCompletedTravel {
-                        self.refreshcontrol.endRefreshing()
-                    }
                 }
             }
             .store(in: &cancellables)
-    }
-    
-    private func fetchCompletedTravel(completion: @escaping () -> Void) {
-        NetworkManager.shared.fetchCompletedTravel {[weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let locations):
-                self.models = locations.map { location -> MyCompletedTripLocation in
-                        .init(planIdx: location.planIdx ?? "",
-                              image: location.image ?? "",
-                              travelCompletedDate: location.travelCompletedDate ?? "",
-                              contentId: location.contentId,
-                              contentTypeId: location.contentTypeId,
-                              placeInfo: "",
-                              placeAddress: location.addr,
-                              userMemo: "",
-                              mapX: location.mapX,
-                              mapY: location.mapY,
-                              placeName: location.title,
-                              isBookMarked: location.isBookMarked)
-                }
-                self.updateSections()
-                completion()
-            case .failure(let error):
-                print(error)
-            }
-        }
-    }
-    
-    public func deleteCompletedTravel(at index: Int) {
-        let targetItem = models[index]
-        NetworkManager.shared.deleteFromMyTravel(targetItem.planIdx) {[weak self] result in
-            switch result {
-            case .success(let response):
-                self?.models.remove(at: index)
-                self?.updateSections()
-            case .failure(let error):
-                print(error)
-            }
-        }
     }
     
     required init?(coder: NSCoder) {
