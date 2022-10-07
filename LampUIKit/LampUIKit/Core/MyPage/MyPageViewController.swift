@@ -15,6 +15,7 @@ class MyPageViewController: BaseViewController<MyPageView, MyPageViewModel> {
         contentView.tableView.delegate = self
         
         navigationItem.leftBarButtonItems = [contentView.backButton]
+        navigationController?.navigationBar.barTintColor = .greyshWhite
         
         bind()
     }
