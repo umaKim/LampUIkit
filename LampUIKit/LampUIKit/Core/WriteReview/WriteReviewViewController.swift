@@ -85,6 +85,9 @@ class WriteReviewViewController: BaseViewController<WriteReviewView, WriteReview
             .store(in: &cancellables)
     }
     
+    private func checkMaxLength(_ textView: UITextView, maxLength: Int = 300) {
+        if textView.text.count > maxLength {
+            textView.deleteBackward()
         }
     }
 }
