@@ -44,6 +44,15 @@ final class CompletedTravelCell: UICollectionViewCell {
         
         fetchCompletedTravel()
         updateSections()
+        bind()
+    }
+    
+    private func fetchCompletedTravel() {
+        viewModel?.fetchCompletedTravel()
+    }
+    
+    private func deleteCompletedTravel(at index: Int) {
+        viewModel?.deleteCompletedTravel(at: index)
     }
     
     private func bind() {
@@ -66,6 +75,8 @@ final class CompletedTravelCell: UICollectionViewCell {
             .sink {[weak self] isRefreshing in
                 guard let self = self else {return }
                 if isRefreshing {
+                    self.viewModel?.setIsRefreshing = true
+                    self.fetchCompletedTravel()
                 }
             }
             .store(in: &cancellables)
@@ -78,10 +89,14 @@ final class CompletedTravelCell: UICollectionViewCell {
     private func updateSections() {
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
-        snapshot.appendItems(models)
+        snapshot.appendItems(viewModel?.models ?? [])
         dataSource?.apply(snapshot, animatingDifferences: true, completion: {[weak self] in
-            guard let self = self else {return }
-            self.collectionView.backgroundColor = self.models.isEmpty ? .clear : .greyshWhite
+            guard
+                let self = self,
+                let viewModel = self.viewModel
+            else {return }
+            
+            self.collectionView.backgroundColor = viewModel.models.isEmpty ? .clear : .greyshWhite
             self.collectionView.reloadData()
         })
     }
@@ -99,7 +114,7 @@ final class CompletedTravelCell: UICollectionViewCell {
             else { return .init() }
             cell.tag = indexPath.item
             cell.delegate = self
-            cell.configure(self.models[indexPath.item])
+            cell.configure(viewModel.models[indexPath.item])
             return cell
         }
         
@@ -111,6 +126,7 @@ final class CompletedTravelCell: UICollectionViewCell {
     }
     
     private func setupUI() {
+        collectionView.refreshControl = refreshcontrol
         showEmptyStateView(with: Message.emptyCompletedTravel)
         
         configureCollectionView()
@@ -142,7 +158,8 @@ extension CompletedTravelCell: CompletedTravelCellCollectionViewCellDelegate {
 extension CompletedTravelCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         HapticManager.shared.feedBack(with: .heavy)
-        delegate?.completedTravelCellDidTap(models[indexPath.item])
+        guard let viewModel = viewModel else {return }
+        delegate?.completedTravelCellDidTap(viewModel.models[indexPath.item])
     }
 }
 
