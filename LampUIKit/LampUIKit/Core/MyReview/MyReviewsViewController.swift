@@ -47,9 +47,6 @@ class MyReviewsViewController: BaseViewController<MyReviewsView, MyReviewsViewMo
             }
         }
         .store(in: &cancellables)
-        
-        configureCollectionView()
-        updateSections()
     }
     
     private func updateSections() {
@@ -106,4 +103,3 @@ extension MyReviewsViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: UIScreen.main.width - 32, height: 380)
     }
 }
-
