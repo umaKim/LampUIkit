@@ -23,7 +23,10 @@ class WriteReviewViewController: BaseViewController<WriteReviewView, WriteReview
         contentView.textContextView.delegate = self
         
         contentView.configure(viewModel.location)
-        
+        bind()
+    }
+    
+    private func bind() {
         contentView
             .actionPublisher
             .sink {[weak self] action in
@@ -63,27 +66,33 @@ class WriteReviewViewController: BaseViewController<WriteReviewView, WriteReview
             }
             .store(in: &cancellables)
         
-        viewModel.notifyPublisher.sink {[weak self] noti in
-            guard let self = self else {return}
-            switch noti {
-            case .ableCompleteButton(let isAble):
-                self.contentView.ableCompleteButton(isAble)
-                
-            case .dismiss:
-                self.navigationController?.popViewController(animated: true)
-                
-            case .showMessage(let message):
-                self.presentUmaDefaultAlert(title: message)
-                
-            case .startLoading:
-                self.showLoadingView()
-                
-            case .endLoading:
-                self.dismissLoadingView()
-                
-            case .numberOfImages(let count):
-                self.contentView.setImageCounter(count)
+        viewModel
+            .notifyPublisher
+            .sink {[weak self] noti in
+                guard let self = self else {return}
+                switch noti {
+                case .ableCompleteButton(let isAble):
+                    self.contentView.ableCompleteButton(isAble)
+                    
+                case .dismiss:
+                    self.navigationController?.popViewController(animated: true)
+                    
+                case .showMessage(let message):
+                    self.presentUmaDefaultAlert(title: message)
+                    
+                case .startLoading:
+                    self.showLoadingView()
+                    
+                case .endLoading:
+                    self.dismissLoadingView()
+                    
+                case .numberOfImages(let count):
+                    self.contentView.setImageCounter(count)
+                }
             }
+            .store(in: &cancellables)
+    }
+    
         }
         .store(in: &cancellables)
     }
