@@ -67,7 +67,8 @@ class MyReviewsViewController: BaseViewController<MyReviewsView, MyReviewsViewMo
         dataSource = DataSource(collectionView: contentView.collectionView,
                                 cellProvider: { collectionView, indexPath, itemIdentifier in
             guard
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyReviewCollectionViewCell.identifier, for: indexPath) as? MyReviewCollectionViewCell
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyReviewCollectionViewCell.identifier,
+                                                              for: indexPath) as? MyReviewCollectionViewCell
             else { return UICollectionViewCell() }
             cell.tag = indexPath.item
             cell.delegate = self
