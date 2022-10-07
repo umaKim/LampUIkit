@@ -89,8 +89,8 @@ final class LocationDetailViewController: BaseViewController<LocationDetailView,
                     if
                         let location = self.viewModel.location,
                         let locationDetail = self.viewModel.locationDetail {
+                        
                         let vm = ReviewViewModel(location, locationDetail)
-//                        let vc = ReviewViewController(vm: vm)
                         let vc = ReviewViewController(ReviewView(), vm)
                         self.navigationController?.pushViewController(vc, animated: true)
                     }
