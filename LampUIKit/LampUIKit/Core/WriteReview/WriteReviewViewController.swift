@@ -9,19 +9,11 @@ import UIKit
 
 class WriteReviewViewController: BaseViewController<WriteReviewView, WriteReviewViewModel> {
 
-    private func checkMaxLength(_ textView: UITextView, maxLength: Int = 300) {
-        if textView.text.count > maxLength {
-            textView.deleteBackward()
-        }
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         hideKeyboardWhenTappedAround()
-        
         contentView.textContextView.delegate = self
-        
         contentView.configure(viewModel.location)
         bind()
     }
@@ -94,7 +86,6 @@ class WriteReviewViewController: BaseViewController<WriteReviewView, WriteReview
     }
     
         }
-        .store(in: &cancellables)
     }
 }
 
