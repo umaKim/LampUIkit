@@ -93,15 +93,13 @@ class MyPageViewModel: BaseViewModel<MyPageViewModelNotification> {
             else {
                 print("logout() success.")
             }
-//            self.notifySubject.send(.goBackToBeforeLoginPage)
             self.sendNotification(.goBackToBeforeLoginPage)
         }
     }
     
     private func firebaseSignout() {
         do {
-           try Auth.auth().signOut()
-//            self.notifySubject.send(.goBackToBeforeLoginPage)
+            try Auth.auth().signOut()
             self.sendNotification(.goBackToBeforeLoginPage)
         } catch {
             print(error)
