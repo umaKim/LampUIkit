@@ -15,20 +15,7 @@ enum ReviewViewAction: Actionable {
 class ReviewView: BaseView<ReviewViewAction> {
     private(set) lazy var backButton = UIBarButtonItem(image: .back, style: .done, target: nil, action: nil)
     
-    private(set) var collectionView: UICollectionView = {
-        let cl = UICollectionViewFlowLayout()
-        cl.scrollDirection = .vertical
-        
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: cl)
-        cv.register(ReviewCollectionViewHeader.self,
-                    forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                    withReuseIdentifier: ReviewCollectionViewHeader.identifier)
-        cv.register(ReviewViewCollectionViewCell.self,
-                    forCellWithReuseIdentifier: ReviewViewCollectionViewCell.identifier)
-        
-        cv.backgroundColor = .greyshWhite
-        return cv
-    }()
+    private(set) var collectionView = BaseCollectionViewWithHeader<ReviewCollectionViewHeader, ReviewViewCollectionViewCell>()
     
     override init() {
         super.init()
@@ -65,7 +52,7 @@ class ReviewView: BaseView<ReviewViewAction> {
     }
 }
 
-class ReviewCollectionViewHeader: UICollectionReusableView {
+class ReviewCollectionViewHeader: UICollectionReusableView, HeaderCellable {
     static let identifier = "DetailReviewCollectionViewHeader"
     
     private let profileView: LocationRectangleProfileView = {
@@ -151,7 +138,7 @@ protocol ReviewViewCollectionViewCellDelegate: AnyObject {
     func ReviewViewCollectionViewCellDidTapReportButton(_ index: Int)
 }
 
-class ReviewViewCollectionViewCell: UICollectionViewCell {
+class ReviewViewCollectionViewCell: UICollectionViewCell, BodyCellable {
     static let identifier = "DetailReviewViewCollectionViewCell"
     
     weak var delegate: ReviewViewCollectionViewCellDelegate?

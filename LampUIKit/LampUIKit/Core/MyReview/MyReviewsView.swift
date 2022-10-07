@@ -19,15 +19,7 @@ class MyReviewsView: BaseView<MyReviewsViewAction> {
         return bt
     }()
     
-    private(set) lazy var collectionView: UICollectionView = {
-        let cl = UICollectionViewFlowLayout()
-        cl.scrollDirection = .vertical
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: cl)
-        cv.register(MyReviewCollectionViewCell.self, forCellWithReuseIdentifier: MyReviewCollectionViewCell.identifier)
-        cv.backgroundColor = .greyshWhite
-        cv.contentInset = .init(top: 16, left: 0, bottom: 16, right: 0)
-        return cv
-    }()
+    private(set) lazy var collectionView = BaseCollectionView<MyReviewCollectionViewCell>()
     
     override init() {
         super.init()

@@ -11,7 +11,7 @@ protocol MyReviewCollectionViewCellDelegate: AnyObject {
     func MyReviewCollectionViewCellDidTapDelete(_ index: Int)
 }
 
-class MyReviewCollectionViewCell: UICollectionViewCell {
+class MyReviewCollectionViewCell: UICollectionViewCell, BodyCellable {
     static let identifier = "MyReviewCollectionViewCell"
     
     private lazy var dateLabel: UILabel = {

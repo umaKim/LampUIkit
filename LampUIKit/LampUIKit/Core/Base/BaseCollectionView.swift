@@ -26,7 +26,7 @@ class BaseCollectionViewWithHeader<HEADERCELL: HeaderCellable, BODYCELL: BodyCel
         register(BODYCELL.self, forCellWithReuseIdentifier: BODYCELL.identifier)
         backgroundColor = .greyshWhite
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -35,7 +35,7 @@ class BaseCollectionViewWithHeader<HEADERCELL: HeaderCellable, BODYCELL: BodyCel
 class BaseCollectionView<BODYCELL: BodyCellable>: UICollectionView {
     init(
         _ scrollDirection: UICollectionView.ScrollDirection = .vertical,
-        _ minimumLineSpacing: CGFloat
+        _ minimumLineSpacing: CGFloat = 16
     ) {
         let cl = UICollectionViewFlowLayout()
         cl.scrollDirection = scrollDirection
@@ -45,7 +45,7 @@ class BaseCollectionView<BODYCELL: BodyCellable>: UICollectionView {
         register(BODYCELL.self, forCellWithReuseIdentifier: BODYCELL.identifier)
         backgroundColor = .greyshWhite
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
