@@ -44,9 +44,18 @@ final class MyTravelCell: UICollectionViewCell {
     public func configure(_ vm: MyTravelCellViewModel) {
         self.viewModel = vm
         
+        fetchMyTravel()
         updateSections()
+        bind()
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+//MARK: - Bind
+extension MyTravelCell {
     private func bind() {
         viewModel?
             .notifyPublisher
@@ -70,19 +79,31 @@ final class MyTravelCell: UICollectionViewCell {
             .sink {[weak self] isRefreshing in
                 guard let self = self else {return }
                 if isRefreshing {
+                    self.viewModel?.setIsRefreshing = true
+                    self.fetchMyTravel()
                 }
             }
             .store(in: &cancellables)
     }
+}
+
+//MARK: - Public
+extension MyTravelCell {
+    private func fetchMyTravel() {
+        viewModel?.fetchMyTravel()
     }
     
     public func deleteMyTravel(at index: Int) {
+        viewModel?.deleteMyTravel(at: index)
     }
     
     
+    public func completeTrip(at index: Int) {
+        viewModel?.completeTrip(at: index)
     }
 }
 
+//MARK: - MyTravelCellHeaderCellDelegate
 extension MyTravelCell: MyTravelCellHeaderCellDelegate {
     func myTravelCellHeaderCellDidSelectComplete() {
         viewModel?.toggleShowDeleteButton
@@ -95,6 +116,7 @@ extension MyTravelCell: MyTravelCellHeaderCellDelegate {
     }
 }
 
+//MARK: - MyTravelCellCollectionViewCellDelegate
 extension MyTravelCell: MyTravelCellCollectionViewCellDelegate {
     func myTravelCellCollectionViewCellDidTapComplete(at index: Int) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
@@ -109,6 +131,7 @@ extension MyTravelCell: MyTravelCellCollectionViewCellDelegate {
     }
 }
 
+//MARK: - UICollectionViewDelegate
 extension MyTravelCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         HapticManager.shared.feedBack(with: .heavy)
@@ -176,7 +199,7 @@ extension MyTravelCell {
     }
     
     private func setupUI() {
-        
+        collectionView.refreshControl = refreshcontrol
         showEmptyStateView(with: Message.emptyMyTravel)
         
         configureCollectionView()
