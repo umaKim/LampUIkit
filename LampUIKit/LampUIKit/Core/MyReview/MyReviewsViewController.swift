@@ -25,7 +25,12 @@ class MyReviewsViewController: BaseViewController<MyReviewsView, MyReviewsViewMo
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "나의 여행 후기".localized
+        
+        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.black]
+        navigationController?.navigationBar.titleTextAttributes = textAttributes
+        
         navigationItem.leftBarButtonItems = [contentView.backButton]
+        navigationController?.navigationBar.barTintColor = .greyshWhite
         
         contentView.actionPublisher.sink { action in
             switch action {
