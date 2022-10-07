@@ -33,10 +33,7 @@ final class FavoriteCell: UICollectionViewCell {
     override init(frame: CGRect) {
         self.cancellables = .init()
         super.init(frame: frame)
-        
-        bind()
         setupUI()
-        fetchSavedTravel(completion: {})
     }
     
     private func bind() {
@@ -61,9 +58,6 @@ final class FavoriteCell: UICollectionViewCell {
             .sink {[weak self] isRefreshing in
                 guard let self = self else {return }
                 if isRefreshing {
-                    self.fetchSavedTravel {
-                        self.refreshcontrol.endRefreshing()
-                    }
                 }
             }
             .store(in: &cancellables)
@@ -75,37 +69,9 @@ final class FavoriteCell: UICollectionViewCell {
         self.updateSections()
     }
     
-    private func fetchSavedTravel(completion: @escaping () -> Void) {
-        NetworkManager.shared.fetchSavedTravel {[weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let locations):
-                self.models = locations
-                self.updateSections()
-                completion()
-            case .failure(let error):
-                print(error)
-            }
-        }
     }
     
     public func deleteMySaveLocations(at index: Int) {
-        let targetItem = models[index]
-        NetworkManager.shared.updateBookMark(of: "\(targetItem.contentId)",
-                                             contentTypeId: "\(targetItem.contentTypeId)",
-                                             mapx: "\(targetItem.mapX)",
-                                             mapY: "\(targetItem.mapY)",
-                                             placeName: "\(targetItem.placeName )",
-                                             placeAddr: "\(targetItem.placeAddr )") {[weak self] result in
-            
-            switch result {
-            case .success(_):
-                self?.models.remove(at: index)
-                self?.updateSections()
-            case .failure(let error):
-                print(error)
-            }
-        }
     }
     
     required init?(coder: NSCoder) {
@@ -180,7 +146,6 @@ extension FavoriteCell {
     }
     
     private func setupUI() {
-        
         showEmptyStateView(with: Message.emptyFavorite)
         
         configureCollectionView()
