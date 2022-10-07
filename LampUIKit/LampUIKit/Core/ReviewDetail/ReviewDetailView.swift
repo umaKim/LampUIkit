@@ -66,8 +66,8 @@ class ReviewDetailView: BaseView<ReviewDetailViewAction> {
         }
         
         NSLayoutConstraint.activate([
-            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             collectionView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -36),
             collectionView.heightAnchor.constraint(equalToConstant: UIScreen.main.width),
             
