@@ -29,6 +29,8 @@ class SearchViewController: BaseViewController<SearchView, SearchViewModel> {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.navigationBar.barTintColor = .greyshWhite
+        
         navigationItem.searchController = contentView.searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         
