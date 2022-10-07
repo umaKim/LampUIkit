@@ -126,4 +126,11 @@ final class LocationDetailViewController: BaseViewController<LocationDetailView,
     private func scrollToButtonSv() {
         contentView.scrollToButtonSv()
     }
+    
+    private func configureNavigationController() {
+        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.black]
+        navigationController?.navigationBar.titleTextAttributes = textAttributes
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        navigationController?.navigationBar.barTintColor = .greyshWhite
+    }
 }
