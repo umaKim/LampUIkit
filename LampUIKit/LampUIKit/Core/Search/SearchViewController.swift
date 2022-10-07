@@ -48,6 +48,14 @@ class SearchViewController: BaseViewController<SearchView, SearchViewModel> {
             viewModel.fetchSearchKeywordData()
         }
     }
+    
+    deinit {
+        view.restoreViews()
+    }
+}
+
+//MARK: - Bind
+extension SearchViewController {
     private func bind() {
         contentView
             .actionPublisher
