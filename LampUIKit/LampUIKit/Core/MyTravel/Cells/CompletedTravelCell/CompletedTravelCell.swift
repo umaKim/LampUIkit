@@ -76,12 +76,13 @@ final class CompletedTravelCell: UICollectionViewCell {
         collectionView.delegate = self
         
         dataSource = DataSource(collectionView: collectionView) {[weak self] collectionView, indexPath, model in
-            guard let self = self else {return nil}
+            guard let self = self else {return .init()}
             guard
                 let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: CompletedTravelCellCollectionViewCell.identifier,
-                for: indexPath) as? CompletedTravelCellCollectionViewCell
-            else { return nil }
+                for: indexPath) as? CompletedTravelCellCollectionViewCell,
+                let viewModel = self.viewModel
+            else { return .init() }
             cell.tag = indexPath.item
             cell.delegate = self
             cell.configure(self.models[indexPath.item])
