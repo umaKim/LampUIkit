@@ -85,12 +85,12 @@ final class MyTravelCell: UICollectionViewCell {
 
 extension MyTravelCell: MyTravelCellHeaderCellDelegate {
     func myTravelCellHeaderCellDidSelectComplete() {
-        showDeleteButton.toggle()
+        viewModel?.toggleShowDeleteButton
         collectionView.reloadData()
     }
     
     func myTravelCellHeaderCellDidSelectEdit() {
-        showDeleteButton.toggle()
+        viewModel?.toggleShowDeleteButton
         collectionView.reloadData()
     }
 }
@@ -98,10 +98,7 @@ extension MyTravelCell: MyTravelCellHeaderCellDelegate {
 extension MyTravelCell: MyTravelCellCollectionViewCellDelegate {
     func myTravelCellCollectionViewCellDidTapComplete(at index: Int) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
-            self?.completeTrip(at: index, completion: {
-                self?.models.remove(at: index)
-                self?.updateSections()
-            })
+            self?.completeTrip(at: index)
         }
     }
     
@@ -115,10 +112,12 @@ extension MyTravelCell: MyTravelCellCollectionViewCellDelegate {
 extension MyTravelCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         HapticManager.shared.feedBack(with: .heavy)
-        delegate?.myTravelCellDelegateDidTap(models[indexPath.item])
+        guard let viewModel = viewModel else {return }
+        delegate?.myTravelCellDelegateDidTap(viewModel.models[indexPath.item])
     }
 }
 
+//MARK: - UICollectionViewDelegateFlowLayout
 extension MyTravelCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         .init(width: UIScreen.main.width, height: 60)
@@ -138,10 +137,14 @@ extension MyTravelCell {
     private func updateSections() {
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
-        snapshot.appendItems(models)
+        snapshot.appendItems(viewModel?.models ?? [])
         dataSource?.apply(snapshot, animatingDifferences: true, completion: { [weak self] in
-            guard let self = self else {return }
-            self.collectionView.backgroundColor = self.models.isEmpty ? .clear : .greyshWhite
+            guard
+                let self = self,
+                let viewModel = self.viewModel
+            else {return }
+            
+            self.collectionView.backgroundColor = viewModel.models.isEmpty ? .clear : .greyshWhite
             self.collectionView.reloadData()
         })
     }
@@ -150,16 +153,17 @@ extension MyTravelCell {
         collectionView.delegate = self
         
         dataSource = DataSource(collectionView: collectionView) {[weak self] collectionView, indexPath, model in
-            guard let self = self else {return nil}
+            guard let self = self else {return .init()}
             guard
                 let cell = collectionView.dequeueReusableCell(
                     withReuseIdentifier: MyTravelCellCollectionViewCell.identifier,
-                    for: indexPath) as? MyTravelCellCollectionViewCell
-            else { return nil }
+                    for: indexPath) as? MyTravelCellCollectionViewCell,
+                let viewModel = self.viewModel
+            else { return .init() }
             cell.delegate = self
             cell.tag = indexPath.item
-            cell.showDeleButton = self.showDeleteButton
-            cell.configure(self.models[indexPath.item])
+            cell.showDeleButton = self.viewModel?.showDeleteButton
+            cell.configure(viewModel.models[indexPath.item])
             return cell
         }
         
@@ -183,10 +187,10 @@ extension MyTravelCell {
         }
         
         NSLayoutConstraint.activate([
-            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            collectionView.topAnchor.constraint(equalTo: topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            collectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
     }
 }
