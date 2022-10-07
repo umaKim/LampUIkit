@@ -24,7 +24,7 @@ class MyReviewsViewController: BaseViewController<MyReviewsView, MyReviewsViewMo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "나의 여행 후기"
+        title = "나의 여행 후기".localized
         navigationItem.leftBarButtonItems = [contentView.backButton]
         
         contentView.actionPublisher.sink { action in
