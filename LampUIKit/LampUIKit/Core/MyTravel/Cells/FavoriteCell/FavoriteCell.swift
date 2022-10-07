@@ -58,20 +58,29 @@ final class FavoriteCell: UICollectionViewCell {
             .sink {[weak self] isRefreshing in
                 guard let self = self else {return }
                 if isRefreshing {
+                    self.viewModel?.setIsRefreshing = true
+                    self.fetchSavedTravel()
                 }
             }
             .store(in: &cancellables)
     }
     
-    private var models: [MyBookMarkLocation] = []
+    private var viewModel: FavoriteCellViewModel?
     
-    public func configure() {
-        self.updateSections()
+    public func configure(_ vm: FavoriteCellViewModel) {
+        self.viewModel = vm
+        
+        fetchSavedTravel()
+        updateSections()
+        bind()
     }
     
+    private func fetchSavedTravel() {
+        viewModel?.fetchSavedTravel()
     }
     
     public func deleteMySaveLocations(at index: Int) {
+        viewModel?.deleteMySaveLocations(at: index)
     }
     
     required init?(coder: NSCoder) {
@@ -79,6 +88,7 @@ final class FavoriteCell: UICollectionViewCell {
     }
 }
 
+//MARK: - FavoriteCellCollectionViewCellDelegate
 extension FavoriteCell: FavoriteCellCollectionViewCellDelegate {
     func favoriteCellCollectionViewCellDidTapDelete(at index: Int) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {[weak self] in
@@ -87,6 +97,7 @@ extension FavoriteCell: FavoriteCellCollectionViewCellDelegate {
     }
 }
 
+//MARK: - FavoriteCellHeaderCellDelegate
 extension FavoriteCell: FavoriteCellHeaderCellDelegate {
     func favoriteCellHeaderCellDidSelectEdit() {
         
@@ -101,7 +112,8 @@ extension FavoriteCell: FavoriteCellHeaderCellDelegate {
 extension FavoriteCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         HapticManager.shared.feedBack(with: .heavy)
-        delegate?.favoriteCellDidTap(models[indexPath.item])
+        guard let viewModel = viewModel else {return }
+        delegate?.favoriteCellDidTap(viewModel.models[indexPath.item])
     }
 }
 
@@ -109,10 +121,14 @@ extension FavoriteCell {
     private func updateSections() {
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
-        snapshot.appendItems(models)
+        snapshot.appendItems(viewModel?.models ?? [])
         dataSource?.apply(snapshot, animatingDifferences: true, completion: {[weak self] in
-            guard let self = self else {return }
-            self.collectionView.backgroundColor = self.models.isEmpty ? .clear : .greyshWhite
+            guard
+                let self = self,
+                let viewModel = self.viewModel
+            else {return }
+            
+            self.collectionView.backgroundColor = viewModel.models.isEmpty ? .clear : .greyshWhite
             self.collectionView.reloadData()
         })
     }
@@ -125,11 +141,12 @@ extension FavoriteCell {
             guard
                 let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: FavoriteCellCollectionViewCell.identifier,
-                for: indexPath) as? FavoriteCellCollectionViewCell
+                for: indexPath) as? FavoriteCellCollectionViewCell,
+                let viewModel = self.viewModel
             else { return nil }
             cell.delegate = self
             cell.tag = indexPath.item
-            cell.configure(self.models[indexPath.item])
+            cell.configure(viewModel.models[indexPath.item])
             return cell
         }
         
@@ -146,6 +163,7 @@ extension FavoriteCell {
     }
     
     private func setupUI() {
+        collectionView.refreshControl = refreshcontrol
         showEmptyStateView(with: Message.emptyFavorite)
         
         configureCollectionView()
