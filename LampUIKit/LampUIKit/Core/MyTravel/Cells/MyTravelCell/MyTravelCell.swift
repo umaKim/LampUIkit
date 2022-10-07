@@ -4,7 +4,7 @@
 //
 //  Created by 김윤석 on 2022/07/18.
 //
-import CoreLocation
+
 import Combine
 import UIKit
 
@@ -36,13 +36,8 @@ final class MyTravelCell: UICollectionViewCell {
     override init(frame: CGRect) {
         self.cancellables = .init()
         super.init(frame: frame)
-        bind()
         setupUI()
-        fetchMyTravel(completion: {})
     }
-    
-    private var models: [MyTravelLocation] = []
-    private var showDeleteButton: Bool = false
     
     private var viewModel: MyTravelCellViewModel?
     
@@ -75,80 +70,16 @@ final class MyTravelCell: UICollectionViewCell {
             .sink {[weak self] isRefreshing in
                 guard let self = self else {return }
                 if isRefreshing {
-                    self.fetchMyTravel {
-                        self.refreshcontrol.endRefreshing()
-                    }
                 }
             }
             .store(in: &cancellables)
     }
-    
-    private func fetchMyTravel(completion: @escaping () -> Void) {
-        NetworkManager.shared.fetchMyTravel {[weak self] result in
-            guard let self = self else {return}
-            switch result {
-            case .success(let locations):
-                self.models = locations
-                self.updateSections()
-                completion()
-                
-            case .failure(let error):
-                print(error)
-            }
-        }
     }
     
     public func deleteMyTravel(at index: Int) {
-        let targetItem = models[index]
-        
-        let data = PostAddToMyTripData(token: "",
-                                       contentId: targetItem.contentId,
-                                       contentTypeId: targetItem.contentTypeId,
-                                       image: targetItem.image ?? "",
-                                       placeName: targetItem.placeName,
-                                       placeInfo: targetItem.placeInfo,
-                                       placeAddress: targetItem.placeAddress,
-                                       userMemo: targetItem.userMemo ?? "",
-                                       mapX: targetItem.mapX ?? "",
-                                       mapY: targetItem.mapY ?? "")
-        
-        NetworkManager.shared.postAddToMyTravel(data) {[weak self] result in
-            switch result {
-            case .success(let response):
-                self?.models.remove(at: index)
-                self?.updateSections()
-                
-            case .failure(let error):
-                print(error)
-            }
-        }
     }
     
     
-    public func completeTrip(at index: Int, completion: @escaping () -> Void) {
-        let myTravel = models[index]
-        let location = CLLocationManager()
-        let coord = location.location?.coordinate
-        let lat = "\(coord?.latitude ?? 0)"
-        let long = "\(coord?.longitude ?? 0)"
-        NetworkManager.shared.postCompleteTrip(.init(token: "",
-                                                     planIdx: myTravel.planIdx,
-                                                     mapX: long,
-                                                     mapY: lat)) {[weak self] result in
-            
-            switch result {
-            case .success(let res):
-                self?.delegate?.myTravelCellDelegateDidReceiveResponse(res.message?.localized ?? "")
-                if res.isSuccess ?? false { completion() }
-                
-            case .failure(let error):
-                self?.delegate?.myTravelCellDelegateDidReceiveResponse(error.localizedDescription)
-            }
-        }
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }
 
@@ -257,25 +188,5 @@ extension MyTravelCell {
             collectionView.topAnchor.constraint(equalTo: topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
-    }
-}
-
-enum MyTravelCellViewModelNotifiction: Notifiable {
-    
-}
-
-class MyTravelCellViewModel: BaseViewModel<MyTravelCellViewModelNotifiction> {
-    
-    private let network: Networkable
-    
-    init(
-        _ network: Networkable = NetworkManager.shared
-    ) {
-        self.network = network
-        super.init()
-    }
-    
-    public func fetch() {
-        
     }
 }
