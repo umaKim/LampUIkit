@@ -1,0 +1,15 @@
+{
+  "images" : [
+    {
+      "filename" : "google-logo-png-webinar-optimizing-for-success-google-business-webinar-13.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "preserves-vector-representation" : true
+  }
+}
