@@ -26,7 +26,6 @@ extension UIImage {
 extension UIImage {
     func resize(to newWidth: CGFloat) -> UIImage {
         let newHeight = newWidth
-        
         let size = CGSize(width: newWidth, height: newHeight)
         let render = UIGraphicsImageRenderer(size: size)
         let renderImage = render.image { context in
