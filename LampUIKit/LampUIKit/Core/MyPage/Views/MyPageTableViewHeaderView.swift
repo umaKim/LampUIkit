@@ -30,7 +30,9 @@ class MyPageTableViewHeaderView: UIView {
         return lb
     }()
     
-    init(_ myInfo: MyInfo) {
+    init(
+        _ myInfo: MyInfo
+    ) {
         super.init(frame: .zero)
         
         nameLabel.text = myInfo.nickName + " 님\n".localized + "안녕하세요".localized
@@ -49,7 +51,7 @@ class MyPageTableViewHeaderView: UIView {
         ].compactMap({$0})
         
         writtenLabel.attributedText = writtenLabelAttStrings.joined(with: " ")
-
+        
         setupUI()
     }
     

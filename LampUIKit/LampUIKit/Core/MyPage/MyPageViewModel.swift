@@ -20,18 +20,23 @@ class MyPageViewModel: BaseViewModel<MyPageViewModelNotification> {
     private(set) var myInfo: MyInfo?
     
     private(set) var models: [String] = ["나의 여행 후기", "언어선택", "로그아웃", "회원탈퇴"]
+    
+    private(set) var auth: Autheable
     private let network: Networkable
     
     init(
+        _ auth: Autheable = AuthManager.shared,
         _ network: Networkable = NetworkManager.shared
     ) {
+        self.auth = auth
         self.network = network
         super.init()
         fetchUserInfo()
     }
     
     private func fetchUserInfo() {
-        NetworkManager.shared.fetchMyInfo { result in
+        network.fetchMyInfo {[weak self] result in
+            guard let self = self else {return}
             switch result {
             case .success(let info):
                 self.myInfo = info
@@ -44,7 +49,7 @@ class MyPageViewModel: BaseViewModel<MyPageViewModelNotification> {
     }
     
     public func logout() {
-        switch AuthManager.shared.userAuthType {
+        switch auth.userAuthType {
         case .kakao:
             kakaoSignout()
             
@@ -60,7 +65,7 @@ class MyPageViewModel: BaseViewModel<MyPageViewModelNotification> {
     }
     
     public func deleteAccount() {
-        NetworkManager.shared.deleteUser {[weak self] result in
+        network.deleteUser {[weak self] result in
             guard let self = self else {return}
             switch result {
             case .success(let response):
@@ -71,7 +76,8 @@ class MyPageViewModel: BaseViewModel<MyPageViewModelNotification> {
                         self.kakaoSignout()
                         
                     case .firebase:
-                        Auth.auth().currentUser?.delete(completion: { _ in
+                        Auth.auth().currentUser?.delete(completion: {[weak self] _ in
+                            guard let self = self else {return }
                             self.sendNotification(.goBackToBeforeLoginPage)
                         })
                         
