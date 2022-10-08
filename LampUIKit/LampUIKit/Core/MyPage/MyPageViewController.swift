@@ -169,7 +169,10 @@ extension MyPageViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let myInfo = viewModel.myInfo else {return nil}
+        guard
+            let myInfo = viewModel.myInfo
+        else {return nil}
+        
         let view = MyPageTableViewHeaderView(myInfo)
         return view
     }
