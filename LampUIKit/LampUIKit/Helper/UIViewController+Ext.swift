@@ -8,7 +8,7 @@
 import UIKit
 
 extension UIViewController {
-    open func present(
+    func present(
         _ viewControllerToPresent: UIViewController,
         transitionType: CATransitionSubtype = .fromRight,
         presentationStyle: UIModalPresentationStyle = .fullScreen,
