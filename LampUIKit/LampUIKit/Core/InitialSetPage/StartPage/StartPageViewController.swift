@@ -29,26 +29,44 @@ class StartPageViewController: BaseViewController<StartPageView, StartPageViewMo
                     HapticManager.shared.feedBack(with: .heavy)
                     if AuthApi.hasToken() {
                         UserApi.shared.me {[weak self] user, error in
+                            
                             guard
                                 let id = user?.id else {
-                                self?.present(LoginViewController(vm: LoginViewModel()),
-                                              transitionType: .fromTop,
-                                              animated: true,
-                                              pushing: true)
+                                self?.present(
+                                    LoginViewController(LoginView(), LoginViewModel()),
+                                    transitionType: .fromTop,
+                                    animated: true,
+                                    pushing: true
+                                )
                                 return
                             }
-                            NetworkManager.shared.setUserAuthType(.kakao)
+                            self?.viewModel.setUserAuthType(.kakao)
                             self?.presentMain(with: "\(id)")
                         }
                     }
-                    else if let uid = Auth.auth().currentUser?.uid {
-                        NetworkManager.shared.setUserAuthType(.firebase)
-                        self?.presentMain(with: uid)
+                    else if let currentUser = Auth.auth().currentUser {
+                        for userInfo in currentUser.providerData {
+                            switch userInfo.providerID {
+                            case "apple.com":
+                                self?.viewModel.setUserAuthType(.apple)
+                                
+                            case "google.com":
+                                self?.viewModel.setUserAuthType(.google)
+                                
+                            default:
+                                print("user is signed in with \(userInfo.providerID)")
+                                self?.viewModel.setUserAuthType(.firebase)
+                            }
+                        }
+                        self?.presentMain(with: currentUser.uid)
+                        
                     } else {
-                        self?.present(LoginViewController(vm: LoginViewModel()),
-                                      transitionType: .fromTop,
-                                      animated: true,
-                                      pushing: true)
+                        self?.present(
+                            LoginViewController(LoginView(), LoginViewModel()),
+                            transitionType: .fromTop,
+                            animated: true,
+                            pushing: true
+                        )
                     }
                 }
             }
@@ -56,7 +74,7 @@ class StartPageViewController: BaseViewController<StartPageView, StartPageViewMo
     }
     
     private func presentMain(with uid: String) {
-        NetworkManager.shared.setToken(uid)
+        viewModel.setToken(uid)
         let nav = UINavigationController(rootViewController: MainViewController(MainView(), MainViewModel()))
         present(nav,
                 transitionType: .fromTop,

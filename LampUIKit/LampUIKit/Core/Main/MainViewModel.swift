@@ -39,6 +39,10 @@ class MainViewModel: BaseViewModel<MainViewModelNotification>  {
     
     override init() {
         super.init()
+        checkUserIfExist()
+    }
+    
+    private func checkUserIfExist() {
         checkUserAuth { [weak self] in
             guard let self = self else {return }
             self.locationManager.delegate = self

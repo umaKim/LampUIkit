@@ -13,4 +13,22 @@ enum StartPageViewModelNotification: Notifiable {
 
 final class StartPageViewModel: BaseViewModel<StartPageViewModelNotification> {
     
+    private let auth: Autheable
+    private let network: Networkable
+    
+    init(
+        auth: Autheable = AuthManager.shared,
+        network: Networkable = NetworkManager.shared
+    ) {
+        self.auth = auth
+        self.network = network
+    }
+    
+    public func setUserAuthType(_ type: UserAuthType) {
+        auth.setUserAuthType(type)
+    }
+    
+    public func setToken(_ token: String) {
+        network.setToken(token)
+    }
 }
