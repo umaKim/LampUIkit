@@ -22,6 +22,12 @@ class MyPageView: BaseView<MyPageViewAction> {
         return bt
     }()
     
+    private(set) lazy var socialLogin: UIBarButtonItem = {
+        let bt = UIBarButtonItem(image: UIImage(), style: .done, target: nil, action: nil)
+        bt.isEnabled = false
+        return bt
+    }()
+    
     private(set) lazy var tableView: UITableView = {
        let tv = UITableView()
         tv.register(MyPageTableViewCell.self,
@@ -53,6 +59,22 @@ class MyPageView: BaseView<MyPageViewAction> {
     
     public func presentDeleteAccountActions() {
         sendAction(.deleteAccountActions)
+    }
+    
+    public func setSocialLogin(_ provider: UserAuthType) {
+        switch provider {
+        case .apple:
+            socialLogin.image = .appleLogo?.resize(to: 25, 30).withRenderingMode(.alwaysOriginal)
+            
+        case .google:
+            socialLogin.image = .googleLogo?.resize(to: 30).withRenderingMode(.alwaysOriginal)
+            
+        case .kakao:
+            socialLogin.image = .kakaoLogo?.resize(to: 30).withRenderingMode(.alwaysOriginal)
+            
+        case .firebase:
+            socialLogin.image = .googleLogo?.resize(to: 30).withRenderingMode(.alwaysOriginal)
+        }
     }
     
     private func bind() {

@@ -15,6 +15,7 @@ class MyPageViewController: BaseViewController<MyPageView, MyPageViewModel> {
         contentView.tableView.delegate = self
         
         navigationItem.leftBarButtonItems = [contentView.backButton]
+        navigationItem.rightBarButtonItems = [contentView.socialLogin]
         navigationController?.navigationBar.barTintColor = .greyshWhite
         
         bind()
@@ -102,6 +103,9 @@ class MyPageViewController: BaseViewController<MyPageView, MyPageViewModel> {
                 }
         }
         .store(in: &cancellables)
+        
+        guard let provider = viewModel.auth.userAuthType else {return}
+        contentView.setSocialLogin(provider)
     }
     
     private var logoutAction: UIAlertAction {
