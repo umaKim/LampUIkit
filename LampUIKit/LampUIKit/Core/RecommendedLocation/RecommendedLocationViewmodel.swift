@@ -20,11 +20,14 @@ class RecommendedLocationViewmodel: BaseViewModel<RecommendedLocationViewmodelNo
     
     private var locationManager = CLLocationManager()
     private(set) var locations: [RecommendedLocation] = []
+    private let network: Networkable
     
     init(
         _ locatonsSubject: AnyPublisher<[RecommendedLocation], Never>,
-        _ locationInfo: CurrentValueSubject<Coord, Never>
+        _ locationInfo: CurrentValueSubject<Coord, Never>,
+        _ network: Networkable = NetworkManager.shared
     ) {
+        self.network = network
         super.init()
         
         locatonsSubject
@@ -37,7 +40,7 @@ class RecommendedLocationViewmodel: BaseViewModel<RecommendedLocationViewmodelNo
         locationInfo
             .debounce(for: 1, scheduler: DispatchQueue.global())
             .sink {[weak self] coord in
-            guard let self = self else {return }
+            guard let self = self else { return }
             
             self.geocoder.reverseGeocodeCoordinate(.init(latitude: coord.latitude, longitude: coord.longitude)) {[weak self] response, error in
                 if let address = response?.firstResult() {
@@ -56,7 +59,7 @@ class RecommendedLocationViewmodel: BaseViewModel<RecommendedLocationViewmodelNo
     public func saveLocation(_ index: Int) {
         locations[index].isBookMarked.toggle()
         let location = locations[index]
-        NetworkManager.shared.updateBookMark(of: location.contentId,
+        network.updateBookMark(of: location.contentId,
                                              contentTypeId: location.contentTypeId,
                                              mapx: location.mapX,
                                              mapY: location.mapY,
@@ -82,7 +85,7 @@ class RecommendedLocationViewmodel: BaseViewModel<RecommendedLocationViewmodelNo
         
         self.locations[index].isOnPlan = true
         
-        NetworkManager.shared.postAddToMyTravel(data) {[weak self] result in
+        network.postAddToMyTravel(data) {[weak self] result in
             switch result {
             case .success(let response):
                 self?.sendNotification(.showMessage(response.message ?? ""))
@@ -95,7 +98,7 @@ class RecommendedLocationViewmodel: BaseViewModel<RecommendedLocationViewmodelNo
     public func deleteFromMyTrip(at index: Int, _ location: RecommendedLocation) {
         guard let planIdx = location.planIdx else { return }
         self.locations[index].isOnPlan = false
-        NetworkManager.shared.deleteFromMyTravel("\(planIdx)") {[weak self] result  in
+        network.deleteFromMyTravel("\(planIdx)") {[weak self] result  in
             switch result {
             case .success(let response):
                 self?.sendNotification(.showMessage(response.message ?? ""))

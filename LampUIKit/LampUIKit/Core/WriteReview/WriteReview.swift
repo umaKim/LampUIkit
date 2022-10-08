@@ -11,6 +11,8 @@ import Combine
 import UIKit
 
 enum WriteReviewViewAction: Actionable {
+    case back
+    
     case updateStarRating(CGFloat)
     case updateSatisfactionModel(Int)
     case updateAtmosphereModel(Int)
@@ -32,6 +34,8 @@ class WriteReviewView: BaseView<WriteReviewViewAction> {
     private var dataSource: DataSource?
     
     private var delegate: ContentViewDelegate = ContentViewDelegate()
+    
+    private(set) var backButton = UIBarButtonItem(image: .back, style: .plain, target: nil, action: nil)
     
     private let contentScrollView: UIScrollView = {
         let sv = UIScrollView()
@@ -133,19 +137,13 @@ class WriteReviewView: BaseView<WriteReviewViewAction> {
     
     private let dividerView2 = DividerView()
     
-    private lazy var selectedImageCollectionView: UICollectionView = {
+    private lazy var selectedImageCollectionView: BaseCollectionViewWithHeader<ImageCollectionHeaderView, ImageCollectionViewCell> = {
         let cl = UICollectionViewFlowLayout()
         cl.scrollDirection = .horizontal
         cl.sectionInset = .init(top: 0, left: 8, bottom: 0, right: 0)
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: cl)
-        cv.register(ImageCollectionHeaderView.self,
-                    forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                    withReuseIdentifier: ImageCollectionHeaderView.identifier)
-        cv.register(ImageCollectionViewCell.self,
-                    forCellWithReuseIdentifier: ImageCollectionViewCell.identifier)
+        let cv = BaseCollectionViewWithHeader<ImageCollectionHeaderView, ImageCollectionViewCell>(cl)
         cv.delegate = self
         cv.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        cv.backgroundColor = .greyshWhite
         return cv
     }()
     
@@ -245,6 +243,14 @@ extension WriteReviewView: UICollectionViewDelegateFlowLayout {
 //MARK: - Bind
 extension WriteReviewView {
     private func bind() {
+        backButton
+            .tapPublisher
+            .sink {[weak self] _ in
+                guard let self = self else {return}
+                self.sendAction(.back)
+            }
+            .store(in: &cancellables)
+        
         delegate
             .$starValue
             .sink {[weak self] value in
@@ -378,6 +384,8 @@ extension WriteReviewView {
         }
         
         NSLayoutConstraint.activate([
+            
+            
             contentScrollView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             contentScrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
             contentScrollView.trailingAnchor.constraint(equalTo: trailingAnchor),

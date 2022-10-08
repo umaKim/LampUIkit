@@ -177,7 +177,6 @@ final class LocationDetailView: BaseView<LocationDetailViewAction> {
     }
     
     private func bind() {
-        
         backButton
             .tapPublisher
             .sink {[weak self] _ in

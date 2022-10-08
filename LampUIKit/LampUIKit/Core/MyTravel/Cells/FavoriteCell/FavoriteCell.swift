@@ -24,7 +24,7 @@ final class FavoriteCell: UICollectionViewCell {
     
     weak var delegate: FavoriteCellDelegate?
     
-    private let collectionView = BaseCollectionViewWithHeader<FavoriteCellHeaderCell, FavoriteCellCollectionViewCell>()
+    private let collectionView = BaseCollectionViewWithHeader<FavoriteCellHeaderCell, FavoriteCellCollectionViewCell>(.vertical)
     
     private lazy var refreshcontrol = UIRefreshControl()
     
@@ -117,6 +117,7 @@ extension FavoriteCell: UICollectionViewDelegate {
     }
 }
 
+//MARK: - Set up UI
 extension FavoriteCell {
     private func updateSections() {
         var snapshot = Snapshot()

@@ -16,7 +16,6 @@ enum RecommendedLocationViewAction: Actionable {
 
 class RecommendedLocationView: BaseView<RecommendedLocationViewAction> {
     private(set) lazy var customNavigationbar = CustomNavigationBarView()
-    
     private(set) var collectionView = BaseCollectionView<SearchRecommendationCollectionViewCell>(.vertical, 18)
     
     private(set) lazy var searchButton: UIButton = {
