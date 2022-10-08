@@ -37,14 +37,17 @@ class ARViewController: BaseViewController<ARView, ARViewModel> {
     }
     
     private func bind() {
-        contentView.actionPublisher.sink {[weak self] action in
-            guard let self = self else {return }
-            switch action {
-            case .dismiss:
-                self.dismiss(animated: true)
+        contentView
+            .actionPublisher
+            .sink {[weak self] action in
+                guard let self = self else {return }
+                HapticManager.shared.feedBack(with: .medium)
+                switch action {
+                case .dismiss:
+                    self.dismiss(animated: true)
+                }
             }
-        }
-        .store(in: &cancellables)
+            .store(in: &cancellables)
     }
 }
 

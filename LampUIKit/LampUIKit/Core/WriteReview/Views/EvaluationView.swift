@@ -79,7 +79,6 @@ extension EvaluationView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         clearPreviouslySelectedItem()
         elements[indexPath.item].isSelected.toggle()
-        HapticManager.shared.feedBack(with: .heavy)
         if elements[indexPath.item].isSelected {
             self.sendAction(.updateElement(indexPath.item))
             collectionView.reloadData()

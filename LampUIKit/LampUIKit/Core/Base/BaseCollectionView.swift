@@ -17,14 +17,23 @@ protocol BodyCellable: UICollectionViewCell, Identifiable { }
 
 class BaseCollectionViewWithHeader<HEADERCELL: HeaderCellable, BODYCELL: BodyCellable>: UICollectionView {
     
-    init(_ scrollDirection: UICollectionView.ScrollDirection = .vertical) {
-        let cl = UICollectionViewFlowLayout()
-        cl.scrollDirection = scrollDirection
-        super.init(frame: .zero, collectionViewLayout: cl)
+    init(
+        _ collectionViewFlowLayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+    ) {
+        super.init(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
         
         register(HEADERCELL.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HEADERCELL.identifier)
         register(BODYCELL.self, forCellWithReuseIdentifier: BODYCELL.identifier)
         backgroundColor = .greyshWhite
+    }
+    
+    convenience init(
+        _ scrollDirection: UICollectionView.ScrollDirection = .vertical
+    ) {
+        let cl = UICollectionViewFlowLayout()
+        cl.scrollDirection = scrollDirection
+        self.init(cl)
+        
     }
     
     required init?(coder: NSCoder) {
@@ -34,16 +43,23 @@ class BaseCollectionViewWithHeader<HEADERCELL: HeaderCellable, BODYCELL: BodyCel
 
 class BaseCollectionView<BODYCELL: BodyCellable>: UICollectionView {
     init(
+        _ collectionViewFlowLayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+    )  {
+        super.init(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
+        
+        register(BODYCELL.self, forCellWithReuseIdentifier: BODYCELL.identifier)
+        backgroundColor = .greyshWhite
+    }
+    
+    convenience init(
         _ scrollDirection: UICollectionView.ScrollDirection = .vertical,
         _ minimumLineSpacing: CGFloat = 16
     ) {
         let cl = UICollectionViewFlowLayout()
         cl.scrollDirection = scrollDirection
         cl.minimumLineSpacing = minimumLineSpacing
-        super.init(frame: .zero, collectionViewLayout: cl)
+        self.init(cl)
         
-        register(BODYCELL.self, forCellWithReuseIdentifier: BODYCELL.identifier)
-        backgroundColor = .greyshWhite
     }
     
     required init?(coder: NSCoder) {

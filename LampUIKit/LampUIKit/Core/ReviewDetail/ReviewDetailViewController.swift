@@ -25,6 +25,7 @@ class ReviewDetailViewController: BaseViewController<ReviewDetailView, ReviewDet
                 guard let self = self else {return }
                 switch action {
                 case .back:
+                    HapticManager.shared.feedBack(with: .medium)
                     self.navigationController?.popViewController(animated: true)
                 }
             }

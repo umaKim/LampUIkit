@@ -27,7 +27,7 @@ final class MyTravelCell: UICollectionViewCell {
     
     private var dataSource: DataSource?
     
-    private lazy var collectionView = BaseCollectionViewWithHeader<MyTravelCellHeaderCell, MyTravelCellCollectionViewCell>()
+    private lazy var collectionView = BaseCollectionViewWithHeader<MyTravelCellHeaderCell, MyTravelCellCollectionViewCell>(.vertical)
     
     private lazy var refreshcontrol = UIRefreshControl()
     

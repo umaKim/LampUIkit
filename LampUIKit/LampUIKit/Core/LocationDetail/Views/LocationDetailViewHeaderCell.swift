@@ -20,7 +20,7 @@ protocol ImageCollectionViewCellDelegate: AnyObject {
     func imageCollectionViewCellDidTapDelete(_ index: Int)
 }
 
-class ImageCollectionViewCell: UICollectionViewCell {
+class ImageCollectionViewCell: UICollectionViewCell, BodyCellable {
     static let identifier = "ImageCollectionViewCell"
     
     weak var delegate: ImageCollectionViewCellDelegate?

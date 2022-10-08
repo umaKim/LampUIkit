@@ -12,6 +12,7 @@ class WriteReviewViewController: BaseViewController<WriteReviewView, WriteReview
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.leftBarButtonItems = [contentView.backButton]
         hideKeyboardWhenTappedAround()
         contentView.textContextView.delegate = self
         contentView.configure(viewModel.location)
@@ -23,7 +24,11 @@ class WriteReviewViewController: BaseViewController<WriteReviewView, WriteReview
             .actionPublisher
             .sink {[weak self] action in
                 guard let self = self else {return}
+                HapticManager.shared.feedBack(with: .medium)
                 switch action {
+                case .back:
+                    self.navigationController?.popViewController(animated: true)
+                    
                 case .updateSatisfactionModel(let satisfactionRatings):
                     self.viewModel.setComfortRating(satisfactionRatings)
                     

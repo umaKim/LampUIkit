@@ -25,7 +25,7 @@ final class CompletedTravelCell: UICollectionViewCell {
     
     weak var delegate: CompletedTravelCellDelegate?
     
-    private let collectionView = BaseCollectionViewWithHeader<CompletedTravelHeaderCell, CompletedTravelCellCollectionViewCell>()
+    private let collectionView = BaseCollectionViewWithHeader<CompletedTravelHeaderCell, CompletedTravelCellCollectionViewCell>(.vertical)
     
     private lazy var refreshcontrol = UIRefreshControl()
     

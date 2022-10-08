@@ -35,7 +35,6 @@ final class ARView: BaseView<ARViewAction> {
         dismissButton
             .tapPublisher
             .sink {[weak self] _ in
-                HapticManager.shared.feedBack(with: .medium)
                 self?.sendAction(.dismiss)
             }
             .store(in: &cancellables)
