@@ -12,7 +12,7 @@ protocol ImageCollectionHeaderViewDelegate: AnyObject {
     func imageCollectionHeaderViewDidTapAdd()
 }
 
-class ImageCollectionHeaderView: UICollectionReusableView {
+class ImageCollectionHeaderView: UICollectionReusableView, HeaderCellable {
     static let identifier = "ImageCollectionHeaderView"
     
     weak var delegate: ImageCollectionHeaderViewDelegate?

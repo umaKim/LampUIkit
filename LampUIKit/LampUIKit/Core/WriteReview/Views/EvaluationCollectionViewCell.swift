@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class EvaluationCollectionViewCell: UICollectionViewCell {
+final class EvaluationCollectionViewCell: UICollectionViewCell, BodyCellable {
     static let identifier = "EvaluationCollectionViewCell"
     
     static let preferredHeight: CGFloat = 30

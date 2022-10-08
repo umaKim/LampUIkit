@@ -15,23 +15,13 @@ enum EvaluationViewAction: Actionable {
 final class EvaluationView: BaseView<EvaluationViewAction> {
     private let titleLabel: UILabel = {
         let lb = UILabel()
-        lb.text = "만족도"
         lb.textAlignment = .left
         lb.textColor = .black
         lb.font = .systemFont(ofSize: 15, weight: .semibold)
         return lb
     }()
     
-    private let collectionView: UICollectionView = {
-        let cl = UICollectionViewFlowLayout()
-        cl.scrollDirection = .horizontal
-        
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: cl)
-        cv.register(EvaluationCollectionViewCell.self, forCellWithReuseIdentifier: EvaluationCollectionViewCell.identifier)
-        cv.backgroundColor = .greyshWhite
-        cv.showsHorizontalScrollIndicator = false
-        return cv
-    }()
+    private let collectionView = BaseCollectionView<EvaluationCollectionViewCell>(.horizontal)
     
     private var elements: [EvaluationModel]
     
