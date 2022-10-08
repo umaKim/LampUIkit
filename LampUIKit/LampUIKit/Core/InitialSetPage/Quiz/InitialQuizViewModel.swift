@@ -33,7 +33,12 @@ class InitialQuizViewModel: BaseViewModel<InitialQuizViewModelNotification> {
     
     private var status: InitialQuizViewStatus = .quiz
     
-    override init() {
+    private let network: Networkable
+    
+    init(
+        _ network: Networkable = NetworkManager.shared
+    ) {
+        self.network = network
         super.init()
         
         fetch()
@@ -43,11 +48,10 @@ class InitialQuizViewModel: BaseViewModel<InitialQuizViewModelNotification> {
     
     private func fetch() {
         //TODO: Bind with network
-        NetworkManager.shared.fetchQuestions {[weak self] result in
+        network.fetchQuestions {[weak self] result in
             guard let self = self else {return}
             switch result {
             case .success(let response):
-                print(response)
                 self.questions = response
                 self.currentIndex = 0
                 self.sendNotification(.quizData(self.questions[self.currentIndex]))
@@ -83,7 +87,7 @@ class InitialQuizViewModel: BaseViewModel<InitialQuizViewModelNotification> {
             }
         } else {
             //MARK: - post answers after answering all questions
-            NetworkManager.shared.postAnswers(answers) {[weak self] result in
+            network.postAnswers(answers) {[weak self] result in
                 guard let self = self else {return}
                 switch result {
                 case .success(let response):

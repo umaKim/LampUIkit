@@ -19,8 +19,17 @@ class CreateNickNameViewModel: BaseViewModel<CreateNickNameViewModelNotification
     
     private var nickName: String = ""
     
+    private let network: Networkable
+    
+    init(
+        _ network: Networkable = NetworkManager.shared
+    ) {
+        self.network = network
+        super.init()
+    }
+    
     public func createAccount() {
-        NetworkManager.shared.postNickName(nickName) {[weak self] result in
+        network.postNickName(nickName) {[weak self] result in
             guard let self = self else {return}
             switch result {
             case .success(let response):

@@ -8,15 +8,8 @@
 import Alamofire
 import Foundation
 
-enum UserAuthType {
-    case kakao
-    case firebase
-}
-
 protocol Networkable {
     func setToken(_ uid: String)
-    
-    func setUserAuthType(_ userAuthType: UserAuthType)
     
     func checkUserExist(_ uid: String, completion: @escaping (UserExistCheckResponse) -> Void)
     
@@ -105,16 +98,10 @@ final class NetworkManager: Networkable {
     private let baseUrl = "https://dev.twolamps.shop"
     private(set) var token: String = ""
     
-    private(set) var userAuthType: UserAuthType?
-    
     private let language = LanguageManager.shared
     
     public func setToken(_ uid: String) {
         self.token = uid
-    }
-    
-    public func setUserAuthType(_ userAuthType: UserAuthType) {
-        self.userAuthType = userAuthType
     }
     
     public func checkUserExist(_ uid: String, completion: @escaping (UserExistCheckResponse) -> Void) {

@@ -17,12 +17,12 @@ enum SearchViewModelNotification: Notifiable {
 
 class SearchViewModel: BaseViewModel<SearchViewModelNotification> {
     
-    private let service: NetworkManager
+    private let network: NetworkManager
     
     private(set) var locations = [RecommendedLocation]()
     
-    init(_ service: NetworkManager = NetworkManager.shared) {
-        self.service = service
+    init(_ network: NetworkManager = NetworkManager.shared) {
+        self.network = network
         super.init()
     }
     
@@ -72,7 +72,7 @@ class SearchViewModel: BaseViewModel<SearchViewModelNotification> {
             isFetching = true
             sendNotification(.startLoading)
             
-            service.fetchSearchLocations(text, pageNumber: pageNumber) {[weak self] result in
+            network.fetchSearchLocations(text, pageNumber: pageNumber) {[weak self] result in
                 self?.sendNotification(.endLoading)
                 guard let self = self else {return}
                 self.isFetching = false
@@ -105,7 +105,7 @@ class SearchViewModel: BaseViewModel<SearchViewModelNotification> {
         
         locations[index].isOnPlan = true
         
-        NetworkManager.shared.postAddToMyTravel(data) {[weak self] result in
+        network.postAddToMyTravel(data) {[weak self] result in
             guard let self = self else {return}
             switch result {
             case .success(let response):
@@ -120,7 +120,7 @@ class SearchViewModel: BaseViewModel<SearchViewModelNotification> {
         guard let planIdx = location.planIdx else { return }
         locations[index].isOnPlan = false
         
-        NetworkManager.shared.deleteFromMyTravel("\(planIdx)") {[weak self] result  in
+        network.deleteFromMyTravel("\(planIdx)") {[weak self] result  in
             guard let self = self else {return}
             switch result {
             case .success(let response):
@@ -135,7 +135,7 @@ class SearchViewModel: BaseViewModel<SearchViewModelNotification> {
     public func save(_ index: Int) {
         locations[index].isBookMarked.toggle()
         let location = locations[index]
-        NetworkManager.shared.updateBookMark(of: location.contentId,
+        network.updateBookMark(of: location.contentId,
                                              contentTypeId: location.contentTypeId,
                                              mapx: location.mapX,
                                              mapY: location.mapY,

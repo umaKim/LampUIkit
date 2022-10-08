@@ -20,14 +20,13 @@ final class MyTravelViewController: BaseViewController<MyTravelView, MyTravelVie
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationController?.setNavigationBarHidden(false, animated: true)
         navigationItem.largeTitleDisplayMode = .always
+        navigationItem.leftBarButtonItems = [contentView.dismissButton]
+        navigationController?.setLargeTitleColor(.midNavy)
+        navigationController?.setNavigationBarHidden(false, animated: true)
         
         contentView.collectionView.dataSource = self
         contentView.collectionView.delegate = self
-        
-        navigationItem.leftBarButtonItems = [contentView.dismissButton]
-        navigationController?.setLargeTitleColor(.midNavy)
         
         bind()
     }

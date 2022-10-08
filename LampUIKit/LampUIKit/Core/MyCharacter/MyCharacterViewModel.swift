@@ -34,7 +34,6 @@ class MyCharacterViewModel: BaseViewModel<MyCharacterViewModelNotification> {
             guard let self = self else {return}
             switch result {
             case .success(let info):
-                print(info)
                 self.characterData = .init(characterName: info.nickName,
                                            level: "\(info.characterLevel)",
                                            imageString: info.characterImageUrl,

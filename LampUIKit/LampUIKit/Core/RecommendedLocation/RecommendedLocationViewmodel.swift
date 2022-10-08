@@ -65,7 +65,6 @@ class RecommendedLocationViewmodel: BaseViewModel<RecommendedLocationViewmodelNo
                                              mapY: location.mapY,
                                              placeName: location.title,
                                              placeAddr: location.addr) {[weak self] result in
-            print(result)
         }
     }
     

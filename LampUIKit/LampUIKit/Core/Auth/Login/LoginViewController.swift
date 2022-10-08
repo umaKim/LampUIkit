@@ -190,7 +190,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                 // ...
                 ///Main 화면으로 보내기
                 guard let uid = authResult?.user.uid else {return }
-                NetworkManager.shared.setUserAuthType(.firebase)
+                AuthManager.shared.setUserAuthType(.firebase)
                 self.checkIfUserAlreadyExist(with: uid)
             }
         }
@@ -234,7 +234,7 @@ extension LoginViewController {
                 }
                 
                 guard let uid = result?.user.uid else {return }
-                NetworkManager.shared.setUserAuthType(.firebase)
+                AuthManager.shared.setUserAuthType(.firebase)
                 self.checkIfUserAlreadyExist(with: uid)
             }
         }
@@ -278,7 +278,7 @@ extension LoginViewController {
             }
             else {
                 guard let id = user?.id else {return }
-                NetworkManager.shared.setUserAuthType(.kakao)
+                AuthManager.shared.setUserAuthType(.kakao)
                 self.checkIfUserAlreadyExist(with: "\(id)")
             }
         }

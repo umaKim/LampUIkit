@@ -54,7 +54,7 @@ class ReviewViewCollectionViewCell: UICollectionViewCell, BodyCellable {
         config.image = image
         config.imagePlacement = .leading
         config.imagePadding = 6
-        config.subtitle = ""
+        config.attributedSubtitle = "".colored(to: .white)
         let bt = UIButton(configuration: config)
         bt.frame = .init(x: 0, y: 0, width: 62, height: 21)
         return bt
@@ -99,7 +99,7 @@ class ReviewViewCollectionViewCell: UICollectionViewCell, BodyCellable {
         }
         
         commentLabel.text = review.content
-        likeButton.configuration?.subtitle = "\(review.numLiked)"
+        likeButton.configuration?.attributedSubtitle = "\(review.numLiked)".colored(to: .midNavy)
         likeButton.isSelected = review.reviewILiked
         
         likeButton.setImage(likeButton.isSelected ? UIImage(named: "like_selected")?.resize(to: 10) : UIImage(named: "like_unselected")?.resize(to: 10), for: .normal)
@@ -125,13 +125,13 @@ extension ReviewViewCollectionViewCell {
             if self.likeButton.isSelected {
                 let numLiked = (reviewData.numLiked) + 1
                 self.reviewData?.numLiked = numLiked
-                self.likeButton.configuration?.subtitle = "\(numLiked)"
+                self.likeButton.configuration?.attributedSubtitle = "\(numLiked)".colored(to: .white)
                 self.likeButton.setImage(UIImage(named: "like_selected")?.resize(to: 10), for: .normal)
                 self.delegate?.ReviewViewCollectionViewCellDidTapLikeButton(self.tag)
             } else {
                 let numLiked = (reviewData.numLiked) - 1
                 self.reviewData?.numLiked = numLiked
-                self.likeButton.configuration?.subtitle = "\(numLiked)"
+                self.likeButton.configuration?.attributedSubtitle = "\(numLiked)".colored(to: .midNavy)
                 self.likeButton.setImage(UIImage(named: "like_unselected")?.resize(to: 10), for: .normal)
                 self.delegate?.ReviewViewCollectionViewCellDidTapUnlikeButton(self.tag)
             }

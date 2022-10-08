@@ -40,7 +40,8 @@ class MyReviewsViewModel: BaseViewModel<MyReviewsViewmodelNotification> {
     }
     
     public func deleteReview(at index: Int) {
-        network.deleteReview(datum[index].reviewIdx) { result in
+        network.deleteReview(datum[index].reviewIdx) {[weak self] result in
+            guard let self = self else {return }
             switch result {
             case .success(_):
                 self.datum.remove(at: index)

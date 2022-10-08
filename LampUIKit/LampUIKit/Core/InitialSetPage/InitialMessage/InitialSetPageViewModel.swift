@@ -11,6 +11,11 @@ import Foundation
 // (c) Social LogIn <uid를 서버에 보냄> -> (s) response <이미 회원이다 아니다> -> (c) 회원이면 바로 메인 페이지, 회원이 아니라면 Initial Setting page
 // (c) Initial Setting Page에서 퀴즈를 시작 -> 하나의 question 끝날때마다 (s)에서 받아야함
 
+enum InitialSetPageViewStatus {
+    case processing
+    case done
+}
+
 class InitialSetPageViewModel {
     
     private(set) lazy var beginningMessage: [String] = [
@@ -20,9 +25,4 @@ class InitialSetPageViewModel {
     ]
     
     private var status: InitialSetPageViewStatus = .processing
-}
-
-enum InitialSetPageViewStatus {
-    case processing
-    case done
 }

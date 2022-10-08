@@ -51,14 +51,14 @@ final class StartPageView: BaseView<StartPageViewAction> {
     private func bind() {
         startButton
             .tapPublisher
-            .sink { _ in
+            .sink {[weak self] _ in
+                guard let self = self else {return}
                 self.sendAction(.startButtonDidTap)
             }
             .store(in: &cancellables)
     }
     
     private func setupUI() {
-        
         animaionView.loopMode = .loop
         animaionView.play()
         
