@@ -44,11 +44,14 @@ class MyPageViewModel: BaseViewModel<MyPageViewModelNotification> {
     }
     
     public func logout() {
-        switch NetworkManager.shared.userAuthType {
+        switch AuthManager.shared.userAuthType {
         case .kakao:
             kakaoSignout()
             
         case .firebase:
+            firebaseSignout()
+            
+        case .google, .apple:
             firebaseSignout()
             
         case .none:
@@ -63,13 +66,18 @@ class MyPageViewModel: BaseViewModel<MyPageViewModelNotification> {
             case .success(let response):
                 if response.isSuccess ?? false {
                     
-                    switch NetworkManager.shared.userAuthType {
+                    switch AuthManager.shared.userAuthType {
                     case .kakao:
                         self.kakaoSignout()
                         
                     case .firebase:
                         Auth.auth().currentUser?.delete(completion: { _ in
-//                            self.notifySubject.send(.goBackToBeforeLoginPage)
+                            self.sendNotification(.goBackToBeforeLoginPage)
+                        })
+                        
+                    case .google, .apple:
+                        Auth.auth().currentUser?.delete(completion: {[weak self] _ in
+                            guard let self = self else {return }
                             self.sendNotification(.goBackToBeforeLoginPage)
                         })
                         

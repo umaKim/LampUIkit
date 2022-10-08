@@ -191,7 +191,6 @@ class QuizView: BaseView<QuizViewAction> {
     }
     
     public func setQuizData(_ data: Question) {
-        print(data)
         
         questionLabel.text = data.title?.localized
         indexLabel.text = "\(data.surveyIdx)" + " / 6"

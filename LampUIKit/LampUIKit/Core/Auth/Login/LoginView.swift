@@ -10,16 +10,13 @@ import CombineCocoa
 import Combine
 import UIKit
 
-enum LoginViewAction {
+enum LoginViewAction: Actionable {
     case kakao
     case gmail
     case apple
 }
 
-class LoginView: UIView {
-    
-    private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
-    private let actionSubject = PassthroughSubject<LoginViewAction, Never>()
+class LoginView: BaseView<LoginViewAction> {
     
     private let titleImage: UIImageView = {
        let uv = UIImageView()
@@ -65,38 +62,35 @@ class LoginView: UIView {
         return lb
     }()
     
-    private var cancellables: Set<AnyCancellable>
-    
-    @objc func appleSignInButtonPress() {
-        self.actionSubject.send(.apple)
+    override init() {
+        super.init()
+        
+        bind()
+        setupUI()
     }
     
-    init() {
-        self.cancellables = .init()
-        super.init(frame: .zero)
-        
-        backgroundColor = .darkNavy
-        
+    private func bind() {
         kakao.tapPublisher.sink {[weak self] _ in
             guard let self = self else {return}
-            self.actionSubject.send(.kakao)
+            self.sendAction(.kakao)
         }
         .store(in: &cancellables)
         
         gmail.tapPublisher.sink {[weak self] _ in
             guard let self = self else {return}
-            self.actionSubject.send(.gmail)
+            self.sendAction(.gmail)
         }
         .store(in: &cancellables)
         
-//        apple.tapPublisher.sink {[weak self] _ in
-//            guard let self = self else {return}
-//            self.actionSubject.send(.apple)
-//        }
-//        .store(in: &cancellables)
-        
         apple.addTarget(self, action: #selector(appleSignInButtonPress), for: .touchUpInside)
-        
+    }
+    
+    @objc private func appleSignInButtonPress() {
+        self.sendAction(.apple)
+    }
+    
+    private func setupUI() {
+        backgroundColor = .darkNavy
         
         let stackView = UIStackView(arrangedSubviews: [kakao, gmail, apple])
         stackView.axis = .vertical

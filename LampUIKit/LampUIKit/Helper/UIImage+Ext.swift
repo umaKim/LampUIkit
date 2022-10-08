@@ -17,6 +17,10 @@ extension UIImage {
     
     static let back = UIImage(named:"back")?.withTintColor(.midNavy, renderingMode: .alwaysOriginal)
     static let placeholder = UIImage(named: "placeholder".localized) ?? .init(systemName: "house")
+    
+    static let circleRecommended = UIImage(named: "circleRecommended")
+    static let circleDestination = UIImage(named: "circleDestination")
+    static let circleCompleted = UIImage(named: "circleCompleted")
 }
 
 extension UIImage {

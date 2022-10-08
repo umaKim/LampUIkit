@@ -32,29 +32,40 @@ class CustomMarkerView: UIView {
         super.init(frame: .init(x: 0, y: 0, width: width, height: height))
     }
     
-    convenience init(of imageUrl: String, type markerType: MapMarkerType) {
+    convenience init(
+        of imageUrl: String,
+        type markerType: MapMarkerType
+    ) {
         self.init()
         self.imageUrl = imageUrl
         self.markerType = markerType
         
+        
+        setMarkerType(as: markerType)
+        setupUI()
+    }
+    
+    private func setMarkerType(as markerType: MapMarkerType) {
         switch markerType {
         case .recommended:
-            outerImageView.image = .init(named: "circleRecommended")
+            outerImageView.image = .circleRecommended
             
         case .destination:
-            outerImageView.image = .init(named: "circleDestination")
+            outerImageView.image = .circleDestination
             
         case .completed:
-            outerImageView.image = .init(named: "circleCompleted")
+            outerImageView.image = .circleCompleted
         }
-        
-        self.contentImageView.layer.cornerRadius = CGFloat(self.width/2)
+    }
+    
+    private func setupUI() {
+        self.contentImageView.layer.cornerRadius = CGFloat(width/2)
         self.contentImageView.clipsToBounds = true
-        self.addSubview(self.contentImageView)
-        self.contentImageView.frame = .init(x: 0, y: 0, width: self.width, height: self.height - 8)
+        self.addSubview(contentImageView)
+        self.contentImageView.frame = .init(x: 0, y: 0, width: width, height: height - 8)
         
-        self.addSubview(self.outerImageView)
-        self.outerImageView.frame = .init(x: 0, y: 0, width: self.width, height: self.height)
+        self.addSubview(outerImageView)
+        self.outerImageView.frame = .init(x: 0, y: 0, width: width, height: height)
     }
     
     public func configure(completion: @escaping () -> Void) {
@@ -71,6 +82,7 @@ class CustomMarkerView: UIView {
                 } else {
                     DispatchQueue.main.async {
                         self.contentImageView.image = .placeholder
+                        completion()
                     }
                 }
             }

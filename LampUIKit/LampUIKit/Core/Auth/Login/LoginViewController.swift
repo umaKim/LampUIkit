@@ -15,27 +15,12 @@ import Firebase
 import UIKit
 import StoreKit
 
-class LoginViewController: UIViewController {
-    
-    private let contentView = LoginView()
-    private let viewModel: LoginViewModel
-    
-    init(vm: LoginViewModel) {
-        self.viewModel = vm
-        self.cancellables = .init()
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+class LoginViewController: BaseViewController<LoginView, LoginViewModel> {
     
     override func loadView() {
         super.loadView()
         self.view = contentView
     }
-    
-    private var cancellables: Set<AnyCancellable>
     
     fileprivate var currentNonce: String?
     
@@ -43,63 +28,67 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         bind()
         
-        vc.delegate = self
+        skStoreProductViewController.delegate = self
     }
     
-    private let vc = SKStoreProductViewController()
+    private let skStoreProductViewController = SKStoreProductViewController()
     
     private func bind() {
-        contentView.actionPublisher.sink {[weak self] action in
-            guard let self = self else { return }
-            HapticManager.shared.feedBack(with: .heavy)
-            switch action {
-            case .apple:
-                self.startSignInWithAppleFlow()
-                
-            case .gmail:
-                self.startGmailLogin()
-                
-            case .kakao:
-                self.startKakaoLogin()
+        contentView
+            .actionPublisher
+            .sink {[weak self] action in
+                guard let self = self else { return }
+                HapticManager.shared.feedBack(with: .heavy)
+                switch action {
+                case .apple:
+                    self.startSignInWithAppleFlow()
+                    
+                case .gmail:
+                    self.startGmailLogin()
+                    
+                case .kakao:
+                    self.startKakaoLogin()
+                }
             }
-        }
-        .store(in: &cancellables)
-    }
-    
-    private func changeRootViewcontroller(with uid: String) {
-        NetworkManager.shared.setToken(uid)
-        self.changeRoot(MainViewController(MainView(), MainViewModel()))
-    }
-    
-    private func checkIfUserAlreadyExist(with uid: String) {
-        NetworkManager.shared.checkUserExist(uid) {[weak self] res in
-            guard let self = self else {return}
-            if res.isSuccess {
-                //TODO: - move to mainView
-                if res.nicknameExist ?? false {
+            .store(in: &cancellables)
+        
+        viewModel
+            .notifyPublisher
+            .sink {[weak self] notification in
+                guard let self = self else {return }
+                switch notification {
+                case .changeRootViewController(let uid):
                     self.changeRootViewcontroller(with: uid)
-                } else {
+                    
+                case .presentCreateNickName:
                     self.present(CreateNickNameViewController(CreateNickNameView(), CreateNickNameViewModel()),
                                  transitionType: .fromTop,
                                  animated: true,
                                  pushing: true)
+                    
+                case .presentInitialSetpage:
+                    self.present(
+                        InitialSetPageViewController(InitialSetPageView(), InitialSetPageViewModel()),
+                        transitionType: .fromTop,
+                        animated: true,
+                        pushing: true)
                 }
-                
-            } else {
-                //TODO: - move to QuizView
-                self.present(
-                    InitialSetPageViewController(InitialSetPageView(), InitialSetPageViewModel()),
-                    transitionType: .fromTop,
-                    animated: true,
-                    pushing: true)
             }
-        }
+            .store(in: &cancellables)
+    }
+    
+    private func changeRootViewcontroller(with uid: String) {
+        changeRoot(MainViewController(MainView(), MainViewModel()))
+    }
+    
+    private func checkIfUserAlreadyExist(with uid: String) {
+        viewModel.checkUserExist(uid)
     }
 }
 
 extension LoginViewController: SKStoreProductViewControllerDelegate {
     func productViewControllerDidFinish(_ viewController: SKStoreProductViewController) {
-        vc.dismiss(animated: true)
+        skStoreProductViewController.dismiss(animated: true)
     }
 }
 
@@ -190,7 +179,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                 // ...
                 ///Main 화면으로 보내기
                 guard let uid = authResult?.user.uid else {return }
-                AuthManager.shared.setUserAuthType(.firebase)
+                self.viewModel.setUserAuthType(.apple)
                 self.checkIfUserAlreadyExist(with: uid)
             }
         }
@@ -234,7 +223,7 @@ extension LoginViewController {
                 }
                 
                 guard let uid = result?.user.uid else {return }
-                AuthManager.shared.setUserAuthType(.firebase)
+                self.viewModel.setUserAuthType(.google)
                 self.checkIfUserAlreadyExist(with: uid)
             }
         }
@@ -278,7 +267,7 @@ extension LoginViewController {
             }
             else {
                 guard let id = user?.id else {return }
-                AuthManager.shared.setUserAuthType(.kakao)
+                self.viewModel.setUserAuthType(.kakao)
                 self.checkIfUserAlreadyExist(with: "\(id)")
             }
         }

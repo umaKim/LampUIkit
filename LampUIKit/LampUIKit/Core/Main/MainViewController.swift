@@ -150,7 +150,7 @@ extension MainViewController {
         marker.title = location.title
         
         let markerView = CustomMarkerView(of: location.image ?? "",
-                                          type: self.viewModel.markerType)
+                                          type: viewModel.markerType)
         
         markerView.configure { [weak self] in
             guard let self = self else {return }
