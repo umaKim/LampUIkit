@@ -21,6 +21,10 @@ extension UIImage {
     static let circleRecommended = UIImage(named: "circleRecommended")
     static let circleDestination = UIImage(named: "circleDestination")
     static let circleCompleted = UIImage(named: "circleCompleted")
+    
+    static let appleLogo = UIImage(named: "appleLogo")
+    static let googleLogo = UIImage(named: "googleLogo")
+    static let kakaoLogo = UIImage(named: "kakaoLogo")
 }
 
 extension UIImage {
