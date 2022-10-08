@@ -67,6 +67,7 @@ class MyPageViewController: BaseViewController<MyPageView, MyPageViewModel> {
             .actionPublisher
             .sink {[weak self] action in
                 guard let self = self else {return}
+                HapticManager.shared.feedBack(with: .medium)
                 switch action {
                 case .logoutActions:
                     self.presentUmaActionAlert(title: "로그아웃 하시겠습니까?".localized,
