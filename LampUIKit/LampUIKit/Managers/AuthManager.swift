@@ -15,6 +15,7 @@ enum UserAuthType {
 }
 
 protocol Autheable {
+    var userAuthType: UserAuthType? { get }
     func setUserAuthType(_ userAuthType: UserAuthType)
 }
 
