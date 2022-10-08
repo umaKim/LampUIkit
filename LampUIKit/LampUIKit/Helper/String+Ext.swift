@@ -44,6 +44,13 @@ extension String {
         attribtuedString.addAttribute(.foregroundColor, value: color, range: range)
         return attribtuedString
     }
+    
+    func colored(to color: UIColor) -> AttributedString {
+        var attContainer = AttributeContainer()
+        attContainer.foregroundColor = color
+        let attString = AttributedString(self, attributes: attContainer)
+        return attString
+    }
 }
 
 extension String {
