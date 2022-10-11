@@ -17,15 +17,19 @@ class ReviewViewModel: BaseViewModel<ReviewViewModelNotification> {
     private(set) var location: RecommendedLocation
     private(set) var locationDetail: LocationDetailData
     private(set) var reviews: [ReviewData] = []
+    
+    private let auth: Autheable
     private let network: Networkable
     
     init(
         _ location: RecommendedLocation,
         _ locationDetail: LocationDetailData,
-        _ network: Networkable = NetworkManager.shared
+        _ auth: Autheable = AuthManager.shared,
+        _ network: Networkable = NetworkManager()
     ) {
         self.location = location
         self.locationDetail = locationDetail
+        self.auth = auth
         self.network = network
         super.init()
         

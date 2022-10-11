@@ -16,10 +16,11 @@ class CompletedTravelCellViewModel: BaseViewModel<CompletedTravelCellViewModelNo
     
     private(set) var models: [MyCompletedTripLocation] = []
     private(set) var isRefreshing: Bool = false
+    
     private let network: Networkable
     
     init(
-        _ network: Networkable = NetworkManager.shared
+        _ network: Networkable = NetworkManager()
     ) {
         self.network = network
         super.init()

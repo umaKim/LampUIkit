@@ -19,12 +19,15 @@ final class LocationDetailViewModel: BaseViewModel<LocationDetailViewModelNotifi
     private(set) var locationDetail: LocationDetailData?
     private(set) var location: RecommendedLocation?
    
-    private let networkService: Networkable
+    private let auth: Autheable
+    private let network: Networkable
     
     init(
-        _ networkService: Networkable = NetworkManager.shared
+        _ auth: Autheable = AuthManager.shared,
+        _ network: Networkable = NetworkManager()
     ) {
-        self.networkService = networkService
+        self.auth = auth
+        self.network = network
         super.init()
     }
     

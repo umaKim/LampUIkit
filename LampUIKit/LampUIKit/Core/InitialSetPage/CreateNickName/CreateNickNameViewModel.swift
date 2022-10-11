@@ -19,11 +19,14 @@ class CreateNickNameViewModel: BaseViewModel<CreateNickNameViewModelNotification
     
     private var nickName: String = ""
     
+    private let auth: Autheable
     private let network: Networkable
     
     init(
-        _ network: Networkable = NetworkManager.shared
+        _ auth: Autheable = AuthManager.shared,
+        _ network: Networkable = NetworkManager()
     ) {
+        self.auth = auth
         self.network = network
         super.init()
     }

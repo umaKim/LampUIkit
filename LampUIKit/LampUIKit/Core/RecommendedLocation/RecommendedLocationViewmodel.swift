@@ -20,13 +20,17 @@ class RecommendedLocationViewmodel: BaseViewModel<RecommendedLocationViewmodelNo
     
     private var locationManager = CLLocationManager()
     private(set) var locations: [RecommendedLocation] = []
+    
+    private let auth: Autheable
     private let network: Networkable
     
     init(
         _ locatonsSubject: AnyPublisher<[RecommendedLocation], Never>,
         _ locationInfo: CurrentValueSubject<Coord, Never>,
-        _ network: Networkable = NetworkManager.shared
+        _ auth: Autheable = AuthManager.shared,
+        _ network: Networkable = NetworkManager()
     ) {
+        self.auth = auth
         self.network = network
         super.init()
         

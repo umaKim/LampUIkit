@@ -37,7 +37,15 @@ class MainViewModel: BaseViewModel<MainViewModelNotification>  {
         self.recommendedPlaces.append(locaion)
     }
     
-    override init() {
+    private let auth: Autheable
+    private let network: Networkable
+    
+    init(
+        _ auth: Autheable = AuthManager.shared,
+        _ network: Networkable = NetworkManager()
+    ) {
+        self.auth = auth
+        self.network = network
         super.init()
         checkUserIfExist()
     }

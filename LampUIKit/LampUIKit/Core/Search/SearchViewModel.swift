@@ -17,11 +17,16 @@ enum SearchViewModelNotification: Notifiable {
 
 class SearchViewModel: BaseViewModel<SearchViewModelNotification> {
     
+    private let auth: Autheable
     private let network: NetworkManager
     
     private(set) var locations = [RecommendedLocation]()
     
-    init(_ network: NetworkManager = NetworkManager.shared) {
+    init(
+        _ auth: Autheable = AuthManager.shared,
+        _ network: NetworkManager = NetworkManager()
+    ) {
+        self.auth = auth
         self.network = network
         super.init()
     }

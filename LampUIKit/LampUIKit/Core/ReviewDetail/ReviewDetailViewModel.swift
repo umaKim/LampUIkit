@@ -23,7 +23,7 @@ class ReviewDetailViewModel: BaseViewModel<ReviewDetailViewModelNotification> {
     
     init(
         _ data: ReviewDetailData,
-        _ network: Networkable = NetworkManager.shared
+        _ network: Networkable = NetworkManager()
     ) {
         self.data = data
         self.network = network

@@ -20,7 +20,7 @@ class LoginViewModel: BaseViewModel<LoginViewModelNotification> {
     
     init(
         _ auth: Autheable = AuthManager.shared,
-        _ network: Networkable = NetworkManager.shared
+        _ network: Networkable = NetworkManager()
     ) {
         self.auth = auth
         self.network = network

@@ -18,7 +18,7 @@ final class StartPageViewModel: BaseViewModel<StartPageViewModelNotification> {
     
     init(
         auth: Autheable = AuthManager.shared,
-        network: Networkable = NetworkManager.shared
+        network: Networkable = NetworkManager()
     ) {
         self.auth = auth
         self.network = network
@@ -29,6 +29,6 @@ final class StartPageViewModel: BaseViewModel<StartPageViewModelNotification> {
     }
     
     public func setToken(_ token: String) {
-        network.setToken(token)
+        auth.setToken(token)
     }
 }
