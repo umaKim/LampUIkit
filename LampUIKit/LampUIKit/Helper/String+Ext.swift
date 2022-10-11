@@ -62,3 +62,9 @@ extension String {
         return localizedText
     }
 }
+
+extension String {
+    var addingPercentEncoding: String {
+        self.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+    }
+}
