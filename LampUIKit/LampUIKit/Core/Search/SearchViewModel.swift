@@ -77,7 +77,7 @@ class SearchViewModel: BaseViewModel<SearchViewModelNotification> {
             isFetching = true
             sendNotification(.startLoading)
             
-            network.fetchSearchLocations(text, pageNumber: pageNumber) {[weak self] result in
+            network.get(.fetchSearchLocations(text, pageSize: 20, pageNumber: pageNumber), RecommendedLocationResponse.self) {[weak self] result in
                 self?.sendNotification(.endLoading)
                 guard let self = self else {return}
                 self.isFetching = false
@@ -95,8 +95,9 @@ class SearchViewModel: BaseViewModel<SearchViewModelNotification> {
     }
     
     public func postAddToMyTrip(at index: Int, _ location: RecommendedLocation) {
+        guard let token = auth.token else {return }
         let data = PostAddToMyTripData(
-            token: "",
+            token: token,
             contentId: location.contentId,
             contentTypeId: location.contentTypeId,
             image: location.image ?? "",
@@ -110,7 +111,7 @@ class SearchViewModel: BaseViewModel<SearchViewModelNotification> {
         
         locations[index].isOnPlan = true
         
-        network.postAddToMyTravel(data) {[weak self] result in
+        network.post(.postAddToMyTravel, data, Response.self) { [weak self] result in
             guard let self = self else {return}
             switch result {
             case .success(let response):
@@ -124,8 +125,7 @@ class SearchViewModel: BaseViewModel<SearchViewModelNotification> {
     public func deleteFromMyTrip(at index: Int, _ location: RecommendedLocation) {
         guard let planIdx = location.planIdx else { return }
         locations[index].isOnPlan = false
-        
-        network.deleteFromMyTravel("\(planIdx)") {[weak self] result  in
+        network.delete(.myTravel("\(planIdx)"), Response.self) { [weak self] result  in
             guard let self = self else {return}
             switch result {
             case .success(let response):
@@ -140,13 +140,13 @@ class SearchViewModel: BaseViewModel<SearchViewModelNotification> {
     public func save(_ index: Int) {
         locations[index].isBookMarked.toggle()
         let location = locations[index]
-        network.updateBookMark(of: location.contentId,
-                                             contentTypeId: location.contentTypeId,
-                                             mapx: location.mapX,
-                                             mapY: location.mapY,
-                                             placeName: location.title,
-                                             placeAddr: location.addr,
-                                             completion: {[weak self] result in
-        })
+        network.patch(.updateBookMark(location.contentId,
+                                       contentTypeId: location.contentTypeId,
+                                       mapx: location.mapX,
+                                       mapY: location.mapY,
+                                       placeName: location.title,
+                                       placeAddr: location.addr), Response.self, parameters: Empty.value) { result in
+            
+        }
     }
 }

@@ -28,18 +28,23 @@ class LoginViewModel: BaseViewModel<LoginViewModelNotification> {
     }
     
     public func checkUserExist(_ uid: String) {
-        network.checkUserExist(uid) {[weak self] res in
-            guard let self = self else {return}
-            if res.isSuccess {
-                if res.nicknameExist ?? false {
-                    self.network.setToken(uid)
-                    self.sendNotification(.changeRootViewController(uid))
+        network.get(.checkUserExist(uid), UserExistCheckResponse.self) {[weak self] result in
+            guard let self = self else {return }
+            switch result {
+            case .success(let response):
+                if response.isSuccess {
+                    if response.nicknameExist ?? false {
+                        self.auth.setToken(uid)
+                        self.sendNotification(.changeRootViewController(uid))
+                    } else {
+                        self.sendNotification(.presentCreateNickName)
+                    }
+                    
                 } else {
-                    self.sendNotification(.presentCreateNickName)
+                    self.sendNotification(.presentInitialSetpage)
                 }
-                
-            } else {
-                self.sendNotification(.presentInitialSetpage)
+            case .failure(let error):
+                print(error.localizedDescription)
             }
         }
     }

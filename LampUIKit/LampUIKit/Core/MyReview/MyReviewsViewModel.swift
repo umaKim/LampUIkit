@@ -26,7 +26,7 @@ class MyReviewsViewModel: BaseViewModel<MyReviewsViewmodelNotification> {
     }
     
     private func fetchMyReviews() {
-        network.fetchMyReviews {[weak self] result in
+        network.get(.fetchMyReviews, [UserReviewData].self) {[weak self] result in
             guard let self = self else {return}
             switch result {
             case .success(let response):
@@ -40,7 +40,8 @@ class MyReviewsViewModel: BaseViewModel<MyReviewsViewmodelNotification> {
     }
     
     public func deleteReview(at index: Int) {
-        network.deleteReview(datum[index].reviewIdx) {[weak self] result in
+        let reviewIdx = datum[index].reviewIdx
+        network.delete(.deleteReview(reviewIdx), Response.self) { [weak self] result in
             guard let self = self else {return }
             switch result {
             case .success(_):

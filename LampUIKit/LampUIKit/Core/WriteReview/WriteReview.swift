@@ -253,6 +253,7 @@ extension WriteReviewView {
         
         delegate
             .$starValue
+            .debounce(for: 0.1, scheduler: RunLoop.main)
             .sink {[weak self] value in
                 guard let self = self else {return}
                 self.sendAction(.updateStarRating(value))
@@ -303,7 +304,8 @@ extension WriteReviewView {
             }
             .store(in: &cancellables)
         
-        textContextView.textPublisher
+        textContextView
+            .textPublisher
             .compactMap({$0})
             .sink {[weak self] text in
                 guard let self = self else {return }

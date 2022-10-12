@@ -42,7 +42,7 @@ class MyTravelCellViewModel: BaseViewModel<MyTravelCellViewModelNotifiction> {
     }
     
     public func fetchMyTravel() {
-        network.fetchMyTravel {[weak self] result in
+        network.get(.fetchMyTravel, [MyTravelLocation].self) {[weak self] result in
             guard let self = self else {return}
             
             if self.isRefreshing {
@@ -63,8 +63,8 @@ class MyTravelCellViewModel: BaseViewModel<MyTravelCellViewModelNotifiction> {
     
     public func deleteMyTravel(at index: Int) {
         let targetItem = models[index]
-        
-        let data = PostAddToMyTripData(token: "",
+        guard let token = auth.token else {return }
+        let data = PostAddToMyTripData(token: token,
                                        contentId: targetItem.contentId,
                                        contentTypeId: targetItem.contentTypeId,
                                        image: targetItem.image ?? "",
@@ -75,7 +75,7 @@ class MyTravelCellViewModel: BaseViewModel<MyTravelCellViewModelNotifiction> {
                                        mapX: targetItem.mapX ?? "",
                                        mapY: targetItem.mapY ?? "")
         
-        network.postAddToMyTravel(data) {[weak self] result in
+        network.post(.postAddToMyTravel, data, Response.self) { [weak self] result in
             switch result {
             case .success(let response):
                 self?.models.remove(at: index)
@@ -94,11 +94,10 @@ class MyTravelCellViewModel: BaseViewModel<MyTravelCellViewModelNotifiction> {
         let coord = location.location?.coordinate
         let lat = "\(coord?.latitude ?? 0)"
         let long = "\(coord?.longitude ?? 0)"
-        network.postCompleteTrip(.init(token: "",
-                                       planIdx: myTravel.planIdx,
-                                       mapX: long,
-                                       mapY: lat)) {[weak self] result in
-            
+        
+        guard let token = auth.token else {return }
+        let param = CompleteTripPostData(token: token, planIdx: myTravel.planIdx, mapX: long, mapY: lat)
+        network.post(.postCompleteTrip, param, Response.self) { [weak self] result in
             switch result {
             case .success(let res):
                 self?.sendNotification(.showMessage(res.message?.localized ?? ""))

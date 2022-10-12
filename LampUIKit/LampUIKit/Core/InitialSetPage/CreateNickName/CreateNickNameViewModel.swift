@@ -32,7 +32,9 @@ class CreateNickNameViewModel: BaseViewModel<CreateNickNameViewModelNotification
     }
     
     public func createAccount() {
-        network.postNickName(nickName) {[weak self] result in
+        guard let token = auth.token else {return }
+        let parameters = NickNameSettingData(nickname: nickName, socialToken: token, isAdmin: 0)
+        network.post(.postNickName, parameters, Response.self) { [weak self] result in
             guard let self = self else {return}
             switch result {
             case .success(let response):

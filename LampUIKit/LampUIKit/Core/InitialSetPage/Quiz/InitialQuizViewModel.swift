@@ -47,12 +47,11 @@ class InitialQuizViewModel: BaseViewModel<InitialQuizViewModelNotification> {
     private var currentIndex: Int = 0
     
     private func fetch() {
-        //TODO: Bind with network
-        network.fetchQuestions {[weak self] result in
+        network.get(.fetchQuestions, [Question].self) {[weak self] result in
             guard let self = self else {return}
             switch result {
-            case .success(let response):
-                self.questions = response
+            case .success(let questions):
+                self.questions = questions
                 self.currentIndex = 0
                 self.sendNotification(.quizData(self.questions[self.currentIndex]))
             case .failure(let error):
@@ -86,8 +85,7 @@ class InitialQuizViewModel: BaseViewModel<InitialQuizViewModelNotification> {
                 print("please choose something")
             }
         } else {
-            //MARK: - post answers after answering all questions
-            network.postAnswers(answers) {[weak self] result in
+            network.post(.postAnswers, answers, CharacterResponse.self) {[weak self] result in
                 guard let self = self else {return}
                 switch result {
                 case .success(let response):

@@ -33,7 +33,7 @@ class FavoriteCellViewModel: BaseViewModel<FavoriteCellViewModelNotification> {
     }
     
     public func fetchSavedTravel() {
-        network.fetchSavedTravel {[weak self] result in
+        network.get(.fetchSavedTravel, [MyBookMarkLocation].self) {[weak self] result in
             guard let self = self else { return }
             
             if self.isRefreshing {
@@ -54,13 +54,12 @@ class FavoriteCellViewModel: BaseViewModel<FavoriteCellViewModelNotification> {
     
     public func deleteMySaveLocations(at index: Int) {
         let targetItem = models[index]
-        network.updateBookMark(of: "\(targetItem.contentId)",
-                               contentTypeId: "\(targetItem.contentTypeId)",
-                               mapx: "\(targetItem.mapX)",
-                               mapY: "\(targetItem.mapY)",
-                               placeName: "\(targetItem.placeName )",
-                               placeAddr: "\(targetItem.placeAddr )") {[weak self] result in
-            
+        network.patch(.updateBookMark("\(targetItem.contentId)",
+                                       contentTypeId: "\(targetItem.contentTypeId)",
+                                       mapx: "\(targetItem.mapX)",
+                                       mapY: "\(targetItem.mapY)",
+                                       placeName: "\(targetItem.placeName )",
+                                       placeAddr: "\(targetItem.placeAddr )"), Response.self, parameters: Empty.value) { [weak self] result in
             switch result {
             case .success(_):
                 self?.models.remove(at: index)

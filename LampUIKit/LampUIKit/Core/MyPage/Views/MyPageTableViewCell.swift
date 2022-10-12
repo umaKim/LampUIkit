@@ -19,7 +19,10 @@ class MyPageTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+        setupUI()
+    }
+    
+    private func setupUI() {
         backgroundColor = .greyshWhite
         
         [titleLabel].forEach { uv in

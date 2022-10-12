@@ -43,6 +43,9 @@ class MainViewModel: BaseViewModel<MainViewModelNotification>  {
         checkUserIfExist()
     }
 }
+
+//MARK: - Public methods
+extension MainViewModel {
     public func zoomIn() {
         if zoom > 20 { return }
         zoom = zoom + 1
@@ -74,7 +77,7 @@ class MainViewModel: BaseViewModel<MainViewModelNotification>  {
     public func fetchItems() {
         sendNotification(.startLoading)
         let location = Location(lat: coord.latitude, long: coord.longitude)
-        network.fetchRecommendation(location, zoom.zoomLevel, 20) {[weak self] result in
+        network.get(.fetchRecommendation(location, zoom.zoomLevel, 20), RecommendedLocationResponse.self) {[weak self] result in
             self?.sendNotification(.endLoading)
             guard let self = self else { return }
             switch result {
@@ -82,7 +85,7 @@ class MainViewModel: BaseViewModel<MainViewModelNotification>  {
                 self.recommendedPlaces = items.result
                 self.markerType = .recommended
                 self.sendNotification(.recommendedLocations(items.result))
-                
+
             case .failure(let error):
                 print(error)
             }
@@ -91,7 +94,7 @@ class MainViewModel: BaseViewModel<MainViewModelNotification>  {
     
     public func fetchAllOver() {
         sendNotification(.startLoading)
-        network.fetchRecommendationFromAllOver {[weak self] result in
+        network.get(.fetchRecommendationFromAllOver, RecommendedLocationResponse.self) {[weak self] result in
             guard let self = self else { return }
             self.sendNotification(.endLoading)
             switch result {
@@ -108,7 +111,7 @@ class MainViewModel: BaseViewModel<MainViewModelNotification>  {
     
     public func fetchUnvisited() {
         sendNotification(.startLoading)
-        network.fetchMyTravel {[weak self] result in
+        network.get(.fetchMyTravel, [MyTravelLocation].self) {[weak self] result in
             guard let self = self else { return }
             self.sendNotification(.endLoading)
             switch result {
@@ -131,20 +134,19 @@ class MainViewModel: BaseViewModel<MainViewModelNotification>  {
             case .failure(let error):
                 print(error)
             }
-            
         }
     }
     
     public func fetchCompleted() {
         sendNotification(.startLoading)
-        network.fetchCompletedTravel {[weak self] result in
+        network.get(.fetchCompletedTravel, RecommendedLocationResponse.self) {[weak self] result in
             guard let self = self else {return }
             self.sendNotification(.endLoading)
             switch result {
             case .success(let items):
-                self.recommendedPlaces = items
+                self.recommendedPlaces = items.result
                 self.markerType = .completed
-                self.sendNotification(.recommendedLocations(items))
+                self.sendNotification(.recommendedLocations(items.result))
             case .failure(let error):
                 print(error)
             }
@@ -154,7 +156,7 @@ class MainViewModel: BaseViewModel<MainViewModelNotification>  {
     public func fetchPlaces(for category: CategoryType) {
         sendNotification(.startLoading)
         let location = Location(lat: coord.latitude, long: coord.longitude)
-        network.fetchCategoryPlaces(location, category) {[weak self] result in
+        network.patch(.fetchCategoryPlaces(location, category), RecommendedLocationResponse.self, parameters: Empty.value) { [weak self] result in
             guard let self = self else {return}
             self.sendNotification(.endLoading)
             switch result {
@@ -166,6 +168,82 @@ class MainViewModel: BaseViewModel<MainViewModelNotification>  {
             case .failure(let error):
                 print(error)
             }
+        }
+    }
+    
+    public func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        switch manager.authorizationStatus {
+        case .authorizedAlways, .authorizedWhenInUse:
+            mainFlow()
+        case .notDetermined, .denied, .restricted:
+            locationManager.requestWhenInUseAuthorization()
+        default:
+            break
+        }
+    }
+    
+    public func appendPlace(_ locaion: RecommendedLocation) {
+        if recommendedPlaces.contains(locaion) { return }
+        self.recommendedPlaces.append(locaion)
+    }
+}
+
+extension MainViewModel {
+    private func mainFlow() {
+        self.locationManager.requestLocation()
+        
+        guard let coord = locationManager.location?.coordinate else { return }
+        self.setMyLocation(with: coord.latitude, coord.longitude)
+        self.setLocation(with: coord.latitude, coord.longitude)
+        self.sendNotification(.moveTo(coord))
+    }
+    
+    private func checkUserIfExist() {
+        checkUserAuth { [weak self] in
+            guard let self = self else {return }
+            self.locationManager.delegate = self
+        }
+    }
+    
+    private func checkUserAuth(completion: @escaping () -> Void) {
+        guard let uid = auth.token else {return }
+        network.get(.checkUserExist(uid), UserExistCheckResponse.self) {[weak self] result in
+            guard let self = self else {return }
+            
+            switch result {
+            case .success(let response):
+                if response.isSuccess {
+                    completion()
+                } else {
+                    self.kakaoSignout()
+                    self.firebaseSignout()
+                }
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    private func kakaoSignout() {
+        UserApi.shared.logout {[weak self] (error) in
+            guard let self = self else {return}
+            if let error = error {
+                print(error)
+            }
+            else {
+                print("logout() success.")
+            }
+            self.sendNotification(.goBackToBeforeLoginPage)
+        }
+    }
+    
+    private func firebaseSignout() {
+        do {
+            try Auth.auth().signOut()
+            self.sendNotification(.goBackToBeforeLoginPage)
+        } catch {
+            print(error)
         }
     }
 }

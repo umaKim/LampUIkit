@@ -4,7 +4,7 @@
 //
 //  Created by 김윤석 on 2022/07/20.
 //
-
+import Alamofire
 import Combine
 import UIKit
 
@@ -39,6 +39,7 @@ class WriteReviewViewModel: BaseViewModel<WriteReviewViewModelNotification> {
         _ network: Networkable = NetworkManager()
     ) {
         self.location = location
+        self.auth = auth
         self.network = network
         super.init()
     }
@@ -111,11 +112,12 @@ class WriteReviewViewModel: BaseViewModel<WriteReviewViewModelNotification> {
             let comfortRating = comfortRating,
             let atmosphereRating = atmosphereRating,
             let surroundingRating = surroundingRating,
-            let foodRating = foodRating
+            let foodRating = foodRating,
+            let token = AuthManager.shared.token
         else { return }
         
         let model = ReviewPostData(
-            token: "",
+            token: token,
             contentId: location.contentId,
             contentTypeId: location.contentTypeId,
             placeName: location.title,
@@ -128,7 +130,7 @@ class WriteReviewViewModel: BaseViewModel<WriteReviewViewModelNotification> {
         )
         
         self.sendNotification(.startLoading)
-        network.postReview(model) {[weak self] result in
+        network.post(.postReview, model, Response.self) { [weak self] result in
             guard let self = self else {return}
             self.sendNotification(.endLoading)
             
@@ -152,8 +154,15 @@ class WriteReviewViewModel: BaseViewModel<WriteReviewViewModelNotification> {
     }
     
     private func postReviewImages() {
-        let imageDatum = images.map({$0.sd_imageData(as: .JPEG, compressionQuality: 0.25)}).compactMap({$0})
-        network.postReviewImages(with: imageDatum, location.contentId) {[weak self] result in
+        let imageDatum = images.map({$0.sd_imageData(as: .JPEG, compressionQuality: 0.5)}).compactMap({$0})
+        let date = Date()
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        let dateString = dateFormatter.string(from: date)
+        
+        network.uploadMultipartForm(.postReviewImages(location.contentId, dateString), imageDatum, location.contentId, Response.self) {[weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let response):
@@ -166,5 +175,6 @@ class WriteReviewViewModel: BaseViewModel<WriteReviewViewModelNotification> {
                 self.sendNotification(.showMessage(error.localizedDescription))
             }
         }
+        
     }
 }

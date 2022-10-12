@@ -33,7 +33,7 @@ class CompletedTravelCellViewModel: BaseViewModel<CompletedTravelCellViewModelNo
     }
     
     public func fetchCompletedTravel() {
-        network.fetchCompletedTravel {[weak self] result in
+        network.get(.fetchCompletedTravel, [RecommendedLocation].self) {[weak self] result in
             guard let self = self else { return }
             
             if self.isRefreshing {
@@ -66,7 +66,7 @@ class CompletedTravelCellViewModel: BaseViewModel<CompletedTravelCellViewModelNo
     
     public func deleteCompletedTravel(at index: Int) {
         let targetItem = models[index]
-        network.deleteFromMyTravel(targetItem.planIdx) {[weak self] result in
+        network.delete(.myTravel(targetItem.planIdx), Response.self) { [weak self] result in
             switch result {
             case .success(let response):
                 self?.models.remove(at: index)

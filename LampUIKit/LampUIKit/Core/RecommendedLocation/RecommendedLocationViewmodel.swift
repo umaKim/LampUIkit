@@ -63,18 +63,15 @@ class RecommendedLocationViewmodel: BaseViewModel<RecommendedLocationViewmodelNo
     public func saveLocation(_ index: Int) {
         locations[index].isBookMarked.toggle()
         let location = locations[index]
-        network.updateBookMark(of: location.contentId,
-                                             contentTypeId: location.contentTypeId,
-                                             mapx: location.mapX,
-                                             mapY: location.mapY,
-                                             placeName: location.title,
-                                             placeAddr: location.addr) {[weak self] result in
+        network.patch(.updateBookMark(location.contentId, contentTypeId: location.contentTypeId, mapx: location.mapX, mapY: location.mapY, placeName: location.title, placeAddr: location.addr), Response.self, parameters: Empty.value) { result in
+            
         }
     }
     
     public func postAddToMyTrip(at index: Int,_ location: RecommendedLocation) {
+        guard let token = auth.token else {return }
         let data = PostAddToMyTripData(
-            token: "",
+            token: token,
             contentId: location.contentId,
             contentTypeId: location.contentTypeId,
             image: location.image ?? "''",
@@ -88,7 +85,7 @@ class RecommendedLocationViewmodel: BaseViewModel<RecommendedLocationViewmodelNo
         
         self.locations[index].isOnPlan = true
         
-        network.postAddToMyTravel(data) {[weak self] result in
+        network.post(.postAddToMyTravel, data, Response.self) {[weak self] result in
             switch result {
             case .success(let response):
                 self?.sendNotification(.showMessage(response.message ?? ""))
@@ -101,7 +98,7 @@ class RecommendedLocationViewmodel: BaseViewModel<RecommendedLocationViewmodelNo
     public func deleteFromMyTrip(at index: Int, _ location: RecommendedLocation) {
         guard let planIdx = location.planIdx else { return }
         self.locations[index].isOnPlan = false
-        network.deleteFromMyTravel("\(planIdx)") {[weak self] result  in
+        network.delete(.myTravel("\(planIdx)"), Response.self) { [weak self] result  in
             switch result {
             case .success(let response):
                 self?.sendNotification(.showMessage(response.message ?? ""))

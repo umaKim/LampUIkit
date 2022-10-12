@@ -35,7 +35,7 @@ class MyPageViewModel: BaseViewModel<MyPageViewModelNotification> {
     }
     
     private func fetchUserInfo() {
-        network.fetchMyInfo {[weak self] result in
+        network.get(.fetchMyInfo, MyInfo.self) {[weak self] result in
             guard let self = self else {return}
             switch result {
             case .success(let info):
@@ -65,13 +65,13 @@ class MyPageViewModel: BaseViewModel<MyPageViewModelNotification> {
     }
     
     public func deleteAccount() {
-        network.deleteUser {[weak self] result in
+        network.patch(.deleteUser, Response.self, parameters: Empty.value) {[weak self] result in
             guard let self = self else {return}
             switch result {
             case .success(let response):
                 if response.isSuccess ?? false {
                     
-                    switch AuthManager.shared.userAuthType {
+                    switch self.auth.userAuthType {
                     case .kakao:
                         self.kakaoSignout()
                         

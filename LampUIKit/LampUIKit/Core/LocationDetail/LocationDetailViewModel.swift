@@ -101,16 +101,15 @@ final class LocationDetailViewModel: BaseViewModel<LocationDetailViewModelNotifi
     public func save() {
         guard let location = location else {return}
         sendNotification(.startLoading)
-        NetworkManager.shared.updateBookMark(of: location.contentId, 
-                                             contentTypeId: location.contentTypeId,
-                                             mapx: location.mapX,
-                                             mapY: location.mapY,
-                                             placeName: location.title,
-                                             placeAddr: location.addr,
-                                             completion: {[weak self] result in
+        network.patch(.updateBookMark(location.contentId,
+                                       contentTypeId: location.contentTypeId,
+                                       mapx: location.mapX,
+                                       mapY: location.mapY,
+                                       placeName: location.title,
+                                       placeAddr: location.addr), Response.self, parameters: Empty.value) {[weak self] result in
             guard let self = self else {return}
             self.sendNotification(.endLoading)
-        })
+        }
     }
     
     //MARK: - Private
@@ -120,7 +119,7 @@ final class LocationDetailViewModel: BaseViewModel<LocationDetailViewModelNotifi
             let contentTypeId = location?.contentTypeId
         else { return }
         sendNotification(.startLoading)
-        NetworkManager.shared.fetchLocationDetail(contentId, contentTypeId) {[weak self] result in
+        network.get(.fetchLocationDetail(contentId, contentTypeId), LocationDetailResponse.self) { [weak self] result in
             self?.sendNotification(.endLoading)
             guard let self = self else {return }
             switch result {
@@ -132,7 +131,7 @@ final class LocationDetailViewModel: BaseViewModel<LocationDetailViewModelNotifi
             }
         }
         
-        NetworkManager.shared.fetchLocationDetailImage(contentId) {[weak self] result in
+        network.get(.fetchLocationDetailImage(contentId), LocationImageResponse.self) {[weak self] result in
             guard let self = self else {return }
             switch result {
             case .success(let response):
@@ -171,8 +170,9 @@ final class LocationDetailViewModel: BaseViewModel<LocationDetailViewModelNotifi
             contentInfo = locationDetail?.datailInfo?.opentimefood ?? ""
         }
 
+        guard let token = auth.token else {return }
         let data = PostAddToMyTripData(
-            token: "",
+            token: token,
             contentId: location.contentId,
             contentTypeId: location.contentTypeId,
             image: location.image ?? "",
@@ -184,7 +184,7 @@ final class LocationDetailViewModel: BaseViewModel<LocationDetailViewModelNotifi
             mapY: location.mapY
         )
         
-        NetworkManager.shared.postAddToMyTravel(data) {[weak self] result in
+        network.post(.postAddToMyTravel, data, Response.self) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let response):
@@ -198,7 +198,7 @@ final class LocationDetailViewModel: BaseViewModel<LocationDetailViewModelNotifi
     
     private func deleteFromMyTrip() {
         guard let planIdx = locationDetail?.planExist?.planIdx else { return }
-        NetworkManager.shared.deleteFromMyTravel("\(planIdx)") {[weak self] result  in
+        network.delete(.myTravel(planIdx), Response.self) { [weak self] result  in
             guard let self = self else {return}
             switch result {
             case .success(let response):
