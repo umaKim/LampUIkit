@@ -8,6 +8,5 @@
 import Foundation
 
 public struct Empty: Encodable {
-    /// Static `Empty` instance used for all `Empty` responses.
     public static let value = Empty()
 }

@@ -40,7 +40,6 @@ class CustomMarkerView: UIView {
         self.imageUrl = imageUrl
         self.markerType = markerType
         
-        
         setMarkerType(as: markerType)
         setupUI()
     }

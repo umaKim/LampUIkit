@@ -26,16 +26,9 @@ class MainViewModel: BaseViewModel<MainViewModelNotification>  {
     private(set) var coord: Coord = .init(latitude: 0, longitude: 0)
     private(set) var myLocation: Coord = .init(latitude: 0, longitude: 0)
     
-    private let network = NetworkManager.shared
-    
     private(set) var zoom: Float = 15.0
     
     private(set) var locationManager = CLLocationManager()
-    
-    public func appendPlace(_ locaion: RecommendedLocation) {
-        if recommendedPlaces.contains(locaion) { return }
-        self.recommendedPlaces.append(locaion)
-    }
     
     private let auth: Autheable
     private let network: Networkable
@@ -49,68 +42,7 @@ class MainViewModel: BaseViewModel<MainViewModelNotification>  {
         super.init()
         checkUserIfExist()
     }
-    
-    private func checkUserIfExist() {
-        checkUserAuth { [weak self] in
-            guard let self = self else {return }
-            self.locationManager.delegate = self
-        }
-    }
-    
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        switch manager.authorizationStatus {
-        case .authorizedAlways, .authorizedWhenInUse:
-            mainFlow()
-        case .notDetermined, .denied, .restricted:
-            locationManager.requestWhenInUseAuthorization()
-        default:
-            break
-        }
-    }
-    
-    private func mainFlow() {
-        self.locationManager.requestLocation()
-        
-        guard let coord = locationManager.location?.coordinate else { return }
-        self.setMyLocation(with: coord.latitude, coord.longitude)
-        self.setLocation(with: coord.latitude, coord.longitude)
-        self.sendNotification(.moveTo(coord))
-    }
-    
-    private func checkUserAuth(completion: @escaping () -> Void) {
-        network.checkUserExist(network.token) {[weak self] response in
-            guard let self = self else {return }
-            if response.isSuccess {
-                completion()
-            } else {
-                self.kakaoSignout()
-                self.firebaseSignout()
-            }
-        }
-    }
-    
-    private func kakaoSignout() {
-        UserApi.shared.logout {[weak self] (error) in
-            guard let self = self else {return}
-            if let error = error {
-                print(error)
-            }
-            else {
-                print("logout() success.")
-            }
-            self.sendNotification(.goBackToBeforeLoginPage)
-        }
-    }
-    
-    private func firebaseSignout() {
-        do {
-            try Auth.auth().signOut()
-            self.sendNotification(.goBackToBeforeLoginPage)
-        } catch {
-            print(error)
-        }
-    }
-    
+}
     public func zoomIn() {
         if zoom > 20 { return }
         zoom = zoom + 1
