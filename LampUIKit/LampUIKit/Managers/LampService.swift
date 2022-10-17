@@ -32,7 +32,7 @@ struct NetworkManager: Networkable {
             }
     }
     
-    func patch<PARAMETERS, RESPONSE>(_ request: URLConfigurator, _ response: RESPONSE.Type, parameters: PARAMETERS?, completion: @escaping (Result<RESPONSE, Alamofire.AFError>) -> Void) where PARAMETERS : Encodable, RESPONSE : Decodable {
+    func patch<PARAMETERS, RESPONSE>(_ request: URLConfigurator, _ response: RESPONSE.Type, parameters: PARAMETERS? = Empty.value, completion: @escaping (Result<RESPONSE, Alamofire.AFError>) -> Void) where PARAMETERS : Encodable, RESPONSE : Decodable {
         AF.request(request.fullUrl, method: .patch, parameters: parameters, encoder: JSONParameterEncoder(), headers: nil)
             .validate()
             .responseDecodable(of: response.self) { response in

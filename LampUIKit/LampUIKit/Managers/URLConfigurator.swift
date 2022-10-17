@@ -137,6 +137,7 @@ extension URLConfigurator: URLRequestable {
             
         case .deleteReview(let reviewIdx):
             return "/app/placeInfo/review?token=\(token)&reviewIdx=\(reviewIdx)"
+            
         case .fetchCategoryPlaces(let location, let category):
             return "/app/main/category?pageSize=5&pageNumber=1&mapX=\(location.long)&mapY=\(location.lat)&token=\(token)&category=\(category.rawValue)&serviceLanguage=\(language)"
         }
