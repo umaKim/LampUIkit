@@ -17,12 +17,13 @@ import StoreKit
 
 class LoginViewController: BaseViewController<LoginView, LoginViewModel> {
     
+    private var currentNonce: String?
+    private let skStoreProductViewController = SKStoreProductViewController()
+    
     override func loadView() {
         super.loadView()
         self.view = contentView
     }
-    
-    fileprivate var currentNonce: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,8 +31,6 @@ class LoginViewController: BaseViewController<LoginView, LoginViewModel> {
         
         skStoreProductViewController.delegate = self
     }
-    
-    private let skStoreProductViewController = SKStoreProductViewController()
     
     //MARK: - Bind
     private func bind() {
