@@ -8,9 +8,9 @@
 import Foundation
 
 enum LanguageType: String {
-    case korean = "KorService"
-    case enghlish = "EngService"
-    case japanese = "JpnService"
+    case korean     = "KorService"
+    case enghlish   = "EngService"
+    case japanese   = "JpnService"
 }
 
 class LanguageManager {
