@@ -686,14 +686,10 @@
 		35189DD82882FAC50030F987 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				35CDECD028F30B1F00517794 /* APIError.swift */,
-				35CDECCE28F30AA300517794 /* URLRequestable.swift */,
-				35CDECD828F6CF4300517794 /* URLConfigurator.swift */,
-				35CDECD228F30B5100517794 /* LampService.swift */,
+				351BDF9928FE3DE5007EB36F /* Network */,
 				35B2266F28C6621000346C6F /* LanguageManager.swift */,
 				35E3EFE928B60C67009F902B /* HapticManager.swift */,
 				35FF5E4928F1C860004A7EFF /* AuthManager.swift */,
-				35CDECD628F590D700517794 /* Empty.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -924,6 +920,18 @@
 				35189E862894B3450030F987 /* InitialSetPageView.swift */,
 			);
 			path = InitialMessage;
+			sourceTree = "<group>";
+		};
+		351BDF9928FE3DE5007EB36F /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				35CDECD028F30B1F00517794 /* APIError.swift */,
+				35CDECCE28F30AA300517794 /* URLRequestable.swift */,
+				35CDECD828F6CF4300517794 /* URLConfigurator.swift */,
+				35CDECD228F30B5100517794 /* LampService.swift */,
+				35CDECD628F590D700517794 /* Empty.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		352C4375289CA34800189E9F /* CompletedTravelHeaderCell */ = {
