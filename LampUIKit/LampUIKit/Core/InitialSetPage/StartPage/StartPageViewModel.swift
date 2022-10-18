@@ -16,6 +16,7 @@ final class StartPageViewModel: BaseViewModel<StartPageViewModelNotification> {
     private let auth: Autheable
     private let network: Networkable
     
+    //MARK: - Init
     init(
         auth: Autheable = AuthManager.shared,
         network: Networkable = NetworkManager()

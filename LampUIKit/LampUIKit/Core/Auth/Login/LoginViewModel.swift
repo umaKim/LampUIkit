@@ -18,6 +18,7 @@ class LoginViewModel: BaseViewModel<LoginViewModelNotification> {
     private let auth: Autheable
     private let network: Networkable
     
+    //MARK: - Init
     init(
         _ auth: Autheable = AuthManager.shared,
         _ network: Networkable = NetworkManager()

@@ -15,6 +15,7 @@ enum QuizResultViewAction: Actionable {
 
 class QuizResultView: BaseView<QuizResultViewAction> {
     
+    //MARK: - UI Objects
     private lazy var backgroundImageView: UIImageView = {
         let uv = UIImageView(image: UIImage(named: "testBackground"))
         return uv
@@ -40,6 +41,7 @@ class QuizResultView: BaseView<QuizResultViewAction> {
         return bt
     }()
     
+    //MARK: - Init
     override init() {
         super.init()
         

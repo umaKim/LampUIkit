@@ -18,6 +18,7 @@ enum QuizViewAction: Actionable {
 
 class QuizView: BaseView<QuizViewAction> {
     
+    //MARK: - UI Objects
     private lazy var backgroundImageView: UIImageView = {
         let uv = UIImageView(image: UIImage(named: "testBackground"))
         return uv
@@ -71,6 +72,7 @@ class QuizView: BaseView<QuizViewAction> {
         return bt
     }()
     
+    //MARK: - Init
     override init() {
         super.init()
         
@@ -97,6 +99,7 @@ class QuizView: BaseView<QuizViewAction> {
         button.backgroundColor = button.isSelected ? .midNavy : .darkNavy
     }
     
+    //MARK: - Bind
     private func bind() {
         button1.tapPublisher.sink {[weak self] _ in
             guard let self = self else {return}
@@ -191,7 +194,6 @@ class QuizView: BaseView<QuizViewAction> {
     }
     
     public func setQuizData(_ data: Question) {
-        
         questionLabel.text = data.title?.localized
         indexLabel.text = "\(data.surveyIdx)" + " / 6"
         button1.setTitle(data.option1?.localized, for: .normal)

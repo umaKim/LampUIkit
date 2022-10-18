@@ -18,6 +18,7 @@ enum LoginViewAction: Actionable {
 
 class LoginView: BaseView<LoginViewAction> {
     
+    //MARK: - UI Objects
     private let titleImage: UIImageView = {
        let uv = UIImageView()
         uv.image = UIImage(named: "lampTitle")
@@ -62,6 +63,7 @@ class LoginView: BaseView<LoginViewAction> {
         return lb
     }()
     
+    //MARK: - Init
     override init() {
         super.init()
         
@@ -69,6 +71,7 @@ class LoginView: BaseView<LoginViewAction> {
         setupUI()
     }
     
+    //MARK: - Bind
     private func bind() {
         kakao.tapPublisher.sink {[weak self] _ in
             guard let self = self else {return}
@@ -85,7 +88,8 @@ class LoginView: BaseView<LoginViewAction> {
         apple.addTarget(self, action: #selector(appleSignInButtonPress), for: .touchUpInside)
     }
     
-    @objc private func appleSignInButtonPress() {
+    @objc
+    private func appleSignInButtonPress() {
         self.sendAction(.apple)
     }
     

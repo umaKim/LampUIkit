@@ -35,6 +35,7 @@ class InitialQuizViewModel: BaseViewModel<InitialQuizViewModelNotification> {
     
     private let network: Networkable
     
+    //MARK: - Init
     init(
         _ network: Networkable = NetworkManager()
     ) {

@@ -19,6 +19,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         
+        configureLanguage()
+        
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        window = UIWindow(windowScene: windowScene)
+        window?.rootViewController = StartPageViewController(StartPageView(), StartPageViewModel())
+        window?.backgroundColor = .black
+        window?.backgroundColor = .greyshWhite
+        window?.makeKeyAndVisible()
+    }
+    
+    private func configureLanguage() {
         let langId = Locale.preferredLanguages[0].components(separatedBy: "-")[0]
         if langId == "ko" {
             LanguageManager.shared.setLanguage(.korean)
@@ -27,13 +38,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         } else {
             LanguageManager.shared.setLanguage(.enghlish)
         }
-        
-        guard let windowScene = (scene as? UIWindowScene) else { return }
-        window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = StartPageViewController(StartPageView(), StartPageViewModel())
-        window?.backgroundColor = .black
-        window?.backgroundColor = .greyshWhite
-        window?.makeKeyAndVisible()
     }
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
@@ -49,8 +53,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This occurs shortly after the scene enters the background, or when its session is discarded.
         // Release any resources associated with this scene that can be re-created the next time the scene connects.
         // The scene may re-connect later, as its session was not necessarily discarded (see `application:didDiscardSceneSessions` instead).
-        
-        print("sceneDidDisconnect")
         
         guard let isInitialSettingDone = isInitialSettingDone else { return }
         

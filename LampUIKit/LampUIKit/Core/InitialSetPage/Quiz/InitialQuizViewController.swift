@@ -17,6 +17,7 @@ class InitialQuizViewController: BaseViewController<InitialQuizView, InitialQuiz
         bind()
     }
     
+    //MARK: - Bind
     private func bind() {
         contentView
             .actionPublisher

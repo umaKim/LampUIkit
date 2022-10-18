@@ -15,6 +15,7 @@ enum StartPageViewAction: Actionable {
 
 final class StartPageView: BaseView<StartPageViewAction> {
     
+    //MARK: - UI Objects
     private lazy var background: UIImageView = {
         let uv = UIImageView()
         uv.image = UIImage(named: "startImage")
@@ -37,6 +38,7 @@ final class StartPageView: BaseView<StartPageViewAction> {
         return bt
     }()
     
+    //MARK: - Init
     override init() {
         super.init()
         

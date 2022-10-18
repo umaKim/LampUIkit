@@ -20,6 +20,7 @@ class StartPageViewController: BaseViewController<StartPageView, StartPageViewMo
         bind()
     }
     
+    //MARK: - Bind
     private func bind() {
         contentView
             .actionPublisher
@@ -29,7 +30,6 @@ class StartPageViewController: BaseViewController<StartPageView, StartPageViewMo
                     HapticManager.shared.feedBack(with: .heavy)
                     if AuthApi.hasToken() {
                         UserApi.shared.me {[weak self] user, error in
-                            
                             guard
                                 let id = user?.id else {
                                 self?.present(

@@ -33,6 +33,7 @@ class LoginViewController: BaseViewController<LoginView, LoginViewModel> {
     
     private let skStoreProductViewController = SKStoreProductViewController()
     
+    //MARK: - Bind
     private func bind() {
         contentView
             .actionPublisher
@@ -86,6 +87,7 @@ class LoginViewController: BaseViewController<LoginView, LoginViewModel> {
     }
 }
 
+//MARK: - SKStoreProductViewControllerDelegate
 extension LoginViewController: SKStoreProductViewControllerDelegate {
     func productViewControllerDidFinish(_ viewController: SKStoreProductViewController) {
         skStoreProductViewController.dismiss(animated: true)
@@ -152,6 +154,7 @@ extension LoginViewController {
     }
 }
 
+//MARK: - ASAuthorizationControllerDelegate
 extension LoginViewController: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
@@ -186,6 +189,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
     }
 }
 
+//MARK: - ASAuthorizationControllerPresentationContextProviding
 extension LoginViewController : ASAuthorizationControllerPresentationContextProviding {
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return self.view.window!

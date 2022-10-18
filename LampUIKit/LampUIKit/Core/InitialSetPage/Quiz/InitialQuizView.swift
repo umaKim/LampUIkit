@@ -23,6 +23,7 @@ class InitialQuizView: BaseView<InitialQuizViewAction> {
     private let quizView = QuizView()
     private let resultView = QuizResultView()
     
+    //MARK: - Init
     override init() {
         super.init()
         
@@ -32,6 +33,7 @@ class InitialQuizView: BaseView<InitialQuizViewAction> {
         setupUI()
     }
     
+    //MARK: - Bind
     private func bind() {
         quizView
             .actionPublisher
