@@ -9,7 +9,10 @@ import UIKit
 
 protocol Actionable { }
 
-class BaseWhiteView: UIView {
+protocol ContentView {}
+
+class BaseWhiteView: UIView, ContentView {
+    
     init() {
         self.cancellables = .init()
         super.init(frame: .zero)
@@ -24,7 +27,7 @@ class BaseWhiteView: UIView {
     }
 }
 
-class BaseView<T: Actionable>: UIView {
+class BaseView<T: Actionable>: UIView, ContentView {
     
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<T, Never>()
