@@ -55,10 +55,10 @@ class BaseCollectionView<BODYCELL: BodyCellable>: UICollectionView {
         _ scrollDirection: UICollectionView.ScrollDirection = .vertical,
         _ minimumLineSpacing: CGFloat = 16
     ) {
-        let cl = UICollectionViewFlowLayout()
-        cl.scrollDirection = scrollDirection
-        cl.minimumLineSpacing = minimumLineSpacing
-        self.init(cl)
+        let collectionViewFlowLayout = UICollectionViewFlowLayout()
+        collectionViewFlowLayout.scrollDirection = scrollDirection
+        collectionViewFlowLayout.minimumLineSpacing = minimumLineSpacing
+        self.init(collectionViewFlowLayout)
         
     }
     
