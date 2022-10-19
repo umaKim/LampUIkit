@@ -18,6 +18,7 @@ class LoginViewModelTest: QuickSpec {
         var auth: MockAuthManager!
         var network: MockNetworkManager!
         var viewModel: LoginViewModel!
+        
         var isPresentCreateNickName: Bool = false
         var isPresentInitialSetpage: Bool = false
 
@@ -27,8 +28,15 @@ class LoginViewModelTest: QuickSpec {
             viewModel = LoginViewModel(auth, network)
         }
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
+        describe("checkUserExist") {
+            prepare()
+            viewModel.notifyPublisher.sink { noti in
+                switch noti {
+
+                //case1: success with nickname
+                case .changeRootViewController(let uid):
+                    expect(uid).to(equal("exist"))
+
                 //case2: success without nickname
                 case .presentCreateNickName:
                     expect(isPresentCreateNickName).to(beTrue())
@@ -52,7 +60,9 @@ class LoginViewModelTest: QuickSpec {
             
             //case3: fail
             network.userExistCheckResponse = .init(isSuccess: false, nicknameExist: nil, userIdx: nil)
+            viewModel.checkUserExist("exist")
+            isPresentInitialSetpage = true
         }
-    }
 
+    }
 }
