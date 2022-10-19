@@ -16,10 +16,7 @@ class MockNetworkManager: Networkable {
         case .checkUserExist(let uid):
             if let userExistCheckResponse = userExistCheckResponse {
                 completion(.success(userExistCheckResponse as! RESPONSE))
-            } else {
-                
             }
-            
         default:
             break
         }

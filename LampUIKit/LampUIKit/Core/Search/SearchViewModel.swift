@@ -145,7 +145,9 @@ class SearchViewModel: BaseViewModel<SearchViewModelNotification> {
                                        mapx: location.mapX,
                                        mapY: location.mapY,
                                        placeName: location.title,
-                                       placeAddr: location.addr), Response.self, parameters: Empty.value) { result in
+                                       placeAddr: location.addr),
+                      Response.self,
+                      parameters: Empty.value) { result in
             
         }
     }
