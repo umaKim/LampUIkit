@@ -10,9 +10,9 @@ import Foundation
 
 protocol Notifiable { }
 
-protocol ViewModel { }
+protocol ViewModelProtocol { }
 
-class BaseViewModel<T: Notifiable>: NSObject, ViewModel {
+class BaseViewModel<T: Notifiable>: NSObject, ViewModelProtocol {
     private(set) lazy var notifyPublisher = notifySubject.eraseToAnyPublisher()
     private let notifySubject = PassthroughSubject<T, Never>()
     

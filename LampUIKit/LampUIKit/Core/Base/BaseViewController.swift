@@ -7,7 +7,7 @@
 import Combine
 import UIKit
 
-class BaseViewController<CV: ContentView, VM: ViewModel>: UIViewController {
+class BaseViewController<CV: ContentViewProtocol, VM: ViewModelProtocol>: UIViewController {
     var cancellables: Set<AnyCancellable>
     
     let contentView: CV
