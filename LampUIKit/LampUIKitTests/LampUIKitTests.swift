@@ -5,31 +5,53 @@
 //  Created by 김윤석 on 2022/07/13.
 //
 
-import XCTest
 @testable import LampUIKit
+import Quick
+import Nimble
+import Combine
 
-class LampUIKitTests: XCTestCase {
+class LoginViewModelTest: QuickSpec {
+    private var cancellables: Set<AnyCancellable> = []
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
+    override func spec() {
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
+        var auth: MockAuthManager!
+        var network: MockNetworkManager!
+        var viewModel: LoginViewModel!
+        var isPresentCreateNickName: Bool = false
+        var isPresentInitialSetpage: Bool = false
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
+        func prepare() {
+            auth = MockAuthManager()
+            network = MockNetworkManager()
+            viewModel = LoginViewModel(auth, network)
+        }
 
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+                //case2: success without nickname
+                case .presentCreateNickName:
+                    expect(isPresentCreateNickName).to(beTrue())
+
+                //case3: fail
+                case .presentInitialSetpage:
+                    expect(isPresentInitialSetpage).to(beTrue())
+
+                }
+            }
+            .store(in: &cancellables)
+            
+            //case1: success with nickname
+            network.userExistCheckResponse = .init(isSuccess: true, nicknameExist: true, userIdx: 0)
+            viewModel.checkUserExist("exist")
+
+            //case2: success without nickname
+            network.userExistCheckResponse = .init(isSuccess: true, nicknameExist: nil, userIdx: 0)
+            viewModel.checkUserExist("exist")
+            isPresentCreateNickName = true
+            
+            //case3: fail
+            network.userExistCheckResponse = .init(isSuccess: false, nicknameExist: nil, userIdx: nil)
         }
     }
 

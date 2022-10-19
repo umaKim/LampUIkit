@@ -9,13 +9,13 @@ import Foundation
 @testable import LampUIKit
 
 class MockNetworkManager: Networkable {
-    var getSuccessCheckUserExist: UserExistCheckResponse?
+    var userExistCheckResponse: UserExistCheckResponse?
     
     func get<RESPONSE>(_ request: LampUIKit.URLConfigurator, _ response: RESPONSE.Type, completion: @escaping (Result<RESPONSE, Alamofire.AFError>) -> Void) where RESPONSE : Decodable {
         switch request {
         case .checkUserExist(let uid):
-            if let getSuccessCheckUserExist = getSuccessCheckUserExist {
-                completion(.success(getSuccessCheckUserExist as! RESPONSE))
+            if let userExistCheckResponse = userExistCheckResponse {
+                completion(.success(userExistCheckResponse as! RESPONSE))
             } else {
                 
             }
