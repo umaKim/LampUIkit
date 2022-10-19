@@ -96,37 +96,21 @@
 		35189E6F2892A5CF0030F987 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 35189E632892A5CF0030F987 /* Roboto-Regular.ttf */; };
 		35189E722893EB970030F987 /* CapsuleLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189E712893EB970030F987 /* CapsuleLabelView.swift */; };
 		35189E762893EC070030F987 /* MyCharacterViewTableViewHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189E752893EC070030F987 /* MyCharacterViewTableViewHeaderCell.swift */; };
-		35189E772893EC070030F987 /* MyCharacterViewTableViewHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189E752893EC070030F987 /* MyCharacterViewTableViewHeaderCell.swift */; };
-		35189E782893EC070030F987 /* MyCharacterViewTableViewHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189E752893EC070030F987 /* MyCharacterViewTableViewHeaderCell.swift */; };
 		35189E7A2893EC340030F987 /* MyCharacterViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189E792893EC340030F987 /* MyCharacterViewTableViewCell.swift */; };
-		35189E7B2893EC340030F987 /* MyCharacterViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189E792893EC340030F987 /* MyCharacterViewTableViewCell.swift */; };
-		35189E7C2893EC340030F987 /* MyCharacterViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189E792893EC340030F987 /* MyCharacterViewTableViewCell.swift */; };
 		35189E7E2894126A0030F987 /* ARView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189E7D2894126A0030F987 /* ARView.swift */; };
-		35189E7F2894126A0030F987 /* ARView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189E7D2894126A0030F987 /* ARView.swift */; };
-		35189E802894126A0030F987 /* ARView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189E7D2894126A0030F987 /* ARView.swift */; };
 		35189E82289412800030F987 /* ARViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189E81289412800030F987 /* ARViewModel.swift */; };
-		35189E83289412800030F987 /* ARViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189E81289412800030F987 /* ARViewModel.swift */; };
-		35189E84289412800030F987 /* ARViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189E81289412800030F987 /* ARViewModel.swift */; };
 		35189E872894B3450030F987 /* InitialSetPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189E862894B3450030F987 /* InitialSetPageView.swift */; };
-		35189E882894B3450030F987 /* InitialSetPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189E862894B3450030F987 /* InitialSetPageView.swift */; };
-		35189E892894B3450030F987 /* InitialSetPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189E862894B3450030F987 /* InitialSetPageView.swift */; };
 		35189E8B2894B3510030F987 /* InitialSetPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189E8A2894B3510030F987 /* InitialSetPageViewController.swift */; };
-		35189E8C2894B3510030F987 /* InitialSetPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189E8A2894B3510030F987 /* InitialSetPageViewController.swift */; };
-		35189E8D2894B3510030F987 /* InitialSetPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189E8A2894B3510030F987 /* InitialSetPageViewController.swift */; };
 		35189E8F2894B3810030F987 /* InitialSetPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189E8E2894B3810030F987 /* InitialSetPageViewModel.swift */; };
-		35189E902894B3810030F987 /* InitialSetPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189E8E2894B3810030F987 /* InitialSetPageViewModel.swift */; };
-		35189E912894B3810030F987 /* InitialSetPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189E8E2894B3810030F987 /* InitialSetPageViewModel.swift */; };
 		35189E932894C1590030F987 /* InitialQuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189E922894C1590030F987 /* InitialQuizViewController.swift */; };
-		35189E942894C1590030F987 /* InitialQuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189E922894C1590030F987 /* InitialQuizViewController.swift */; };
-		35189E952894C1590030F987 /* InitialQuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189E922894C1590030F987 /* InitialQuizViewController.swift */; };
 		35189E992894D93B0030F987 /* InitialQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189E982894D93A0030F987 /* InitialQuizView.swift */; };
-		35189E9A2894D93B0030F987 /* InitialQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189E982894D93A0030F987 /* InitialQuizView.swift */; };
-		35189E9B2894D93B0030F987 /* InitialQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189E982894D93A0030F987 /* InitialQuizView.swift */; };
 		35189E9D2897066A0030F987 /* InitialQuizViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189E9C2897066A0030F987 /* InitialQuizViewModel.swift */; };
-		35189E9E2897066A0030F987 /* InitialQuizViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189E9C2897066A0030F987 /* InitialQuizViewModel.swift */; };
-		35189E9F2897066A0030F987 /* InitialQuizViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189E9C2897066A0030F987 /* InitialQuizViewModel.swift */; };
 		35189EA22897E0620030F987 /* AxisRatingBar in Frameworks */ = {isa = PBXBuildFile; productRef = 35189EA12897E0620030F987 /* AxisRatingBar */; };
 		35189EA42897E2820030F987 /* StarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189EA32897E2820030F987 /* StarRatingView.swift */; };
+		351BDFA129002178007EB36F /* MockNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351BDFA029002178007EB36F /* MockNetworkManager.swift */; };
+		351BDFA42900219A007EB36F /* MockAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351BDFA32900219A007EB36F /* MockAuthManager.swift */; };
+		351BDFA729002B5F007EB36F /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = 351BDFA629002B5F007EB36F /* Nimble */; };
+		351BDFAA29002B6D007EB36F /* Quick in Frameworks */ = {isa = PBXBuildFile; productRef = 351BDFA929002B6D007EB36F /* Quick */; };
 		352C4377289CA35F00189E9F /* CompletedTravelHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352C4376289CA35F00189E9F /* CompletedTravelHeaderCell.swift */; };
 		352C4379289CA37600189E9F /* CompletedTravelCellCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352C4378289CA37600189E9F /* CompletedTravelCellCollectionViewCell.swift */; };
 		353038D028A23DD900ECAF0D /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353038CF28A23DD900ECAF0D /* MainView.swift */; };
@@ -329,6 +313,8 @@
 		35189E982894D93A0030F987 /* InitialQuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialQuizView.swift; sourceTree = "<group>"; };
 		35189E9C2897066A0030F987 /* InitialQuizViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialQuizViewModel.swift; sourceTree = "<group>"; };
 		35189EA32897E2820030F987 /* StarRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingView.swift; sourceTree = "<group>"; };
+		351BDFA029002178007EB36F /* MockNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkManager.swift; sourceTree = "<group>"; };
+		351BDFA32900219A007EB36F /* MockAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAuthManager.swift; sourceTree = "<group>"; };
 		352C4376289CA35F00189E9F /* CompletedTravelHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedTravelHeaderCell.swift; sourceTree = "<group>"; };
 		352C4378289CA37600189E9F /* CompletedTravelCellCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedTravelCellCollectionViewCell.swift; sourceTree = "<group>"; };
 		353038CF28A23DD900ECAF0D /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -461,7 +447,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				351BDFAA29002B6D007EB36F /* Quick in Frameworks */,
 				122457D5C1A0D210E7364AEE /* Pods_LampUIKitTests.framework in Frameworks */,
+				351BDFA729002B5F007EB36F /* Nimble in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -536,6 +524,7 @@
 			isa = PBXGroup;
 			children = (
 				35189D6F287F0A400030F987 /* LampUIKitTests.swift */,
+				351BDFA22900217C007EB36F /* Mock */,
 			);
 			path = LampUIKitTests;
 			sourceTree = "<group>";
@@ -934,6 +923,15 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		351BDFA22900217C007EB36F /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				351BDFA029002178007EB36F /* MockNetworkManager.swift */,
+				351BDFA32900219A007EB36F /* MockAuthManager.swift */,
+			);
+			path = Mock;
+			sourceTree = "<group>";
+		};
 		352C4375289CA34800189E9F /* CompletedTravelHeaderCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1177,6 +1175,10 @@
 				35189D6D287F0A400030F987 /* PBXTargetDependency */,
 			);
 			name = LampUIKitTests;
+			packageProductDependencies = (
+				351BDFA629002B5F007EB36F /* Nimble */,
+				351BDFA929002B6D007EB36F /* Quick */,
+			);
 			productName = LampUIKitTests;
 			productReference = 35189D6B287F0A400030F987 /* LampUIKitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -1246,6 +1248,8 @@
 				35E3EFE028B12152009F902B /* XCRemoteSwiftPackageReference "FloatingPanel" */,
 				3507DC3F28BDB2470079E921 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				35B2264E28C0C7B800346C6F /* XCRemoteSwiftPackageReference "SkeletonView" */,
+				351BDFA529002B5F007EB36F /* XCRemoteSwiftPackageReference "Nimble" */,
+				351BDFA829002B6D007EB36F /* XCRemoteSwiftPackageReference "Quick" */,
 			);
 			productRefGroup = 35189D53287F0A3F0030F987 /* Products */;
 			projectDirPath = "";
@@ -1610,17 +1614,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				35189E942894C1590030F987 /* InitialQuizViewController.swift in Sources */,
-				35189E7F2894126A0030F987 /* ARView.swift in Sources */,
-				35189E9A2894D93B0030F987 /* InitialQuizView.swift in Sources */,
 				35189D70287F0A400030F987 /* LampUIKitTests.swift in Sources */,
-				35189E8C2894B3510030F987 /* InitialSetPageViewController.swift in Sources */,
-				35189E902894B3810030F987 /* InitialSetPageViewModel.swift in Sources */,
-				35189E882894B3450030F987 /* InitialSetPageView.swift in Sources */,
-				35189E9E2897066A0030F987 /* InitialQuizViewModel.swift in Sources */,
-				35189E83289412800030F987 /* ARViewModel.swift in Sources */,
-				35189E7B2893EC340030F987 /* MyCharacterViewTableViewCell.swift in Sources */,
-				35189E772893EC070030F987 /* MyCharacterViewTableViewHeaderCell.swift in Sources */,
+				351BDFA42900219A007EB36F /* MockAuthManager.swift in Sources */,
+				351BDFA129002178007EB36F /* MockNetworkManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1628,18 +1624,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				35189E84289412800030F987 /* ARViewModel.swift in Sources */,
-				35189E952894C1590030F987 /* InitialQuizViewController.swift in Sources */,
-				35189E9B2894D93B0030F987 /* InitialQuizView.swift in Sources */,
-				35189E912894B3810030F987 /* InitialSetPageViewModel.swift in Sources */,
-				35189E8D2894B3510030F987 /* InitialSetPageViewController.swift in Sources */,
-				35189E892894B3450030F987 /* InitialSetPageView.swift in Sources */,
-				35189E782893EC070030F987 /* MyCharacterViewTableViewHeaderCell.swift in Sources */,
 				35189D7A287F0A400030F987 /* LampUIKitUITests.swift in Sources */,
-				35189E9F2897066A0030F987 /* InitialQuizViewModel.swift in Sources */,
-				35189E7C2893EC340030F987 /* MyCharacterViewTableViewCell.swift in Sources */,
 				35189D7C287F0A400030F987 /* LampUIKitUITestsLaunchTests.swift in Sources */,
-				35189E802894126A0030F987 /* ARView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2074,6 +2060,22 @@
 				minimumVersion = 0.5.0;
 			};
 		};
+		351BDFA529002B5F007EB36F /* XCRemoteSwiftPackageReference "Nimble" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Quick/Nimble.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		351BDFA829002B6D007EB36F /* XCRemoteSwiftPackageReference "Quick" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Quick/Quick.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		35B2264E28C0C7B800346C6F /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
@@ -2137,6 +2139,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 35189EA02897E0620030F987 /* XCRemoteSwiftPackageReference "AxisRatingBar" */;
 			productName = AxisRatingBar;
+		};
+		351BDFA629002B5F007EB36F /* Nimble */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 351BDFA529002B5F007EB36F /* XCRemoteSwiftPackageReference "Nimble" */;
+			productName = Nimble;
+		};
+		351BDFA929002B6D007EB36F /* Quick */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 351BDFA829002B6D007EB36F /* XCRemoteSwiftPackageReference "Quick" */;
+			productName = Quick;
 		};
 		35B2264F28C0C7B900346C6F /* SkeletonView */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -62,7 +62,6 @@ class InitialQuizViewController: BaseViewController<InitialQuizView, InitialQuiz
                     
                 case .finishInitialQuiz:
                     self.present(CreateNickNameViewController(CreateNickNameView(), CreateNickNameViewModel()), transitionType: .fromTop, animated: true, pushing: true)
-                    
                 }
             }
             .store(in: &cancellables)

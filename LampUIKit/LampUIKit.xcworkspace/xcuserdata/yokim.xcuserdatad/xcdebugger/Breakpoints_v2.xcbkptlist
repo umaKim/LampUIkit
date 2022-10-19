@@ -592,8 +592,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "62"
             endingLineNumber = "62"
-            landmarkName = "InitialQuizViewModel"
-            landmarkType = "3">
+            landmarkName = "fetch()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2896,7 +2896,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "122"
                   endingLineNumber = "122"
-                  offsetFromSymbolStart = "344">
+                  offsetFromSymbolStart = "256">
                </Location>
                <Location
                   uuid = "B1DA5171-38F9-43A2-BAD5-9641367E96D2 - 7bc33a8ee4e2502e"
@@ -2911,7 +2911,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "122"
                   endingLineNumber = "122"
-                  offsetFromSymbolStart = "28">
+                  offsetFromSymbolStart = "58">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -3236,7 +3236,7 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "3E404BB1-C4E4-402D-AF5B-AAD307E598DC - f4aad974c015460"
+                  uuid = "3E404BB1-C4E4-402D-AF5B-AAD307E598DC - f4aad974c0152b6"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -3246,12 +3246,12 @@
                   urlString = "file:///Users/yokim/Documents/GitHub/LampUIkit/LampUIKit/LampUIKit/Core/WriteReview/WriteReviewViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "179"
-                  endingLineNumber = "179"
-                  offsetFromSymbolStart = "412">
+                  startingLineNumber = "157"
+                  endingLineNumber = "157"
+                  offsetFromSymbolStart = "228">
                </Location>
                <Location
-                  uuid = "3E404BB1-C4E4-402D-AF5B-AAD307E598DC - 69ee028daf09c1da"
+                  uuid = "3E404BB1-C4E4-402D-AF5B-AAD307E598DC - 69ee028daf09c70c"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -3261,12 +3261,12 @@
                   urlString = "file:///Users/yokim/Documents/GitHub/LampUIkit/LampUIKit/LampUIKit/Core/WriteReview/WriteReviewViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "179"
-                  endingLineNumber = "179"
-                  offsetFromSymbolStart = "36">
+                  startingLineNumber = "157"
+                  endingLineNumber = "157"
+                  offsetFromSymbolStart = "47">
                </Location>
                <Location
-                  uuid = "3E404BB1-C4E4-402D-AF5B-AAD307E598DC - e2ac447efec4cae3"
+                  uuid = "3E404BB1-C4E4-402D-AF5B-AAD307E598DC - e2ac447efec4cc35"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -3276,9 +3276,9 @@
                   urlString = "file:///Users/yokim/Documents/GitHub/LampUIkit/LampUIKit/LampUIKit/Core/WriteReview/WriteReviewViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "179"
-                  endingLineNumber = "179"
-                  offsetFromSymbolStart = "56">
+                  startingLineNumber = "157"
+                  endingLineNumber = "157"
+                  offsetFromSymbolStart = "57">
                </Location>
             </Locations>
          </BreakpointContent>
