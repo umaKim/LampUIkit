@@ -33,25 +33,27 @@ class SearchViewModel: BaseViewModel<SearchViewModelNotification> {
     
     private var pageNumber = 1
     
-    public func increasePageNumber() {
-        pageNumber += 1
-    }
+    private var searchKeyword = ""
+    
+    private var isFetching: Bool = false
+    private var isPagenationDone: Bool = false
     
     public var isPaginating: Bool? {
         didSet {
             self.isPagenationDone = !(isPaginating ?? false)
         }
     }
+}
+
+//MARK: - Public methods
+extension SearchViewModel {
+    public func increasePageNumber() {
+        pageNumber += 1
+    }
     
     public func setKeyword(_ text: String) {
         self.searchKeyword = text
         self.initializeAllStates()
-    }
-    
-    private func initializeAllStates() {
-        self.pageNumber = 1
-        self.isFetching = false
-        self.isPagenationDone = false
     }
     
     public func fetchSearchKeywordData() {
@@ -62,11 +64,6 @@ class SearchViewModel: BaseViewModel<SearchViewModelNotification> {
         self.locations.removeAll()
         self.search(searchKeyword)
     }
-    
-    private var searchKeyword = ""
-    
-    private var isFetching: Bool = false
-    private var isPagenationDone: Bool = false
     
     public func search(_ text: String) {
         guard !isPagenationDone else { return }
@@ -110,7 +107,6 @@ class SearchViewModel: BaseViewModel<SearchViewModelNotification> {
         )
         
         locations[index].isOnPlan = true
-        
         network.post(.postAddToMyTravel, data, Response.self) { [weak self] result in
             guard let self = self else {return}
             switch result {
@@ -150,5 +146,14 @@ class SearchViewModel: BaseViewModel<SearchViewModelNotification> {
                       parameters: Empty.value) { result in
             
         }
+    }
+}
+
+//MARK: - Private methods
+extension SearchViewModel {
+    private func initializeAllStates() {
+        self.pageNumber = 1
+        self.isFetching = false
+        self.isPagenationDone = false
     }
 }
