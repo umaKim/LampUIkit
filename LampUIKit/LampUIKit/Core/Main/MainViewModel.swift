@@ -128,7 +128,9 @@ extension MainViewModel {
                                         mapX: $0.mapX ?? "",
                                         mapY: $0.mapY ?? "",
                                         planIdx: $0.planIdx,
-                                        isOnPlan: true, travelCompletedDate: nil)})
+                                        isOnPlan: true,
+                                        travelCompletedDate: nil)
+                })
                 self.markerType = .destination
                 self.sendNotification(.recommendedLocations(self.recommendedPlaces))
             case .failure(let error):

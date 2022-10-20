@@ -3788,8 +3788,8 @@
             filePath = "LampUIKit/Core/Main/MainViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "213"
-            endingLineNumber = "213"
+            startingLineNumber = "212"
+            endingLineNumber = "212"
             landmarkName = "checkUserAuth(completion:)"
             landmarkType = "7">
             <Locations>
@@ -3836,8 +3836,8 @@
             filePath = "LampUIKit/Core/Main/MainViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "214"
-            endingLineNumber = "214"
+            startingLineNumber = "213"
+            endingLineNumber = "213"
             landmarkName = "checkUserAuth(completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3852,8 +3852,8 @@
             filePath = "LampUIKit/Core/Main/MainViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "205"
-            endingLineNumber = "205"
+            startingLineNumber = "204"
+            endingLineNumber = "204"
             landmarkName = "checkUserIfExist()"
             landmarkType = "7">
             <Locations>
@@ -3900,8 +3900,8 @@
             filePath = "LampUIKit/Core/Main/MainViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "216"
-            endingLineNumber = "216"
+            startingLineNumber = "215"
+            endingLineNumber = "215"
             landmarkName = "checkUserAuth(completion:)"
             landmarkType = "7">
             <Locations>
