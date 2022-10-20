@@ -10,6 +10,8 @@ import Foundation
 
 class MockNetworkManager: Networkable {
     var userExistCheckResponse: UserExistCheckResponse?
+    var recommendedLocationResponse: RecommendedLocationResponse?
+    var myTravelLocations: [MyTravelLocation]?
     
     func get<RESPONSE>(_ request: LampUIKit.URLConfigurator, _ response: RESPONSE.Type, completion: @escaping (Result<RESPONSE, Alamofire.AFError>) -> Void) where RESPONSE : Decodable {
         switch request {
@@ -17,6 +19,26 @@ class MockNetworkManager: Networkable {
             if let userExistCheckResponse = userExistCheckResponse {
                 completion(.success(userExistCheckResponse as! RESPONSE))
             }
+        case .fetchRecommendation(let location, let radius, let numberOfItems):
+            if let recommendedLocationResponse = recommendedLocationResponse {
+                completion(.success(recommendedLocationResponse as! RESPONSE))
+            }
+            
+        case .fetchRecommendationFromAllOver:
+            if let recommendedLocationResponse = recommendedLocationResponse {
+                completion(.success(recommendedLocationResponse as! RESPONSE))
+            }
+            
+        case .fetchMyTravel:
+            if let myTravelLocations = myTravelLocations {
+                completion(.success(myTravelLocations as! RESPONSE))
+            }
+            
+        case .fetchCompletedTravel:
+            if let recommendedLocationResponse = recommendedLocationResponse {
+                completion(.success(recommendedLocationResponse as! RESPONSE))
+            }
+            
         default:
             break
         }
@@ -27,7 +49,15 @@ class MockNetworkManager: Networkable {
     }
     
     func patch<PARAMETERS, RESPONSE>(_ request: LampUIKit.URLConfigurator, _ response: RESPONSE.Type, parameters: PARAMETERS?, completion: @escaping (Result<RESPONSE, Alamofire.AFError>) -> Void) where PARAMETERS : Encodable, RESPONSE : Decodable {
-        
+        switch request {
+        case .fetchCategoryPlaces(.init(lat: 0, long: 0), .art):
+            if let recommendedLocationResponse = recommendedLocationResponse {
+                completion(.success(recommendedLocationResponse as! RESPONSE))
+            }
+            
+        default:
+            break
+        }
     }
     
     func delete<RESPONSE>(_ request: LampUIKit.URLConfigurator, _ response: RESPONSE.Type, completion: @escaping (Result<RESPONSE, Alamofire.AFError>) -> Void) where RESPONSE : Decodable {
