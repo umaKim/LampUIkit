@@ -44,7 +44,6 @@ class LoginViewModelTest: QuickSpec {
                 //case3: fail
                 case .presentInitialSetpage:
                     expect(isPresentInitialSetpage).to(beTrue())
-
                 }
             }
             .store(in: &cancellables)
