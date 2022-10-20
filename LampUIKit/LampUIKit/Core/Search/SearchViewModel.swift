@@ -65,32 +65,6 @@ extension SearchViewModel {
         self.search(searchKeyword)
     }
     
-    public func search(_ text: String) {
-        guard !isPagenationDone else { return }
-        
-        if isFetching == false,
-           searchKeyword != "" {
-            
-            isFetching = true
-            sendNotification(.startLoading)
-            
-            network.get(.fetchSearchLocations(text, pageSize: 20, pageNumber: pageNumber), RecommendedLocationResponse.self) {[weak self] result in
-                self?.sendNotification(.endLoading)
-                guard let self = self else {return}
-                self.isFetching = false
-                switch result {
-                case .success(let locationResponse):
-                    self.isPagenationDone = true
-                    self.locations.append(contentsOf: locationResponse.result)
-                    self.sendNotification(.reload)
-                    
-                case .failure(let error):
-                    print(error)
-                }
-            }
-        }
-    }
-    
     public func postAddToMyTrip(at index: Int, _ location: RecommendedLocation) {
         guard let token = auth.token else {return }
         let data = PostAddToMyTripData(
@@ -156,4 +130,31 @@ extension SearchViewModel {
         self.isFetching = false
         self.isPagenationDone = false
     }
+    
+    private func search(_ text: String) {
+        guard !isPagenationDone else { return }
+        
+        if isFetching == false,
+           searchKeyword != "" {
+            
+            isFetching = true
+            sendNotification(.startLoading)
+            
+            network.get(.fetchSearchLocations(text, pageSize: 20, pageNumber: pageNumber), RecommendedLocationResponse.self) {[weak self] result in
+                self?.sendNotification(.endLoading)
+                guard let self = self else {return}
+                self.isFetching = false
+                switch result {
+                case .success(let locationResponse):
+                    self.isPagenationDone = true
+                    self.locations.append(contentsOf: locationResponse.result)
+                    self.sendNotification(.reload)
+                    
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+    }
+    
 }
