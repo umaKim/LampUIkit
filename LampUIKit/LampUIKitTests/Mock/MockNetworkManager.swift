@@ -12,6 +12,7 @@ class MockNetworkManager: Networkable {
     var userExistCheckResponse: UserExistCheckResponse?
     var recommendedLocationResponse: RecommendedLocationResponse?
     var myTravelLocations: [MyTravelLocation]?
+    var response: Response?
     
     func get<RESPONSE>(_ request: LampUIKit.URLConfigurator, _ response: RESPONSE.Type, completion: @escaping (Result<RESPONSE, Alamofire.AFError>) -> Void) where RESPONSE : Decodable {
         switch request {
