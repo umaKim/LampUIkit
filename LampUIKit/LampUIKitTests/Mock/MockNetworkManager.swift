@@ -50,7 +50,7 @@ class MockNetworkManager: Networkable {
     
     func patch<PARAMETERS, RESPONSE>(_ request: LampUIKit.URLConfigurator, _ response: RESPONSE.Type, parameters: PARAMETERS?, completion: @escaping (Result<RESPONSE, Alamofire.AFError>) -> Void) where PARAMETERS : Encodable, RESPONSE : Decodable {
         switch request {
-        case .fetchCategoryPlaces(.init(lat: 0, long: 0), .art):
+        case .fetchCategoryPlaces(let location, let category):
             if let recommendedLocationResponse = recommendedLocationResponse {
                 completion(.success(recommendedLocationResponse as! RESPONSE))
             }
