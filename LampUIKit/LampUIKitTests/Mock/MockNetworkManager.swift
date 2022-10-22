@@ -39,6 +39,11 @@ class MockNetworkManager: Networkable {
                 completion(.success(recommendedLocationResponse as! RESPONSE))
             }
             
+        case .fetchSearchLocations(let keyword, pageSize: let pagesize, pageNumber: let pagenumber):
+            if let recommendedLocationResponse = recommendedLocationResponse {
+                completion(.success(recommendedLocationResponse as! RESPONSE))
+            }
+            
         default:
             break
         }
