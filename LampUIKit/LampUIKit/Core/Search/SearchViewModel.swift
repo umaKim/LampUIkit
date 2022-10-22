@@ -18,13 +18,13 @@ enum SearchViewModelNotification: Notifiable {
 class SearchViewModel: BaseViewModel<SearchViewModelNotification> {
     
     private let auth: Autheable
-    private let network: NetworkManager
+    private let network: Networkable
     
     private(set) var locations = [RecommendedLocation]()
     
     init(
         _ auth: Autheable = AuthManager.shared,
-        _ network: NetworkManager = NetworkManager()
+        _ network: Networkable = NetworkManager()
     ) {
         self.auth = auth
         self.network = network
@@ -92,21 +92,6 @@ extension SearchViewModel {
         }
     }
     
-    public func deleteFromMyTrip(at index: Int, _ location: RecommendedLocation) {
-        guard let planIdx = location.planIdx else { return }
-        locations[index].isOnPlan = false
-        network.delete(.myTravel("\(planIdx)"), Response.self) { [weak self] result  in
-            guard let self = self else {return}
-            switch result {
-            case .success(let response):
-                self.sendNotification(.showMessage(response.message ?? ""))
-            case .failure(let error):
-                self.sendNotification(.showMessage(error.localizedDescription))
-            }
-        }
-    }
-    
-    
     public func save(_ index: Int) {
         locations[index].isBookMarked.toggle()
         let location = locations[index]
@@ -156,5 +141,4 @@ extension SearchViewModel {
             }
         }
     }
-    
 }
