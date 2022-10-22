@@ -55,6 +55,11 @@ class MockNetworkManager: Networkable {
                 completion(.success(recommendedLocationResponse as! RESPONSE))
             }
             
+        case .updateBookMark(let contentId, contentTypeId: let contentTypeId, mapx: let mapx, mapY: let mapy, placeName: let placeName, placeAddr: let placeAddr):
+            if let response = self.response {
+                completion(.success(response as! RESPONSE))
+            }
+            
         default:
             break
         }
