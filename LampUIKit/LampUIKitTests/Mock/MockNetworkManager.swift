@@ -51,7 +51,20 @@ class MockNetworkManager: Networkable {
     }
     
     func post<PARAMETERS, RESPONSE>(_ request: LampUIKit.URLConfigurator, _ parameter: PARAMETERS, _ response: RESPONSE.Type, completion: @escaping (Result<RESPONSE, Alamofire.AFError>) -> Void) where PARAMETERS : Encodable, RESPONSE : Decodable {
-        
+        switch request {
+        case .postAddToMyTravel:
+            if let response = self.response {
+                completion(.success(response as! RESPONSE))
+            }
+            
+        case .postCompleteTrip:
+            if let response = self.response {
+                completion(.success(response as! RESPONSE))
+            }
+            
+        default:
+            break
+        }
     }
     
     func patch<PARAMETERS, RESPONSE>(_ request: LampUIKit.URLConfigurator, _ response: RESPONSE.Type, parameters: PARAMETERS?, completion: @escaping (Result<RESPONSE, Alamofire.AFError>) -> Void) where PARAMETERS : Encodable, RESPONSE : Decodable {
