@@ -49,6 +49,5 @@ class MyCharacterViewModel: BaseViewModel<MyCharacterViewModelNotification> {
                 print(error.localizedDescription)
             }
         }
-        
     }
 }
