@@ -199,6 +199,7 @@
 		35E3EFE828B368CD009F902B /* CustomMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E3EFE728B368CD009F902B /* CustomMarkerView.swift */; };
 		35E3EFEA28B60C67009F902B /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E3EFE928B60C67009F902B /* HapticManager.swift */; };
 		35E5FC152907877F007B3E15 /* MyTravelCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E5FC142907877F007B3E15 /* MyTravelCellViewModel.swift */; };
+		35E5FC172907A673007B3E15 /* FavoriteCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E5FC162907A673007B3E15 /* FavoriteCellViewModelTests.swift */; };
 		35FF5E3728EB49E2004A7EFF /* BaseScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FF5E3628EB49E2004A7EFF /* BaseScrollView.swift */; };
 		35FF5E3928EB49FD004A7EFF /* HorizontalScrollButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FF5E3828EB49FD004A7EFF /* HorizontalScrollButtonView.swift */; };
 		35FF5E3B28EBFDDC004A7EFF /* MyTravelCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FF5E3A28EBFDDC004A7EFF /* MyTravelCellViewModel.swift */; };
@@ -408,6 +409,7 @@
 		35E3EFE728B368CD009F902B /* CustomMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMarkerView.swift; sourceTree = "<group>"; };
 		35E3EFE928B60C67009F902B /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
 		35E5FC142907877F007B3E15 /* MyTravelCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTravelCellViewModel.swift; sourceTree = "<group>"; };
+		35E5FC162907A673007B3E15 /* FavoriteCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCellViewModelTests.swift; sourceTree = "<group>"; };
 		35FF5E3628EB49E2004A7EFF /* BaseScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseScrollView.swift; sourceTree = "<group>"; };
 		35FF5E3828EB49FD004A7EFF /* HorizontalScrollButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalScrollButtonView.swift; sourceTree = "<group>"; };
 		35FF5E3A28EBFDDC004A7EFF /* MyTravelCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTravelCellViewModel.swift; sourceTree = "<group>"; };
@@ -533,6 +535,7 @@
 				351BDFAB2900DE04007EB36F /* MainViewModelTests.swift */,
 				351BDFAD29011FC9007EB36F /* SearchViewModelTests.swift */,
 				35E5FC142907877F007B3E15 /* MyTravelCellViewModel.swift */,
+				35E5FC162907A673007B3E15 /* FavoriteCellViewModelTests.swift */,
 				351BDFA22900217C007EB36F /* Mock */,
 			);
 			path = LampUIKitTests;
@@ -1626,6 +1629,7 @@
 				35189D70287F0A400030F987 /* LampUIKitTests.swift in Sources */,
 				351BDFA42900219A007EB36F /* MockAuthManager.swift in Sources */,
 				35E5FC152907877F007B3E15 /* MyTravelCellViewModel.swift in Sources */,
+				35E5FC172907A673007B3E15 /* FavoriteCellViewModelTests.swift in Sources */,
 				351BDFA129002178007EB36F /* MockNetworkManager.swift in Sources */,
 				351BDFAC2900DE04007EB36F /* MainViewModelTests.swift in Sources */,
 				351BDFAE29011FC9007EB36F /* SearchViewModelTests.swift in Sources */,
