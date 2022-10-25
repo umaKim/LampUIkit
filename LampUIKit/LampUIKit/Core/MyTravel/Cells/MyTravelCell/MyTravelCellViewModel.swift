@@ -63,7 +63,7 @@ class MyTravelCellViewModel: BaseViewModel<MyTravelCellViewModelNotifiction> {
     
     public func deleteMyTravel(at index: Int) {
         let targetItem = models[index]
-        guard let token = auth.token else {return }
+        guard let token = auth.token else { return }
         let data = PostAddToMyTripData(token: token,
                                        contentId: targetItem.contentId,
                                        contentTypeId: targetItem.contentTypeId,
