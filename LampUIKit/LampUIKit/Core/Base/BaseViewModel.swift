@@ -10,11 +10,16 @@ import Foundation
 
 protocol Notifiable { }
 
-protocol ViewModelProtocol { }
+protocol ViewModelProtocol {
+    associatedtype T
+    
+    var notifyPublisher: AnyPublisher<T, Never> { get }
+    var notifySubject: PassthroughSubject<T, Never> { get }
+}
 
 class BaseViewModel<T: Notifiable>: NSObject, ViewModelProtocol {
     private(set) lazy var notifyPublisher = notifySubject.eraseToAnyPublisher()
-    private let notifySubject = PassthroughSubject<T, Never>()
+    internal let notifySubject = PassthroughSubject<T, Never>()
     
     var cancellables: Set<AnyCancellable>
     

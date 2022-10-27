@@ -4,13 +4,14 @@
 //
 //  Created by 김윤석 on 2022/07/13.
 //
-
+import Firebase
 import Foundation
 
 enum LoginViewModelNotification: Notifiable {
     case changeRootViewController(String)
     case presentCreateNickName
     case presentInitialSetpage
+    case showMessage(String)
 }
 
 class LoginViewModel: BaseViewModel<LoginViewModelNotification> {
@@ -45,7 +46,7 @@ class LoginViewModel: BaseViewModel<LoginViewModelNotification> {
                     self.sendNotification(.presentInitialSetpage)
                 }
             case .failure(let error):
-                print(error.localizedDescription)
+                self.sendNotification(.showMessage(error.localizedDescription))
             }
         }
     }

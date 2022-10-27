@@ -22,7 +22,7 @@ class LoginViewController: BaseViewController<LoginView, LoginViewModel> {
     
     override func loadView() {
         super.loadView()
-        self.view = contentView
+        self.view = contentView.baseView
     }
     
     override func viewDidLoad() {
@@ -72,6 +72,9 @@ class LoginViewController: BaseViewController<LoginView, LoginViewModel> {
                         transitionType: .fromTop,
                         animated: true,
                         pushing: true)
+                    
+                case .showMessage(let message):
+                    self.presentUmaDefaultAlert(title: "ServerError", message: message)
                 }
             }
             .store(in: &cancellables)

@@ -221,8 +221,9 @@ extension MainViewModel {
                     self.firebaseSignout()
                 }
                 
-            case .failure(let error):
-                print(error)
+            case .failure(let _):
+                self.kakaoSignout()
+                self.firebaseSignout()
             }
         }
     }

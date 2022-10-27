@@ -26,7 +26,7 @@ class BaseViewController<CV: ContentViewProtocol, VM: ViewModelProtocol>: UIView
     override func loadView() {
         super.loadView()
         
-        view = contentView as? UIView
+        view = contentView.baseView
     }
     
     required init?(coder: NSCoder) {

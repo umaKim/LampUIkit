@@ -7,7 +7,11 @@
 
 import UIKit
 
-class CustomNavigationBarView: BaseWhiteView {
+enum CustomNavigationBarViewAction: Actionable {
+    
+}
+
+class CustomNavigationBarView: BaseView<CustomNavigationBarViewAction> {
     
     private lazy var titleLabel: UILabel = {
        let lb = UILabel()

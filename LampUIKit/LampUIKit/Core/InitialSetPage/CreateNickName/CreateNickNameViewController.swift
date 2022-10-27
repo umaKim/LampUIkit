@@ -12,7 +12,7 @@ class CreateNickNameViewController: BaseViewController<CreateNickNameView, Creat
 
     override func loadView() {
         super.loadView()
-        view = contentView
+        view = contentView.baseView
     }
     
     override func viewDidLoad() {
