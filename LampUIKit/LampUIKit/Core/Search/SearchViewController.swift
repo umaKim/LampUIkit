@@ -150,9 +150,9 @@ extension SearchViewController: SearchRecommendationCollectionViewCellDelegate {
         delegate?.searchViewControllerDidTapMapPin(at: location)
     }
     
-    func didTapCancelThisLocationButton(at index: Int, _ location: RecommendedLocation) {
-        viewModel.postAddToMyTrip(at: index, location)
-    }
+//    func didTapCancelThisLocationButton(at index: Int, _ location: RecommendedLocation) {
+//        viewModel.postAddToMyTrip(at: index, location)
+//    }
 }
 
 //MARK: - LocationDetailViewControllerDelegate

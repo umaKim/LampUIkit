@@ -213,9 +213,9 @@ extension RecommendedLocationViewController: UICollectionViewDelegateFlowLayout 
 
 //MARK: - SearchRecommendationCollectionViewCellDelegate
 extension RecommendedLocationViewController: SearchRecommendationCollectionViewCellDelegate {
-    func didTapCancelThisLocationButton(at index: Int, _ location: RecommendedLocation) {
-        viewModel.postAddToMyTrip(at: index, location)
-    }
+//    func didTapCancelThisLocationButton(at index: Int, _ location: RecommendedLocation) {
+//        viewModel.postAddToMyTrip(at: index, location)
+//    }
     
     func didTapFavoriteButton(at index: Int, _ location: RecommendedLocation) {
         viewModel.saveLocation(index)

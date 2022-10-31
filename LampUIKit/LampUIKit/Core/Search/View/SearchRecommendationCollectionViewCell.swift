@@ -14,7 +14,7 @@ import SwiftUI
 protocol SearchRecommendationCollectionViewCellDelegate: AnyObject {
     func didTapMapPin(location: RecommendedLocation)
     func didTapSetThisLocationButton(at index: Int, _ location: RecommendedLocation)
-    func didTapCancelThisLocationButton(at index: Int, _ location: RecommendedLocation)
+//    func didTapCancelThisLocationButton(at index: Int, _ location: RecommendedLocation)
     func didTapFavoriteButton(at index: Int, _ location: RecommendedLocation)
 }
 
@@ -149,15 +149,13 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell, BodyCellable
                 self.isOnPlan.toggle()
                 if self.isOnPlan {
                     self.setThisLocationButton.setImage(.init(named: "destinationCancelButtonKr".localized), for: .normal)
-                    if let location = self.location {
-                        self.delegate?.didTapSetThisLocationButton(at: self.tag, location)
-                    }
                    
                 } else {
                     self.setThisLocationButton.setImage(UIImage(named: "destinationSetButtonKr".localized), for: .normal)
-                    if let location = self.location {
-                        self.delegate?.didTapCancelThisLocationButton(at: self.tag, location)
-                    }
+                }
+                
+                if let location = self.location {
+                    self.delegate?.didTapSetThisLocationButton(at: self.tag, location)
                 }
             }
             .store(in: &cancellables)
