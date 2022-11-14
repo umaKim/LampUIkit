@@ -5,6 +5,7 @@
 //  Created by 김윤석 on 2022/07/16.
 //
 
+import UmaBasicAlertKit
 import UIKit
 
 protocol MyTravelViewControllerDelegate: AnyObject {
@@ -13,7 +14,7 @@ protocol MyTravelViewControllerDelegate: AnyObject {
     func myTravelViewControllerDidTapNavigation(_ location: RecommendedLocation)
 }
 
-final class MyTravelViewController: BaseViewController<MyTravelView, MyTravelViewModel> {
+final class MyTravelViewController: BaseViewController<MyTravelView, MyTravelViewModel>, Alertable {
     
     weak var delegate: MyTravelViewControllerDelegate?
     
@@ -52,7 +53,7 @@ final class MyTravelViewController: BaseViewController<MyTravelView, MyTravelVie
 //MARK: - MyTravelCellDelegate
 extension MyTravelViewController: MyTravelCellDelegate {
     func myTravelCellDelegateDidReceiveResponse(_ message: String) {
-        self.presentUmaDefaultAlert(title: message)
+        self.showDefaultAlert(title: message)
     }
     
     func myTravelCellDelegateDidTapComplete(at index: Int) {

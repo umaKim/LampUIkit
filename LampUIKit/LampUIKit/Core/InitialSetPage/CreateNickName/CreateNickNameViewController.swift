@@ -4,11 +4,11 @@
 //
 //  Created by 김윤석 on 2022/08/14.
 //
-
+import UmaBasicAlertKit
 import Combine
 import UIKit
 
-class CreateNickNameViewController: BaseViewController<CreateNickNameView, CreateNickNameViewModel> {
+class CreateNickNameViewController: BaseViewController<CreateNickNameView, CreateNickNameViewModel>, Alertable {
 
     override func loadView() {
         super.loadView()
@@ -52,7 +52,7 @@ class CreateNickNameViewController: BaseViewController<CreateNickNameView, Creat
                     self.changeRoot(MainViewController(MainView(), MainViewModel()))
                     
                 case .errorMessage(let message):
-                    self.presentUmaDefaultAlert(title: message.localized)
+                    self.showDefaultAlert(title: message.localized)
                     
                 case .setInitialSetting(let bool):
                     self.isInitialSettingDone(bool)

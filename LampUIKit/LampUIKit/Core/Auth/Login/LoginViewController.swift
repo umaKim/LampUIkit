@@ -4,6 +4,7 @@
 //
 //  Created by 김윤석 on 2022/07/13.
 //
+import UmaBasicAlertKit
 import KakaoSDKUser
 import KakaoSDKAuth
 import CryptoKit
@@ -15,7 +16,7 @@ import Firebase
 import UIKit
 import StoreKit
 
-class LoginViewController: BaseViewController<LoginView, LoginViewModel> {
+class LoginViewController: BaseViewController<LoginView, LoginViewModel>, Alertable {
     
     private var currentNonce: String?
     private let skStoreProductViewController = SKStoreProductViewController()
@@ -74,7 +75,7 @@ class LoginViewController: BaseViewController<LoginView, LoginViewModel> {
                         pushing: true)
                     
                 case .showMessage(let message):
-                    self.presentUmaDefaultAlert(title: "ServerError", message: message)
+                    self.showDefaultAlert(title: "ServerError", message: message)
                 }
             }
             .store(in: &cancellables)
@@ -224,7 +225,7 @@ extension LoginViewController {
                 guard let self = self else {return}
                 // token을 넘겨주면, 성공했는지 안했는지에 대한 result값과 error값을 넘겨줌
                 if let error = error {
-                    self.presentUmaDefaultAlert(title: error.localizedDescription)
+                    self.showDefaultAlert(title: error.localizedDescription)
                     return
                 }
                 
@@ -244,7 +245,7 @@ extension LoginViewController {
             UserApi.shared.loginWithKakaoTalk {[weak self] (oauthToken, error) in
                 guard let self = self else {return}
                 if let error = error {
-                    self.presentUmaDefaultAlert(title: error.localizedDescription)
+                    self.showDefaultAlert(title: error.localizedDescription)
                 }
                 else {
                     self.getUserInfo()
@@ -256,7 +257,7 @@ extension LoginViewController {
             UserApi.shared.loginWithKakaoAccount {[weak self] token, error in
                 guard let self = self else {return}
                 if let error = error {
-                    self.presentUmaDefaultAlert(title: error.localizedDescription)
+                    self.showDefaultAlert(title: error.localizedDescription)
                 }
                 else {
                     self.getUserInfo()
@@ -269,7 +270,7 @@ extension LoginViewController {
         UserApi.shared.me() {[weak self] (user, error) in
             guard let self = self else {return}
             if let error = error {
-                self.presentUmaDefaultAlert(title: "\(error.localizedDescription)")
+                self.showDefaultAlert(title: error.localizedDescription)
             }
             else {
                 guard let id = user?.id else {return }

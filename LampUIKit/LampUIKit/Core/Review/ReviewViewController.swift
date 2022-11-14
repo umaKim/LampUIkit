@@ -5,10 +5,11 @@
 //  Created by 김윤석 on 2022/07/24.
 //
 
+import UmaBasicAlertKit
 import Combine
 import UIKit
 
-class ReviewViewController: BaseViewController<ReviewView, ReviewViewModel> {
+class ReviewViewController: BaseViewController<ReviewView, ReviewViewModel>, Alertable {
     private typealias DataSource = UICollectionViewDiffableDataSource<Section, ReviewData>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, ReviewData>
     
@@ -49,7 +50,7 @@ class ReviewViewController: BaseViewController<ReviewView, ReviewViewModel> {
                     self.updateSections()
                     
                 case .message(let text):
-                    self.presentUmaDefaultAlert(title: text)
+                    self.showDefaultAlert(title: text)
                 }
             }
             .store(in: &cancellables)

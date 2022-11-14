@@ -7,7 +7,7 @@
 import UmaBasicAlertKit
 import UIKit
 
-class MyPageViewController: BaseViewController<MyPageView, MyPageViewModel> {
+class MyPageViewController: BaseViewController<MyPageView, MyPageViewModel>, Alertable {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,17 +70,17 @@ class MyPageViewController: BaseViewController<MyPageView, MyPageViewModel> {
                 HapticManager.shared.feedBack(with: .medium)
                 switch action {
                 case .logoutActions:
-                    self.presentUmaActionAlert(title: "로그아웃 하시겠습니까?".localized,
-                                               with: self.logoutAction, self.cancelAction)
+                    self.showActionAlert(title: "로그아웃 하시겠습니까?".localized,
+                                          with: self.logoutAction, self.cancelAction)
                     
                 case .deleteAccountActions:
-                    self.presentUmaActionAlert(title: "회원 탈퇴 하시겠습니까?".localized,
-                                               with: self.deleteAccountAction, self.cancelAction)
+                    self.showActionAlert(title: "회원 탈퇴 하시겠습니까?".localized,
+                                          with: self.deleteAccountAction, self.cancelAction)
                 case .back:
                     self.navigationController?.popViewController(animated: true)
                     
                 case .languageSelection:
-                    self.presentUmaActionAlert(
+                    self.showActionAlert(
                         title: "언어선택".localized,
                         with: actionR, actionG, actionB, cancelAction
                             )

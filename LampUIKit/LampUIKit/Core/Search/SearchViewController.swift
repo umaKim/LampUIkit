@@ -5,6 +5,7 @@
 //  Created by 김윤석 on 2022/07/14.
 //
 
+import UmaBasicAlertKit
 import Combine
 import UIKit
 
@@ -15,7 +16,7 @@ protocol SearchViewControllerDelegate: AnyObject {
     func searchBarDidTap()
 }
 
-class SearchViewController: BaseViewController<SearchView, SearchViewModel> {
+class SearchViewController: BaseViewController<SearchView, SearchViewModel>, Alertable {
     
     private typealias DataSource = UICollectionViewDiffableDataSource<Section, RecommendedLocation>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, RecommendedLocation>
@@ -96,7 +97,7 @@ extension SearchViewController {
                     self.dismissLoadingView()
                     
                 case .showMessage(let text):
-                    self.presentUmaBottomAlert(message: text)
+                    self.showBottomAlert(message: text)
                 }
             }
             .store(in: &cancellables)

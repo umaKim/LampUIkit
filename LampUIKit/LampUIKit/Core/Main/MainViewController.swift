@@ -4,6 +4,7 @@
 //
 //  Created by 김윤석 on 2022/08/09.
 //
+import UmaBasicAlertKit
 import SDWebImageMapKit
 import SDWebImage
 import CoreLocation
@@ -12,7 +13,7 @@ import FloatingPanel
 import GoogleMaps
 import Combine
 
-class MainViewController: BaseViewController<MainView, MainViewModel> {
+class MainViewController: BaseViewController<MainView, MainViewModel>, Alertable {
     
     private var fpc = FloatingPanelController()
     
@@ -257,7 +258,7 @@ extension MainViewController: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        presentUmaDefaultAlert(title: error.localizedDescription)
+        showDefaultAlert(title: error.localizedDescription)
     }
 }
 

@@ -229,3 +229,14 @@ extension RecommendedLocationViewController: SearchRecommendationCollectionViewC
         delegate?.recommendedLocationViewControllerDidTapMapPin(location: location)
     }
 }
+
+class RecommendedLocationViewControllerCollectionViewDelegation: NSObject, UICollectionViewDelegate {
+    
+    override init() {
+        super.init()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+    }
+}

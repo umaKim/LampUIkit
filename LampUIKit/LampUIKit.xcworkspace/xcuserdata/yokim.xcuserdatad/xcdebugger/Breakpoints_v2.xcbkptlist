@@ -1175,22 +1175,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D2663A55-E01F-4964-BFCA-93A33E46D739"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LampUIKit/Core/MyPage/MyPageViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
-            landmarkName = "bind()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "ACF779FD-EC44-40CB-B057-6171C170B568"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -1294,8 +1278,8 @@
             filePath = "LampUIKit/Core/Main/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "353"
-            endingLineNumber = "353"
+            startingLineNumber = "354"
+            endingLineNumber = "354"
             landmarkName = "searchViewControllerDidTapMapPin(at:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1310,8 +1294,8 @@
             filePath = "LampUIKit/Core/Main/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "362"
-            endingLineNumber = "362"
+            startingLineNumber = "363"
+            endingLineNumber = "363"
             landmarkName = "searchViewControllerDidTapMapPin(at:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1326,8 +1310,8 @@
             filePath = "LampUIKit/Core/Main/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "335"
-            endingLineNumber = "335"
+            startingLineNumber = "336"
+            endingLineNumber = "336"
             landmarkName = "locationDetailViewControllerDidTapDismissButton()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1342,8 +1326,8 @@
             filePath = "LampUIKit/Core/Main/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "267"
-            endingLineNumber = "267"
+            startingLineNumber = "268"
+            endingLineNumber = "268"
             landmarkName = "mapView(_:didChange:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1358,8 +1342,8 @@
             filePath = "LampUIKit/Core/Main/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "291"
-            endingLineNumber = "291"
+            startingLineNumber = "292"
+            endingLineNumber = "292"
             landmarkName = "mapView(_:markerInfoWindow:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1486,8 +1470,8 @@
             filePath = "LampUIKit/Core/Main/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "352"
-            endingLineNumber = "352"
+            startingLineNumber = "353"
+            endingLineNumber = "353"
             landmarkName = "searchViewControllerDidTapMapPin(at:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1502,8 +1486,8 @@
             filePath = "LampUIKit/Core/Main/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
             landmarkName = "setFloatingPanelWithRecommendedLocationViewController()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1518,8 +1502,8 @@
             filePath = "LampUIKit/Core/Main/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "93"
-            endingLineNumber = "93"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
             landmarkName = "setFloatingPanelWithRecommendedLocationViewController()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1534,8 +1518,8 @@
             filePath = "LampUIKit/Core/Main/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "95"
-            endingLineNumber = "95"
+            startingLineNumber = "96"
+            endingLineNumber = "96"
             landmarkName = "setFloatingPanelWithRecommendedLocationViewController()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1854,8 +1838,8 @@
             filePath = "LampUIKit/Core/Main/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "366"
-            endingLineNumber = "366"
+            startingLineNumber = "367"
+            endingLineNumber = "367"
             landmarkName = "searchViewControllerDidTapDismiss()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1870,8 +1854,8 @@
             filePath = "LampUIKit/Core/Main/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "392"
-            endingLineNumber = "392"
+            startingLineNumber = "393"
+            endingLineNumber = "393"
             landmarkName = "myTravelViewControllerDidTapDismiss()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1886,8 +1870,8 @@
             filePath = "LampUIKit/Core/Search/SearchViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "169"
-            endingLineNumber = "169"
+            startingLineNumber = "170"
+            endingLineNumber = "170"
             landmarkName = "locationDetailViewControllerDidTapDismissButton()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1902,8 +1886,8 @@
             filePath = "LampUIKit/Core/Search/SearchViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "165"
-            endingLineNumber = "165"
+            startingLineNumber = "166"
+            endingLineNumber = "166"
             landmarkName = "locationDetailViewControllerDidTapBackButton()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1982,8 +1966,8 @@
             filePath = "LampUIKit/Core/Main/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "99"
-            endingLineNumber = "99"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
             landmarkName = "setFloatingPanelWithRecommendedLocationViewController()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2094,8 +2078,8 @@
             filePath = "LampUIKit/Core/MyTravel/MyTravelViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
             landmarkName = "favoriteCellDidTap(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2110,8 +2094,8 @@
             filePath = "LampUIKit/Core/Main/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "276"
-            endingLineNumber = "276"
+            startingLineNumber = "277"
+            endingLineNumber = "277"
             landmarkName = "mapView(_:didTapInfoWindowOf:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2206,8 +2190,8 @@
             filePath = "LampUIKit/Core/Review/ReviewViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
             landmarkName = "collectionView(_:didSelectItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2222,8 +2206,8 @@
             filePath = "LampUIKit/Core/Review/ReviewViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
             landmarkName = "collectionView(_:didSelectItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2254,8 +2238,8 @@
             filePath = "LampUIKit/Core/Main/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
             landmarkName = "moveTo(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2270,8 +2254,8 @@
             filePath = "LampUIKit/Core/Main/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "243"
-            endingLineNumber = "243"
+            startingLineNumber = "244"
+            endingLineNumber = "244"
             landmarkName = "bind()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2350,8 +2334,8 @@
             filePath = "LampUIKit/Core/Main/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
             landmarkName = "setFloatingPanelWithRecommendedLocationViewController()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2416,22 +2400,6 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "56"
             endingLineNumber = "56"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "D9A1CA7F-939D-4D78-BD91-DD9992C8891D"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LampUIKit/Core/InitialSetPage/CreateNickName/CreateNickNameViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2718,8 +2686,8 @@
             filePath = "LampUIKit/Core/Main/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "269"
-            endingLineNumber = "269"
+            startingLineNumber = "270"
+            endingLineNumber = "270"
             landmarkName = "mapView(_:didChange:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2894,8 +2862,8 @@
             filePath = "LampUIKit/Core/Auth/Login/LoginViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "61"
-            endingLineNumber = "61"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
             landmarkName = "bind()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2910,8 +2878,8 @@
             filePath = "LampUIKit/Core/Main/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "142"
-            endingLineNumber = "142"
+            startingLineNumber = "143"
+            endingLineNumber = "143"
             landmarkName = "addMarker(of:isSelected:)"
             landmarkType = "7">
             <Locations>
@@ -2958,8 +2926,8 @@
             filePath = "LampUIKit/Core/Main/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "141"
-            endingLineNumber = "141"
+            startingLineNumber = "142"
+            endingLineNumber = "142"
             landmarkName = "addMarker(of:isSelected:)"
             landmarkType = "7">
             <Locations>
@@ -3006,8 +2974,8 @@
             filePath = "LampUIKit/Core/Main/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "156"
-            endingLineNumber = "156"
+            startingLineNumber = "157"
+            endingLineNumber = "157"
             landmarkName = "addMarker(of:isSelected:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3181,8 +3149,8 @@
             filePath = "LampUIKit/Core/Search/SearchViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "145"
-            endingLineNumber = "145"
+            startingLineNumber = "146"
+            endingLineNumber = "146"
             landmarkName = "didTapSetThisLocationButton(at:_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3213,10 +3181,10 @@
             filePath = "LampUIKit/Core/Search/SearchViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "154"
-            endingLineNumber = "154"
-            landmarkName = "didTapCancelThisLocationButton(at:_:)"
-            landmarkType = "7">
+            startingLineNumber = "155"
+            endingLineNumber = "155"
+            landmarkName = "SearchViewController"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3229,8 +3197,8 @@
             filePath = "LampUIKit/Core/Search/SearchViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "141"
-            endingLineNumber = "141"
+            startingLineNumber = "142"
+            endingLineNumber = "142"
             landmarkName = "didTapFavoriteButton(at:_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3245,8 +3213,8 @@
             filePath = "LampUIKit/Core/Search/SearchViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "149"
-            endingLineNumber = "149"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
             landmarkName = "didTapMapPin(location:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3327,8 +3295,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "217"
             endingLineNumber = "217"
-            landmarkName = "didTapCancelThisLocationButton(at:_:)"
-            landmarkType = "7">
+            landmarkName = "RecommendedLocationViewController"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3996,8 +3964,8 @@
             filePath = "LampUIKit/Core/Auth/Login/LoginViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
             landmarkName = "bind()"
             landmarkType = "7">
          </BreakpointContent>

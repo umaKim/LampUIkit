@@ -5,9 +5,10 @@
 //  Created by 김윤석 on 2022/07/20.
 //
 
+import UmaBasicAlertKit
 import UIKit
 
-class WriteReviewViewController: BaseViewController<WriteReviewView, WriteReviewViewModel> {
+class WriteReviewViewController: BaseViewController<WriteReviewView, WriteReviewViewModel>, Alertable {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,7 +76,7 @@ class WriteReviewViewController: BaseViewController<WriteReviewView, WriteReview
                     self.navigationController?.popViewController(animated: true)
                     
                 case .showMessage(let message):
-                    self.presentUmaDefaultAlert(title: message)
+                    self.showDefaultAlert(title: message)
                     
                 case .startLoading:
                     self.showLoadingView()
@@ -115,7 +116,7 @@ extension WriteReviewViewController: UIImagePickerControllerDelegate & UINavigat
                 contentView.setImage(with: image)
                 viewModel.addImage(image)
             } else {
-                self.presentUmaDefaultAlert(title: "사진은 3개로 제한됩니다.")
+                self.showDefaultAlert(title: "사진은 3개로 제한됩니다")
             }
         }
         picker.dismiss(animated: true)

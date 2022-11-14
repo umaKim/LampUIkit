@@ -74,7 +74,6 @@
 		35189E33288A4E0A0030F987 /* MyCharacterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189E32288A4E090030F987 /* MyCharacterViewController.swift */; };
 		35189E35288A4E160030F987 /* MyCharacterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189E34288A4E160030F987 /* MyCharacterView.swift */; };
 		35189E37288A4E1F0030F987 /* MyCharacterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189E36288A4E1F0030F987 /* MyCharacterViewModel.swift */; };
-		35189E41288ABA550030F987 /* UmaBasicAlertKit in Frameworks */ = {isa = PBXBuildFile; productRef = 35189E40288ABA550030F987 /* UmaBasicAlertKit */; };
 		35189E44288D09A30030F987 /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189E43288D09A30030F987 /* ReviewViewController.swift */; };
 		35189E46288D09B30030F987 /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189E45288D09B30030F987 /* ReviewView.swift */; };
 		35189E48288D09C30030F987 /* ReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35189E47288D09C30030F987 /* ReviewViewModel.swift */; };
@@ -191,6 +190,7 @@
 		35CDECEF28F6D66D00517794 /* NickNameSettingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CDECEE28F6D66D00517794 /* NickNameSettingData.swift */; };
 		35CDECF128F6D67700517794 /* UserQuizeAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CDECF028F6D67700517794 /* UserQuizeAnswer.swift */; };
 		35CDECF328F6D68600517794 /* QuestionsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CDECF228F6D68600517794 /* QuestionsResponse.swift */; };
+		35D2AD242922067F00E9F9B3 /* UmaBasicAlertKit in Frameworks */ = {isa = PBXBuildFile; productRef = 35D2AD232922067F00E9F9B3 /* UmaBasicAlertKit */; };
 		35E3EFDB28AB60C2009F902B /* LocationDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E3EFDA28AB60C2009F902B /* LocationDescriptionView.swift */; };
 		35E3EFDD28AB7D90009F902B /* TotalTravelReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E3EFDC28AB7D90009F902B /* TotalTravelReviewView.swift */; };
 		35E3EFDF28ADE2A7009F902B /* InputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E3EFDE28ADE2A7009F902B /* InputTextView.swift */; };
@@ -441,11 +441,11 @@
 				35E3EFE228B12154009F902B /* FloatingPanel in Frameworks */,
 				35189DCB2881D2970030F987 /* Alamofire in Frameworks */,
 				35B2265028C0C7B900346C6F /* SkeletonView in Frameworks */,
+				35D2AD242922067F00E9F9B3 /* UmaBasicAlertKit in Frameworks */,
 				35189DC0288137CD0030F987 /* _CryptoExtras in Frameworks */,
 				35189DBE288137CD0030F987 /* Crypto in Frameworks */,
 				3507DC4128BDB2480079E921 /* Lottie in Frameworks */,
 				35189DAB2880F71B0030F987 /* CombineCocoa in Frameworks */,
-				35189E41288ABA550030F987 /* UmaBasicAlertKit in Frameworks */,
 				35189DE928845B6B0030F987 /* SDWebImageMapKit in Frameworks */,
 				6717F3226DB9AFBA07831964 /* Pods_LampUIKit.framework in Frameworks */,
 			);
@@ -1162,11 +1162,11 @@
 				35189DCA2881D2970030F987 /* Alamofire */,
 				35189DE628845B6B0030F987 /* SDWebImage */,
 				35189DE828845B6B0030F987 /* SDWebImageMapKit */,
-				35189E40288ABA550030F987 /* UmaBasicAlertKit */,
 				35189EA12897E0620030F987 /* AxisRatingBar */,
 				35E3EFE128B12154009F902B /* FloatingPanel */,
 				3507DC4028BDB2480079E921 /* Lottie */,
 				35B2264F28C0C7B900346C6F /* SkeletonView */,
+				35D2AD232922067F00E9F9B3 /* UmaBasicAlertKit */,
 			);
 			productName = LampUIKit;
 			productReference = 35189D52287F0A3F0030F987 /* LampUIKit.app */;
@@ -1255,13 +1255,13 @@
 				35189DBC288137CD0030F987 /* XCRemoteSwiftPackageReference "swift-crypto" */,
 				35189DC92881D2970030F987 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				35189DE528845B6B0030F987 /* XCRemoteSwiftPackageReference "SDWebImage" */,
-				35189E3F288ABA550030F987 /* XCRemoteSwiftPackageReference "UmaBasicAlertKit" */,
 				35189EA02897E0620030F987 /* XCRemoteSwiftPackageReference "AxisRatingBar" */,
 				35E3EFE028B12152009F902B /* XCRemoteSwiftPackageReference "FloatingPanel" */,
 				3507DC3F28BDB2470079E921 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				35B2264E28C0C7B800346C6F /* XCRemoteSwiftPackageReference "SkeletonView" */,
 				351BDFA529002B5F007EB36F /* XCRemoteSwiftPackageReference "Nimble" */,
 				351BDFA829002B6D007EB36F /* XCRemoteSwiftPackageReference "Quick" */,
+				35D2AD222922067F00E9F9B3 /* XCRemoteSwiftPackageReference "UmaBasicAlertKit" */,
 			);
 			productRefGroup = 35189D53287F0A3F0030F987 /* Products */;
 			projectDirPath = "";
@@ -2060,14 +2060,6 @@
 				kind = branch;
 			};
 		};
-		35189E3F288ABA550030F987 /* XCRemoteSwiftPackageReference "UmaBasicAlertKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/umaKim/UmaBasicAlertKit.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
 		35189EA02897E0620030F987 /* XCRemoteSwiftPackageReference "AxisRatingBar" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jasudev/AxisRatingBar.git";
@@ -2098,6 +2090,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.0.0;
+			};
+		};
+		35D2AD222922067F00E9F9B3 /* XCRemoteSwiftPackageReference "UmaBasicAlertKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/umaKim/UmaBasicAlertKit.git";
+			requirement = {
+				branch = main;
+				kind = branch;
 			};
 		};
 		35E3EFE028B12152009F902B /* XCRemoteSwiftPackageReference "FloatingPanel" */ = {
@@ -2146,11 +2146,6 @@
 			package = 35189DE528845B6B0030F987 /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImageMapKit;
 		};
-		35189E40288ABA550030F987 /* UmaBasicAlertKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 35189E3F288ABA550030F987 /* XCRemoteSwiftPackageReference "UmaBasicAlertKit" */;
-			productName = UmaBasicAlertKit;
-		};
 		35189EA12897E0620030F987 /* AxisRatingBar */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 35189EA02897E0620030F987 /* XCRemoteSwiftPackageReference "AxisRatingBar" */;
@@ -2170,6 +2165,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 35B2264E28C0C7B800346C6F /* XCRemoteSwiftPackageReference "SkeletonView" */;
 			productName = SkeletonView;
+		};
+		35D2AD232922067F00E9F9B3 /* UmaBasicAlertKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 35D2AD222922067F00E9F9B3 /* XCRemoteSwiftPackageReference "UmaBasicAlertKit" */;
+			productName = UmaBasicAlertKit;
 		};
 		35E3EFE128B12154009F902B /* FloatingPanel */ = {
 			isa = XCSwiftPackageProductDependency;
