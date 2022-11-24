@@ -21,9 +21,11 @@ class CreateNickNameViewController: BaseViewController<CreateNickNameView, Creat
         view.backgroundColor = .darkNavy
         
         hideKeyboardWhenTappedAround()
-        
         isInitialSettingDone(false)
-        
+        bind()
+    }
+    
+    private func bind() {
         contentView
             .actionPublisher
             .sink {[weak self] action in
