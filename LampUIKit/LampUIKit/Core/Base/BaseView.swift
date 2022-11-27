@@ -16,6 +16,7 @@ protocol ContentViewProtocol<T> {
     
     var actionPublisher: AnyPublisher<T, Never> { get }
     var actionSubject: PassthroughSubject<T, Never> { get }
+    func sendAction(_ input: T)
 }
 
 class BaseView<T: Actionable>: UIView, ContentViewProtocol {

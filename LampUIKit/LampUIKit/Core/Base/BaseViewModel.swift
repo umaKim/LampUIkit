@@ -15,6 +15,7 @@ protocol ViewModelProtocol {
     
     var notifyPublisher: AnyPublisher<T, Never> { get }
     var notifySubject: PassthroughSubject<T, Never> { get }
+    func sendNotification(_ input: T)
 }
 
 class BaseViewModel<T: Notifiable>: NSObject, ViewModelProtocol {
