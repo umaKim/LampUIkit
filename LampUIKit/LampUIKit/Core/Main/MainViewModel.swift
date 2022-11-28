@@ -21,7 +21,7 @@ enum MainViewModelNotification: Notifiable {
 class MainViewModel: BaseViewModel<MainViewModelNotification>  {
     
     private(set) var recommendedPlaces: [RecommendedLocation] = []
-    private(set) var markerType: MapMarkerType = .recommended
+    private(set) var markerType: MapMaker = RecommendedMapMarker()
     
     private(set) var coord: Coord = .init(latitude: 0, longitude: 0)
     private(set) var myLocation: Coord = .init(latitude: 0, longitude: 0)
@@ -56,9 +56,7 @@ extension MainViewModel {
         zoom = zoom - 1
     }
     
-    public func setMyZoomLevel(_ level: Float) {
-        zoom = level
-    }
+  
     
     public func setMyLocation() {
         guard let coord = locationManager.location?.coordinate else { return }
@@ -66,9 +64,7 @@ extension MainViewModel {
         self.sendNotification(.moveTo(coord))
     }
     
-    public func setLocation(with latitude: Double, _ longitude: Double) {
-        self.coord = .init(latitude: latitude, longitude: longitude)
-    }
+   
     
     public func setMyLocation(with latitude: Double, _ longitude: Double) {
         self.myLocation = .init(latitude: latitude, longitude: longitude)
@@ -83,7 +79,7 @@ extension MainViewModel {
             switch result {
             case .success(let items):
                 self.recommendedPlaces = items.result
-                self.markerType = .recommended
+                self.markerType = RecommendedMapMarker()
                 self.sendNotification(.recommendedLocations(items.result))
 
             case .failure(let error):
@@ -100,7 +96,7 @@ extension MainViewModel {
             switch result {
             case .success(let items):
                 self.recommendedPlaces = items.result
-                self.markerType = .recommended
+                self.markerType = RecommendedMapMarker()
                 self.sendNotification(.recommendedLocations(items.result))
                 
             case .failure(let error):
@@ -131,7 +127,7 @@ extension MainViewModel {
                                         isOnPlan: true,
                                         travelCompletedDate: nil)
                 })
-                self.markerType = .destination
+                self.markerType = DestinationMapMarker()
                 self.sendNotification(.recommendedLocations(self.recommendedPlaces))
             case .failure(let error):
                 print(error)
@@ -147,7 +143,7 @@ extension MainViewModel {
             switch result {
             case .success(let items):
                 self.recommendedPlaces = items.result
-                self.markerType = .completed
+                self.markerType = CompletedMapMarker()
                 self.sendNotification(.recommendedLocations(items.result))
             case .failure(let error):
                 print(error)
@@ -164,7 +160,7 @@ extension MainViewModel {
             switch result {
             case .success(let items):
                 self.recommendedPlaces = items.result
-                self.markerType = .recommended
+                self.markerType = RecommendedMapMarker()
                 self.sendNotification(.recommendedLocations(items.result))
                 
             case .failure(let error):

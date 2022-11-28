@@ -24,17 +24,17 @@ class CustomMarkerView: UIView {
     private let height = 60
     
     private var imageUrl: String
-    private var markerType: MapMarkerType
+    private var markerType: MapMaker
     
     init() {
         self.imageUrl = ""
-        self.markerType = .recommended
+        self.markerType = RecommendedMapMarker()
         super.init(frame: .init(x: 0, y: 0, width: width, height: height))
     }
     
     convenience init(
         of imageUrl: String,
-        type markerType: MapMarkerType
+        type markerType: MapMaker
     ) {
         self.init()
         self.imageUrl = imageUrl
@@ -44,17 +44,18 @@ class CustomMarkerView: UIView {
         setupUI()
     }
     
-    private func setMarkerType(as markerType: MapMarkerType) {
-        switch markerType {
-        case .recommended:
-            outerImageView.image = .circleRecommended
-            
-        case .destination:
-            outerImageView.image = .circleDestination
-            
-        case .completed:
-            outerImageView.image = .circleCompleted
-        }
+    private func setMarkerType(as markerType: MapMaker) {
+        outerImageView.image = markerType.image
+//        switch markerType {
+//        case .recommended:
+//            outerImageView.image = .circleRecommended
+//
+//        case .destination:
+//            outerImageView.image = .circleDestination
+//
+//        case .completed:
+//            outerImageView.image = .circleCompleted
+//        }
     }
     
     private func setupUI() {
