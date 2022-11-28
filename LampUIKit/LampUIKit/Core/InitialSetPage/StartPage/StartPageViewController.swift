@@ -22,63 +22,46 @@ class StartPageViewController: BaseViewController<StartPageView, StartPageViewMo
     
     //MARK: - Bind
     private func bind() {
+        bindContentView()
+        bindViewModel()
+    }
+    
+    private func bindContentView() {
         contentView
             .actionPublisher
             .sink {[weak self] action in
                 switch action {
                 case .startButtonDidTap:
                     HapticManager.shared.feedBack(with: .heavy)
-                    if AuthApi.hasToken() {
-                        UserApi.shared.me {[weak self] user, error in
-                            guard
-                                let id = user?.id else {
-                                self?.present(
-                                    LoginViewController(LoginView(), LoginViewModel()),
-                                    transitionType: .fromTop,
-                                    animated: true,
-                                    pushing: true
-                                )
-                                return
-                            }
-                            self?.viewModel.setUserAuthType(.kakao)
-                            self?.presentMain(with: "\(id)")
-                        }
-                    }
-                    else if let currentUser = Auth.auth().currentUser {
-                        for userInfo in currentUser.providerData {
-                            switch userInfo.providerID {
-                            case "apple.com":
-                                self?.viewModel.setUserAuthType(.apple)
-                                
-                            case "google.com":
-                                self?.viewModel.setUserAuthType(.google)
-                                
-                            default:
-                                print("user is signed in with \(userInfo.providerID)")
-                                self?.viewModel.setUserAuthType(.firebase)
-                            }
-                        }
-                        self?.presentMain(with: currentUser.uid)
-                        
-                    } else {
-                        self?.present(
-                            LoginViewController(LoginView(), LoginViewModel()),
-                            transitionType: .fromTop,
-                            animated: true,
-                            pushing: true
-                        )
-                    }
+                    self?.viewModel.start()
+                }
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func bindViewModel() {
+        viewModel
+            .notifyPublisher
+            .sink {[weak self] notification in
+                switch notification {
+                case .presentLoginViewController:
+                    self?.present(
+                        LoginViewController(LoginView(), LoginViewModel()),
+                        transitionType: .fromTop,
+                        animated: true,
+                        pushing: true
+                    )
+                case .presentMain(id: let id):
+                    self?.presentMain(with: id)
                 }
             }
             .store(in: &cancellables)
     }
     
     private func presentMain(with uid: String) {
-        viewModel.setToken(uid)
         let nav = UINavigationController(rootViewController: MainViewController(MainView(), MainViewModel()))
         present(nav,
                 transitionType: .fromTop,
                 animated: true, pushing: true)
     }
-    
 }
