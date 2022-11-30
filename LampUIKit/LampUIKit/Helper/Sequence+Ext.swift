@@ -10,12 +10,12 @@ import Foundation
 extension Sequence where Iterator.Element == NSAttributedString {
     func joined(with separator: NSAttributedString) -> NSAttributedString {
         return self.reduce(NSMutableAttributedString()) {
-            (r, e) in
-            if r.length > 0 {
-                r.append(separator)
+            reducer, element in
+            if reducer.length > 0 {
+                reducer.append(separator)
             }
-            r.append(e)
-            return r
+            reducer.append(element)
+            return reducer
         }
     }
 

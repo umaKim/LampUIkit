@@ -13,49 +13,44 @@ class ContentViewDelegate: ObservableObject {
 }
 
 struct CustomRatingBar: View {
-    
     private let axisMode: ARAxisMode
     private let interactionable: Bool
-    
     @ObservedObject var delegate: ContentViewDelegate
-    
     init(axisMode: ARAxisMode, interactionable: Bool = true, delegate: ContentViewDelegate? = nil) {
         self.axisMode = axisMode
         self.interactionable = interactionable
         self.delegate = delegate ?? ContentViewDelegate()
     }
-    
     @State private var starCount: CGFloat = 5
     @State private var innerRatio: CGFloat = 1
     @State private var spacing: CGFloat = 6
     @State private var fillMode: ARFillMode = .half
-    
     @State private(set) var value1: CGFloat = 1.50
-    
     private var content: some View {
-        let constant1 = ARConstant(rating: 5,
-                                   size: CGSize(width: 36, height: 36),
-                                   spacing: spacing,
-                                   fillMode: fillMode,
-                                   axisMode: axisMode,
-                                   valueMode: .point,
-                                   disabled: !interactionable)
+        let constant1 = ARConstant(
+            rating: 5,
+            size: CGSize(width: 36, height: 36),
+            spacing: spacing,
+            fillMode: fillMode,
+            axisMode: axisMode,
+            valueMode: .point,
+            disabled: !interactionable
+        )
         return
-            Group {
-                VStack {
-                    AxisRatingBar(value: $delegate.starValue, constant: constant1) {
-                        ARStar(count: round(starCount), innerRatio: innerRatio)
-                            .stroke()
-                            .fill(Color.gray)
-                    } foreground: {
-                        ARStar(count: round(starCount), innerRatio: innerRatio)
-                            .fill(Color.yellow)
-                    }
-                    
-                    Text("\(delegate.starValue, specifier: "%.1f")")
-                        .foregroundColor(.black)
+        Group {
+            VStack {
+                AxisRatingBar(value: $delegate.starValue, constant: constant1) {
+                    ARStar(count: round(starCount), innerRatio: innerRatio)
+                        .stroke()
+                        .fill(Color.gray)
+                } foreground: {
+                    ARStar(count: round(starCount), innerRatio: innerRatio)
+                        .fill(Color.yellow)
                 }
+                Text("\(delegate.starValue, specifier: "%.1f")")
+                    .foregroundColor(.black)
             }
+        }
     }
     var body: some View {
         VStack {
@@ -64,7 +59,7 @@ struct CustomRatingBar: View {
                     content
                         .padding(.bottom)
                 }
-            }else {
+            } else {
                 HStack(alignment: .bottom) {
                     content
                         .padding(.bottom)

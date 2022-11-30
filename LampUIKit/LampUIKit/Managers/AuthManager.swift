@@ -17,22 +17,17 @@ enum UserAuthType {
 protocol Autheable {
     var userAuthType: UserAuthType? { get }
     var token: String? { get }
-    
     func setUserAuthType(_ userAuthType: UserAuthType)
     func setToken(_ token: String)
 }
 
 final class AuthManager: Autheable {
     static let shared = AuthManager()
-    
     private(set) var userAuthType: UserAuthType?
-    
     private(set) var token: String?
-    
     public func setUserAuthType(_ userAuthType: UserAuthType) {
         self.userAuthType = userAuthType
     }
-    
     public func setToken(_ token: String) {
         self.token = token
     }

@@ -11,40 +11,35 @@ extension String {
     var htmlToAttributedString: NSAttributedString? {
         guard let data = data(using: .utf8) else { return nil }
         do {
-            let string = try NSAttributedString(data: data,
-                                                options: [
-                                                  .documentType:
-                                                      NSAttributedString.DocumentType.html,
-                                                  .characterEncoding:
-                                                      String.Encoding.utf8.rawValue
-                                                ],
-                                                documentAttributes: nil)
+            let string = try NSAttributedString(
+                data: data,
+                options: [
+                    .documentType: NSAttributedString.DocumentType.html,
+                    .characterEncoding: String.Encoding.utf8.rawValue
+                ],
+                documentAttributes: nil
+            )
             return string
         } catch {
             return nil
         }
     }
-    
     var attributed: NSAttributedString {
         return NSAttributedString(string: self)
     }
-    
     var lightNavyColored: NSAttributedString {
         let att = [NSAttributedString.Key.foregroundColor: UIColor.lightNavy]
         return NSAttributedString(string: self, attributes: att)
     }
-    
     var htmlToString: String {
         return htmlToAttributedString?.string ?? ""
     }
-    
     func colored(with color: UIColor) -> NSMutableAttributedString? {
         let attribtuedString = NSMutableAttributedString(string: self)
         let range = (self as NSString).range(of: self)
         attribtuedString.addAttribute(.foregroundColor, value: color, range: range)
         return attribtuedString
     }
-    
     func colored(to color: UIColor) -> AttributedString {
         var attContainer = AttributeContainer()
         attContainer.foregroundColor = color

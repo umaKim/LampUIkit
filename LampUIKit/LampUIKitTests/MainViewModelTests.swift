@@ -12,7 +12,6 @@ import Combine
 
 class MainViewModelTests: QuickSpec {
     override func spec() {
-        
         var auth: MockAuthManager!
         var network: MockNetworkManager!
         var viewModel: MainViewModel!

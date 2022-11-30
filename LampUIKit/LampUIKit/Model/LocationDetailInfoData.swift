@@ -11,14 +11,14 @@ struct LocationDetailInfoData: Codable {
     let infocenter: String?
     let parking: String?
     let restdate: String?
-    let useseason : String?
+    let useseason: String?
     let usetime: String?
     let discountinfo: String?
-    let infocenterculture : String?
+    let infocenterculture: String?
     let restdateculture: String?
     let usefee: String?
-    let usetimeculture : String?
-    let eventplace : String?
+    let usetimeculture: String?
+    let eventplace: String?
     let eventstartdate: String?
     let placeinfo: String?
     let playtime: String?

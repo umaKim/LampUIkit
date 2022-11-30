@@ -16,15 +16,12 @@ extension UIButton {
         subTitleSize: CGFloat = 12,
         subTitleColor: UIColor = .gray
     ) -> UIButton {
-        
         var configuration = UIButton.Configuration.plain()
         configuration.image = image
         configuration.imagePlacement = placement
         configuration.imagePadding = imagePadding
-        
         configuration.subtitle = subTitle
-        configuration.activityIndicatorColorTransformer = .init({ color in .darkNavy})
-        
+        configuration.activityIndicatorColorTransformer = .init({ _ in .darkNavy})
         let transformer = UIConfigurationTextAttributesTransformer { incoming in
             var outgoing = incoming
             outgoing.foregroundColor = subTitleColor
@@ -33,17 +30,14 @@ extension UIButton {
         }
         configuration.subtitleTextAttributesTransformer = transformer
         configuration.preferredSymbolConfigurationForImage = UIImage.SymbolConfiguration(pointSize: 20)
-        
-        let bt = UIButton(configuration: configuration)
-        return bt
+        let button = UIButton(configuration: configuration)
+        return button
     }
 }
-
 extension UIButton {
     func showLoading() {
         configuration?.showsActivityIndicator = true
     }
-    
     func hideLoading() {
         configuration?.showsActivityIndicator = false
     }
