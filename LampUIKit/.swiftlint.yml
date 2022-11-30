@@ -1,0 +1,6 @@
+excluded: # SwiftLint 검사에서 제외할 파일 경로
+  - Pods
+  - LampUIKit/AppDelegate.swift
+  - LampUIKit/SceneDelegate.swift
+  - LampUIKitTests
+  - LampUIKitUITests

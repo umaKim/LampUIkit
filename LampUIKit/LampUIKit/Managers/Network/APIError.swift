@@ -7,14 +7,13 @@
 
 import Foundation
 
-enum APIError: Error, Equatable {
+public enum APIError: Error, Equatable {
   case defaultError(String, Int)
   case invalidRequest
   case invalidResponse
   case invalidJson(String)
   case unknownError(Int)
   case validationError(String)
-  
   var localizedDescription: String {
     switch self {
     case let .defaultError(errorMessage, errorCode):

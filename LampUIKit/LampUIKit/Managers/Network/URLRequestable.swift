@@ -7,7 +7,7 @@
 import Alamofire
 import Foundation
 
-protocol URLRequestable {
+public protocol URLRequestable {
     var baseURL: String { get }
     var endPoint: String { get }
     var fullUrl: String { get }
