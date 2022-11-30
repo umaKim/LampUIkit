@@ -10,7 +10,6 @@ import Foundation
 enum LocationDetailViewModelNotification: Notifiable {
     case startLoading
     case endLoading
-    
     case sendLocationDetail(LocationDetailData?)
     case locationDetailImages([String])
 }
@@ -18,10 +17,8 @@ enum LocationDetailViewModelNotification: Notifiable {
 final class LocationDetailViewModel: BaseViewModel<LocationDetailViewModelNotification> {
     private(set) var locationDetail: LocationDetailData?
     private(set) var location: RecommendedLocation?
-   
     private let auth: Autheable
     private let network: Networkable
-    
     init(
         _ auth: Autheable = AuthManager.shared,
         _ network: Networkable = NetworkManager()
@@ -30,17 +27,14 @@ final class LocationDetailViewModel: BaseViewModel<LocationDetailViewModelNotifi
         self.network = network
         super.init()
     }
-    
     convenience init(_ location: RecommendedLocation) {
         self.init()
         self.location = location
     }
-    
     convenience init(
-       _ myTravelLocation: MyTravelLocation
+        _ myTravelLocation: MyTravelLocation
     ) {
         self.init()
-        
         self.location = .init(
             image: myTravelLocation.image,
             contentId: "\(myTravelLocation.contentId)",
@@ -56,16 +50,14 @@ final class LocationDetailViewModel: BaseViewModel<LocationDetailViewModelNotifi
             travelCompletedDate: nil
         )
     }
-    
     convenience init(
         _ myBookMarkLocation: MyBookMarkLocation
     ) {
         self.init()
-        
         self.location = .init(
             image: nil,
-            contentId: "\(myBookMarkLocation.contentId)" ,
-            contentTypeId: "\(myBookMarkLocation.contentTypeId)" ,
+            contentId: "\(myBookMarkLocation.contentId)",
+            contentTypeId: "\(myBookMarkLocation.contentTypeId)",
             title: myBookMarkLocation.placeName,
             addr: myBookMarkLocation.placeAddr,
             rate: nil,
@@ -77,42 +69,44 @@ final class LocationDetailViewModel: BaseViewModel<LocationDetailViewModelNotifi
             travelCompletedDate: nil
         )
     }
-    
     convenience init(
         _ myCompletedLocation: MyCompletedTripLocation
     ) {
         self.init()
-        
-        self.location = .init(image: myCompletedLocation.image,
-                              contentId: myCompletedLocation.contentId,
-                              contentTypeId: myCompletedLocation.contentTypeId,
-                              title: myCompletedLocation.placeName,
-                              addr: myCompletedLocation.placeAddress,
-                              rate: nil,
-                              bookMarkIdx: "",
-                              isBookMarked: myCompletedLocation.isBookMarked,
-                              mapX: myCompletedLocation.mapX,
-                              mapY: myCompletedLocation.mapY,
-                              planIdx: myCompletedLocation.planIdx,
-                              travelCompletedDate: nil
-                              )
+        self.location = .init(
+            image: myCompletedLocation.image,
+            contentId: myCompletedLocation.contentId,
+            contentTypeId: myCompletedLocation.contentTypeId,
+            title: myCompletedLocation.placeName,
+            addr: myCompletedLocation.placeAddress,
+            rate: nil,
+            bookMarkIdx: "",
+            isBookMarked: myCompletedLocation.isBookMarked,
+            mapX: myCompletedLocation.mapX,
+            mapY: myCompletedLocation.mapY,
+            planIdx: myCompletedLocation.planIdx,
+            travelCompletedDate: nil
+        )
     }
-    
     public func save() {
         guard let location = location else {return}
         sendNotification(.startLoading)
-        network.patch(.updateBookMark(location.contentId,
-                                       contentTypeId: location.contentTypeId,
-                                       mapx: location.mapX,
-                                       mapY: location.mapY,
-                                       placeName: location.title,
-                                       placeAddr: location.addr), Response.self, parameters: Empty.value) {[weak self] result in
+        network.patch(
+            .updateBookMark(
+                location.contentId,
+                contentTypeId: location.contentTypeId,
+                mapx: location.mapX,
+                mapY: location.mapY,
+                placeName: location.title,
+                placeAddr: location.addr
+            ),
+            Response.self,
+            parameters: Empty.value
+        ) {[weak self] result in
             guard let self = self else {return}
             self.sendNotification(.endLoading)
         }
     }
-    
-    //MARK: - Private
     public func fetchLocationDetail() {
         guard
             let contentId = location?.contentId,
@@ -130,7 +124,6 @@ final class LocationDetailViewModel: BaseViewModel<LocationDetailViewModelNotifi
                 print(error)
             }
         }
-        
         network.get(.fetchLocationDetailImage(contentId), LocationImageResponse.self) {[weak self] result in
             guard let self = self else {return }
             switch result {
@@ -142,34 +135,26 @@ final class LocationDetailViewModel: BaseViewModel<LocationDetailViewModelNotifi
             }
         }
     }
-    
     private func postAddToMyTrip() {
         guard
             let location = location
         else { return }
-        
         var contentInfo: String = ""
-        
         if locationDetail?.contentTypeId == "12" || locationDetail?.contentTypeId == "76"  {
             contentInfo = locationDetail?.datailInfo?.usetime ?? ""
         }
-        
         if locationDetail?.contentTypeId == "14" || locationDetail?.contentTypeId == "78" {
             contentInfo = locationDetail?.datailInfo?.usetimeculture ?? ""
         }
-        
         if locationDetail?.contentTypeId == "15" || locationDetail?.contentTypeId == "85"{
             contentInfo = locationDetail?.datailInfo?.eventstartdate ?? ""
         }
-        
         if locationDetail?.contentTypeId == "28" || locationDetail?.contentTypeId == "75"{
             contentInfo = locationDetail?.datailInfo?.usetimeleports ?? ""
         }
-        
         if locationDetail?.contentTypeId == "39" || locationDetail?.contentTypeId == "82" {
             contentInfo = locationDetail?.datailInfo?.opentimefood ?? ""
         }
-
         guard let token = auth.token else {return }
         let data = PostAddToMyTripData(
             token: token,
@@ -183,40 +168,30 @@ final class LocationDetailViewModel: BaseViewModel<LocationDetailViewModelNotifi
             mapX: location.mapX,
             mapY: location.mapY
         )
-        
-        network.post(.postAddToMyTravel, data, Response.self) { [weak self] result in
-            guard let self = self else { return }
+        network.post(.postAddToMyTravel, data, Response.self) { result in
             switch result {
             case .success(let response):
                 print(response)
-                
             case .failure(let error):
                 print(error)
             }
         }
     }
-    
     private func deleteFromMyTrip() {
         guard let planIdx = locationDetail?.planExist?.planIdx else { return }
-        network.delete(.myTravel(planIdx), Response.self) { [weak self] result  in
-            guard let self = self else {return}
+        network.delete(.myTravel(planIdx), Response.self) { result  in
             switch result {
             case .success(let response):
                 print(response)
-                //MARK: - show alert
-                
             case .failure(let error):
                 print(error)
             }
         }
     }
-    
-    //MARK: - Public
-    
+    // MARK: - Public
     public func addToMyTrip() {
         postAddToMyTrip()
     }
-    
     public func removeFromMyTrip() {
         postAddToMyTrip()
     }

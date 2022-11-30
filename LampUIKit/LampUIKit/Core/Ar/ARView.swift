@@ -17,20 +17,16 @@ enum ARViewAction: Actionable {
 
 final class ARView: BaseView<ARViewAction> {
     private(set) var sceneLocationView = SceneLocationView()
-    
     private let dismissButton: UIButton = {
-        let bt = UIButton()
-        bt.setImage(.xmark, for: .normal)
-        return bt
+        let button = UIButton()
+        button.setImage(.xmark, for: .normal)
+        return button
     }()
-    
     override init() {
         super.init()
-        
         bind()
         setupUI()
     }
-    
     private func bind() {
         dismissButton
             .tapPublisher
@@ -39,24 +35,20 @@ final class ARView: BaseView<ARViewAction> {
             }
             .store(in: &cancellables)
     }
-    
     private func setupUI() {
-        [sceneLocationView, dismissButton].forEach { uv in
-            uv.translatesAutoresizingMaskIntoConstraints = false
-            addSubview(uv)
+        [sceneLocationView, dismissButton].forEach { uiView in
+            uiView.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(uiView)
         }
-        
         NSLayoutConstraint.activate([
             sceneLocationView.leadingAnchor.constraint(equalTo: leadingAnchor),
             sceneLocationView.trailingAnchor.constraint(equalTo: trailingAnchor),
             sceneLocationView.bottomAnchor.constraint(equalTo: bottomAnchor),
             sceneLocationView.topAnchor.constraint(equalTo: topAnchor),
-            
             dismissButton.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             dismissButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
         ])
     }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

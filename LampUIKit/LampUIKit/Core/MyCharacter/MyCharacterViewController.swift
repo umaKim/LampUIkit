@@ -12,32 +12,21 @@ protocol MyCharacterViewControllerDelegate: AnyObject {
 }
 
 class MyCharacterViewController: BaseViewController<MyCharacterView, MyCharacterViewModel> {
-
     private typealias DataSource = UITableViewDiffableDataSource<Section, GaugeData>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, GaugeData>
-    
     enum Section { case main }
-    
     private var dataSource: DataSource?
-    
     weak var delegate: MyCharacterViewControllerDelegate?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         navigationController?.setNavigationBarHidden(false, animated: true)
-        
         setupDataSource()
         updateSections()
-        
         navigationItem.leftBarButtonItems = [contentView.dismissButton]
         navigationItem.rightBarButtonItems = [contentView.gearButton]
-        
         bind()
     }
-    
     private func bind() {
-        
         contentView
             .actionPublisher
             .sink {[weak self] action in
@@ -45,16 +34,14 @@ class MyCharacterViewController: BaseViewController<MyCharacterView, MyCharacter
                 HapticManager.shared.feedBack(with: .medium)
                 switch action {
                 case .gear:
-                    let vm = MyPageViewModel()
-                    let vc = MyPageViewController(MyPageView(), vm)
-                    self.navigationController?.pushViewController(vc, animated: true)
-                    
+                    let viewModel = MyPageViewModel()
+                    let viewController = MyPageViewController(MyPageView(), viewModel)
+                    self.navigationController?.pushViewController(viewController, animated: true)
                 case .dismiss:
                     self.delegate?.myCharacterViewControllerDidTapDismiss()
                 }
             }
             .store(in: &cancellables)
-        
         viewModel
             .notifyPublisher
             .sink {[weak self] noti in
@@ -66,7 +53,6 @@ class MyCharacterViewController: BaseViewController<MyCharacterView, MyCharacter
             }
             .store(in: &cancellables)
     }
-    
     private func updateSections() {
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
@@ -76,14 +62,17 @@ class MyCharacterViewController: BaseViewController<MyCharacterView, MyCharacter
             self.dataSource?.applySnapshotUsingReloadData(snapshot)
         })
     }
-    
     private func setupDataSource() {
         contentView.tableView.delegate = self
-        
-        dataSource = .init(tableView: contentView.tableView, cellProvider: {[weak self] tableView, indexPath, itemIdentifier in
+        dataSource = .init(
+            tableView: contentView.tableView,
+            cellProvider: {[weak self] tableView, indexPath, itemIdentifier in
             guard let self = self else { return nil }
             guard
-                let cell = tableView.dequeueReusableCell(withIdentifier: MyCharacterViewTableViewCell.identifier, for: indexPath) as? MyCharacterViewTableViewCell,
+                let cell = tableView.dequeueReusableCell(
+                    withIdentifier: MyCharacterViewTableViewCell.identifier,
+                    for: indexPath
+                ) as? MyCharacterViewTableViewCell,
                 let data = self.viewModel.characterData
             else {return UITableViewCell()}
             cell.configure(with: data.gaugeDatum[indexPath.row])
@@ -92,11 +81,16 @@ class MyCharacterViewController: BaseViewController<MyCharacterView, MyCharacter
     }
 }
 
-//MARK: - UITableViewDelegate
+// MARK: - UITableViewDelegate
 extension MyCharacterViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(
+        _ tableView: UITableView,
+        viewForHeaderInSection section: Int
+    ) -> UIView? {
         guard
-            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: MyCharacterViewTableViewHeaderCell.identifier) as? MyCharacterViewTableViewHeaderCell,
+            let header = tableView.dequeueReusableHeaderFooterView(
+                withIdentifier: MyCharacterViewTableViewHeaderCell.identifier
+            ) as? MyCharacterViewTableViewHeaderCell,
             let data = viewModel.characterData
         else { return nil }
         header.configure(with: data)

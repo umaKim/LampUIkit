@@ -9,22 +9,17 @@ import Combine
 import UIKit
 
 class CreateNickNameViewController: BaseViewController<CreateNickNameView, CreateNickNameViewModel>, Alertable {
-
     override func loadView() {
         super.loadView()
         view = contentView.baseView
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         view.backgroundColor = .darkNavy
-        
         hideKeyboardWhenTappedAround()
         isInitialSettingDone(false)
         bind()
     }
-    
     private func bind() {
         contentView
             .actionPublisher
@@ -34,17 +29,14 @@ class CreateNickNameViewController: BaseViewController<CreateNickNameView, Creat
                 case .createAccountButtonDidTap:
                     HapticManager.shared.feedBack(with: .heavy)
                     self.viewModel.createAccount()
-                    
                 case .textFieldDidChange(let text):
                     HapticManager.shared.feedBack(with: .soft)
                     self.viewModel.textDidChange(to: text)
-                    
                 case .doneKeyboard:
                     self.view.endEditing(true)
                 }
             }
             .store(in: &cancellables)
-        
         viewModel
             .notifyPublisher
             .sink {[weak self] noti in
@@ -52,13 +44,10 @@ class CreateNickNameViewController: BaseViewController<CreateNickNameView, Creat
                 switch noti {
                 case .moveToMain:
                     self.changeRoot(MainViewController(MainView(), MainViewModel()))
-                    
                 case .errorMessage(let message):
                     self.showDefaultAlert(title: message.localized)
-                    
                 case .setInitialSetting(let bool):
                     self.isInitialSettingDone(bool)
-                    
                 case .isEnableConfirmButton(let isEnable):
                     self.contentView.isEnabledCreateAccountButton = isEnable
                 }

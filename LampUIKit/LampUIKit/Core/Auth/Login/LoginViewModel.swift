@@ -15,11 +15,9 @@ enum LoginViewModelNotification: Notifiable {
 }
 
 class LoginViewModel: BaseViewModel<LoginViewModelNotification> {
-    
     private let auth: Autheable
     private let network: Networkable
-    
-    //MARK: - Init
+    // MARK: - Init
     init(
         _ auth: Autheable = AuthManager.shared,
         _ network: Networkable = NetworkManager()
@@ -28,7 +26,6 @@ class LoginViewModel: BaseViewModel<LoginViewModelNotification> {
         self.network = network
         super.init()
     }
-    
     public func checkUserExist(_ uid: String) {
         network.get(.checkUserExist(uid), UserExistCheckResponse.self) {[weak self] result in
             guard let self = self else {return }
@@ -41,7 +38,6 @@ class LoginViewModel: BaseViewModel<LoginViewModelNotification> {
                     } else {
                         self.sendNotification(.presentCreateNickName)
                     }
-                    
                 } else {
                     self.sendNotification(.presentInitialSetpage)
                 }
@@ -50,9 +46,7 @@ class LoginViewModel: BaseViewModel<LoginViewModelNotification> {
             }
         }
     }
-    
     public func setUserAuthType(_ type: UserAuthType) {
         auth.setUserAuthType(type)
     }
-    
 }

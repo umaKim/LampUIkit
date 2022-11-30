@@ -8,7 +8,6 @@
 import UIKit
 
 class BaseScrollView<Model>: UIScrollView {
-
     var model: Model? {
         didSet {
             if let model = model {
@@ -16,13 +15,11 @@ class BaseScrollView<Model>: UIScrollView {
             }
         }
     }
-
     override init(frame: CGRect) {
         super.init(frame: frame)
 
         configure()
     }
-    
     convenience init() {
         self.init(frame: .zero)
     }
@@ -31,7 +28,6 @@ class BaseScrollView<Model>: UIScrollView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
     func configure() {}
     func bind(_ model: Model) {}
 }

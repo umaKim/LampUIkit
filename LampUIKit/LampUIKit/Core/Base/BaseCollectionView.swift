@@ -16,26 +16,28 @@ protocol HeaderCellable: UICollectionReusableView, Identifiable { }
 protocol BodyCellable: UICollectionViewCell, Identifiable { }
 
 class BaseCollectionViewWithHeader<HEADERCELL: HeaderCellable, BODYCELL: BodyCellable>: UICollectionView {
-    
     init(
         _ collectionViewFlowLayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
     ) {
         super.init(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
-        
-        register(HEADERCELL.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HEADERCELL.identifier)
-        register(BODYCELL.self, forCellWithReuseIdentifier: BODYCELL.identifier)
+        register(
+            HEADERCELL.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: HEADERCELL.identifier
+        )
+        register(
+            BODYCELL.self,
+            forCellWithReuseIdentifier: BODYCELL.identifier
+        )
         backgroundColor = .greyshWhite
     }
-    
     convenience init(
         _ scrollDirection: UICollectionView.ScrollDirection = .vertical
     ) {
-        let cl = UICollectionViewFlowLayout()
-        cl.scrollDirection = scrollDirection
-        self.init(cl)
-        
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = scrollDirection
+        self.init(flowLayout)
     }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -46,11 +48,9 @@ class BaseCollectionView<BODYCELL: BodyCellable>: UICollectionView {
         _ collectionViewFlowLayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
     )  {
         super.init(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
-        
         register(BODYCELL.self, forCellWithReuseIdentifier: BODYCELL.identifier)
         backgroundColor = .greyshWhite
     }
-    
     convenience init(
         _ scrollDirection: UICollectionView.ScrollDirection = .vertical,
         _ minimumLineSpacing: CGFloat = 16
@@ -59,9 +59,7 @@ class BaseCollectionView<BODYCELL: BodyCellable>: UICollectionView {
         collectionViewFlowLayout.scrollDirection = scrollDirection
         collectionViewFlowLayout.minimumLineSpacing = minimumLineSpacing
         self.init(collectionViewFlowLayout)
-        
     }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

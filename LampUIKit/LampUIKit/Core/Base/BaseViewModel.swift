@@ -12,7 +12,6 @@ protocol Notifiable { }
 
 protocol ViewModelProtocol {
     associatedtype T
-    
     var notifyPublisher: AnyPublisher<T, Never> { get }
     var notifySubject: PassthroughSubject<T, Never> { get }
     func sendNotification(_ input: T)
@@ -21,13 +20,10 @@ protocol ViewModelProtocol {
 class BaseViewModel<T: Notifiable>: NSObject, ViewModelProtocol {
     private(set) lazy var notifyPublisher = notifySubject.eraseToAnyPublisher()
     internal let notifySubject = PassthroughSubject<T, Never>()
-    
     var cancellables: Set<AnyCancellable>
-    
     override init() {
         self.cancellables = .init()
     }
-    
     public func sendNotification(_ input: T) {
         notifySubject.send(input)
     }

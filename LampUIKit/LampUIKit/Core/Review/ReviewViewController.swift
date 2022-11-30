@@ -9,26 +9,19 @@ import UmaBasicAlertKit
 import Combine
 import UIKit
 
-class ReviewViewController: BaseViewController<ReviewView, ReviewViewModel>, Alertable {
+final class ReviewViewController: BaseViewController<ReviewView, ReviewViewModel>, Alertable {
     private typealias DataSource = UICollectionViewDiffableDataSource<Section, ReviewData>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, ReviewData>
-    
     enum Section { case main }
-    
     private var dataSource: DataSource?
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
         contentView.collectionView.delegate = self
-        
         navigationItem.leftBarButtonItems = [contentView.backButton]
-        
         configureCollectionView()
         updateSections()
         bind()
     }
-    
     private func bind() {
         contentView
             .actionPublisher
@@ -40,7 +33,6 @@ class ReviewViewController: BaseViewController<ReviewView, ReviewViewModel>, Ale
                 }
             }
             .store(in: &cancellables)
-        
         viewModel
             .notifyPublisher
             .sink {[weak self] noti in
@@ -48,16 +40,16 @@ class ReviewViewController: BaseViewController<ReviewView, ReviewViewModel>, Ale
                 switch noti {
                 case .reload:
                     self.updateSections()
-                    
                 case .message(let text):
                     self.showDefaultAlert(title: text)
                 }
             }
             .store(in: &cancellables)
     }
-    
     private func configureCollectionView() {
-        dataSource = DataSource(collectionView: contentView.collectionView) {[weak self] collectionView, indexPath, model in
+        dataSource = DataSource(
+            collectionView: contentView.collectionView
+        ) {[weak self] collectionView, indexPath, model in
             guard let self = self else { return nil}
             guard
                 let cell = collectionView.dequeueReusableCell(
@@ -69,7 +61,6 @@ class ReviewViewController: BaseViewController<ReviewView, ReviewViewModel>, Ale
             cell.configure(self.viewModel.reviews[indexPath.item])
             return cell
         }
-        
         dataSource?.supplementaryViewProvider = {[weak self] collectionView, kind, indexPath in
             guard let self = self else {return nil}
             guard kind == UICollectionView.elementKindSectionHeader else { return nil }
@@ -93,21 +84,25 @@ class ReviewViewController: BaseViewController<ReviewView, ReviewViewModel>, Ale
     }
 }
 
-//MARK: - UICollectionViewDelegate
+// MARK: - UICollectionViewDelegate
 extension ReviewViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         HapticManager.shared.feedBack(with: .rigid)
         let model = viewModel.reviews[indexPath.item]
-        let vm = ReviewDetailViewModel(.init(photoUrlArray: model.photoUrlArray ?? [],
+        let viewModel = ReviewDetailViewModel(.init(photoUrlArray: model.photoUrlArray ?? [],
                                              content: model.content ?? ""))
-        let vc = ReviewDetailViewController(ReviewDetailView(), vm)
-        navigationController?.pushViewController(vc, animated: true)
+        let viewController = ReviewDetailViewController(ReviewDetailView(), viewModel)
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
-//MARK: - UICollectionViewDelegateFlowLayout
+// MARK: - UICollectionViewDelegateFlowLayout
 extension ReviewViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        referenceSizeForHeaderInSection section: Int
+    ) -> CGSize {
         let indexPath = IndexPath(row: 0, section: section)
         let headerView = collectionView.dequeueReusableSupplementaryView(
             ofKind: UICollectionView.elementKindSectionHeader,
@@ -120,31 +115,38 @@ extension ReviewViewController: UICollectionViewDelegateFlowLayout {
             verticalFittingPriority: .fittingSizeLevel)
         return size
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
         .init(width: UIScreen.main.width / 2 - 24, height: 250)
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        insetForSectionAt section: Int
+    ) -> UIEdgeInsets {
         .init(top: 0, left: 16, bottom: 0, right: 16)
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        minimumInteritemSpacingForSectionAt section: Int
+    ) -> CGFloat {
         8
     }
 }
 
-//MARK: - ReviewViewCollectionViewCellDelegate
+// MARK: - ReviewViewCollectionViewCellDelegate
 extension ReviewViewController: ReviewViewCollectionViewCellDelegate {
-    func ReviewViewCollectionViewCellDidTapUnlikeButton(_ index: Int) {
+    func reviewViewCollectionViewCellDidTapUnlikeButton(_ index: Int) {
         viewModel.didTapLike(at: index)
     }
-    
-    func ReviewViewCollectionViewCellDidTapLikeButton(_ index: Int) {
+    func reviewViewCollectionViewCellDidTapLikeButton(_ index: Int) {
         viewModel.didTapLike(at: index)
     }
-    
-    func ReviewViewCollectionViewCellDidTapReportButton(_ index: Int) {
+    func reviewViewCollectionViewCellDidTapReportButton(_ index: Int) {
         viewModel.didTapReport(at: index)
     }
 }

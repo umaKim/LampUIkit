@@ -14,45 +14,45 @@ enum MyCharacterViewAction: Actionable {
 }
 
 class MyCharacterView: BaseView<MyCharacterViewAction> {
-    
     private(set) lazy var gearButton: UIBarButtonItem = {
-        let bt = UIBarButtonItem(image: .gear, style: .done, target: nil, action: nil)
-        return bt
+        let button = UIBarButtonItem(image: .gear, style: .done, target: nil, action: nil)
+        return button
     }()
-    
     private(set) var dismissButton: UIBarButtonItem = {
-        let bt = UIBarButtonItem(image: .back, style: .done, target: nil, action: nil)
-        return bt
+        let button = UIBarButtonItem(image: .back, style: .done, target: nil, action: nil)
+        return button
     }()
-    
     private(set) lazy var tableView: UITableView = {
-      let tv = UITableView()
-        tv.register(MyCharacterViewTableViewHeaderCell.self, forHeaderFooterViewReuseIdentifier: MyCharacterViewTableViewHeaderCell.identifier)
-        tv.register(MyCharacterViewTableViewCell.self, forCellReuseIdentifier: MyCharacterViewTableViewCell.identifier)
-        tv.rowHeight = 90
-        tv.backgroundColor = .greyshWhite
-        tv.sectionHeaderTopPadding = 0
-        tv.isUserInteractionEnabled = false
-        return tv
+      let tableView = UITableView()
+        tableView.register(
+            MyCharacterViewTableViewHeaderCell.self,
+            forHeaderFooterViewReuseIdentifier: MyCharacterViewTableViewHeaderCell.identifier
+        )
+        tableView.register(
+            MyCharacterViewTableViewCell.self,
+            forCellReuseIdentifier: MyCharacterViewTableViewCell.identifier
+        )
+        tableView.rowHeight = 90
+        tableView.backgroundColor = .greyshWhite
+        tableView.sectionHeaderTopPadding = 0
+        tableView.isUserInteractionEnabled = false
+        return tableView
     }()
-    
     override init() {
         super.init()
-        
         bind()
         setupUI()
     }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     private func bind() {
-        gearButton.tapPublisher.sink {[weak self] _ in
-            self?.sendAction(.gear)
-        }
-        .store(in: &cancellables)
-        
+        gearButton
+            .tapPublisher
+            .sink {[weak self] _ in
+                self?.sendAction(.gear)
+            }
+            .store(in: &cancellables)
         dismissButton
             .tapPublisher
             .sink {[weak self] _ in
@@ -61,11 +61,9 @@ class MyCharacterView: BaseView<MyCharacterViewAction> {
             }
             .store(in: &cancellables)
     }
-    
     private func setupUI() {
         addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
@@ -74,4 +72,3 @@ class MyCharacterView: BaseView<MyCharacterViewAction> {
         ])
     }
 }
-

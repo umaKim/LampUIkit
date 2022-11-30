@@ -11,31 +11,29 @@ import UIKit
 import Combine
 
 class ARViewController: BaseViewController<ARView, ARViewModel> {
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         contentView.sceneLocationView.run()
         contentView.sceneLocationView.locationNodeTouchDelegate = self
-        
-        guard let lat = Double(viewModel.location.mapY),
-              let long = Double(viewModel.location.mapX) else { return }
-        let coordinate = CLLocationCoordinate2D(latitude: lat,
-                                                longitude: long)
+        guard
+            let lat = Double(viewModel.location.mapY),
+            let long = Double(viewModel.location.mapX)
+        else { return }
+        let coordinate = CLLocationCoordinate2D(
+            latitude: lat,
+            longitude: long
+        )
         let location = CLLocation(coordinate: coordinate, altitude: 250)
         let loc = viewModel.location
         let customBalloon = CustomBalloonView(title: loc.title, subtitle: loc.addr, imageUrlString: loc.image)
         let annotationNode = LocationAnnotationNode(location: location, view: customBalloon)
-        
         contentView
             .sceneLocationView
             .addLocationNodesWithConfirmedLocation(locationNodes: [
                 annotationNode
             ])
-        
         bind()
     }
-    
     private func bind() {
         contentView
             .actionPublisher
@@ -52,11 +50,6 @@ class ARViewController: BaseViewController<ARView, ARViewModel> {
 }
 
 extension ARViewController: LNTouchDelegate {
-    func annotationNodeTouched(node: AnnotationNode) {
-        
-    }
-    
-    func locationNodeTouched(node: LocationNode) {
-        
-    }
+    func annotationNodeTouched(node: AnnotationNode) { }
+    func locationNodeTouched(node: LocationNode) { }
 }

@@ -17,44 +17,32 @@ protocol MyTravelCellDelegate: AnyObject {
 
 final class MyTravelCell: UICollectionViewCell {
     static let identifier = "MyTravelCell"
-    
     weak var delegate: MyTravelCellDelegate?
-    
     private typealias DataSource = UICollectionViewDiffableDataSource<Section, MyTravelLocation>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, MyTravelLocation>
-    
     enum Section { case main }
-    
     private var dataSource: DataSource?
-    
     private lazy var collectionView = BaseCollectionViewWithHeader<MyTravelCellHeaderCell, MyTravelCellCollectionViewCell>(.vertical)
-    
     private lazy var refreshcontrol = UIRefreshControl()
-    
     private var cancellables: Set<AnyCancellable>
-    
     override init(frame: CGRect) {
         self.cancellables = .init()
         super.init(frame: frame)
         setupUI()
     }
-    
     private var viewModel: MyTravelCellViewModel?
-    
-    public func configure(_ vm: MyTravelCellViewModel) {
-        self.viewModel = vm
-        
+    public func configure(_ viewModel: MyTravelCellViewModel) {
+        self.viewModel = viewModel
         fetchMyTravel()
         updateSections()
         bind()
     }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
 
-//MARK: - Bind
+// MARK: - Bind
 extension MyTravelCell {
     private func bind() {
         viewModel?
@@ -64,16 +52,13 @@ extension MyTravelCell {
                 switch notification {
                 case .reload:
                     self.updateSections()
-                    
                 case .showMessage(let message):
                     self.delegate?.myTravelCellDelegateDidReceiveResponse(message)
-                    
                 case .endRefreshing:
                     self.refreshcontrol.endRefreshing()
                 }
             })
             .store(in: &cancellables)
-        
         refreshcontrol
             .isRefreshingPublisher
             .sink {[weak self] isRefreshing in
@@ -87,43 +72,38 @@ extension MyTravelCell {
     }
 }
 
-//MARK: - Public
+// MARK: - Public
 extension MyTravelCell {
     private func fetchMyTravel() {
         viewModel?.fetchMyTravel()
     }
-    
     public func deleteMyTravel(at index: Int) {
         viewModel?.deleteMyTravel(at: index)
     }
-    
-    
     public func completeTrip(at index: Int) {
         viewModel?.completeTrip(at: index)
     }
 }
 
-//MARK: - MyTravelCellHeaderCellDelegate
+// MARK: - MyTravelCellHeaderCellDelegate
 extension MyTravelCell: MyTravelCellHeaderCellDelegate {
     func myTravelCellHeaderCellDidSelectComplete() {
         viewModel?.toggleShowDeleteButton
         collectionView.reloadData()
     }
-    
     func myTravelCellHeaderCellDidSelectEdit() {
         viewModel?.toggleShowDeleteButton
         collectionView.reloadData()
     }
 }
 
-//MARK: - MyTravelCellCollectionViewCellDelegate
+// MARK: - MyTravelCellCollectionViewCellDelegate
 extension MyTravelCell: MyTravelCellCollectionViewCellDelegate {
     func myTravelCellCollectionViewCellDidTapComplete(at index: Int) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
             self?.completeTrip(at: index)
         }
     }
-    
     func myTravelCellCollectionViewCellDidTapDelete(at index: Int) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
             self?.deleteMyTravel(at: index)
@@ -131,7 +111,7 @@ extension MyTravelCell: MyTravelCellCollectionViewCellDelegate {
     }
 }
 
-//MARK: - UICollectionViewDelegate
+// MARK: - UICollectionViewDelegate
 extension MyTravelCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         HapticManager.shared.feedBack(with: .heavy)
@@ -140,22 +120,32 @@ extension MyTravelCell: UICollectionViewDelegate {
     }
 }
 
-//MARK: - UICollectionViewDelegateFlowLayout
+// MARK: - UICollectionViewDelegateFlowLayout
 extension MyTravelCell: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        referenceSizeForHeaderInSection section: Int
+    ) -> CGSize {
         .init(width: UIScreen.main.width, height: 60)
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
         .init(width: UIScreen.main.width - 32, height: 254)
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        minimumLineSpacingForSectionAt section: Int
+    ) -> CGFloat {
         32
     }
 }
 
-//MARK: - set up UI
+// MARK: - set up UI
 extension MyTravelCell {
     private func updateSections() {
         var snapshot = Snapshot()
@@ -165,18 +155,17 @@ extension MyTravelCell {
             guard
                 let self = self,
                 let viewModel = self.viewModel
-            else {return }
-            
+            else { return }
             self.collectionView.backgroundColor = viewModel.models.isEmpty ? .clear : .greyshWhite
             self.collectionView.reloadData()
         })
     }
-    
     private func configureCollectionView() {
         collectionView.delegate = self
-        
-        dataSource = DataSource(collectionView: collectionView) {[weak self] collectionView, indexPath, model in
-            guard let self = self else {return .init()}
+        dataSource = DataSource(
+            collectionView: collectionView
+        ) {[weak self] collectionView, indexPath, model in
+            guard let self = self else { return .init()}
             guard
                 let cell = collectionView.dequeueReusableCell(
                     withReuseIdentifier: MyTravelCellCollectionViewCell.identifier,
@@ -189,31 +178,30 @@ extension MyTravelCell {
             cell.configure(viewModel.models[indexPath.item])
             return cell
         }
-        
         dataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
             guard kind == UICollectionView.elementKindSectionHeader else { return nil }
-            let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: MyTravelCellHeaderCell.identifier, for: indexPath) as? MyTravelCellHeaderCell
+            let view = collectionView.dequeueReusableSupplementaryView(
+                ofKind: kind,
+                withReuseIdentifier: MyTravelCellHeaderCell.identifier,
+                for: indexPath
+            ) as? MyTravelCellHeaderCell
             view?.delegate = self
             return view
         }
     }
-    
     private func setupUI() {
         collectionView.refreshControl = refreshcontrol
         showEmptyStateView(with: Message.emptyMyTravel)
-        
         configureCollectionView()
-        
-        [collectionView].forEach { uv in
-            uv.translatesAutoresizingMaskIntoConstraints = false
-            contentView.addSubview(uv)
+        [collectionView].forEach { uiView in
+            uiView.translatesAutoresizingMaskIntoConstraints = false
+            contentView.addSubview(uiView)
         }
-        
         NSLayoutConstraint.activate([
             collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             collectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
 }

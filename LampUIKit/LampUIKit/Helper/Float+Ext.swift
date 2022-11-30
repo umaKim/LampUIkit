@@ -9,8 +9,6 @@ import Foundation
 
 extension Float {
     var zoomLevel: Float {
-        get {
-            return (20000 - self * 1000) - 3500
-        }
+        return (20000 - self * 1000) - 3500
     }
 }

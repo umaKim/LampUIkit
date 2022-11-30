@@ -13,13 +13,11 @@ enum WriteReviewViewModelNotification: Notifiable {
     case dismiss
     case showMessage(String)
     case numberOfImages(Int)
-    
     case startLoading
     case endLoading
 }
 
 class WriteReviewViewModel: BaseViewModel<WriteReviewViewModelNotification> {
-    
     private var starRating: CGFloat = 0
     private var comfortRating: Int?
     private var atmosphereRating: Int?
@@ -27,12 +25,9 @@ class WriteReviewViewModel: BaseViewModel<WriteReviewViewModelNotification> {
     private var foodRating: Int?
     private var comments: String = ""
     private(set) var images: [UIImage] = []
-    
     private(set) var location: RecommendedLocation
-    
     private let auth: Autheable
     private let network: Networkable
-    
     init(
         _ location: RecommendedLocation,
         _ auth: Autheable = AuthManager.shared,
@@ -43,7 +38,6 @@ class WriteReviewViewModel: BaseViewModel<WriteReviewViewModelNotification> {
         self.network = network
         super.init()
     }
-    
     private var ableCompleteButton: Bool {
         starRating != 0 &&
         comfortRating != nil &&
@@ -52,37 +46,30 @@ class WriteReviewViewModel: BaseViewModel<WriteReviewViewModelNotification> {
         foodRating != nil &&
         comments != ""
     }
-    
     public func setStarRating(_ rating: CGFloat) {
         self.starRating = rating
         self.sendNotification(.ableCompleteButton(ableCompleteButton))
     }
-    
     public func setComfortRating( _ rating: Int) {
         self.comfortRating = rating + 1
         self.sendNotification(.ableCompleteButton(ableCompleteButton))
     }
-    
     public func setAtmosphereRating( _ rating: Int) {
         self.atmosphereRating = rating + 1
         self.sendNotification(.ableCompleteButton(ableCompleteButton))
     }
-    
     public func setSurroundingRating( _ rating: Int) {
         self.surroundingRating = rating + 1
         self.sendNotification(.ableCompleteButton(ableCompleteButton))
     }
-    
     public func setFoodRating( _ rating: Int) {
         self.foodRating = rating + 1
         self.sendNotification(.ableCompleteButton(ableCompleteButton))
     }
-    
     public func setComments( _ comments: String) {
         self.comments = comments
         self.sendNotification(.ableCompleteButton(ableCompleteButton))
     }
-    
     public func addImage( _ image: UIImage) {
         if isAbleToAddMoreImages() {
             images.append(image)
@@ -92,21 +79,17 @@ class WriteReviewViewModel: BaseViewModel<WriteReviewViewModelNotification> {
             sendNotification(.showMessage("사진은 3개로 제한됩니다."))
         }
     }
-    
     public func removeImage(at index: Int) {
         images.remove(at: index)
         sendNotification(.numberOfImages(images.count))
         sendNotification(.ableCompleteButton(ableCompleteButton))
     }
-    
     private func isAbleToAddMoreImages() -> Bool {
         return images.count < 3
     }
-    
     public func completeButton() {
         postReviews()
     }
-    
     private func postReviews() {
         guard
             let comfortRating = comfortRating,
@@ -115,7 +98,6 @@ class WriteReviewViewModel: BaseViewModel<WriteReviewViewModelNotification> {
             let foodRating = foodRating,
             let token = AuthManager.shared.token
         else { return }
-        
         let model = ReviewPostData(
             token: token,
             contentId: location.contentId,
@@ -128,12 +110,10 @@ class WriteReviewViewModel: BaseViewModel<WriteReviewViewModelNotification> {
             foodArea: foodRating,
             content: comments
         )
-        
-        self.sendNotification(.startLoading)
+        sendNotification(.startLoading)
         network.post(.postReview, model, Response.self) { [weak self] result in
             guard let self = self else {return}
             self.sendNotification(.endLoading)
-            
             switch result {
             case .success(let response):
                 if response.isSuccess ?? false {
@@ -142,27 +122,26 @@ class WriteReviewViewModel: BaseViewModel<WriteReviewViewModelNotification> {
                     } else {
                         self.sendNotification(.dismiss)
                     }
-                    
                 } else {
                     self.sendNotification(.showMessage(response.message ?? ""))
                 }
-                
             case .failure(let error):
                 print(error)
             }
         }
     }
-    
     private func postReviewImages() {
         let imageDatum = images.map({$0.sd_imageData(as: .JPEG, compressionQuality: 0.5)}).compactMap({$0})
         let date = Date()
-        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        
         let dateString = dateFormatter.string(from: date)
-        
-        network.uploadMultipartForm(.postReviewImages(location.contentId, dateString), imageDatum, location.contentId, Response.self) {[weak self] result in
+        network.uploadMultipartForm(
+            .postReviewImages(location.contentId, dateString),
+            imageDatum,
+            location.contentId,
+            Response.self
+        ) {[weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let response):
@@ -175,6 +154,5 @@ class WriteReviewViewModel: BaseViewModel<WriteReviewViewModelNotification> {
                 self.sendNotification(.showMessage(error.localizedDescription))
             }
         }
-        
     }
 }

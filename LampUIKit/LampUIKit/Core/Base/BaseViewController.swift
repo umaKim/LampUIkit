@@ -9,26 +9,21 @@ import UIKit
 
 class BaseViewController<CV: ContentViewProtocol, VM: ViewModelProtocol>: UIViewController {
     var cancellables: Set<AnyCancellable>
-    
     let contentView: CV
     let viewModel: VM
-    
     init(
-        _ cv: CV,
-        _ vm: VM
+        _ contentView: CV,
+        _ viewModel: VM
     ) {
-        self.contentView = cv
-        self.viewModel = vm
+        self.contentView = contentView
+        self.viewModel = viewModel
         self.cancellables = .init()
         super.init(nibName: nil, bundle: nil)
     }
-    
     override func loadView() {
         super.loadView()
-        
         view = contentView.baseView
     }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

@@ -16,31 +16,23 @@ protocol LocationDetailViewControllerDelegate: AnyObject {
 }
 
 final class LocationDetailViewController: BaseViewController<LocationDetailView, LocationDetailViewModel> {
-    
     weak var delegate: LocationDetailViewControllerDelegate?
-    
     var isModal: Bool = false
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         title = viewModel.location?.title
-        
         if isModal {
             navigationItem.rightBarButtonItems = [contentView.dismissButton]
         } else {
             navigationItem.leftBarButtonItems = [contentView.backButton]
         }
-        
         configureNavigationController()
         bind()
     }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewModel.fetchLocationDetail()
     }
-    
     private func bind() {
         contentView
             .actionPublisher
@@ -50,44 +42,35 @@ final class LocationDetailViewController: BaseViewController<LocationDetailView,
                 switch action {
                 case .back:
                     self.delegate?.locationDetailViewControllerDidTapBackButton()
-                    
                 case .dismiss:
                     self.delegate?.locationDetailViewControllerDidTapDismissButton()
-                    
                 case .save:
                     self.viewModel.save()
-                    
                 case .ar:
                     guard let location = self.viewModel.location else { return }
-                    let vm = ARViewModel(location)
-                    let vc = ARViewController(ARView(), vm)
-                    self.present(vc, animated: true)
-                    
+                    let viewModel = ARViewModel(location)
+                    let viewController = ARViewController(ARView(), viewModel)
+                    self.present(viewController, animated: true)
                 case .map:
                     guard let location = self.viewModel.location else {return}
                     self.delegate?.locationDetailViewControllerDidTapMapButton(location)
                     self.scrollToButtonSv()
-                    
                 case .review:
                     guard let location = self.viewModel.location else {return }
-                    let vm = WriteReviewViewModel(location)
-                    let vc = WriteReviewViewController(WriteReviewView(), vm)
-                    self.navigationController?.pushViewController(vc, animated: true)
-                    
+                    let viewModel = WriteReviewViewModel(location)
+                    let viewController = WriteReviewViewController(WriteReviewView(), viewModel)
+                    self.navigationController?.pushViewController(viewController, animated: true)
                 case .addToMyTrip:
                     self.viewModel.addToMyTrip()
-                    
                 case .removeFromMyTrip:
                     self.viewModel.removeFromMyTrip()
-                    
                 case .showDetailReview:
                     if
                         let location = self.viewModel.location,
                         let locationDetail = self.viewModel.locationDetail {
-                        
-                        let vm = ReviewViewModel(location, locationDetail)
-                        let vc = ReviewViewController(ReviewView(), vm)
-                        self.navigationController?.pushViewController(vc, animated: true)
+                        let viewModel = ReviewViewModel(location, locationDetail)
+                        let viewController = ReviewViewController(ReviewView(), viewModel)
+                        self.navigationController?.pushViewController(viewController, animated: true)
                     }
                 }
                 
@@ -101,27 +84,22 @@ final class LocationDetailViewController: BaseViewController<LocationDetailView,
                 switch noti {
                 case .startLoading:
                     self.contentView.showSkeleton()
-                    
                 case .endLoading:
                     self.contentView.hideSkeleton()
-                    
                 case .sendLocationDetail(let data):
                     if let data = data {
                         self.contentView.configure(data)
                         self.contentView.configureDetailInfo(data)
                     }
-                    
                 case .locationDetailImages(let images):
                     self.contentView.configure(with: images)
                 }
             }
             .store(in: &cancellables)
     }
-    
     private func scrollToButtonSv() {
         contentView.scrollToButtonSv()
     }
-    
     private func configureNavigationController() {
         let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.black]
         navigationController?.navigationBar.titleTextAttributes = textAttributes

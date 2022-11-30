@@ -16,12 +16,9 @@ enum CreateNickNameViewModelNotification: Notifiable {
 }
 
 class CreateNickNameViewModel: BaseViewModel<CreateNickNameViewModelNotification> {
-    
     private var nickName: String = ""
-    
     private let auth: Autheable
     private let network: Networkable
-    
     init(
         _ auth: Autheable = AuthManager.shared,
         _ network: Networkable = NetworkManager()
@@ -30,7 +27,6 @@ class CreateNickNameViewModel: BaseViewModel<CreateNickNameViewModelNotification
         self.network = network
         super.init()
     }
-    
     public func createAccount() {
         guard let token = auth.token else {return }
         let parameters = NickNameSettingData(nickname: nickName, socialToken: token, isAdmin: 0)
@@ -44,13 +40,11 @@ class CreateNickNameViewModel: BaseViewModel<CreateNickNameViewModelNotification
                 } else {
                     self.sendNotification(.errorMessage(response.message ?? ""))
                 }
-                
             case .failure(let error):
                 self.sendNotification(.errorMessage(error.localizedDescription))
             }
         }
     }
-    
     public func textDidChange(to text: String) {
         self.nickName = text
         self.sendNotification(.isEnableConfirmButton(!nickName.isEmpty))

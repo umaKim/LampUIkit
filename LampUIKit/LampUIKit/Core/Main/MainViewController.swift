@@ -14,42 +14,35 @@ import GoogleMaps
 import Combine
 
 class MainViewController: BaseViewController<MainView, MainViewModel>, Alertable {
-    
     private var fpc = FloatingPanelController()
-    
+    private lazy var floatingPanelControllerDelegateObject = FloatingPanelControllerDelegateObject(self.viewModel)
+    private lazy var object = CLLocationManagerDelegateObject(self.viewModel)
+    private lazy var mapObject = GMSMapObject(self.viewModel)
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         navigationController?.setNavigationBarHidden(true, animated: false)
-        
         styleGoogleMaps()
-        
         bind()
-        
         fpc.addPanel(toParent: self)
-        fpc.delegate = self
+        fpc.delegate = floatingPanelControllerDelegateObject
     }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         setFloatingPanelWithRecommendedLocationViewController()
         viewModel.setMyLocation()
         viewModel.fetchItems()
     }
-    
     private func moveTo(_ coord: CLLocationCoordinate2D) {
         let camera = GMSCameraPosition.camera(withTarget: coord,
                                               zoom: 15.0)
         setGMPadding()
         contentView.mapView.animate(to: camera)
     }
-    
     private func setGMPadding() {
         UIView.animate(withDuration: 0.25, delay: 0, options: .curveLinear) {
             switch self.fpc.state {
             case .half:
                 self.contentView.mapView.padding = .init(top: 140, left: 0, bottom: 302.0, right: 0)
-                
             case .tip:
                 self.contentView.mapView.padding = .init(top: 100, left: 0, bottom: 85.0, right: 0)
             default:
@@ -57,17 +50,14 @@ class MainViewController: BaseViewController<MainView, MainViewModel>, Alertable
             }
         } completion: { _ in }
     }
-    
     private func dismiss() {
         self.dismiss(animated: true)
     }
-    
     private lazy var locationsSubject = PassthroughSubject<[RecommendedLocation], Never>()
     private lazy var locationinfo = CurrentValueSubject<Coord, Never>(viewModel.coord)
-    
 }
 
-//MARK: - Configure with FPC
+// MARK: - Configure with FPC
 extension MainViewController {
     private func setFloatingPanelWithSearchViewController() {
         let contentVC = SearchViewController(SearchView(), SearchViewModel())
@@ -78,7 +68,6 @@ extension MainViewController {
             self?.fpc.track(scrollView: contentVC.contentView.collectionView)
         })
     }
-    
     private func setFloatingPanelWithLocationDetailViewController(_ location: RecommendedLocation, isModal: Bool = false) {
         let contentVC = LocationDetailViewController(LocationDetailView(), LocationDetailViewModel(location))
         contentVC.delegate = self
@@ -89,11 +78,9 @@ extension MainViewController {
             self?.fpc.track(scrollView: contentVC.contentView.contentScrollView)
         })
     }
-    
     private func setFloatingPanelWithRecommendedLocationViewController() {
-        let vm = RecommendedLocationViewmodel(locationsSubject.eraseToAnyPublisher(),
-                                              locationinfo)
-        let contentVC = RecommendedLocationViewController(RecommendedLocationView(), vm)
+        let viewModel = RecommendedLocationViewmodel(locationsSubject.eraseToAnyPublisher(), locationinfo)
+        let contentVC = RecommendedLocationViewController(RecommendedLocationView(), viewModel)
         contentVC.delegate = self
         let nav = UINavigationController(rootViewController: contentVC)
         configureFpc(with: nav) { [weak self] in
@@ -101,65 +88,54 @@ extension MainViewController {
             self?.fpc.track(scrollView: contentVC.contentView.collectionView)
         }
     }
-    
     private func configureFpc(with viewController: UIViewController, completion: @escaping () -> Void) {
-        
         let appearance = SurfaceAppearance()
         appearance.cornerRadius = 8.0
         appearance.backgroundColor = .clear
         fpc.surfaceView.appearance = appearance
         fpc.surfaceView.grabberHandlePadding = -12.0
-        
-        let vc = viewController
-        fpc.set(contentViewController: vc)
-        
+        let contentViewController = viewController
+        fpc.set(contentViewController: contentViewController)
         completion()
     }
 }
 
-//MARK: - Zoom
+// MARK: - Zoom
 extension MainViewController {
     private func zoomIn() {
         viewModel.zoomIn()
         contentView.mapView.animate(toZoom: viewModel.zoom)
     }
-    
     private func zoomOut() {
         viewModel.zoomOut()
         contentView.mapView.animate(toZoom: viewModel.zoom)
     }
 }
 
-//MARK: - Marker
+// MARK: - Marker
 extension MainViewController {
     private func addMarkers(of locations: [RecommendedLocation]) {
         locations.forEach { location in
             addMarker(of: location)
         }
     }
-    
     private func addMarker(of location: RecommendedLocation, isSelected: Bool = false) {
         guard
             let lat = Double(location.mapY),
             let long = Double(location.mapX)
         else { return }
-        
         let marker = GMSMarker()
         marker.tracksViewChanges = false
         marker.tracksInfoWindowChanges = false
         marker.appearAnimation = .pop
         marker.title = location.title
-        
         let markerView = CustomMarkerView(of: location.image ?? "",
                                           type: viewModel.markerType)
-        
         markerView.configure { [weak self] in
             guard let self = self else {return }
             marker.iconView = markerView
-           
             marker.position = .init(latitude: lat, longitude: long)
             marker.map = self.contentView.mapView
-            
             if isSelected {
                 self.contentView.mapView.selectedMarker = marker
             }
@@ -167,63 +143,15 @@ extension MainViewController {
     }
 }
 
-//MARK: - Bind
+// MARK: - Bind
 extension MainViewController {
     private func bind() {
-        viewModel.locationManager.delegate = self
-        contentView.mapView.delegate = self
-        
-        contentView
-            .actionPublisher
-            .sink {[weak self] action in
-                guard let self = self else {return}
-                HapticManager.shared.feedBack(with: .medium)
-                switch action {
-                    
-                case .zoomIn:
-                    self.zoomIn()
-                    
-                case .zoomOut:
-                    self.zoomOut()
-                    
-                case .refresh:
-                    self.contentView.mapView.clear()
-                    self.viewModel.fetchItems()
-                    
-                case .myLocation:
-                    self.contentView.mapView.animate(toZoom: 15)
-                    self.viewModel.setMyZoomLevel(15)
-                    self.viewModel.setMyLocation()
-                    
-                case .allOver:
-                    self.contentView.mapView.animate(toZoom: 8)
-                    self.viewModel.setMyZoomLevel(8)
-                    self.viewModel.fetchAllOver()
-                    
-                case .unvisited:
-                    self.viewModel.fetchUnvisited()
-                    
-                case .completed:
-                    self.viewModel.fetchCompleted()
-                    
-                case .history:
-                    self.viewModel.fetchPlaces(for: .history)
-                
-                case .nature:
-                    self.viewModel.fetchPlaces(for: .nature)
-                    
-                case .art:
-                    self.viewModel.fetchPlaces(for: .art)
-                
-                case .activity:
-                    self.viewModel.fetchPlaces(for: .activity)
-                
-                case .food:
-                    self.viewModel.fetchPlaces(for: .food)
-                }
-            }
-            .store(in: &cancellables)
-        
+        viewModel.locationManager.delegate = object
+        contentView.mapView.delegate = mapObject
+        bindWithContentView()
+        bindWithViewModel()
+    }
+    private func bindWithViewModel() {
         viewModel
             .notifyPublisher
             .sink {[weak self] noti in
@@ -233,105 +161,186 @@ extension MainViewController {
                     self.contentView.mapView.clear()
                     self.addMarkers(of: locations)
                     self.locationsSubject.send(locations)
-                    
                 case .startLoading:
                     self.showLoadingView()
-                    
                 case .endLoading:
                     self.dismissLoadingView()
-                    
                 case .moveTo(let coord):
                     self.moveTo(coord)
-                    
                 case .goBackToBeforeLoginPage:
                     self.changeRoot(StartPageViewController(StartPageView(), StartPageViewModel()))
+                case .setFloatingPanelWithLocationDetailViewController(let location, isModal: let isModal):
+                    self.setFloatingPanelWithLocationDetailViewController(location, isModal: isModal)
+                case .showDefaultAlert(let title):
+                    self.showDefaultAlert(title: title)
+                case .endEditting(let isTrue):
+                    self.view.endEditing(isTrue)
+                case .changeGoogleMapPadding:
+                    self.setGMPadding()
+                }
+            }
+            .store(in: &cancellables)
+    }
+    private func bindWithContentView() {
+        contentView
+            .actionPublisher
+            .sink {[weak self] action in
+                guard let self = self else {return}
+                HapticManager.shared.feedBack(with: .medium)
+                switch action {
+                case .zoomIn:
+                    self.zoomIn()
+                case .zoomOut:
+                    self.zoomOut()
+                case .refresh:
+                    self.contentView.mapView.clear()
+                    self.viewModel.fetchItems()
+                case .myLocation:
+                    self.contentView.mapView.animate(toZoom: 15)
+                    self.viewModel.setMyZoomLevel(15)
+                    self.viewModel.setMyLocation()
+                case .allOver:
+                    self.contentView.mapView.animate(toZoom: 8)
+                    self.viewModel.setMyZoomLevel(8)
+                    self.viewModel.fetchAllOver()
+                case .unvisited:
+                    self.viewModel.fetchUnvisited()
+                case .completed:
+                    self.viewModel.fetchCompleted()
+                case .history:
+                    self.viewModel.fetchPlaces(for: .history)
+                case .nature:
+                    self.viewModel.fetchPlaces(for: .nature)
+                case .art:
+                    self.viewModel.fetchPlaces(for: .art)
+                case .activity:
+                    self.viewModel.fetchPlaces(for: .activity)
+                case .food:
+                    self.viewModel.fetchPlaces(for: .food)
                 }
             }
             .store(in: &cancellables)
     }
 }
 
-//MARK: - CLLocationManagerDelegate
-extension MainViewController: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        showDefaultAlert(title: error.localizedDescription)
-    }
+// MARK: - CLLocationManagerDelegate
+//extension MainViewController: CLLocationManagerDelegate {
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//
+//    }
+//
+//    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+//        showDefaultAlert(title: error.localizedDescription)
+//    }
+//}
+
+////MARK: - GMSMapViewDelegate
+//extension MainViewController: GMSMapViewDelegate {
+//    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
+//        let lat = position.target.latitude
+//        let long = position.target.longitude
+//        viewModel.setLocation(with: lat, long)
+//        viewModel.setMyZoomLevel(position.zoom)
+//
+//        locationinfo.send(.init(latitude: lat, longitude: long))
+//    }
+//
+//    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+//        HapticManager.shared.feedBack(with: .heavy)
+//        guard
+//            let index = viewModel.recommendedPlaces.firstIndex(where: {$0.title == marker.title})
+//        else { return }
+//
+//        let location = viewModel.recommendedPlaces[index]
+//        setFloatingPanelWithLocationDetailViewController(location, isModal: true)
+//    }
+//
+//    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+//        HapticManager.shared.feedBack(with: .medium)
+//        return false
+//    }
+//
+//    func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
+//        guard
+//            let index = viewModel.recommendedPlaces.firstIndex(where: {$0.title == marker.title})
+//        else { return nil }
+//        let location = viewModel.recommendedPlaces[index]
+//        let uv = CustomBalloonView(title: location.title, subtitle: location.addr)
+//        return uv
+//    }
+//}
+
+protocol FloatingPanelControllerDelegateProtocol: AnyObject {
+    func endEditing(_ isTrue: Bool)
+    func changeGoogleMapPadding()
 }
 
-//MARK: - GMSMapViewDelegate
-extension MainViewController: GMSMapViewDelegate {
-    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
-        let lat = position.target.latitude
-        let long = position.target.longitude
-        viewModel.setLocation(with: lat, long)
-        viewModel.setMyZoomLevel(position.zoom)
-        
-        locationinfo.send(.init(latitude: lat, longitude: long))
+class FloatingPanelControllerDelegateObject: NSObject, FloatingPanelControllerDelegate {
+    weak var viewModel: FloatingPanelControllerDelegateProtocol?
+    init(_ viewModel: FloatingPanelControllerDelegateProtocol?) {
+        self.viewModel = viewModel
     }
-    
-    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
-        HapticManager.shared.feedBack(with: .heavy)
-        guard
-            let index = viewModel.recommendedPlaces.firstIndex(where: {$0.title == marker.title})
-        else { return }
-        
-        let location = viewModel.recommendedPlaces[index]
-        setFloatingPanelWithLocationDetailViewController(location, isModal: true)
-    }
-    
-    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        HapticManager.shared.feedBack(with: .medium)
-        return false
-    }
-    
-    func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
-        guard
-            let index = viewModel.recommendedPlaces.firstIndex(where: {$0.title == marker.title})
-        else { return nil }
-        let location = viewModel.recommendedPlaces[index]
-        let uv = CustomBalloonView(title: location.title, subtitle: location.addr)
-        return uv
-    }
-}
-
-//MARK: - FloatingPanelControllerDelegate
-extension MainViewController: FloatingPanelControllerDelegate {
     func floatingPanelDidMove(_ fpc: FloatingPanelController) {
         if fpc.state == .tip || fpc.state == .half {
-            view.endEditing(true)
+//            view.endEditing(true)
+            viewModel?.endEditing(true)
         }
-        setGMPadding()
+//        setGMPadding()
+        viewModel?.changeGoogleMapPadding()
     }
-    
-    func floatingPanel(_ vc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout {
+    func floatingPanel(
+        _ viewController: FloatingPanelController,
+        layoutFor newCollection: UITraitCollection
+    ) -> FloatingPanelLayout {
         return FloatingPanelLampLayout()
     }
 }
 
-//MARK: - LocationDetailViewControllerDelegate
-extension MainViewController: LocationDetailViewControllerDelegate {
-    func locationDetailViewControllerDidTapNavigate(_ location: RecommendedLocation) {
+////MARK: - FloatingPanelControllerDelegate
+//extension MainViewController: FloatingPanelControllerDelegate {
+//    func floatingPanelDidMove(_ fpc: FloatingPanelController) {
+//        if fpc.state == .tip || fpc.state == .half {
+//            view.endEditing(true)
+//        }
+//        setGMPadding()
+//    }
+//
+//    func floatingPanel(_ vc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout {
+//        return FloatingPanelLampLayout()
+//    }
+//}
+
+protocol LocationDetailViewControllerDelegateProtocol: AnyObject { }
+
+class LocationDetailViewControllerDelegateObject: NSObject, LocationDetailViewControllerDelegate {
+    weak var viewModel: LocationDetailViewControllerDelegateProtocol?
+    
+    func locationDetailViewControllerDidTapDismissButton() {
         
     }
-    
     func locationDetailViewControllerDidTapBackButton() {
         
     }
-    
+    func locationDetailViewControllerDidTapMapButton(_ location: RecommendedLocation) {
+        
+    }
+    func locationDetailViewControllerDidTapNavigate(_ location: RecommendedLocation) {
+        
+    }
+}
+
+// MARK: - LocationDetailViewControllerDelegate
+extension MainViewController: LocationDetailViewControllerDelegate {
+    func locationDetailViewControllerDidTapNavigate(_ location: RecommendedLocation) { }
+    func locationDetailViewControllerDidTapBackButton() {}
     func locationDetailViewControllerDidTapMapButton(_ location: RecommendedLocation) {
         fpc.move(to: .half, animated: true)
         guard
             let lat = Double(location.mapY),
             let long = Double(location.mapX)
         else { return }
-        
         self.moveTo(.init(latitude: lat, longitude: long))
     }
-    
     func locationDetailViewControllerDidTapDismissButton() {
         fpc.move(to: .tip, animated: true)
         setFloatingPanelWithRecommendedLocationViewController()
@@ -339,16 +348,12 @@ extension MainViewController: LocationDetailViewControllerDelegate {
     }
 }
 
-//MARK: - SearchViewControllerDelegate
+// MARK: - SearchViewControllerDelegate
 extension MainViewController: SearchViewControllerDelegate {
-    func searchViewControllerDidTapNavigation(at location: RecommendedLocation) {
-        
-    }
-    
+    func searchViewControllerDidTapNavigation(at location: RecommendedLocation) { }
     func searchBarDidTap() {
         fpc.move(to: .full, animated: true)
     }
-    
     func searchViewControllerDidTapMapPin(at location: RecommendedLocation) {
         viewModel.appendPlace(location)
         addMarker(of: location, isSelected: true)
@@ -356,79 +361,123 @@ extension MainViewController: SearchViewControllerDelegate {
             let lat = Double(location.mapY),
             let long = Double(location.mapX)
         else { return }
-        
         self.moveTo(.init(latitude: lat, longitude: long))
-        
         self.view.endEditing(true)
         fpc.move(to: .half, animated: true)
     }
-    
     func searchViewControllerDidTapDismiss() {
         self.view.endEditing(true)
         fpc.move(to: .tip, animated: true)
     }
 }
 
-//MARK: - MyTravelViewControllerDelegate
+// MARK: - MyTravelViewControllerDelegate
 extension MainViewController: MyTravelViewControllerDelegate {
-    func myTravelViewControllerDidTapNavigation(_ location: RecommendedLocation) {
-        
-    }
-    
+    func myTravelViewControllerDidTapNavigation(_ location: RecommendedLocation) { }
     func myTravelViewControllerDidTapMapButton(_ location: RecommendedLocation) {
         fpc.move(to: .half, animated: true)
         guard
             let lat = Double(location.mapY),
             let long = Double(location.mapX)
         else { return }
-        
         self.moveTo(.init(latitude: lat, longitude: long))
     }
-    
     func myTravelViewDidTap(_ item: MyTravelLocation) {
-        
     }
-    
     func myTravelViewControllerDidTapDismiss() {
         self.navigationController?.popViewController(animated: true)
     }
 }
 
-//MARK: - RecommendedLocationViewControllerDelegate
+// MARK: - RecommendedLocationViewControllerDelegate
 extension MainViewController: RecommendedLocationViewControllerDelegate {
-    func recommendedLocationViewControllerDidTapNavigation(location: RecommendedLocation) {
-        
-    }
-    
+    func recommendedLocationViewControllerDidTapNavigation(location: RecommendedLocation) { }
     func recommendedLocationViewControllerDidTapMyTravel() {
         fpc.move(to: .full, animated: true)
     }
-    
     func recommendedLocationViewControllerDidTapSearch() {
         fpc.move(to: .full, animated: true)
     }
-    
     func recommendedLocationViewControllerDidTapMyCharacter() {
         fpc.move(to: .full, animated: true)
     }
-    
     func recommendedLocationViewControllerDidTapMapPin(location: RecommendedLocation) {
         self.searchViewControllerDidTapMapPin(at: location)
     }
 }
 
-//MARK: - Map Styler
+// MARK: - Map Styler
 extension MainViewController {
     private func styleGoogleMaps() {
         do {
             if let styleUrl = Bundle.main.url(forResource: "style", withExtension: "json") {
                 contentView.mapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleUrl)
-                
             } else {
                 NSLog("Unable to find style")
             }
         } catch {
             NSLog("Unable to find style")
         }
+    }
+}
+
+protocol GMSMapObjectProtocol: AnyObject {
+    var recommendedPlaces: [RecommendedLocation] { get }
+    var locationinfo: CurrentValueSubject<Coord, Never> { get }
+//    var recommendedLocation: (RecommendedLocation) -> Void { get }
+    func setLocation(with latitude: Double, _ longitude: Double)
+    func setMyZoomLevel(_ level: Float)
+    func setFloatingPanelWithLocationDetailViewController(_ location: RecommendedLocation, isModal: Bool)
+}
+
+class GMSMapObject: NSObject, GMSMapViewDelegate {
+    weak var viewModel: GMSMapObjectProtocol?
+    init(_ viewModel: GMSMapObjectProtocol) {
+        self.viewModel = viewModel
+    }
+    //Viewmodel을 weak 로 넘겨준다. 그리고 여기에서 GMS에서 해줄수 있는것들을 해준다.
+    // 이런식으로 Delegate, datasource 구체화를 해주면 vc가 좀더 홀쭉애 질수 있다.
+    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
+        let lat = position.target.latitude
+        let long = position.target.longitude
+        viewModel?.setLocation(with: lat, long)
+        viewModel?.setMyZoomLevel(position.zoom)
+//        locationinfo.send(.init(latitude: lat, longitude: long))
+    }
+    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+        HapticManager.shared.feedBack(with: .heavy)
+        guard
+            let index = viewModel?.recommendedPlaces.firstIndex(where: {$0.title == marker.title}),
+            let location = viewModel?.recommendedPlaces[index]
+        else { return }
+        viewModel?.setFloatingPanelWithLocationDetailViewController(location, isModal: true)
+    }
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        HapticManager.shared.feedBack(with: .medium)
+        return false
+    }
+    func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
+        guard
+            let index = viewModel?.recommendedPlaces.firstIndex(where: {$0.title == marker.title}),
+            let location = viewModel?.recommendedPlaces[index]
+        else { return nil }
+        let customBalloonView = CustomBalloonView(title: location.title, subtitle: location.addr)
+        return customBalloonView
+    }
+}
+
+protocol CLLocationManagerDelegateObjectProtocol: AnyObject {
+    func showDefaultError(title: String)
+}
+
+class CLLocationManagerDelegateObject: NSObject, CLLocationManagerDelegate {
+    weak var viewModel: CLLocationManagerDelegateObjectProtocol?
+    init(_ viewModel: CLLocationManagerDelegateObjectProtocol) {
+        self.viewModel = viewModel
+    }
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) { }
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+//        showDefaultAlert(title: error.localizedDescription)
+        self.viewModel?.showDefaultError(title: error.localizedDescription)
     }
 }

@@ -9,59 +9,50 @@ import UIKit
 
 final class LocationRectangleProfileView: UIView {
     private lazy var profileImageView: UIImageView = {
-        let uv = UIImageView()
-        uv.clipsToBounds = true
-        uv.layer.cornerRadius = 6
-        uv.contentMode = .scaleToFill
-        uv.widthAnchor.constraint(equalToConstant: 72).isActive = true
-        uv.heightAnchor.constraint(equalToConstant: 56).isActive = true
-        return uv
+        let imageView = UIImageView()
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 6
+        imageView.contentMode = .scaleToFill
+        imageView.widthAnchor.constraint(equalToConstant: 72).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 56).isActive = true
+        return imageView
     }()
-    
     private lazy var titleLabel: UILabel = {
-        let lb = UILabel()
-        lb.textColor = .black
-        lb.font = .robotoBold(15)
-        return lb
+        let label = UILabel()
+        label.textColor = .black
+        label.font = .robotoBold(15)
+        return label
     }()
-    
     private lazy var addrLabel: UILabel = {
-        let lb = UILabel()
-        lb.textColor = .darkNavy
-        lb.font = .robotoBold(12)
-        return lb
+        let label = UILabel()
+        label.textColor = .darkNavy
+        label.font = .robotoBold(12)
+        return label
     }()
-    
     public func configure(_ location: RecommendedLocation) {
         if let urlString = location.image {
             let url = URL(string: urlString)
             profileImageView.sd_setImage(with: url)
         }
-        
         titleLabel.text = location.title
         addrLabel.text = location.addr
     }
-    
     init() {
         super.init(frame: .zero)
-        
         let labelSv = UIStackView(arrangedSubviews: [titleLabel, addrLabel])
         labelSv.axis = .vertical
         labelSv.distribution = .fill
         labelSv.alignment = .leading
         labelSv.spacing = 8
-        
         let totalSv = UIStackView(arrangedSubviews: [profileImageView, labelSv])
         totalSv.axis = .horizontal
         totalSv.distribution = .fill
         totalSv.alignment = .center
         totalSv.spacing = 16
-       
-        [totalSv].forEach { uv in
-            uv.translatesAutoresizingMaskIntoConstraints = false
-            addSubview(uv)
+        [totalSv].forEach { uiView in
+            uiView.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(uiView)
         }
-        
         NSLayoutConstraint.activate([
             totalSv.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             totalSv.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
@@ -69,7 +60,6 @@ final class LocationRectangleProfileView: UIView {
             totalSv.topAnchor.constraint(equalTo: topAnchor)
         ])
     }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
