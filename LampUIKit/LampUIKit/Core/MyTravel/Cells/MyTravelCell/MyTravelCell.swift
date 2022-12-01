@@ -22,7 +22,10 @@ final class MyTravelCell: UICollectionViewCell {
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, MyTravelLocation>
     enum Section { case main }
     private var dataSource: DataSource?
-    private lazy var collectionView = BaseCollectionViewWithHeader<MyTravelCellHeaderCell, MyTravelCellCollectionViewCell>(.vertical)
+    private lazy var collectionView = BaseCollectionViewWithHeader<
+        MyTravelCellHeaderCell,
+        MyTravelCellCollectionViewCell
+    >(.vertical)
     private lazy var refreshcontrol = UIRefreshControl()
     private var cancellables: Set<AnyCancellable>
     override init(frame: CGRect) {
@@ -164,7 +167,7 @@ extension MyTravelCell {
         collectionView.delegate = self
         dataSource = DataSource(
             collectionView: collectionView
-        ) {[weak self] collectionView, indexPath, model in
+        ) {[weak self] collectionView, indexPath, _ in
             guard let self = self else { return .init()}
             guard
                 let cell = collectionView.dequeueReusableCell(

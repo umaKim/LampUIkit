@@ -40,10 +40,12 @@ extension UIViewController {
 }
 extension UIViewController {
     func changeRoot(_ viewController: UIViewController) {
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(viewController)
+        let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+        sceneDelegate?.changeRootViewController(viewController)
     }
     func isInitialSettingDone(_ bool: Bool) {
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.isInitialSettingDone = bool
+        let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+        sceneDelegate?.isInitialSettingDone = bool
     }
 }
 extension UIViewController {

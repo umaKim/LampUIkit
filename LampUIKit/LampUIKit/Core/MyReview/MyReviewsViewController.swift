@@ -20,7 +20,7 @@ class MyReviewsViewController: BaseViewController<MyReviewsView, MyReviewsViewMo
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "나의 여행 후기".localized
-        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.black]
+        let textAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
         navigationItem.leftBarButtonItems = [contentView.backButton]
         navigationController?.navigationBar.barTintColor = .greyshWhite
@@ -53,7 +53,7 @@ class MyReviewsViewController: BaseViewController<MyReviewsView, MyReviewsViewMo
             self.view.showEmptyStateView(
                 on: self.contentView.collectionView,
                 when: self.viewModel.datum.isEmpty,
-                with:  Message.emptyMyReviews
+                with: Message.emptyMyReviews
             )
         })
     }
@@ -61,7 +61,7 @@ class MyReviewsViewController: BaseViewController<MyReviewsView, MyReviewsViewMo
         contentView.collectionView.delegate = self
         dataSource = DataSource(
             collectionView: contentView.collectionView,
-            cellProvider: { collectionView, indexPath, itemIdentifier in
+            cellProvider: { collectionView, indexPath, _ in
             guard
                 let cell = collectionView.dequeueReusableCell(
                     withReuseIdentifier: MyReviewCollectionViewCell.identifier,

@@ -27,21 +27,18 @@ class HorizontalScrollButtonView: BaseScrollView<[UIButton]> {
 
     private func setImages() {
         guard let buttons = model else {return }
-        
-        let sv = UIStackView(arrangedSubviews: buttons)
-        sv.axis = .horizontal
-        sv.alignment = .fill
-        sv.distribution = .fill
-        sv.spacing = 6
-        
-        addSubview(sv)
-        sv.translatesAutoresizingMaskIntoConstraints = false
-        
+        let horizontalStackView = UIStackView(arrangedSubviews: buttons)
+        horizontalStackView.axis = .horizontal
+        horizontalStackView.alignment = .fill
+        horizontalStackView.distribution = .fill
+        horizontalStackView.spacing = 6
+        addSubview(horizontalStackView)
+        horizontalStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            sv.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            sv.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            sv.topAnchor.constraint(equalTo: topAnchor),
-            sv.bottomAnchor.constraint(equalTo: bottomAnchor)
+            horizontalStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            horizontalStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            horizontalStackView.topAnchor.constraint(equalTo: topAnchor),
+            horizontalStackView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
 }

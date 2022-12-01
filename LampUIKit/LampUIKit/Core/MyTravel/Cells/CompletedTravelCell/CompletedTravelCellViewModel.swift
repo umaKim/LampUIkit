@@ -59,7 +59,7 @@ class CompletedTravelCellViewModel: BaseViewModel<CompletedTravelCellViewModelNo
         let targetItem = models[index]
         network.delete(.myTravel(targetItem.planIdx), Response.self) { [weak self] result in
             switch result {
-            case .success(let _):
+            case .success:
                 self?.models.remove(at: index)
                 self?.sendNotification(.reload)
             case .failure(let error):

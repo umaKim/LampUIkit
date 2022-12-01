@@ -11,7 +11,6 @@ extension UIScreen {
     var width: CGFloat {
         return bounds.width
     }
-    
     var height: CGFloat {
         return bounds.height
     }

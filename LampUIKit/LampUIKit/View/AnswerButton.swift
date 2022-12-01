@@ -21,7 +21,7 @@ class AnswerButton: UIButton {
         titleLabel?.textAlignment = .center
         titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
         clipsToBounds = true
-        titleEdgeInsets = UIEdgeInsets(top: 10,left: 10,bottom: 10,right: 10)
+        titleEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

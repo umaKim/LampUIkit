@@ -27,7 +27,7 @@ enum URLConfigurator {
     case removeMyTravel(_ planIdx: String)
     case fetchSavedTravel
     case fetchCompletedTravel
-    case updateBookMark(_ contentId: String, contentTypeId: String, mapx: String, mapY: String, placeName: String, placeAddr: String)
+    case updateBookMark(_ contentId: String, contentTypeId: String, mapX: String, mapY: String, placeName: String, placeAddr: String)
     case fetchLocationDetailImage(_ contentId: String)
     case fetchReviews(_ contentId: String)
     case fetchCharacterInfo
@@ -55,8 +55,21 @@ extension URLConfigurator: URLRequestable {
             return "/app/users?token=\(uid)"
         case .deleteUser:
             return "/app/users/delete?token=\(token)"
-        case .fetchRecommendation(let location, let radius, let numberOfItems):
-            return "/app/main/placeInfo?serviceLanguage=\(language)&pageSize=\(numberOfItems)&pageNumber=1&mapX=\(location.long)&mapY=\(location.lat)&radius=\(radius)&token=\(token)"
+        case .fetchRecommendation(
+            let location,
+            let radius,
+            let numberOfItems
+        ):
+            return "/app/main/placeInfo" +
+            makeQuery(for: [
+                "serviceLanguage": "\(language)",
+                "pageSize": "\(numberOfItems)",
+                "pageNumber": "1",
+                "mapX": "\(location.long)",
+                "mapY": "\(location.lat)",
+                "radius": "\(radius)",
+                "token": "\(token)"
+            ])
         case .fetchRecommendationFromAllOver:
             return "/app/main/totalPlaceInfo?serviceLanguage=\(language)&pageSize=20&pageNumber=1&token=\(token)"
         case .fetchUnvisitedLocations:
@@ -78,27 +91,77 @@ extension URLConfigurator: URLRequestable {
         case .postAddToMyTravel:
             return "/app/trip"
         case .myTravel(let planIdx):
-            return "/app/trip?token=\(token)&planIdx=\(planIdx)"
+            return "/app/trip" +
+            makeQuery(for: [
+                "token": "\(token)",
+                "planIdx": "\(planIdx)"
+            ])
         case .fetchMyTravel:
-            return "/app/trip?token=\(token)"
+            return "/app/trip" +
+            makeQuery(for: [
+                "token": "\(token)"
+            ])
         case .removeMyTravel(let planIdx):
-            return "/app/trip?token=\(token)&planIdx=\(planIdx)"
+            return "/app/trip" +
+            makeQuery(for: [
+               "token": "\(token)",
+               "planIdx": "\(planIdx)"
+            ])
         case .fetchSavedTravel:
-            return "/app/trip/bookmark?token=\(token)"
+            return "/app/trip/bookmark" +
+            makeQuery(for: [
+                "token": "\(token)"
+            ])
         case .fetchCompletedTravel:
-            return "/app/trip/complete?token=\(token)"
-        case .updateBookMark(let contentId, contentTypeId: let contentTypeId, mapx: let mapx, mapY: let mapY, placeName: let placeName, placeAddr: let placeAddr):
-            return "/app/main/placeInfo/bookmark?token=\(token)&contentId=\(contentId)&contentTypeId=\(contentTypeId)&mapX=\(mapx)&mapY=\(mapY)&placeName=\(placeName.addingPercentEncoding)&placeAddr=\(placeAddr.addingPercentEncoding)"
+            return "/app/trip/complete" +
+            makeQuery(for: [
+               "token": "\(token)"
+            ])
+        case .updateBookMark(
+            let contentId,
+            contentTypeId: let contentTypeId,
+            mapX: let mapX,
+            mapY: let mapY,
+            placeName: let placeName,
+            placeAddr: let placeAddr
+        ):
+            return "/app/main/placeInfo/bookmark" +
+            makeQuery(for: [
+                "token": "\(token)",
+                "contentId": "\(contentId)",
+                "contentTypeId": "\(contentTypeId)",
+                "mapX": "\(mapX)",
+                "mapY": "\(mapY)",
+                "placeName": "\(placeName.addingPercentEncoding)",
+                "placeAddr": "\(placeAddr.addingPercentEncoding)"
+            ])
         case .fetchLocationDetailImage(let contentId):
-            return "/app/placeInfo/images?contentId=\(contentId)&serviceLanguage=\(language)"
+            return "/app/placeInfo/images" +
+            makeQuery(for: [
+                "contentId": "\(contentId)",
+                "serviceLanguage": "\(language)"
+            ])
         case .fetchReviews(let contentId):
-            return "/app/placeInfo/review?token=\(token)&contentId=\(contentId)"
+            return "/app/placeInfo/review" +
+            makeQuery(for: [
+                "token": "\(token)",
+                "contentId": "\(contentId)"
+            ])
         case .fetchCharacterInfo:
-            return "/app/users/myCharacter?token=\(token)"
+            return "/app/users/myCharacter" +
+            makeQuery(for: [
+                "token": "\(token)"
+            ])
         case .fetchMyInfo:
-            return "/app/users/myPage?token=\(token)"
+            return "/app/users/myPage" +
+            makeQuery(for: [
+                "token": "\(token)"
+            ])
         case .fetchMyReviews:
-            return "/app/users/myReviews?token=\(token)"
+            return "/app/users/myReviews" +
+            makeQuery(for: [
+                "token": "\(token)"
+            ])
         case .postCompleteTrip:
             return "/app/trip/complete"
         case .patchLike:
@@ -106,12 +169,34 @@ extension URLConfigurator: URLRequestable {
         case .postReport:
             return "/app/placeInfo/review/report"
         case .deleteReview(let reviewIdx):
-            return "/app/placeInfo/review?token=\(token)&reviewIdx=\(reviewIdx)"
+            return "/app/placeInfo/review" +
+            makeQuery(for: [
+                "token": "\(token)",
+                "reviewIdx": "\(reviewIdx)"
+            ])
         case .fetchCategoryPlaces(let location, let category):
-            return "/app/main/category?pageSize=5&pageNumber=1&mapX=\(location.long)&mapY=\(location.lat)&token=\(token)&category=\(category.rawValue)&serviceLanguage=\(language)"
+            return "/app/main/category" +
+            makeQuery(for: [
+                "pageSize": "5",
+                "pageNumber": "1",
+                "mapX": "\(location.long)",
+                "mapY": "\(location.lat)",
+                "token": "\(token)",
+                "category": "\(category.rawValue)",
+                "serviceLanguage": "\(language)"
+            ])
         }
     }
     var fullUrl: String {
         return "\(baseURL)" + "\(endPoint)"
+    }
+    private func makeQuery(for queryParams: [String: String] = [:]) -> String {
+        var queryItems = [URLQueryItem]()
+        // Add any parameters
+        for (name, value) in queryParams {
+            queryItems.append(.init(name: name, value: value))
+        }
+        let queries = "?" + queryItems.map { "\($0.name)=\($0.value ?? "")" }.joined(separator: "&")
+        return queries
     }
 }

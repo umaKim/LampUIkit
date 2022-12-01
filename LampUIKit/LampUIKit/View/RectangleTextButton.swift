@@ -21,14 +21,12 @@ class RectangleTextButton: UIButton {
         self.layer.cornerRadius = 5
         self.titleLabel?.font = UIFont.systemFont(ofSize: fontSize, weight: .bold)
     }
-    
     override var isHighlighted: Bool {
         didSet {
             // If you have images in your button, add them here same as the code below
-            (self.isHighlighted && self.titleLabel != nil) ? (self.titleLabel!.alpha = 0.2) : (self.titleLabel!.alpha = 1.0)
+            titleLabel!.alpha = (isHighlighted && titleLabel != nil) ? 0.2 : 1.0
         }
     }
-    
     public func update(
         _ title: String,
         background: UIColor,
@@ -38,7 +36,6 @@ class RectangleTextButton: UIButton {
         self.setTitleColor(textColor, for: .normal)
         self.backgroundColor = background
     }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

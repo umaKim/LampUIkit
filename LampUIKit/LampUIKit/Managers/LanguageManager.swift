@@ -15,13 +15,10 @@ enum LanguageType: String {
 
 class LanguageManager {
     static let shared = LanguageManager()
-    
     private(set) var languageType: LanguageType = .korean
     private(set) var localizeLang: String = ""
-    
     public func setLanguage(_ type: LanguageType) {
         self.languageType = type
-        
         switch type {
         case .korean:
             self.localizeLang = "ko"

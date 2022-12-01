@@ -9,8 +9,7 @@ import Foundation
 
 extension Sequence where Iterator.Element == NSAttributedString {
     func joined(with separator: NSAttributedString) -> NSAttributedString {
-        return self.reduce(NSMutableAttributedString()) {
-            reducer, element in
+        return self.reduce(NSMutableAttributedString()) { reducer, element in
             if reducer.length > 0 {
                 reducer.append(separator)
             }

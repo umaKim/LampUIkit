@@ -25,7 +25,7 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell, BodyCellable {
         return view
     }()
     private let backgroundImageView: UIImageView = {
-       let imageView = UIImageView()
+        let imageView = UIImageView()
         imageView.layer.cornerRadius = 6
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
@@ -33,7 +33,7 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell, BodyCellable {
         return imageView
     }()
     private let filterImageView: UIImageView = {
-       let imageView = UIImageView()
+        let imageView = UIImageView()
         imageView.layer.cornerRadius = 6
         imageView.backgroundColor = .black.withAlphaComponent(0.4)
         return imageView
@@ -47,27 +47,24 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell, BodyCellable {
         label.textAlignment = .center
         return label
     }()
-    
     private lazy var addressLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.textColor = .white
         label.font = .systemFont(ofSize: 14, weight: .semibold)
         label.textAlignment = .center
         return label
     }()
-    
     private lazy var deleteButton: UIButton = {
-       let button = UIButton()
+        let button = UIButton()
         button.setImage(UIImage(named: "removeTrip".localized), for: .normal)
         button.isHidden = true
         return button
     }()
-    
     private lazy var completeTripButton: UIButton = {
-       let button = UIButton()
+        let button = UIButton()
         button.setImage(UIImage(named: "completeTrip".localized), for: .normal)
         button.isHidden = false
-        return bt
+        return button
     }()
     private var cancellables: Set<AnyCancellable>
     override init(frame: CGRect) {
@@ -126,9 +123,9 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell, BodyCellable {
         totalSv.distribution = .fill
         totalSv.alignment = .fill
         totalSv.spacing = 32
-        [containerView, backgroundImageView, filterImageView, totalSv].forEach { uv in
-            uv.translatesAutoresizingMaskIntoConstraints = false
-            addSubview(uv)
+        [containerView, backgroundImageView, filterImageView, totalSv].forEach { uiView in
+            uiView.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(uiView)
         }
         NSLayoutConstraint.activate([
             containerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 6),
@@ -146,7 +143,7 @@ final class MyTravelCellCollectionViewCell: UICollectionViewCell, BodyCellable {
             totalSv.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
             totalSv.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
             totalSv.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16),
-            totalSv.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -16),
+            totalSv.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -16)
         ])
     }
     required init?(coder: NSCoder) {

@@ -38,7 +38,7 @@ class MyReviewsViewModel: BaseViewModel<MyReviewsViewmodelNotification> {
         network.delete(.deleteReview(reviewIdx), Response.self) { [weak self] result in
             guard let self = self else {return }
             switch result {
-            case .success(_):
+            case .success:
                 self.datum.remove(at: index)
                 self.sendNotification(.reload)
             case .failure(let error):

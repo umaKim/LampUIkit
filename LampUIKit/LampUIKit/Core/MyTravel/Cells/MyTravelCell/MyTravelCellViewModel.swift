@@ -31,7 +31,7 @@ class MyTravelCellViewModel: BaseViewModel<MyTravelCellViewModelNotifiction> {
         self.showDeleteButton.toggle()
     }
     public var setIsRefreshing: Bool? {
-        didSet{
+        didSet {
             self.isRefreshing = setIsRefreshing ?? false
         }
     }
@@ -68,7 +68,7 @@ class MyTravelCellViewModel: BaseViewModel<MyTravelCellViewModelNotifiction> {
         )
         network.post(.postAddToMyTravel, data, Response.self) { [weak self] result in
             switch result {
-            case .success(let response):
+            case .success:
                 self?.models.remove(at: index)
                 self?.sendNotification(.reload)
             case .failure(let error):

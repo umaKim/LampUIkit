@@ -106,20 +106,20 @@ class TotalTravelReviewView: UIView {
         headerSv.axis = .horizontal
         headerSv.alignment = .fill
         headerSv.distribution = .fill
-        let sv = UIStackView(arrangedSubviews: [headerSv, verticalSv])
-        sv.axis = .vertical
-        sv.alignment = .fill
-        sv.distribution = .fill
-        sv.spacing = 18
-        [sv, dividerView, loadingView].forEach { uv in
-            uv.translatesAutoresizingMaskIntoConstraints = false
-            addSubview(uv)
+        let verticalStackView = UIStackView(arrangedSubviews: [headerSv, verticalSv])
+        verticalStackView.axis = .vertical
+        verticalStackView.alignment = .fill
+        verticalStackView.distribution = .fill
+        verticalStackView.spacing = 18
+        [verticalStackView, dividerView, loadingView].forEach { uiView in
+            uiView.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(uiView)
         }
         NSLayoutConstraint.activate([
-            sv.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            sv.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            sv.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -32),
-            sv.topAnchor.constraint(equalTo: topAnchor),
+            verticalStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            verticalStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            verticalStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -32),
+            verticalStackView.topAnchor.constraint(equalTo: topAnchor),
             dividerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             dividerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             dividerView.bottomAnchor.constraint(equalTo: bottomAnchor),

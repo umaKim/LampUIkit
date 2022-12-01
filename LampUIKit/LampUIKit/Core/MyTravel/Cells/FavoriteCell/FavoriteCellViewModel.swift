@@ -24,7 +24,7 @@ class FavoriteCellViewModel: BaseViewModel<FavoriteCellViewModelNotification> {
         super.init()
     }
     public var setIsRefreshing: Bool? {
-        didSet{
+        didSet {
             self.isRefreshing = setIsRefreshing ?? false
         }
     }
@@ -50,7 +50,7 @@ class FavoriteCellViewModel: BaseViewModel<FavoriteCellViewModelNotification> {
             .updateBookMark(
                 "\(targetItem.contentId)",
                 contentTypeId: "\(targetItem.contentTypeId)",
-                mapx: "\(targetItem.mapX)",
+                mapX: "\(targetItem.mapX)",
                 mapY: "\(targetItem.mapY)",
                 placeName: "\(targetItem.placeName )",
                 placeAddr: "\(targetItem.placeAddr )"),
@@ -58,7 +58,7 @@ class FavoriteCellViewModel: BaseViewModel<FavoriteCellViewModelNotification> {
             parameters: Empty.value
         ) { [weak self] result in
             switch result {
-            case .success(_):
+            case .success:
                 self?.models.remove(at: index)
                 self?.sendNotification(.reload)
             case .failure(let error):

@@ -73,7 +73,7 @@ class ImageViewCollectionView: UIView {
     }
 }
 
-//MARK: - UICollectionViewDataSource
+// MARK: - UICollectionViewDataSource
 extension ImageViewCollectionView: UICollectionViewDataSource {
     func collectionView(
         _ collectionView: UICollectionView,
@@ -81,7 +81,6 @@ extension ImageViewCollectionView: UICollectionViewDataSource {
     ) -> Int {
         return photoUrls.count
     }
-    
     func collectionView(
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath
@@ -98,7 +97,7 @@ extension ImageViewCollectionView: UICollectionViewDataSource {
     }
 }
 
-//MARK: - UICollectionViewDelegateFlowLayout
+// MARK: - UICollectionViewDelegateFlowLayout
 extension ImageViewCollectionView: UICollectionViewDelegateFlowLayout {
     func collectionView(
         _ collectionView: UICollectionView,

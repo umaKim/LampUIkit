@@ -15,19 +15,15 @@ enum MyReviewsViewAction: Actionable {
 class MyReviewsView: BaseView<MyReviewsViewAction> {
 
     private(set) lazy var backButton: UIBarButtonItem = {
-        let bt = UIBarButtonItem(image: .back, style: .done, target: nil, action: nil)
-        return bt
+        let button = UIBarButtonItem(image: .back, style: .done, target: nil, action: nil)
+        return button
     }()
-    
     private(set) lazy var collectionView = BaseCollectionView<MyReviewCollectionViewCell>()
-    
     override init() {
         super.init()
-        
         bind()
         setupUI()
     }
-    
     private func bind() {
         backButton
             .tapPublisher
@@ -36,13 +32,11 @@ class MyReviewsView: BaseView<MyReviewsViewAction> {
         }
         .store(in: &cancellables)
     }
-    
     private func setupUI() {
-        [collectionView].forEach { uv in
-            uv.translatesAutoresizingMaskIntoConstraints = false
-            addSubview(uv)
+        [collectionView].forEach { uiView in
+            uiView.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(uiView)
         }
-        
         NSLayoutConstraint.activate([
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
@@ -50,7 +44,6 @@ class MyReviewsView: BaseView<MyReviewsViewAction> {
             collectionView.topAnchor.constraint(equalTo: topAnchor)
         ])
     }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

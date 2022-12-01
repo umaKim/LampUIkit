@@ -19,7 +19,10 @@ final class FavoriteCell: UICollectionViewCell {
     enum Section { case main }
     private var dataSource: DataSource?
     weak var delegate: FavoriteCellDelegate?
-    private let collectionView = BaseCollectionViewWithHeader<FavoriteCellHeaderCell, FavoriteCellCollectionViewCell>(.vertical)
+    private let collectionView = BaseCollectionViewWithHeader<
+        FavoriteCellHeaderCell,
+        FavoriteCellCollectionViewCell
+    >(.vertical)
     private lazy var refreshcontrol = UIRefreshControl()
     private var cancellables: Set<AnyCancellable>
     override init(frame: CGRect) {
