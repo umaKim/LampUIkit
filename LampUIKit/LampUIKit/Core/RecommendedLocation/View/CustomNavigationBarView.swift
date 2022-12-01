@@ -41,8 +41,8 @@ class CustomNavigationBarView: BaseView<CustomNavigationBarViewAction> {
         ])
     }
     public func setRightSideItems(_ buttons: [UIButton]) {
-        buttons.forEach { uv in
-            self.buttonSv.addArrangedSubview(uv)
+        buttons.forEach { uiView in
+            self.buttonSv.addArrangedSubview(uiView)
         }
     }
     public func updateTitle(_ text: String) {

@@ -13,14 +13,11 @@ enum ReviewViewModelNotification: Notifiable {
 }
 
 class ReviewViewModel: BaseViewModel<ReviewViewModelNotification> {
-    
     private(set) var location: RecommendedLocation
     private(set) var locationDetail: LocationDetailData
     private(set) var reviews: [ReviewData] = []
-    
     private let auth: Autheable
     private let network: Networkable
-    
     init(
         _ location: RecommendedLocation,
         _ locationDetail: LocationDetailData,
@@ -32,10 +29,8 @@ class ReviewViewModel: BaseViewModel<ReviewViewModelNotification> {
         self.auth = auth
         self.network = network
         super.init()
-        
         fetchReviews()
     }
-    
     private func fetchReviews() {
         network.get(.fetchReviews(location.contentId), [ReviewData].self) {[weak self] result in
             guard let self = self else { return }
@@ -48,7 +43,6 @@ class ReviewViewModel: BaseViewModel<ReviewViewModelNotification> {
             }
         }
     }
-    
     public func didTapReport(at index: Int) {
         let idx = "\(reviews[index].reviewIdx ?? 0)"
         guard let token = auth.token else {return }
@@ -56,15 +50,13 @@ class ReviewViewModel: BaseViewModel<ReviewViewModelNotification> {
         network.post(.postReport, param, Response.self) { [weak self] result in
             guard let self = self else {return}
             switch result {
-            case .success(let _):
+            case .success:
                 self.sendNotification(.message("성공적으로 신고했습니다"))
-                
             case .failure(let error):
                 self.sendNotification(.message(error.localizedDescription))
             }
         }
     }
-    
     public func didTapLike(at index: Int) {
         reviews[index].numLiked = self.reviews[index].numLiked + 1
         guard
@@ -72,11 +64,8 @@ class ReviewViewModel: BaseViewModel<ReviewViewModelNotification> {
             let idx = reviews[index].reviewIdx
         else {return }
         let param = LikeDataPatch(token: token, targetReviewId: "\(idx)")
-        network.patch(.patchLike, Response.self, parameters: param) { result in
-            
-        }
+        network.patch(.patchLike, Response.self, parameters: param) { _ in }
     }
-    
     public func didTapUnLike(at index: Int) {
         reviews[index].numLiked = self.reviews[index].numLiked - 1
         guard
@@ -84,8 +73,6 @@ class ReviewViewModel: BaseViewModel<ReviewViewModelNotification> {
             let idx = reviews[index].reviewIdx
         else {return }
         let param = LikeDataPatch(token: token, targetReviewId: "\(idx)")
-        network.patch(.patchLike, Response.self, parameters: param) { result in
-            
-        }
+        network.patch(.patchLike, Response.self, parameters: param) { _ in }
     }
 }

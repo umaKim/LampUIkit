@@ -10,6 +10,4 @@ import Foundation
 
 enum MyTravelViewModelNotification: Notifiable { }
 
-class MyTravelViewModel: BaseViewModel<MyTravelViewModelNotification> {
-    
-}
+class MyTravelViewModel: BaseViewModel<MyTravelViewModelNotification> { }

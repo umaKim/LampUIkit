@@ -17,30 +17,30 @@ enum MenuBarButtonAction: Actionable {
 
 final class MyTravelCategoryView: BaseView<MenuBarButtonAction> {
     private lazy var myTravelButton: UIButton = {
-       let bt = UIButton()
-        bt.setTitle("나의 여행지".localized, for: .normal)
-        bt.setTitleColor(UIColor.lightNavy, for: .normal)
-        bt.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        return bt
+       let button = UIButton()
+        button.setTitle("나의 여행지".localized, for: .normal)
+        button.setTitleColor(UIColor.lightNavy, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        return button
     }()
     private lazy var favoritePlaceButton: UIButton = {
-       let bt = UIButton()
-        bt.setTitle("찜한 장소".localized, for: .normal)
-        bt.setTitleColor(UIColor.gray, for: .normal)
-        bt.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        return bt
+       let button = UIButton()
+        button.setTitle("찜한 장소".localized, for: .normal)
+        button.setTitleColor(UIColor.gray, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        return button
     }()
     private lazy var completedTravelButton: UIButton = {
-       let bt = UIButton()
-        bt.setTitle("완료된 여행".localized, for: .normal)
-        bt.setTitleColor(UIColor.gray, for: .normal)
-        bt.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        return bt
+       let button = UIButton()
+        button.setTitle("완료된 여행".localized, for: .normal)
+        button.setTitleColor(UIColor.gray, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        return button
     }()
     private lazy var selectionBarView: UIView = {
-        let uv = UIView(frame: .init(x: 0, y: 56, width: UIScreen.main.width / 3, height: 3))
-        uv.backgroundColor = .lightNavy
-        return uv
+        let view = UIView(frame: .init(x: 0, y: 56, width: UIScreen.main.width / 3, height: 3))
+        view.backgroundColor = .lightNavy
+        return view
     }()
     private let separatorView = DividerView()
     override init() {
@@ -63,20 +63,20 @@ final class MyTravelCategoryView: BaseView<MenuBarButtonAction> {
         .store(in: &cancellables)
     }
     private func setupUI() {
-        let sv = UIStackView(arrangedSubviews: [myTravelButton, favoritePlaceButton, completedTravelButton])
-        sv.axis = .horizontal
-        sv.distribution = .fillEqually
-        sv.alignment = .fill
-        [sv, separatorView].forEach { uv in
-            uv.translatesAutoresizingMaskIntoConstraints = false
-            addSubview(uv)
+        let horizontalStackView = UIStackView(arrangedSubviews: [myTravelButton, favoritePlaceButton, completedTravelButton])
+        horizontalStackView.axis = .horizontal
+        horizontalStackView.distribution = .fillEqually
+        horizontalStackView.alignment = .fill
+        [horizontalStackView, separatorView].forEach { uiView in
+            uiView.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(uiView)
         }
         addSubview(selectionBarView)
         NSLayoutConstraint.activate([
-            sv.leadingAnchor.constraint(equalTo: leadingAnchor),
-            sv.trailingAnchor.constraint(equalTo: trailingAnchor),
-            sv.bottomAnchor.constraint(equalTo: bottomAnchor),
-            sv.topAnchor.constraint(equalTo: topAnchor),
+            horizontalStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            horizontalStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            horizontalStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            horizontalStackView.topAnchor.constraint(equalTo: topAnchor),
             selectionBarView.bottomAnchor.constraint(equalTo: separatorView.topAnchor),
             separatorView.bottomAnchor.constraint(equalTo: bottomAnchor),
             separatorView.leadingAnchor.constraint(equalTo: leadingAnchor),

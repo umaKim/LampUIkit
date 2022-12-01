@@ -20,8 +20,8 @@ enum MyTravelViewAction: Actionable {
 
 class MyTravelView: BaseView<MyTravelViewAction> {
     private(set) var dismissButton: UIBarButtonItem = {
-        let bt = UIBarButtonItem(image: .back, style: .done, target: nil, action: nil)
-        return bt
+        let button = UIBarButtonItem(image: .back, style: .done, target: nil, action: nil)
+        return button
     }()
     private(set) lazy var categoryButton = MyTravelCategoryView()
     private(set) lazy var collectionView: UICollectionView = {
@@ -77,9 +77,9 @@ class MyTravelView: BaseView<MyTravelViewAction> {
             .store(in: &cancellables)
     }
     private func setupUI() {
-        [categoryButton, collectionView].forEach { uv in
-            uv.translatesAutoresizingMaskIntoConstraints = false
-            addSubview(uv)
+        [categoryButton, collectionView].forEach { uiView in
+            uiView.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(uiView)
         }
         NSLayoutConstraint.activate([
             categoryButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),

@@ -35,9 +35,9 @@ final class EvaluationView: BaseView<EvaluationViewAction> {
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.distribution = .fill
-        [stackView].forEach { uv in
-            uv.translatesAutoresizingMaskIntoConstraints = false
-            addSubview(uv)
+        [stackView].forEach { uiView in
+            uiView.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(uiView)
         }
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: topAnchor),
@@ -52,10 +52,16 @@ final class EvaluationView: BaseView<EvaluationViewAction> {
 }
 
 extension EvaluationView: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int
+    ) -> Int {
         elements.count
     }
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
         guard
             let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: EvaluationCollectionViewCell.identifier,
@@ -68,7 +74,10 @@ extension EvaluationView: UICollectionViewDataSource {
 }
 
 extension EvaluationView: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
         clearPreviouslySelectedItem()
         elements[indexPath.item].isSelected.toggle()
         if elements[indexPath.item].isSelected {
@@ -89,7 +98,9 @@ extension EvaluationView: UICollectionViewDelegateFlowLayout {
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
         let name = elements[indexPath.item].title.localized
-        let width = name.size(withAttributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15, weight: .semibold)]).width + 24
+        let width = name.size(
+            withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15, weight: .semibold)]
+        ).width + 24
         let height: CGFloat = EvaluationCollectionViewCell.preferredHeight
         return CGSize(width: width, height: height)
     }

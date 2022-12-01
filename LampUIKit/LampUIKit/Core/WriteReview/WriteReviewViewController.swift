@@ -18,6 +18,10 @@ class WriteReviewViewController: BaseViewController<WriteReviewView, WriteReview
         bind()
     }
     private func bind() {
+        bindWithContentView()
+        bindWithViewModel()
+    }
+    private func bindWithContentView() {
         contentView
             .actionPublisher
             .sink {[weak self] action in
@@ -39,11 +43,7 @@ class WriteReviewViewController: BaseViewController<WriteReviewView, WriteReview
                 case .updateComment(let text):
                     self.viewModel.setComments(text)
                 case .addPhoto:
-                    let pickerController = UIImagePickerController()
-                    pickerController.sourceType = .photoLibrary
-                    pickerController.delegate = self
-                    pickerController.allowsEditing = true
-                    self.present(pickerController, animated: true)
+                    self.presentImagePickerView()
                 case .removeImage(let index):
                     self.viewModel.removeImage(at: index)
                 case .complete:
@@ -51,6 +51,8 @@ class WriteReviewViewController: BaseViewController<WriteReviewView, WriteReview
                 }
             }
             .store(in: &cancellables)
+    }
+    private func bindWithViewModel() {
         viewModel
             .notifyPublisher
             .sink {[weak self] noti in
@@ -77,6 +79,13 @@ class WriteReviewViewController: BaseViewController<WriteReviewView, WriteReview
             textView.deleteBackward()
         }
     }
+    private func presentImagePickerView() {
+        let pickerController = UIImagePickerController()
+        pickerController.sourceType = .photoLibrary
+        pickerController.delegate = self
+        pickerController.allowsEditing = true
+        self.present(pickerController, animated: true)
+    }
 }
 // MARK: - UITextViewDelegate
 extension WriteReviewViewController: UITextViewDelegate {
@@ -90,9 +99,10 @@ extension WriteReviewViewController: UITextViewDelegate {
 extension WriteReviewViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     func imagePickerController(
         _ picker: UIImagePickerController,
-        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
     ) {
-        if let image = info[UIImagePickerController.InfoKey(rawValue: "UIImagePickerControllerEditedImage")] as? UIImage {
+        let infoKey = UIImagePickerController.InfoKey(rawValue: "UIImagePickerControllerEditedImage")
+        if let image = info[infoKey] as? UIImage {
             if viewModel.images.count < 3 {
                 contentView.setImage(with: image)
                 viewModel.addImage(image)

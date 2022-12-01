@@ -49,7 +49,7 @@ final class ReviewViewController: BaseViewController<ReviewView, ReviewViewModel
     private func configureCollectionView() {
         dataSource = DataSource(
             collectionView: contentView.collectionView
-        ) {[weak self] collectionView, indexPath, model in
+        ) {[weak self] collectionView, indexPath, _ in
             guard let self = self else { return nil}
             guard
                 let cell = collectionView.dequeueReusableCell(

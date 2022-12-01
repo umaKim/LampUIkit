@@ -14,7 +14,10 @@ enum ReviewViewAction: Actionable {
 
 class ReviewView: BaseView<ReviewViewAction> {
     private(set) lazy var backButton = UIBarButtonItem(image: .back, style: .done, target: nil, action: nil)
-    private(set) var collectionView = BaseCollectionViewWithHeader<ReviewCollectionViewHeader, ReviewViewCollectionViewCell>(.vertical)
+    private(set) var collectionView = BaseCollectionViewWithHeader<
+        ReviewCollectionViewHeader,
+        ReviewViewCollectionViewCell
+    >(.vertical)
     override init() {
         super.init()
         bind()

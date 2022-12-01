@@ -12,15 +12,11 @@ struct ReviewDetailData {
     let content: String
 }
 
-enum ReviewDetailViewModelNotification: Notifiable {
-    
-}
+enum ReviewDetailViewModelNotification: Notifiable { }
 
 class ReviewDetailViewModel: BaseViewModel<ReviewDetailViewModelNotification> {
-    
     private(set) var data: ReviewDetailData
     private let network: Networkable
-    
     init(
         _ data: ReviewDetailData,
         _ network: Networkable = NetworkManager()

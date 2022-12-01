@@ -86,14 +86,14 @@ extension SearchViewModel {
             .updateBookMark(
                 location.contentId,
                 contentTypeId: location.contentTypeId,
-                mapx: location.mapX,
+                mapX: location.mapX,
                 mapY: location.mapY,
                 placeName: location.title,
                 placeAddr: location.addr
             ),
             Response.self,
             parameters: Empty.value
-        ) { result in }
+        ) { _ in }
     }
 }
 

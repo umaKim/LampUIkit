@@ -86,7 +86,10 @@ class ReviewViewCollectionViewCell: UICollectionViewCell, BodyCellable {
         commentLabel.text = review.content
         likeButton.configuration?.attributedSubtitle = "\(review.numLiked)".colored(to: .midNavy)
         likeButton.isSelected = review.reviewILiked
-        likeButton.setImage(likeButton.isSelected ? UIImage(named: "like_selected")?.resize(to: 10) : UIImage(named: "like_unselected")?.resize(to: 10), for: .normal)
+        likeButton.setImage(
+            UIImage(named: likeButton.isSelected ? "like_selected" : "like_unselected")?.resize(to: 10),
+            for: .normal
+        )
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -131,7 +134,7 @@ extension ReviewViewCollectionViewCell {
     }
 }
 
-//MARK: - Set up UI
+// MARK: - Set up UI
 extension ReviewViewCollectionViewCell {
     private func setupUI() {
         layer.cornerRadius = 6

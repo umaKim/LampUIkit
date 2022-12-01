@@ -114,11 +114,17 @@ class WriteReviewView: BaseView<WriteReviewViewAction> {
         characterCounter.text = "\(count)/300"
     }
     private let dividerView2 = DividerView()
-    private lazy var selectedImageCollectionView: BaseCollectionViewWithHeader<ImageCollectionHeaderView, ImageCollectionViewCell> = {
+    private lazy var selectedImageCollectionView: BaseCollectionViewWithHeader<
+        ImageCollectionHeaderView,
+        ImageCollectionViewCell
+    > = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
         flowLayout.sectionInset = .init(top: 0, left: 8, bottom: 0, right: 0)
-        let collectionView = BaseCollectionViewWithHeader<ImageCollectionHeaderView, ImageCollectionViewCell>(cl)
+        let collectionView = BaseCollectionViewWithHeader<
+            ImageCollectionHeaderView,
+            ImageCollectionViewCell
+        >(flowLayout)
         collectionView.delegate = self
         collectionView.heightAnchor.constraint(equalToConstant: 100).isActive = true
         return collectionView
@@ -166,7 +172,8 @@ class WriteReviewView: BaseView<WriteReviewViewAction> {
     public func ableCompleteButton(_ isAble: Bool) {
         completeButton.isEnabled = isAble
         completeButton.setImage(
-            UIImage(named: completeButton.isEnabled ? "completeWriting_ableKr".localized : "completeWriting_disableKr".localized),
+            UIImage(
+                named: completeButton.isEnabled ? "completeWriting_ableKr".localized : "completeWriting_disableKr".localized),
             for: .normal
         )
     }
@@ -295,22 +302,24 @@ extension WriteReviewView {
 // MARK: - set up UI
 extension WriteReviewView {
     private func configureDataSource() {
-        dataSource = DataSource(collectionView: selectedImageCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
-            guard
-                let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: ImageCollectionViewCell.identifier,
-                    for: indexPath
-                ) as? ImageCollectionViewCell
-            else { return UICollectionViewCell() }
-            cell.configure(self.photos[indexPath.item])
-            cell.isDeleteButtonHidden = false
-            cell.delegate = self
-            cell.tag = indexPath.item
-            cell.backgroundColor = .blue
-            cell.layer.cornerRadius = 16
-            cell.clipsToBounds = true
-            return cell
-        })
+        dataSource = DataSource(
+            collectionView: selectedImageCollectionView,
+            cellProvider: { collectionView, indexPath, _ in
+                guard
+                    let cell = collectionView.dequeueReusableCell(
+                        withReuseIdentifier: ImageCollectionViewCell.identifier,
+                        for: indexPath
+                    ) as? ImageCollectionViewCell
+                else { return UICollectionViewCell() }
+                cell.configure(self.photos[indexPath.item])
+                cell.isDeleteButtonHidden = false
+                cell.delegate = self
+                cell.tag = indexPath.item
+                cell.backgroundColor = .blue
+                cell.layer.cornerRadius = 16
+                cell.clipsToBounds = true
+                return cell
+            })
         dataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
             guard kind == UICollectionView.elementKindSectionHeader else { return nil }
             let view = collectionView.dequeueReusableSupplementaryView(
@@ -353,9 +362,9 @@ extension WriteReviewView {
         totalStackView.distribution = .fill
         totalStackView.alignment = .fill
         totalStackView.spacing = 16
-        [totalStackView].forEach { uv in
-            uv.translatesAutoresizingMaskIntoConstraints = false
-            contentView.addSubview(uv)
+        [totalStackView].forEach { uiView in
+            uiView.translatesAutoresizingMaskIntoConstraints = false
+            contentView.addSubview(uiView)
         }
         NSLayoutConstraint.activate([
             contentScrollView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
@@ -372,7 +381,7 @@ extension WriteReviewView {
             totalStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             totalStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
             starRatingView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            starRatingView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            starRatingView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
     }
 }

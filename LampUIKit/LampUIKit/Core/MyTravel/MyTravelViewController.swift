@@ -94,10 +94,16 @@ extension MyTravelViewController: LocationDetailViewControllerDelegate {
 
 // MARK: - UICollectionViewDataSource
 extension MyTravelViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int
+    ) -> Int {
         3
     }
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
         if indexPath.item == 0 {
             guard
                 let cell = collectionView.dequeueReusableCell(
@@ -142,7 +148,6 @@ extension MyTravelViewController: UICollectionViewDelegateFlowLayout {
     ) -> CGFloat {
         0
     }
-    
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,

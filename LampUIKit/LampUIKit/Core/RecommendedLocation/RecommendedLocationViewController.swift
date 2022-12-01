@@ -101,21 +101,22 @@ extension RecommendedLocationViewController {
     }
     private func configureCollectionView() {
         contentView.collectionView.delegate = self
-        dataSource = DataSource(collectionView: contentView.collectionView,
-                                cellProvider: {[weak self] collectionView, indexPath, itemIdentifier in
-            guard
-                let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: SearchRecommendationCollectionViewCell.identifier,
-                    for: indexPath
-                ) as? SearchRecommendationCollectionViewCell
-            else { return UICollectionViewCell() }
-            cell.tag = indexPath.item
-            if let item = self?.viewModel.locations[indexPath.item] {
-                cell.configure(with: item)
-            }
-            cell.delegate = self
-            return cell
-        })
+        dataSource = DataSource(
+            collectionView: contentView.collectionView,
+            cellProvider: {[weak self] collectionView, indexPath, itemIdentifier in
+                guard
+                    let cell = collectionView.dequeueReusableCell(
+                        withReuseIdentifier: SearchRecommendationCollectionViewCell.identifier,
+                        for: indexPath
+                    ) as? SearchRecommendationCollectionViewCell
+                else { return UICollectionViewCell() }
+                cell.tag = indexPath.item
+                if let item = self?.viewModel.locations[indexPath.item] {
+                    cell.configure(with: item)
+                }
+                cell.delegate = self
+                return cell
+            })
     }
 }
 
@@ -125,7 +126,6 @@ extension RecommendedLocationViewController: LocationDetailViewControllerDelegat
         self.delegate?.recommendedLocationViewControllerDidTapNavigation(location: location)
     }
     func locationDetailViewControllerDidTapDismissButton() {
-        
     }
     func locationDetailViewControllerDidTapMapButton(_ location: RecommendedLocation) {
         self.delegate?.recommendedLocationViewControllerDidTapMapPin(location: location)
@@ -161,11 +161,9 @@ extension RecommendedLocationViewController: MyTravelViewControllerDelegate {
     func myTravelViewControllerDidTapNavigation(_ location: RecommendedLocation) {
         delegate?.recommendedLocationViewControllerDidTapNavigation(location: location)
     }
-    
     func myTravelViewControllerDidTapMapButton(_ location: RecommendedLocation) {
         delegate?.recommendedLocationViewControllerDidTapMapPin(location: location)
     }
-    
     func myTravelViewControllerDidTapDismiss() {
         self.navigationController?.popViewController(animated: true)
     }
@@ -175,16 +173,20 @@ extension RecommendedLocationViewController: MyTravelViewControllerDelegate {
 extension RecommendedLocationViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         HapticManager.shared.feedBack(with: .medium)
-        let vm = LocationDetailViewModel(viewModel.locations[indexPath.item])
-        let vc = LocationDetailViewController(LocationDetailView(), vm)
-        vc.delegate = self
-        navigationController?.pushViewController(vc, animated: true)
+        let viewModel = LocationDetailViewModel(viewModel.locations[indexPath.item])
+        let viewController = LocationDetailViewController(LocationDetailView(), viewModel)
+        viewController.delegate = self
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
 extension RecommendedLocationViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
         .init(width: UIScreen.main.bounds.width - 32, height: 145)
     }
 }

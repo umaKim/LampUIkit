@@ -44,12 +44,11 @@ class RecommendedLocationViewmodel: BaseViewModel<RecommendedLocationViewmodelNo
                         latitude: coord.latitude,
                         longitude: coord.longitude
                     )
-                ) {[weak self] response, error in
+                ) {[weak self] response, _ in
                     if let address = response?.firstResult() {
                         let administrativeArea = address.administrativeArea ?? ""
                         let locality = address.locality ?? ""
                         let sublocality = address.subLocality ?? ""
-                        
                         let addressString = administrativeArea + " " + locality + " " + sublocality
                         self?.sendNotification(.updateAddress(addressString))
                     }
@@ -64,13 +63,13 @@ class RecommendedLocationViewmodel: BaseViewModel<RecommendedLocationViewmodelNo
             .updateBookMark(
                 location.contentId,
                 contentTypeId: location.contentTypeId,
-                mapx: location.mapX,
+                mapX: location.mapX,
                 mapY: location.mapY,
                 placeName: location.title,
                 placeAddr: location.addr),
             Response.self,
             parameters: Empty.value
-        ) { result in }
+        ) { _ in }
     }
     public func postAddToMyTrip(at index: Int, _ location: RecommendedLocation) {
         guard let token = auth.token else {return }
