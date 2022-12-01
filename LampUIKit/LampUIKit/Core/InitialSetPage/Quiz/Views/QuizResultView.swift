@@ -14,7 +14,7 @@ enum QuizResultViewAction: Actionable {
 }
 
 class QuizResultView: BaseView<QuizResultViewAction> {
-    //MARK: - UI Objects
+    // MARK: - UI Objects
     private lazy var backgroundImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "testBackground"))
         return imageView
@@ -36,7 +36,7 @@ class QuizResultView: BaseView<QuizResultViewAction> {
         button.setImage(UIImage(named: "next_downArrow"), for: .normal)
         return button
     }()
-    //MARK: - Init
+    // MARK: - Init
     override init() {
         super.init()
         backgroundColor = .darkNavy
@@ -59,9 +59,9 @@ class QuizResultView: BaseView<QuizResultViewAction> {
             .store(in: &cancellables)
     }
     private func setupUI() {
-        [backgroundImageView, logoImageView, characterImageView, nextButton].forEach { uv in
-            addSubview(uv)
-            uv.translatesAutoresizingMaskIntoConstraints = false
+        [backgroundImageView, logoImageView, characterImageView, nextButton].forEach { uiView in
+            addSubview(uiView)
+            uiView.translatesAutoresizingMaskIntoConstraints = false
         }
         NSLayoutConstraint.activate([
             backgroundImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),

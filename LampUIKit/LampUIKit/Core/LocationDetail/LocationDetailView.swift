@@ -41,14 +41,26 @@ final class LocationDetailView: BaseView<LocationDetailViewAction> {
         contentScrollView.setContentOffset(.init(x: 0, y: locationImageView.frame.height + 16), animated: true)
     }
     private let dividerView = DividerView()
-    private let label1: LocationDescriptionView = LocationDescriptionView(
+    private let label1 = LocationDescriptionView(
         "",
-        description: "                                                     ")
-    private let label2: LocationDescriptionView = LocationDescriptionView("", description: "                                                     ")
-    private let label3: LocationDescriptionView = LocationDescriptionView("", description: "                                                     ")
-    private let label4: LocationDescriptionView = LocationDescriptionView("", description: "                                                     ")
-    private let label5: LocationDescriptionView = LocationDescriptionView("", description: "                                                     ")
-    
+        description: "                                                     "
+    )
+    private let label2 = LocationDescriptionView(
+        "",
+        description: "                                                     "
+    )
+    private let label3 = LocationDescriptionView(
+        "",
+        description: "                                                     "
+    )
+    private let label4 = LocationDescriptionView(
+        "",
+        description: "                                                     "
+    )
+    private let label5 = LocationDescriptionView(
+        "",
+        description: "                                                     "
+    )
     public func configureDetailInfo(_ locationDetail: LocationDetailData) {
         if locationDetail.contentTypeId == "12" || locationDetail.contentTypeId == "76" {
             label1.configure("문의 안내", locationDetail.datailInfo?.infocenter ?? "")
@@ -96,7 +108,12 @@ final class LocationDetailView: BaseView<LocationDetailViewAction> {
         label4.isHidden = true
         label5.isHidden = true
     }
-    private lazy var addToMyTravelButton = RectangleTextButton("내 여행지로 추가".localized, background: .clear, textColor: .white, fontSize: 17)
+    private lazy var addToMyTravelButton = RectangleTextButton(
+        "내 여행지로 추가".localized,
+        background: .clear,
+        textColor: .white,
+        fontSize: 17
+    )
     private lazy var totalTravelReviewView = TotalTravelReviewView()
     public func configure(_ locationDetail: LocationDetailData) {
         buttonSv.configure(locationDetail.bookMark ?? false)
@@ -121,9 +138,11 @@ final class LocationDetailView: BaseView<LocationDetailViewAction> {
         label3.showSkeleton()
         label4.showSkeleton()
         label5.showSkeleton()
-        addToMyTravelButton.showAnimatedGradientSkeleton(usingGradient: .init(colors: [.lightGray, .gray]),
-                                                         animation: skeletonAnimation,
-                                                         transition: .none)
+        addToMyTravelButton.showAnimatedGradientSkeleton(
+            usingGradient: .init(colors: [.lightGray, .gray]),
+            animation: skeletonAnimation,
+            transition: .none
+        )
         totalTravelReviewView.showSkeleton()
     }
     public func hideSkeleton() {
@@ -222,10 +241,9 @@ final class LocationDetailView: BaseView<LocationDetailViewAction> {
             addToMyTravelButton,
             totalTravelReviewView
         ].forEach { uiView in
-            uv.translatesAutoresizingMaskIntoConstraints = false
+            uiView.translatesAutoresizingMaskIntoConstraints = false
             contentView.addSubview(uiView)
         }
-        
         dividerView.isSkeletonable = true
         addToMyTravelButton.isSkeletonable = true
         totalTravelReviewView.isSkeletonable = true

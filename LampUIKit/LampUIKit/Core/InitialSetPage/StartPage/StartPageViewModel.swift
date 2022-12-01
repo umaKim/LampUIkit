@@ -46,7 +46,7 @@ private extension StartPageViewModel {
         auth.setToken(token)
     }
     func presentMainWithKakao() {
-        UserApi.shared.me {[weak self] user, error in
+        UserApi.shared.me {[weak self] user, _ in
             guard
                 let id = user?.id else {
                 self?.sendNotification(.presentLoginViewController)

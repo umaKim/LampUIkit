@@ -38,10 +38,8 @@ class LoginViewController: BaseViewController<LoginView, LoginViewModel>, Alerta
                 switch action {
                 case .apple:
                     self.startSignInWithAppleFlow()
-                    
                 case .gmail:
                     self.startGmailLogin()
-                    
                 case .kakao:
                     self.startKakaoLogin()
                 }
@@ -114,8 +112,7 @@ extension LoginViewController {
     // Adapted from https://auth0.com/docs/api-auth/tutorials/nonce#generate-a-cryptographically-random-nonce
     private func randomNonceString(length: Int = 32) -> String {
         precondition(length > 0)
-        let charset: Array<Character> =
-        Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
+        let charset: [Character] = Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
         var result = ""
         var remainingLength = length
         while remainingLength > 0 {
@@ -159,7 +156,11 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                 print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
                 return
             }
-            let credential = OAuthProvider.credential(withProviderID: "apple.com", idToken: idTokenString, rawNonce: nonce)
+            let credential = OAuthProvider.credential(
+                withProviderID: "apple.com",
+                idToken: idTokenString,
+                rawNonce: nonce
+            )
             Auth.auth().signIn(with: credential) {[weak self] authResult, error in
                 guard let self = self else {return}
                 if let error = error {
@@ -177,7 +178,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
     }
 }
 // MARK: - ASAuthorizationControllerPresentationContextProviding
-extension LoginViewController : ASAuthorizationControllerPresentationContextProviding {
+extension LoginViewController: ASAuthorizationControllerPresentationContextProviding {
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return self.view.window!
     }
@@ -190,7 +191,7 @@ extension LoginViewController {
         let config = GIDConfiguration(clientID: clientID)
         // Start the sign in flow!
         GIDSignIn.sharedInstance.signIn(with: config, presenting: self) { [weak self] user, error in
-            if let error = error { return }
+            if let _ = error { return }
             guard
                 let authentication = user?.authentication,
                 let idToken = authentication.idToken
@@ -218,7 +219,7 @@ extension LoginViewController {
 extension LoginViewController {
     func startKakaoLogin() {
         if UserApi.isKakaoTalkLoginAvailable() {
-            UserApi.shared.loginWithKakaoTalk {[weak self] oauthToken, error in
+            UserApi.shared.loginWithKakaoTalk {[weak self] _, error in
                 guard let self = self else { return }
                 if let error = error {
                     self.showDefaultAlert(title: error.localizedDescription)
@@ -227,7 +228,7 @@ extension LoginViewController {
                 }
             }
         } else {
-            UserApi.shared.loginWithKakaoAccount {[weak self] token, error in
+            UserApi.shared.loginWithKakaoAccount {[weak self] _, error in
                 guard let self = self else { return }
                 if let error = error {
                     self.showDefaultAlert(title: error.localizedDescription)
@@ -237,9 +238,8 @@ extension LoginViewController {
             }
         }
     }
-    
     private func getUserInfo() {
-        UserApi.shared.me() {[weak self] user, error in
+        UserApi.shared.me {[weak self] user, error in
             guard let self = self else {return}
             if let error = error {
                 self.showDefaultAlert(title: error.localizedDescription)

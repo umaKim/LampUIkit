@@ -9,47 +9,38 @@ import Combine
 import UIKit
 
 class InitialSetPageViewController: BaseViewController<InitialSetPageView, InitialSetPageViewModel> {
-
     private lazy var beginningMessageLabel: UILabel = {
-       let lb = UILabel()
-        lb.textColor = .white
-        lb.alpha = 1
-        lb.numberOfLines = 4
-        lb.textAlignment = .center
-        lb.font = .systemFont(ofSize: 20, weight: .bold)
-        return lb
+        let label = UILabel()
+        label.textColor = .white
+        label.alpha = 1
+        label.numberOfLines = 4
+        label.textAlignment = .center
+        label.font = .systemFont(ofSize: 20, weight: .bold)
+        return label
     }()
-    
     private lazy var darkImageView: UIImageView = {
-       let uv = UIImageView(image: UIImage(named: "darkCircle"))
-        return uv
+        let imageView = UIImageView(image: UIImage(named: "darkCircle"))
+        return imageView
     }()
-    
     private lazy var twinkles: UIImageView = {
-        let uv = UIImageView(image: UIImage(named: "aroundTwinkles"))
-         return uv
+        let imageView = UIImageView(image: UIImage(named: "aroundTwinkles"))
+        return imageView
     }()
-    
     private var runCount = 0
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .darkNavy
-        
         isInitialSettingDone(false)
         animateBeginningMessageLabel()
         setupUI()
     }
-    
     private func animateBeginningMessageLabel() {
         Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) {[weak self] timer in
             guard let self = self else {return}
             if self.runCount == 3 {
                 timer.invalidate()
-                let vc = InitialQuizViewController(InitialQuizView(), InitialQuizViewModel())
-                self.present(vc, transitionType: .fromTop, animated: true, pushing: true)
-                
+                let viewController = InitialQuizViewController(InitialQuizView(), InitialQuizViewModel())
+                self.present(viewController, transitionType: .fromTop, animated: true, pushing: true)
             } else {
                 UIView.transition(
                     with: self.beginningMessageLabel,
@@ -62,22 +53,28 @@ class InitialSetPageViewController: BaseViewController<InitialSetPageView, Initi
             self.runCount += 1
         }
     }
-    
     private func setupUI() {
-        [darkImageView, twinkles, beginningMessageLabel].forEach { uv in
-            view.addSubview(uv)
-            uv.translatesAutoresizingMaskIntoConstraints = false
-        }
-        
+        //        [darkImageView, twinkles, beginningMessageLabel].forEach { uv in
+        //            view.addSubview(uv)
+        //            uv.translatesAutoresizingMaskIntoConstraints = false
+        //        }
+        view.addSubviews(darkImageView, twinkles, beginningMessageLabel)
         NSLayoutConstraint.activate([
             darkImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             darkImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            
             twinkles.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             twinkles.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            
             beginningMessageLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             beginningMessageLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
+    }
+}
+
+extension UIView {
+    func addSubviews(_ views: UIView...) {
+        views.forEach { uiView in
+            uiView.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(uiView)
+        }
     }
 }

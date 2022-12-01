@@ -9,15 +9,12 @@ import UIKit
 import Combine
 
 class InitialQuizViewController: BaseViewController<InitialQuizView, InitialQuizViewModel> {
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         isInitialSettingDone(false)
         bind()
     }
-    
-    //MARK: - Bind
+    // MARK: - Bind
     private func bind() {
         contentView
             .actionPublisher
@@ -27,25 +24,19 @@ class InitialQuizViewController: BaseViewController<InitialQuizView, InitialQuiz
                 switch action {
                 case .button1:
                     self.viewModel.answerChoice(1)
-                    
                 case .button2:
                     self.viewModel.answerChoice(2)
-                    
                 case .button3:
                     self.viewModel.answerChoice(3)
-                    
                 case .button4:
                     self.viewModel.answerChoice(4)
-                    
                 case .button5:
                     self.viewModel.answerChoice(5)
-                    
                 case .next:
                     self.viewModel.next()
                 }
             }
             .store(in: &cancellables)
-        
         viewModel
             .notifyPublisher
             .sink {[weak self] noti in
@@ -53,15 +44,17 @@ class InitialQuizViewController: BaseViewController<InitialQuizView, InitialQuiz
                 switch noti {
                 case .index(let index):
                     print(index)
-                    
                 case .quizData(let data):
                     self.contentView.setQuizData(data)
-                    
                 case .setCharacterImage(let image):
                     self.contentView.setCharacterImage(image)
-                    
                 case .finishInitialQuiz:
-                    self.present(CreateNickNameViewController(CreateNickNameView(), CreateNickNameViewModel()), transitionType: .fromTop, animated: true, pushing: true)
+                    self.present(
+                        CreateNickNameViewController(CreateNickNameView(), CreateNickNameViewModel()),
+                        transitionType: .fromTop,
+                        animated: true,
+                        pushing: true
+                    )
                 }
             }
             .store(in: &cancellables)

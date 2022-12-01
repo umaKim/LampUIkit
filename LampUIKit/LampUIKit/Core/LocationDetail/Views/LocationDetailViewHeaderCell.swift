@@ -22,27 +22,23 @@ protocol ImageCollectionViewCellDelegate: AnyObject {
 
 class ImageCollectionViewCell: UICollectionViewCell, BodyCellable {
     static let identifier = "ImageCollectionViewCell"
-    
     weak var delegate: ImageCollectionViewCellDelegate?
-    
     private lazy var imageView: UIImageView = {
-       let uv = UIImageView()
-        uv.contentMode = .scaleAspectFill
-        uv.layer.cornerRadius = 6
-        uv.clipsToBounds = true
-        return uv
+       let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = 6
+        imageView.clipsToBounds = true
+        return imageView
     }()
-    
     private lazy var dismissButton: UIButton = {
-        let bt = UIButton()
-        bt.setImage(UIImage(named: "minus"), for: .normal)
-        bt.widthAnchor.constraint(equalToConstant: 20).isActive = true
-        bt.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        bt.layer.cornerRadius = 20/2
-        bt.backgroundColor = .greyshWhite
-        return bt
+        let button = UIButton()
+        button.setImage(UIImage(named: "minus"), for: .normal)
+        button.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        button.layer.cornerRadius = 20/2
+        button.backgroundColor = .greyshWhite
+        return button
     }()
-    
     public func configure(_ urlString: String) {
         if urlString == "placeholder" {
             imageView.image = .init(named: urlString.localized)
@@ -51,23 +47,18 @@ class ImageCollectionViewCell: UICollectionViewCell, BodyCellable {
             imageView.sd_setImage(with: url)
         }
     }
-    
     public func configure(_ image: UIImage) {
         imageView.image = image
     }
-    
     public var isDeleteButtonHidden: Bool {
         didSet {
             dismissButton.isHidden = isDeleteButtonHidden
         }
     }
-    
     private var cancellables: Set<AnyCancellable> = []
-    
     override init(frame: CGRect) {
         self.isDeleteButtonHidden = true
         super.init(frame: frame)
-        
         dismissButton
             .tapPublisher
             .sink {[weak self] _ in
@@ -75,41 +66,34 @@ class ImageCollectionViewCell: UICollectionViewCell, BodyCellable {
                 self.delegate?.imageCollectionViewCellDidTapDelete(self.tag)
             }
             .store(in: &cancellables)
-        
-        [imageView, dismissButton].forEach { uv in
-            addSubview(uv)
-            uv.translatesAutoresizingMaskIntoConstraints = false
+        [imageView, dismissButton].forEach { uiView in
+            addSubview(uiView)
+            uiView.translatesAutoresizingMaskIntoConstraints = false
         }
-        
         NSLayoutConstraint.activate([
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
             imageView.topAnchor.constraint(equalTo: topAnchor),
             imageView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            
             dismissButton.topAnchor.constraint(equalTo: topAnchor, constant: 6),
             dismissButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -6)
         ])
     }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
 
 class LocationDetailViewHeaderCell: UICollectionReusableView {
-    
     static let identifier = "LocationDetailViewHeaderCell"
-    
     private lazy var locationImageView: UIImageView = {
-        let uv = UIImageView()
-        uv.image = UIImage(systemName: "person")
-        uv.backgroundColor = .midNavy
-        uv.layer.cornerRadius = 6
-        uv.clipsToBounds = true
-        return uv
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "person")
+        imageView.backgroundColor = .midNavy
+        imageView.layer.cornerRadius = 6
+        imageView.clipsToBounds = true
+        return imageView
     }()
-    
     private typealias DataSource = UICollectionViewDiffableDataSource<Section, String>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, String>
 
@@ -118,55 +102,58 @@ class LocationDetailViewHeaderCell: UICollectionReusableView {
     private var dataSource: DataSource?
 
     private let buttonSv = LocationDetailViewHeaderCellButtonStackView()
-    
     private let dividerView = DividerView()
-    
     private let label1: LocationDescriptionView = {
-        let uv = LocationDescriptionView("관람시간", description: "09:00~18:30 (입장마감은 17:30)")
-        return uv
+        let view = LocationDescriptionView(
+            "관람시간",
+            description: "09:00~18:30 (입장마감은 17:30)"
+        )
+        return view
     }()
-    
     private let label2: LocationDescriptionView = {
-        let uv = LocationDescriptionView("관람요금",
-                                         description: "성인 : 3,000원 (개인) |  2,400원 (단체) \n만 65세 이상 / 만 6세 이하  : 무료\n소인 : 1,500원 (개인) | 1,200원 (단체)")
-        return uv
+        let view = LocationDescriptionView(
+            "관람요금",
+            description: "성인 : 3,000원 (개인) |  2,400원 (단체) \n만 65세 이상 / 만 6세 이하  : 무료\n소인 : 1,500원 (개인) | 1,200원 (단체)"
+        )
+        return view
     }()
-    
     private let label3: LocationDescriptionView = {
-        let uv = LocationDescriptionView("관람요금",
-                                         description: "성인 : 3,000원 (개인) |  2,400원 (단체) \n만 65세 이상 / 만 6세 이하  : 무료\n소인 : 1,500원 (개인) | 1,200원 (단체)")
-        return uv
+        let view = LocationDescriptionView(
+            "관람요금",
+            description: "성인 : 3,000원 (개인) |  2,400원 (단체) \n만 65세 이상 / 만 6세 이하  : 무료\n소인 : 1,500원 (개인) | 1,200원 (단체)"
+        )
+        return view
     }()
-    
     private let label4: LocationDescriptionView = {
-        let uv = LocationDescriptionView("관람요금",
-                                         description: "성인 : 3,000원 (개인) |  2,400원 (단체) \n만 65세 이상 / 만 6세 이하  : 무료\n소인 : 1,500원 (개인) | 1,200원 (단체)")
-        return uv
+        let view = LocationDescriptionView(
+            "관람요금",
+            description: "성인 : 3,000원 (개인) |  2,400원 (단체) \n만 65세 이상 / 만 6세 이하  : 무료\n소인 : 1,500원 (개인) | 1,200원 (단체)"
+        )
+        return view
     }()
-    
     private let label5: LocationDescriptionView = {
-        let uv = LocationDescriptionView("관람요금",
-                                         description: "성인 : 3,000원 (개인) |  2,400원 (단체) \n만 65세 이상 / 만 6세 이하  : 무료\n소인 : 1,500원 (개인) | 1,200원 (단체)")
-        return uv
+        let view = LocationDescriptionView(
+            "관람요금",
+            description: "성인 : 3,000원 (개인) |  2,400원 (단체) \n만 65세 이상 / 만 6세 이하  : 무료\n소인 : 1,500원 (개인) | 1,200원 (단체)"
+        )
+        return view
     }()
-    
-    private lazy var addToMyTravelButton = RectangleTextButton("내 여행지로 추가", background: .midNavy, textColor: .white, fontSize: 17)
-    
+    private lazy var addToMyTravelButton = RectangleTextButton(
+        "내 여행지로 추가",
+        background: .midNavy,
+        textColor: .white,
+        fontSize: 17
+    )
     weak var delegate: LocationDetailViewHeaderCellDelegate?
-    
     override init(frame: CGRect) {
         self.cancellables = .init()
         super.init(frame: frame)
-        
         bind()
         setupUI()
-        
         updateSections()
     }
-    
     public func configure(_ location: RecommendedLocation, _ locationDetail: LocationDetailData) {
         buttonSv.configure(location.isBookMarked)
-        
         if locationDetail.planExist?.num == 0 {
             addToMyTravelButton.isSelected = false
             addToMyTravelButton.update("내 여행지로 추가", background: .midNavy, textColor: .white)
@@ -174,21 +161,16 @@ class LocationDetailViewHeaderCell: UICollectionReusableView {
             addToMyTravelButton.isSelected = true
             addToMyTravelButton.update("내 여행지로 추가 취소", background: .systemGray, textColor: .white)
         }
-        
         updateSections()
     }
-    
     private var photoUrls: [String] = ["1", "2", "3"]
-    
     private func updateSections() {
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
         snapshot.appendItems(photoUrls)
         dataSource?.apply(snapshot, animatingDifferences: true)
     }
-    
     private var cancellables: Set<AnyCancellable>
-    
     private func bind() {
         buttonSv
             .actionPublisher
@@ -197,25 +179,20 @@ class LocationDetailViewHeaderCell: UICollectionReusableView {
                 switch action {
                 case .save:
                     self.delegate?.locationDetailViewHeaderCellDidTapSave()
-                    
                 case .ar:
                     self.delegate?.locationDetailViewHeaderCellDidTapAr()
-                    
                 case .review:
                     self.delegate?.locationDetailViewHeaderCellDidTapReview()
-                    
                 case .map:
                     self.delegate?.locationDetailViewHeaderCellDidTapAr()
                 }
             }
             .store(in: &cancellables)
-        
         addToMyTravelButton
             .tapPublisher
             .sink {[weak self] _ in
                 guard let self = self else {return}
                 self.addToMyTravelButton.isSelected.toggle()
-                
                 if self.addToMyTravelButton.isSelected {
                     self.addToMyTravelButton.update("내 여행지로 추가 취소", background: .systemGray, textColor: .white)
                     self.delegate?.locationDetailViewHeaderCellDidTapAddToMyTrip()
@@ -226,55 +203,55 @@ class LocationDetailViewHeaderCell: UICollectionReusableView {
             }
             .store(in: &cancellables)
     }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
 
-//MARK: - UICollectionViewDelegateFlowLayout
+// MARK: - UICollectionViewDelegateFlowLayout
 extension LocationDetailViewHeaderCell: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
         return .init(width: UIScreen.main.width-32,
                      height: UIScreen.main.width-32)
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        minimumLineSpacingForSectionAt section: Int
+    ) -> CGFloat {
         0
     }
 }
 
-//MARK: - set up UI
+// MARK: - set up UI
 extension LocationDetailViewHeaderCell {
     private func setupUI() {
         let labelStackView = UIStackView(arrangedSubviews: [label1, label2, label3, label4, label5])
         labelStackView.alignment = .leading
         labelStackView.distribution = .fillProportionally
         labelStackView.axis = .vertical
-        
-        [locationImageView, buttonSv, dividerView, labelStackView, addToMyTravelButton].forEach { uv in
-            uv.translatesAutoresizingMaskIntoConstraints = false
-            addSubview(uv)
+        [locationImageView, buttonSv, dividerView, labelStackView, addToMyTravelButton].forEach { uiView in
+            uiView.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(uiView)
         }
-        
         NSLayoutConstraint.activate([
             locationImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
             locationImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             locationImageView.widthAnchor.constraint(equalToConstant: UIScreen.main.width - 32),
             locationImageView.heightAnchor.constraint(equalToConstant: UIScreen.main.width - 32),
-            
             buttonSv.topAnchor.constraint(equalTo: locationImageView.bottomAnchor),
             buttonSv.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             buttonSv.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             buttonSv.heightAnchor.constraint(equalToConstant: 95),
-            
             dividerView.topAnchor.constraint(equalTo: buttonSv.bottomAnchor),
             dividerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             dividerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            
             labelStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
             labelStackView.topAnchor.constraint(equalTo: dividerView.bottomAnchor, constant: 16),
-            
             addToMyTravelButton.topAnchor.constraint(equalTo: labelStackView.bottomAnchor, constant: 16),
             addToMyTravelButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             addToMyTravelButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),

@@ -69,7 +69,6 @@ class LocationDescriptionView: UIView {
         stackView.distribution = .fill
         stackView.alignment = .top
         stackView.spacing = 16
-        
         [stackView].forEach { uiView in
             uiView.translatesAutoresizingMaskIntoConstraints = false
             addSubview(uiView)

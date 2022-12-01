@@ -73,10 +73,8 @@ final class LocationDetailViewController: BaseViewController<LocationDetailView,
                         self.navigationController?.pushViewController(viewController, animated: true)
                     }
                 }
-                
             }
             .store(in: &cancellables)
-        
         viewModel
             .notifyPublisher
             .sink {[weak self] noti in
@@ -101,7 +99,7 @@ final class LocationDetailViewController: BaseViewController<LocationDetailView,
         contentView.scrollToButtonSv()
     }
     private func configureNavigationController() {
-        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.black]
+        let textAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
         navigationController?.setNavigationBarHidden(false, animated: false)
         navigationController?.navigationBar.barTintColor = .greyshWhite

@@ -27,26 +27,19 @@ class InitialQuizViewModel: BaseViewModel<InitialQuizViewModelNotification> {
         .init(named: "resultDog".localized),
         .init(named: "resultBear".localized)
     ]
-    
     private var questions: [Question] = []
     private var answers: [UserQuizeAnswer] = []
-    
     private var status: InitialQuizViewStatus = .quiz
-    
     private let network: Networkable
-    
-    //MARK: - Init
+    // MARK: - Init
     init(
         _ network: Networkable = NetworkManager()
     ) {
         self.network = network
         super.init()
-        
         fetch()
     }
-    
     private var currentIndex: Int = 0
-    
     private func fetch() {
         network.get(.fetchQuestions, [Question].self) {[weak self] result in
             guard let self = self else {return}
@@ -60,29 +53,25 @@ class InitialQuizViewModel: BaseViewModel<InitialQuizViewModelNotification> {
             }
         }
     }
-    
     public func answerChoice(_ answer: Int) {
         answers.removeAll(where: {$0.questionId == self.currentIndex})
         answers.append(.init(questionId: currentIndex, answer: answer))
     }
-    
     public func next() {
         switch status {
         case .quiz:
             quizProcess()
-            
         case .result:
             resultProcess()
         }
     }
-    
     private func quizProcess() {
         if currentIndex != 5 {
             if answers.contains(where: {$0.questionId == self.currentIndex}) {
                 currentIndex += 1
                 sendNotification(.quizData(self.questions[currentIndex]))
             } else {
-                //TODO: show alert
+                // TODO: show alert
                 print("please choose something")
             }
         } else {
@@ -91,7 +80,6 @@ class InitialQuizViewModel: BaseViewModel<InitialQuizViewModelNotification> {
                 switch result {
                 case .success(let response):
                     self.status = .result
-                    
                     if let image = self.characterImages[response.result.characterChosen ?? 0] {
                         self.sendNotification(.setCharacterImage(image))
                     } else {
@@ -99,14 +87,12 @@ class InitialQuizViewModel: BaseViewModel<InitialQuizViewModelNotification> {
                             self.sendNotification(.setCharacterImage(image))
                         }
                     }
-                    
                 case .failure(let error):
                     print(error)
                 }
             }
         }
     }
-    
     private func resultProcess() {
         self.sendNotification(.finishInitialQuiz)
     }

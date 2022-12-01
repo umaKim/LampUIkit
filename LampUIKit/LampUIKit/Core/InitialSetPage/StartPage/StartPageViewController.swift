@@ -13,19 +13,15 @@ import UIKit
 import Lottie
 
 class StartPageViewController: BaseViewController<StartPageView, StartPageViewModel> {
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         bind()
     }
-    
-    //MARK: - Bind
+    // MARK: - Bind
     private func bind() {
         bindContentView()
         bindViewModel()
     }
-    
     private func bindContentView() {
         contentView
             .actionPublisher
@@ -38,7 +34,6 @@ class StartPageViewController: BaseViewController<StartPageView, StartPageViewMo
             }
             .store(in: &cancellables)
     }
-    
     private func bindViewModel() {
         viewModel
             .notifyPublisher
@@ -57,7 +52,6 @@ class StartPageViewController: BaseViewController<StartPageView, StartPageViewMo
             }
             .store(in: &cancellables)
     }
-    
     private func presentMain(with uid: String) {
         let nav = UINavigationController(rootViewController: MainViewController(MainView(), MainViewModel()))
         present(nav,

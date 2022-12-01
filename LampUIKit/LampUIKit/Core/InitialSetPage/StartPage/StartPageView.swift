@@ -20,7 +20,7 @@ final class StartPageView: BaseView<StartPageViewAction> {
         uv.image = UIImage(named: "startImage")
         return uv
     }()
-    private lazy var animaionView = AnimationView(name: "TwinkleAnimation")
+    private lazy var animaionView = LottieAnimationView(name: "TwinkleAnimation")
     private lazy var titleImage: UIImageView = {
         let uv = UIImageView()
         uv.image = UIImage(named: "startTitle".localized)

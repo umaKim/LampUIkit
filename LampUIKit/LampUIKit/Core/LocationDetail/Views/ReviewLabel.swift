@@ -16,13 +16,10 @@ class ReviewLabel: UIView {
         lb.widthAnchor.constraint(equalToConstant: 100).isActive = true
         return lb
     }()
-    
     private lazy var subTitleLabel = RoundedLabelView("")
-    
     public func setSubtitle(_ text: String) {
         self.subTitleLabel.setText(text.localized)
     }
-    
     init(
         title: String,
         subTitle: String,
@@ -35,13 +32,11 @@ class ReviewLabel: UIView {
         super.init(frame: .zero)
         self.subTitleLabel.setText(subTitle.localized)
         self.subTitleLabel.setRound(setRoundDesign)
-        
         let sv = UIStackView(arrangedSubviews: [titleLabel, subTitleLabel])
         sv.axis = .horizontal
         sv.alignment = .fill
         sv.distribution = .fill
         sv.spacing = spacing
-        
         [sv].forEach { uv in
             uv.translatesAutoresizingMaskIntoConstraints = false
             addSubview(sv)
@@ -54,7 +49,6 @@ class ReviewLabel: UIView {
             sv.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

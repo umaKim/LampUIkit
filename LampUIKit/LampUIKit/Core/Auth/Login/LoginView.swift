@@ -17,7 +17,7 @@ enum LoginViewAction: Actionable {
 }
 
 class LoginView: BaseView<LoginViewAction> {
-    //MARK: - UI Objects
+    // MARK: - UI Objects
     private let titleImage: UIImageView = {
        let imageView = UIImageView()
         imageView.image = UIImage(named: "lampTitle")
@@ -42,7 +42,7 @@ class LoginView: BaseView<LoginViewAction> {
         button.heightAnchor.constraint(equalToConstant: 50).isActive = true
         return button
     }()
-    private let apple:  UIControl = {
+    private let apple: UIControl = {
         let button = ASAuthorizationAppleIDButton(type: .signIn, style: .black)
         button.heightAnchor.constraint(equalToConstant: 50).isActive = true
         return button
@@ -56,13 +56,13 @@ class LoginView: BaseView<LoginViewAction> {
         label.textColor = .bluePurple
         return label
     }()
-    //MARK: - Init
+    // MARK: - Init
     override init() {
         super.init()
         bind()
         setupUI()
     }
-    //MARK: - Bind
+    // MARK: - Bind
     private func bind() {
         kakao
             .tapPublisher
@@ -84,7 +84,6 @@ class LoginView: BaseView<LoginViewAction> {
     private func appleSignInButtonPress() {
         self.sendAction(.apple)
     }
-    
     private func setupUI() {
         backgroundColor = .darkNavy
         let stackView = UIStackView(arrangedSubviews: [kakao, gmail, apple])
@@ -101,9 +100,9 @@ class LoginView: BaseView<LoginViewAction> {
         totalStackView.spacing = UIScreen.main.height/15
         totalStackView.distribution = .fill
         totalStackView.alignment = .fill
-        [totalStackView, contractText].forEach { uv in
-            uv.translatesAutoresizingMaskIntoConstraints = false
-            addSubview(uv)
+        [totalStackView, contractText].forEach { uiView in
+            uiView.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(uiView)
         }
         NSLayoutConstraint.activate([
             totalStackView.centerXAnchor.constraint(equalTo: centerXAnchor),

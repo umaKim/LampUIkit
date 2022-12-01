@@ -23,7 +23,7 @@ enum MainViewModelNotification: Notifiable {
     case changeGoogleMapPadding
 }
 
-class MainViewModel: BaseViewModel<MainViewModelNotification>  {
+class MainViewModel: BaseViewModel<MainViewModelNotification> {
     private(set) var recommendedPlaces: [RecommendedLocation] = []
     private(set) var markerType: MapMaker = RecommendedMapMarker()
     private(set) var coord: Coord = .init(latitude: 0, longitude: 0)
@@ -91,11 +91,13 @@ extension MainViewModel {
     public func setMyLocation(with latitude: Double, _ longitude: Double) {
         self.myLocation = .init(latitude: latitude, longitude: longitude)
     }
-    
     public func fetchItems() {
         sendNotification(.startLoading)
         let location = Location(lat: coord.latitude, long: coord.longitude)
-        network.get(.fetchRecommendation(location, zoom.zoomLevel, 20), RecommendedLocationResponse.self) {[weak self] result in
+        network.get(
+            .fetchRecommendation(location, zoom.zoomLevel, 20),
+            RecommendedLocationResponse.self
+        ) {[weak self] result in
             self?.sendNotification(.endLoading)
             guard let self = self else { return }
             switch result {
@@ -103,7 +105,6 @@ extension MainViewModel {
                 self.recommendedPlaces = items.result
                 self.markerType = RecommendedMapMarker()
                 self.sendNotification(.recommendedLocations(items.result))
-
             case .failure(let error):
                 print(error)
             }
@@ -173,7 +174,11 @@ extension MainViewModel {
     public func fetchPlaces(for category: CategoryType) {
         sendNotification(.startLoading)
         let location = Location(lat: coord.latitude, long: coord.longitude)
-        network.patch(.fetchCategoryPlaces(location, category), RecommendedLocationResponse.self, parameters: Empty.value) { [weak self] result in
+        network.patch(
+            .fetchCategoryPlaces(location, category),
+            RecommendedLocationResponse.self,
+            parameters: Empty.value
+        ) { [weak self] result in
             guard let self = self else {return}
             self.sendNotification(.endLoading)
             switch result {
@@ -228,20 +233,18 @@ extension MainViewModel {
                     self.kakaoSignout()
                     self.firebaseSignout()
                 }
-            case .failure(let _):
+            case .failure:
                 self.kakaoSignout()
                 self.firebaseSignout()
             }
         }
     }
-    
     private func kakaoSignout() {
         UserApi.shared.logout {[weak self] (error) in
             guard let self = self else { return }
             if let error = error {
                 print(error)
-            }
-            else {
+            } else {
                 print("logout() success.")
             }
             self.sendNotification(.goBackToBeforeLoginPage)

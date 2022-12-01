@@ -95,14 +95,14 @@ final class LocationDetailViewModel: BaseViewModel<LocationDetailViewModelNotifi
             .updateBookMark(
                 location.contentId,
                 contentTypeId: location.contentTypeId,
-                mapx: location.mapX,
+                mapX: location.mapX,
                 mapY: location.mapY,
                 placeName: location.title,
                 placeAddr: location.addr
             ),
             Response.self,
             parameters: Empty.value
-        ) {[weak self] result in
+        ) {[weak self] _ in
             guard let self = self else {return}
             self.sendNotification(.endLoading)
         }
@@ -113,7 +113,13 @@ final class LocationDetailViewModel: BaseViewModel<LocationDetailViewModelNotifi
             let contentTypeId = location?.contentTypeId
         else { return }
         sendNotification(.startLoading)
-        network.get(.fetchLocationDetail(contentId, contentTypeId), LocationDetailResponse.self) { [weak self] result in
+        network.get(
+            .fetchLocationDetail(
+                contentId,
+                contentTypeId
+            ),
+            LocationDetailResponse.self
+        ) { [weak self] result in
             self?.sendNotification(.endLoading)
             guard let self = self else {return }
             switch result {
@@ -124,7 +130,12 @@ final class LocationDetailViewModel: BaseViewModel<LocationDetailViewModelNotifi
                 print(error)
             }
         }
-        network.get(.fetchLocationDetailImage(contentId), LocationImageResponse.self) {[weak self] result in
+        network.get(
+            .fetchLocationDetailImage(
+                contentId
+            ),
+            LocationImageResponse.self
+        ) {[weak self] result in
             guard let self = self else {return }
             switch result {
             case .success(let response):
@@ -140,16 +151,16 @@ final class LocationDetailViewModel: BaseViewModel<LocationDetailViewModelNotifi
             let location = location
         else { return }
         var contentInfo: String = ""
-        if locationDetail?.contentTypeId == "12" || locationDetail?.contentTypeId == "76"  {
+        if locationDetail?.contentTypeId == "12" || locationDetail?.contentTypeId == "76" {
             contentInfo = locationDetail?.datailInfo?.usetime ?? ""
         }
         if locationDetail?.contentTypeId == "14" || locationDetail?.contentTypeId == "78" {
             contentInfo = locationDetail?.datailInfo?.usetimeculture ?? ""
         }
-        if locationDetail?.contentTypeId == "15" || locationDetail?.contentTypeId == "85"{
+        if locationDetail?.contentTypeId == "15" || locationDetail?.contentTypeId == "85" {
             contentInfo = locationDetail?.datailInfo?.eventstartdate ?? ""
         }
-        if locationDetail?.contentTypeId == "28" || locationDetail?.contentTypeId == "75"{
+        if locationDetail?.contentTypeId == "28" || locationDetail?.contentTypeId == "75" {
             contentInfo = locationDetail?.datailInfo?.usetimeleports ?? ""
         }
         if locationDetail?.contentTypeId == "39" || locationDetail?.contentTypeId == "82" {
@@ -168,7 +179,11 @@ final class LocationDetailViewModel: BaseViewModel<LocationDetailViewModelNotifi
             mapX: location.mapX,
             mapY: location.mapY
         )
-        network.post(.postAddToMyTravel, data, Response.self) { result in
+        network.post(
+            .postAddToMyTravel,
+            data,
+            Response.self
+        ) { result in
             switch result {
             case .success(let response):
                 print(response)
@@ -179,7 +194,10 @@ final class LocationDetailViewModel: BaseViewModel<LocationDetailViewModelNotifi
     }
     private func deleteFromMyTrip() {
         guard let planIdx = locationDetail?.planExist?.planIdx else { return }
-        network.delete(.myTravel(planIdx), Response.self) { result  in
+        network.delete(
+            .myTravel(planIdx),
+            Response.self
+        ) { result  in
             switch result {
             case .success(let response):
                 print(response)

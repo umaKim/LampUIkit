@@ -68,7 +68,9 @@ extension MainViewController {
             self?.fpc.track(scrollView: contentVC.contentView.collectionView)
         })
     }
-    private func setFloatingPanelWithLocationDetailViewController(_ location: RecommendedLocation, isModal: Bool = false) {
+    private func setFloatingPanelWithLocationDetailViewController(
+        _ location: RecommendedLocation, isModal: Bool = false
+    ) {
         let contentVC = LocationDetailViewController(LocationDetailView(), LocationDetailViewModel(location))
         contentVC.delegate = self
         contentVC.isModal = isModal
@@ -314,19 +316,10 @@ protocol LocationDetailViewControllerDelegateProtocol: AnyObject { }
 
 class LocationDetailViewControllerDelegateObject: NSObject, LocationDetailViewControllerDelegate {
     weak var viewModel: LocationDetailViewControllerDelegateProtocol?
-    
-    func locationDetailViewControllerDidTapDismissButton() {
-        
-    }
-    func locationDetailViewControllerDidTapBackButton() {
-        
-    }
-    func locationDetailViewControllerDidTapMapButton(_ location: RecommendedLocation) {
-        
-    }
-    func locationDetailViewControllerDidTapNavigate(_ location: RecommendedLocation) {
-        
-    }
+    func locationDetailViewControllerDidTapDismissButton() { }
+    func locationDetailViewControllerDidTapBackButton() { }
+    func locationDetailViewControllerDidTapMapButton(_ location: RecommendedLocation) { }
+    func locationDetailViewControllerDidTapNavigate(_ location: RecommendedLocation) { }
 }
 
 // MARK: - LocationDetailViewControllerDelegate

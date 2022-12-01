@@ -46,7 +46,7 @@ class BaseCollectionViewWithHeader<HEADERCELL: HeaderCellable, BODYCELL: BodyCel
 class BaseCollectionView<BODYCELL: BodyCellable>: UICollectionView {
     init(
         _ collectionViewFlowLayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-    )  {
+    ) {
         super.init(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
         register(BODYCELL.self, forCellWithReuseIdentifier: BODYCELL.identifier)
         backgroundColor = .greyshWhite

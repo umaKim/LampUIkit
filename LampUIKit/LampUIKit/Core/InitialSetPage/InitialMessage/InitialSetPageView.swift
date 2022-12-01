@@ -7,16 +7,12 @@
 
 import UIKit
 
-enum InitialSetPageViewAction: Actionable {
-    
-}
+enum InitialSetPageViewAction: Actionable { }
 
 class InitialSetPageView: BaseView<InitialSetPageViewAction> {
-
     override init() {
         super.init()
     }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

@@ -27,8 +27,16 @@ class CreateNickNameView: BaseView<CreateNickNameViewAction> {
         uiView.contentMode = .scaleAspectFit
         return uiView
     }()
-    private let nickNameTextField = LampRectangleTextField(placeholder: "닉네임을 정해주세요".localized, placeHolderColor: .midNavy)
-    private let createAccountButton = RectangleTextButton("계정 생성 완료하기".localized, background: .systemGray, textColor: .white, fontSize: 17)
+    private let nickNameTextField = LampRectangleTextField(
+        placeholder: "닉네임을 정해주세요".localized,
+        placeHolderColor: .midNavy
+    )
+    private let createAccountButton = RectangleTextButton(
+        "계정 생성 완료하기".localized,
+        background: .systemGray,
+        textColor: .white,
+        fontSize: 17
+    )
     override init() {
         self.isEnabledCreateAccountButton = false
         super.init()
@@ -40,7 +48,6 @@ class CreateNickNameView: BaseView<CreateNickNameViewAction> {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     public var isEnabledCreateAccountButton: Bool {
         didSet {
             self.createAccountButton.isEnabled = isEnabledCreateAccountButton
