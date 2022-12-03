@@ -16,8 +16,8 @@ import Combine
 class MainViewController: BaseViewController<MainView, MainViewModel>, Alertable {
     private var fpc = FloatingPanelController()
     private lazy var floatingPanelControllerDelegateObject = FloatingPanelControllerDelegateObject(self.viewModel)
-    private lazy var object = CLLocationManagerDelegateObject(self.viewModel)
-    private lazy var mapObject = GMSMapObject(self.viewModel)
+    private lazy var locationManagerDelegateObject = CLLocationManagerDelegateObject(self.viewModel)
+    private lazy var mapDelegateObject = GMSMapDelegateObject(self.viewModel)
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(true, animated: false)
@@ -33,8 +33,10 @@ class MainViewController: BaseViewController<MainView, MainViewModel>, Alertable
         viewModel.fetchItems()
     }
     private func moveTo(_ coord: CLLocationCoordinate2D) {
-        let camera = GMSCameraPosition.camera(withTarget: coord,
-                                              zoom: 15.0)
+        let camera = GMSCameraPosition.camera(
+            withTarget: coord,
+            zoom: 15.0
+        )
         setGMPadding()
         contentView.mapView.animate(to: camera)
     }
@@ -60,34 +62,34 @@ class MainViewController: BaseViewController<MainView, MainViewModel>, Alertable
 // MARK: - Configure with FPC
 extension MainViewController {
     private func setFloatingPanelWithSearchViewController() {
-        let contentVC = SearchViewController(SearchView(), SearchViewModel())
-        contentVC.delegate = self
-        let nav = UINavigationController(rootViewController: contentVC)
-        configureFpc(with: nav, completion: {[weak self] in
+        let viewController = SearchViewController(SearchView(), SearchViewModel())
+        viewController.delegate = self
+        let navigationController = UINavigationController(rootViewController: viewController)
+        configureFpc(with: navigationController, completion: {[weak self] in
             self?.fpc.move(to: .tip, animated: true)
-            self?.fpc.track(scrollView: contentVC.contentView.collectionView)
+            self?.fpc.track(scrollView: viewController.contentView.collectionView)
         })
     }
     private func setFloatingPanelWithLocationDetailViewController(
         _ location: RecommendedLocation, isModal: Bool = false
     ) {
-        let contentVC = LocationDetailViewController(LocationDetailView(), LocationDetailViewModel(location))
-        contentVC.delegate = self
-        contentVC.isModal = isModal
-        let nav = UINavigationController(rootViewController: contentVC)
-        configureFpc(with: nav, completion: {[weak self] in
+        let viewController = LocationDetailViewController(LocationDetailView(), LocationDetailViewModel(location))
+        viewController.delegate = self
+        viewController.isModal = isModal
+        let navigationController = UINavigationController(rootViewController: viewController)
+        configureFpc(with: navigationController, completion: {[weak self] in
             self?.fpc.move(to: .full, animated: true)
-            self?.fpc.track(scrollView: contentVC.contentView.contentScrollView)
+            self?.fpc.track(scrollView: viewController.contentView.contentScrollView)
         })
     }
     private func setFloatingPanelWithRecommendedLocationViewController() {
         let viewModel = RecommendedLocationViewmodel(locationsSubject.eraseToAnyPublisher(), locationinfo)
-        let contentVC = RecommendedLocationViewController(RecommendedLocationView(), viewModel)
-        contentVC.delegate = self
-        let nav = UINavigationController(rootViewController: contentVC)
-        configureFpc(with: nav) { [weak self] in
+        let viewController = RecommendedLocationViewController(RecommendedLocationView(), viewModel)
+        viewController.delegate = self
+        let navigationController = UINavigationController(rootViewController: viewController)
+        configureFpc(with: navigationController) { [weak self] in
             self?.fpc.move(to: .tip, animated: true)
-            self?.fpc.track(scrollView: contentVC.contentView.collectionView)
+            self?.fpc.track(scrollView: viewController.contentView.collectionView)
         }
     }
     private func configureFpc(with viewController: UIViewController, completion: @escaping () -> Void) {
@@ -134,7 +136,7 @@ extension MainViewController {
         let markerView = CustomMarkerView(of: location.image ?? "",
                                           type: viewModel.markerType)
         markerView.configure { [weak self] in
-            guard let self = self else {return }
+            guard let self = self else { return }
             marker.iconView = markerView
             marker.position = .init(latitude: lat, longitude: long)
             marker.map = self.contentView.mapView
@@ -148,8 +150,8 @@ extension MainViewController {
 // MARK: - Bind
 extension MainViewController {
     private func bind() {
-        viewModel.locationManager.delegate = object
-        contentView.mapView.delegate = mapObject
+        viewModel.locationManager.delegate = locationManagerDelegateObject
+        contentView.mapView.delegate = mapDelegateObject
         bindWithContentView()
         bindWithViewModel()
     }
@@ -157,7 +159,7 @@ extension MainViewController {
         viewModel
             .notifyPublisher
             .sink {[weak self] noti in
-                guard let self = self else {return}
+                guard let self = self else { return }
                 switch noti {
                 case .recommendedLocations(let locations):
                     self.contentView.mapView.clear()
@@ -272,32 +274,6 @@ extension MainViewController {
 //    }
 //}
 
-protocol FloatingPanelControllerDelegateProtocol: AnyObject {
-    func endEditing(_ isTrue: Bool)
-    func changeGoogleMapPadding()
-}
-
-class FloatingPanelControllerDelegateObject: NSObject, FloatingPanelControllerDelegate {
-    weak var viewModel: FloatingPanelControllerDelegateProtocol?
-    init(_ viewModel: FloatingPanelControllerDelegateProtocol?) {
-        self.viewModel = viewModel
-    }
-    func floatingPanelDidMove(_ fpc: FloatingPanelController) {
-        if fpc.state == .tip || fpc.state == .half {
-//            view.endEditing(true)
-            viewModel?.endEditing(true)
-        }
-//        setGMPadding()
-        viewModel?.changeGoogleMapPadding()
-    }
-    func floatingPanel(
-        _ viewController: FloatingPanelController,
-        layoutFor newCollection: UITraitCollection
-    ) -> FloatingPanelLayout {
-        return FloatingPanelLampLayout()
-    }
-}
-
 ////MARK: - FloatingPanelControllerDelegate
 //extension MainViewController: FloatingPanelControllerDelegate {
 //    func floatingPanelDidMove(_ fpc: FloatingPanelController) {
@@ -311,16 +287,6 @@ class FloatingPanelControllerDelegateObject: NSObject, FloatingPanelControllerDe
 //        return FloatingPanelLampLayout()
 //    }
 //}
-
-protocol LocationDetailViewControllerDelegateProtocol: AnyObject { }
-
-class LocationDetailViewControllerDelegateObject: NSObject, LocationDetailViewControllerDelegate {
-    weak var viewModel: LocationDetailViewControllerDelegateProtocol?
-    func locationDetailViewControllerDidTapDismissButton() { }
-    func locationDetailViewControllerDidTapBackButton() { }
-    func locationDetailViewControllerDidTapMapButton(_ location: RecommendedLocation) { }
-    func locationDetailViewControllerDidTapNavigate(_ location: RecommendedLocation) { }
-}
 
 // MARK: - LocationDetailViewControllerDelegate
 extension MainViewController: LocationDetailViewControllerDelegate {
@@ -411,66 +377,5 @@ extension MainViewController {
         } catch {
             NSLog("Unable to find style")
         }
-    }
-}
-
-protocol GMSMapObjectProtocol: AnyObject {
-    var recommendedPlaces: [RecommendedLocation] { get }
-    var locationinfo: CurrentValueSubject<Coord, Never> { get }
-//    var recommendedLocation: (RecommendedLocation) -> Void { get }
-    func setLocation(with latitude: Double, _ longitude: Double)
-    func setMyZoomLevel(_ level: Float)
-    func setFloatingPanelWithLocationDetailViewController(_ location: RecommendedLocation, isModal: Bool)
-}
-
-class GMSMapObject: NSObject, GMSMapViewDelegate {
-    weak var viewModel: GMSMapObjectProtocol?
-    init(_ viewModel: GMSMapObjectProtocol) {
-        self.viewModel = viewModel
-    }
-    //Viewmodel을 weak 로 넘겨준다. 그리고 여기에서 GMS에서 해줄수 있는것들을 해준다.
-    // 이런식으로 Delegate, datasource 구체화를 해주면 vc가 좀더 홀쭉애 질수 있다.
-    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
-        let lat = position.target.latitude
-        let long = position.target.longitude
-        viewModel?.setLocation(with: lat, long)
-        viewModel?.setMyZoomLevel(position.zoom)
-//        locationinfo.send(.init(latitude: lat, longitude: long))
-    }
-    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
-        HapticManager.shared.feedBack(with: .heavy)
-        guard
-            let index = viewModel?.recommendedPlaces.firstIndex(where: {$0.title == marker.title}),
-            let location = viewModel?.recommendedPlaces[index]
-        else { return }
-        viewModel?.setFloatingPanelWithLocationDetailViewController(location, isModal: true)
-    }
-    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        HapticManager.shared.feedBack(with: .medium)
-        return false
-    }
-    func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
-        guard
-            let index = viewModel?.recommendedPlaces.firstIndex(where: {$0.title == marker.title}),
-            let location = viewModel?.recommendedPlaces[index]
-        else { return nil }
-        let customBalloonView = CustomBalloonView(title: location.title, subtitle: location.addr)
-        return customBalloonView
-    }
-}
-
-protocol CLLocationManagerDelegateObjectProtocol: AnyObject {
-    func showDefaultError(title: String)
-}
-
-class CLLocationManagerDelegateObject: NSObject, CLLocationManagerDelegate {
-    weak var viewModel: CLLocationManagerDelegateObjectProtocol?
-    init(_ viewModel: CLLocationManagerDelegateObjectProtocol) {
-        self.viewModel = viewModel
-    }
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) { }
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-//        showDefaultAlert(title: error.localizedDescription)
-        self.viewModel?.showDefaultError(title: error.localizedDescription)
     }
 }
