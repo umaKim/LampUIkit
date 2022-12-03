@@ -115,10 +115,12 @@ struct NetworkManager: Networkable {
         AF.upload(
             multipartFormData: { multipartFormData in
             for image in datum {
-                multipartFormData.append(image,
-                                         withName: "dev",
-                                         fileName: "\(contentId)-\(UUID().uuidString).jpg",
-                                         mimeType: "image/jpeg")
+                multipartFormData.append(
+                    image,
+                    withName: "dev",
+                    fileName: "\(contentId)-\(UUID().uuidString).jpg",
+                    mimeType: "image/jpeg"
+                )
             }
         }, to: request.fullUrl, headers: headers)
         .responseDecodable(of: response.self) { response in

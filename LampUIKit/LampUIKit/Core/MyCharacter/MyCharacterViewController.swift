@@ -66,7 +66,7 @@ class MyCharacterViewController: BaseViewController<MyCharacterView, MyCharacter
         contentView.tableView.delegate = self
         dataSource = .init(
             tableView: contentView.tableView,
-            cellProvider: {[weak self] tableView, indexPath, itemIdentifier in
+            cellProvider: {[weak self] tableView, indexPath, _ in
             guard let self = self else { return nil }
             guard
                 let cell = tableView.dequeueReusableCell(

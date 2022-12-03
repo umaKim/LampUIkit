@@ -57,9 +57,9 @@ class MyPageTableViewHeaderView: UIView {
         rightSv.alignment = .trailing
         rightSv.distribution = .fillProportionally
         rightSv.spacing = 8
-        [leftSv, rightSv].forEach { uv in
-            uv.translatesAutoresizingMaskIntoConstraints = false
-            addSubview(uv)
+        [leftSv, rightSv].forEach { uiView in
+            uiView.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(uiView)
         }
         NSLayoutConstraint.activate([
             leftSv.centerYAnchor.constraint(equalTo: centerYAnchor),

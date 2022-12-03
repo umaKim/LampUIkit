@@ -22,9 +22,8 @@ class MyCharacterViewTableViewHeaderCell: UITableViewHeaderFooterView {
         label.font = .robotoBold(28)
         label.textColor = .midNavy
         label.widthAnchor.constraint(equalToConstant: UIScreen.main.width / 2).isActive = true
-        return lb
+        return label
     }()
-    
     private lazy var levelLabel: UILabel = {
         let label = UILabel()
         label.text = "LV.\(1)"
@@ -33,25 +32,21 @@ class MyCharacterViewTableViewHeaderCell: UITableViewHeaderFooterView {
         label.textAlignment = .right
         return label
     }()
-    
     private lazy var characterImageView: UIImageView = {
        let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 7
         imageView.widthAnchor.constraint(equalToConstant: 145).isActive = true
         imageView.heightAnchor.constraint(equalToConstant: 145).isActive = true
-        return uv
+        return imageView
     }()
-    
     private lazy var averageStat: GraphHeaderView = {
         let view = GraphHeaderView("평균 스탯".localized, number: 0)
         view.barColor = .systemBlue
         view.heightAnchor.constraint(equalToConstant: 40).isActive = true
         return view
     }()
-    
     private lazy var mileageView = MileageView()
-    
     private func setupUI() {
         contentView.backgroundColor = .greyshWhite
         let titleSv = UIStackView(arrangedSubviews: [nameLabel, levelLabel])
@@ -63,9 +58,9 @@ class MyCharacterViewTableViewHeaderCell: UITableViewHeaderFooterView {
         statSv.distribution = .fillEqually
         statSv.alignment = .fill
         statSv.spacing = 16
-        [titleSv, characterImageView, statSv, mileageView].forEach { uv in
-            uv.translatesAutoresizingMaskIntoConstraints = false
-            contentView.addSubview(uv)
+        [titleSv, characterImageView, statSv, mileageView].forEach { uiView in
+            uiView.translatesAutoresizingMaskIntoConstraints = false
+            contentView.addSubview(uiView)
         }
         NSLayoutConstraint.activate([
             titleSv.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
@@ -78,7 +73,7 @@ class MyCharacterViewTableViewHeaderCell: UITableViewHeaderFooterView {
             statSv.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             mileageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             mileageView.topAnchor.constraint(equalTo: characterImageView.bottomAnchor, constant: 16),
-            mileageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
+            mileageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
         ])
     }
     public func configure(with character: CharacterData) {

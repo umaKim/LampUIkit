@@ -24,10 +24,7 @@ class MyPageViewController: BaseViewController<MyPageView, MyPageViewModel>, Ale
         guard
             let window = UIApplication.shared.keyWindow,
             let rootViewController = window.rootViewController
-
-        else {
-            return
-        }
+        else { return }
 
         viewController.view.frame = rootViewController.view.frame
         viewController.view.layoutIfNeeded()
@@ -43,19 +40,19 @@ class MyPageViewController: BaseViewController<MyPageView, MyPageViewModel>, Ale
         }
     }
     private func bind() {
-        let actionR = UIAlertAction(title: "한국어".localized, style: .default) {[weak self] action in
+        let actionR = UIAlertAction(title: "한국어".localized, style: .default) {[weak self] _ in
             LanguageManager.shared.setLanguage(.korean)
             self?.setLanguage(as: "ko")
         }
-        let actionG = UIAlertAction(title: "영어".localized, style: .default) {[weak self] action in
+        let actionG = UIAlertAction(title: "영어".localized, style: .default) {[weak self] _ in
             LanguageManager.shared.setLanguage(.enghlish)
             self?.setLanguage(as: "en")
         }
-        let actionB = UIAlertAction(title: "일본어".localized, style: .default) {[weak self] action in
+        let actionB = UIAlertAction(title: "일본어".localized, style: .default) {[weak self] _ in
             LanguageManager.shared.setLanguage(.japanese)
             self?.setLanguage(as: "ja")
         }
-        let cancelAction = UIAlertAction(title: "취소".localized, style: .cancel) { action in }
+        let cancelAction = UIAlertAction(title: "취소".localized, style: .cancel) { _ in }
         contentView
             .actionPublisher
             .sink {[weak self] action in
@@ -96,13 +93,13 @@ class MyPageViewController: BaseViewController<MyPageView, MyPageViewModel>, Ale
         contentView.setSocialLogin(provider)
     }
     private var logoutAction: UIAlertAction {
-        return .init(title: "로그아웃".localized, style: .default, handler: {[weak self] action in
+        return .init(title: "로그아웃".localized, style: .default, handler: {[weak self] _ in
             guard let self = self else {return}
             self.viewModel.logout()
         })
     }
     private var deleteAccountAction: UIAlertAction {
-        return .init(title: "계정 삭제".localized, style: .default, handler: {[weak self] action in
+        return .init(title: "계정 삭제".localized, style: .default, handler: {[weak self] _ in
             guard let self = self else {return}
             self.viewModel.deleteAccount()
         })
