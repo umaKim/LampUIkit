@@ -59,6 +59,17 @@
                ReferencedContainer = "container:LampUIKit.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "35D347BB29362C110022716B"
+               BuildableName = "LampNetworkTests.xctest"
+               BlueprintName = "LampNetworkTests"
+               ReferencedContainer = "container:LampUIKit.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

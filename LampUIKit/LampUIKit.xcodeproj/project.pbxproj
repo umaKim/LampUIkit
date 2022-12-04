@@ -140,6 +140,10 @@
 		3532F5C628EA92D1002889F1 /* CategoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3532F5C528EA92D1002889F1 /* CategoryType.swift */; };
 		3532F5CB28EB0535002889F1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3532F5CD28EB0535002889F1 /* Localizable.strings */; };
 		354A512728CB3B4800599F2C /* Sequence+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354A512628CB3B4700599F2C /* Sequence+Ext.swift */; };
+		3584EF0F2938EBBC00153799 /* FloatingPanelControllerDelegateObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3584EF0E2938EBBC00153799 /* FloatingPanelControllerDelegateObject.swift */; };
+		3584EF112938EBFA00153799 /* CLLocationManagerDelegateObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3584EF102938EBFA00153799 /* CLLocationManagerDelegateObject.swift */; };
+		3584EF132938EC0800153799 /* GMSMapObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3584EF122938EC0800153799 /* GMSMapObject.swift */; };
+		3584EF152938EC1B00153799 /* LocationDetailViewControllerDelegateObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3584EF142938EC1B00153799 /* LocationDetailViewControllerDelegateObject.swift */; };
 		359FB13228E03D7100DE488B /* StartPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359FB13128E03D7100DE488B /* StartPageViewModel.swift */; };
 		359FB13428E03D9C00DE488B /* StartPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359FB13328E03D9C00DE488B /* StartPageView.swift */; };
 		359FB13628E05BA600DE488B /* MyTravelDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359FB13528E05BA500DE488B /* MyTravelDataSet.swift */; };
@@ -172,11 +176,6 @@
 		35C2093028A8B80500759C68 /* LampRectangleTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C2092F28A8B80500759C68 /* LampRectangleTextField.swift */; };
 		35C2093228AA0E8D00759C68 /* ImageCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C2093128AA0E8D00759C68 /* ImageCollectionHeaderView.swift */; };
 		35CDECC928F3041D00517794 /* LikeDataPatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CDECC828F3041D00517794 /* LikeDataPatch.swift */; };
-		35CDECCF28F30AA300517794 /* URLRequestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CDECCE28F30AA300517794 /* URLRequestable.swift */; };
-		35CDECD128F30B1F00517794 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CDECD028F30B1F00517794 /* APIError.swift */; };
-		35CDECD328F30B5200517794 /* LampService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CDECD228F30B5100517794 /* LampService.swift */; };
-		35CDECD728F590D700517794 /* Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CDECD628F590D700517794 /* Empty.swift */; };
-		35CDECD928F6CF4300517794 /* URLConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CDECD828F6CF4300517794 /* URLConfigurator.swift */; };
 		35CDECDB28F6D5E800517794 /* CompleteTripPostData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CDECDA28F6D5E800517794 /* CompleteTripPostData.swift */; };
 		35CDECDD28F6D5F400517794 /* MyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CDECDC28F6D5F400517794 /* MyInfo.swift */; };
 		35CDECDF28F6D5FD00517794 /* MyCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CDECDE28F6D5FD00517794 /* MyCharacter.swift */; };
@@ -200,6 +199,11 @@
 		35E3EFEA28B60C67009F902B /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E3EFE928B60C67009F902B /* HapticManager.swift */; };
 		35E5FC152907877F007B3E15 /* MyTravelCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E5FC142907877F007B3E15 /* MyTravelCellViewModel.swift */; };
 		35E5FC172907A673007B3E15 /* FavoriteCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E5FC162907A673007B3E15 /* FavoriteCellViewModelTests.swift */; };
+		35F6B37D2937391C0021BDE8 /* LampService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F6B3772937391C0021BDE8 /* LampService.swift */; };
+		35F6B37E2937391C0021BDE8 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F6B3782937391C0021BDE8 /* APIError.swift */; };
+		35F6B37F2937391C0021BDE8 /* URLConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F6B3792937391C0021BDE8 /* URLConfigurator.swift */; };
+		35F6B3802937391C0021BDE8 /* Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F6B37A2937391C0021BDE8 /* Empty.swift */; };
+		35F6B3812937391C0021BDE8 /* URLRequestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F6B37B2937391C0021BDE8 /* URLRequestable.swift */; };
 		35FF5E3728EB49E2004A7EFF /* BaseScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FF5E3628EB49E2004A7EFF /* BaseScrollView.swift */; };
 		35FF5E3928EB49FD004A7EFF /* HorizontalScrollButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FF5E3828EB49FD004A7EFF /* HorizontalScrollButtonView.swift */; };
 		35FF5E3B28EBFDDC004A7EFF /* MyTravelCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FF5E3A28EBFDDC004A7EFF /* MyTravelCellViewModel.swift */; };
@@ -229,6 +233,19 @@
 			remoteInfo = LampUIKit;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		35D347CA29362C120022716B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3507DC3228B75D9A0079E921 /* FloatingPanelLampLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingPanelLampLayout.swift; sourceTree = "<group>"; };
@@ -353,6 +370,11 @@
 		3532F5D028EB0848002889F1 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		3532F5D128EB0859002889F1 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		354A512628CB3B4700599F2C /* Sequence+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+Ext.swift"; sourceTree = "<group>"; };
+		355133F42937405400237FE6 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		3584EF0E2938EBBC00153799 /* FloatingPanelControllerDelegateObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingPanelControllerDelegateObject.swift; sourceTree = "<group>"; };
+		3584EF102938EBFA00153799 /* CLLocationManagerDelegateObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationManagerDelegateObject.swift; sourceTree = "<group>"; };
+		3584EF122938EC0800153799 /* GMSMapObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GMSMapObject.swift; sourceTree = "<group>"; };
+		3584EF142938EC1B00153799 /* LocationDetailViewControllerDelegateObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailViewControllerDelegateObject.swift; sourceTree = "<group>"; };
 		359FB13128E03D7100DE488B /* StartPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartPageViewModel.swift; sourceTree = "<group>"; };
 		359FB13328E03D9C00DE488B /* StartPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartPageView.swift; sourceTree = "<group>"; };
 		359FB13528E05BA500DE488B /* MyTravelDataSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTravelDataSet.swift; sourceTree = "<group>"; };
@@ -384,11 +406,6 @@
 		35C2092F28A8B80500759C68 /* LampRectangleTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LampRectangleTextField.swift; sourceTree = "<group>"; };
 		35C2093128AA0E8D00759C68 /* ImageCollectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionHeaderView.swift; sourceTree = "<group>"; };
 		35CDECC828F3041D00517794 /* LikeDataPatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeDataPatch.swift; sourceTree = "<group>"; };
-		35CDECCE28F30AA300517794 /* URLRequestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequestable.swift; sourceTree = "<group>"; };
-		35CDECD028F30B1F00517794 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
-		35CDECD228F30B5100517794 /* LampService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LampService.swift; sourceTree = "<group>"; };
-		35CDECD628F590D700517794 /* Empty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Empty.swift; sourceTree = "<group>"; };
-		35CDECD828F6CF4300517794 /* URLConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLConfigurator.swift; sourceTree = "<group>"; };
 		35CDECDA28F6D5E800517794 /* CompleteTripPostData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteTripPostData.swift; sourceTree = "<group>"; };
 		35CDECDC28F6D5F400517794 /* MyInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfo.swift; sourceTree = "<group>"; };
 		35CDECDE28F6D5FD00517794 /* MyCharacter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCharacter.swift; sourceTree = "<group>"; };
@@ -410,6 +427,11 @@
 		35E3EFE928B60C67009F902B /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
 		35E5FC142907877F007B3E15 /* MyTravelCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTravelCellViewModel.swift; sourceTree = "<group>"; };
 		35E5FC162907A673007B3E15 /* FavoriteCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCellViewModelTests.swift; sourceTree = "<group>"; };
+		35F6B3772937391C0021BDE8 /* LampService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LampService.swift; sourceTree = "<group>"; };
+		35F6B3782937391C0021BDE8 /* APIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		35F6B3792937391C0021BDE8 /* URLConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLConfigurator.swift; sourceTree = "<group>"; };
+		35F6B37A2937391C0021BDE8 /* Empty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Empty.swift; sourceTree = "<group>"; };
+		35F6B37B2937391C0021BDE8 /* URLRequestable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLRequestable.swift; sourceTree = "<group>"; };
 		35FF5E3628EB49E2004A7EFF /* BaseScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseScrollView.swift; sourceTree = "<group>"; };
 		35FF5E3828EB49FD004A7EFF /* HorizontalScrollButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalScrollButtonView.swift; sourceTree = "<group>"; };
 		35FF5E3A28EBFDDC004A7EFF /* MyTravelCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTravelCellViewModel.swift; sourceTree = "<group>"; };
@@ -486,6 +508,7 @@
 		35189D49287F0A3F0030F987 = {
 			isa = PBXGroup;
 			children = (
+				355133F42937405400237FE6 /* .swiftlint.yml */,
 				35189D54287F0A3F0030F987 /* LampUIKit */,
 				35189D6E287F0A400030F987 /* LampUIKitTests */,
 				35189D78287F0A400030F987 /* LampUIKitUITests */,
@@ -926,11 +949,11 @@
 		351BDF9928FE3DE5007EB36F /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				35CDECD028F30B1F00517794 /* APIError.swift */,
-				35CDECCE28F30AA300517794 /* URLRequestable.swift */,
-				35CDECD828F6CF4300517794 /* URLConfigurator.swift */,
-				35CDECD228F30B5100517794 /* LampService.swift */,
-				35CDECD628F590D700517794 /* Empty.swift */,
+				35F6B3782937391C0021BDE8 /* APIError.swift */,
+				35F6B37A2937391C0021BDE8 /* Empty.swift */,
+				35F6B3772937391C0021BDE8 /* LampService.swift */,
+				35F6B3792937391C0021BDE8 /* URLConfigurator.swift */,
+				35F6B37B2937391C0021BDE8 /* URLRequestable.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -965,6 +988,10 @@
 			children = (
 				353038D328A23DE700ECAF0D /* MainViewModel.swift */,
 				353038D128A23DE000ECAF0D /* MainViewController.swift */,
+				3584EF122938EC0800153799 /* GMSMapObject.swift */,
+				3584EF142938EC1B00153799 /* LocationDetailViewControllerDelegateObject.swift */,
+				3584EF102938EBFA00153799 /* CLLocationManagerDelegateObject.swift */,
+				3584EF0E2938EBBC00153799 /* FloatingPanelControllerDelegateObject.swift */,
 				353038CF28A23DD900ECAF0D /* MainView.swift */,
 				354A512F28CC88F600599F2C /* View */,
 			);
@@ -1149,6 +1176,8 @@
 				35189D50287F0A3F0030F987 /* Resources */,
 				4AE4D1FA7EE9905A90A22404 /* [CP] Embed Pods Frameworks */,
 				CD39736256993F29EA8991D1 /* [CP] Copy Pods Resources */,
+				35D347CA29362C120022716B /* Embed Frameworks */,
+				35F6B34F293737250021BDE8 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1223,7 +1252,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1340;
+				LastSwiftUpdateCheck = 1410;
 				LastUpgradeCheck = 1340;
 				TargetAttributes = {
 					35189D51287F0A3F0030F987 = {
@@ -1317,6 +1346,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		35F6B34F293737250021BDE8 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n${PODS_ROOT}/SwiftLint/swiftlint\n";
+		};
 		4AE4D1FA7EE9905A90A22404 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1459,6 +1505,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				35CDECE528F6D62A00517794 /* ReviewPostData.swift in Sources */,
+				3584EF132938EC0800153799 /* GMSMapObject.swift in Sources */,
 				35189E33288A4E0A0030F987 /* MyCharacterViewController.swift in Sources */,
 				35FF5E4828F0481D004A7EFF /* ReviewViewCollectionViewCell.swift in Sources */,
 				35189DA42880116D0030F987 /* SearchViewController.swift in Sources */,
@@ -1466,14 +1513,11 @@
 				35189D5A287F0A3F0030F987 /* LoginViewController.swift in Sources */,
 				35189E1828881A940030F987 /* EvaluationView.swift in Sources */,
 				35189DD42882AB950030F987 /* MyTravelViewModel.swift in Sources */,
-				35CDECD928F6CF4300517794 /* URLConfigurator.swift in Sources */,
 				35189E7E2894126A0030F987 /* ARView.swift in Sources */,
 				353038E328A5F3AA00ECAF0D /* EllipseButton.swift in Sources */,
-				35CDECD728F590D700517794 /* Empty.swift in Sources */,
 				35189DD22882AB7A0030F987 /* MyTravelView.swift in Sources */,
 				35189E8B2894B3510030F987 /* InitialSetPageViewController.swift in Sources */,
 				35189E132887EC6D0030F987 /* WriteReviewViewModel.swift in Sources */,
-				35CDECD328F30B5200517794 /* LampService.swift in Sources */,
 				35C2092528A8022300759C68 /* QuizResultView.swift in Sources */,
 				35189DA62880117F0030F987 /* SearchViewModel.swift in Sources */,
 				353038EB28A5F57100ECAF0D /* UINavigationController+Ext.swift in Sources */,
@@ -1498,7 +1542,6 @@
 				35FF5E3728EB49E2004A7EFF /* BaseScrollView.swift in Sources */,
 				35189DEB288571C90030F987 /* MyTravelCell.swift in Sources */,
 				35FF5E4328EC5430004A7EFF /* MyReviewCustomTitleView.swift in Sources */,
-				35CDECCF28F30AA300517794 /* URLRequestable.swift in Sources */,
 				35189DCD2882A5FD0030F987 /* BaseViewController.swift in Sources */,
 				359FB14528E1D08300DE488B /* UserReviewData.swift in Sources */,
 				35189E7A2893EC340030F987 /* MyCharacterViewTableViewCell.swift in Sources */,
@@ -1515,6 +1558,8 @@
 				353038D928A5E3E300ECAF0D /* RecommendedLocationResponse.swift in Sources */,
 				35E3EFDB28AB60C2009F902B /* LocationDescriptionView.swift in Sources */,
 				35189E35288A4E160030F987 /* MyCharacterView.swift in Sources */,
+				35F6B3802937391C0021BDE8 /* Empty.swift in Sources */,
+				35F6B37F2937391C0021BDE8 /* URLConfigurator.swift in Sources */,
 				35189DFA2886D8E50030F987 /* LocationDetailViewController.swift in Sources */,
 				359FB14328E1D04000DE488B /* MileageView.swift in Sources */,
 				35189E0F2887EC490030F987 /* WriteReviewViewController.swift in Sources */,
@@ -1562,6 +1607,7 @@
 				35C2092C28A8A9C600759C68 /* CreateNickNameViewController.swift in Sources */,
 				35189DDC2883077B0030F987 /* StartPageViewController.swift in Sources */,
 				35CDECDB28F6D5E800517794 /* CompleteTripPostData.swift in Sources */,
+				35F6B3812937391C0021BDE8 /* URLRequestable.swift in Sources */,
 				35B2266328C61B3300346C6F /* ReviewDetailView.swift in Sources */,
 				35189D8D287F0D9B0030F987 /* LoginViewModel.swift in Sources */,
 				35189E022887A6F60030F987 /* LocationDetailView.swift in Sources */,
@@ -1583,10 +1629,10 @@
 				35189E2E288980030030F987 /* MyReviewsView.swift in Sources */,
 				35189DD62882CE490030F987 /* MyTravelCategoryView.swift in Sources */,
 				35189E932894C1590030F987 /* InitialQuizViewController.swift in Sources */,
+				3584EF112938EBFA00153799 /* CLLocationManagerDelegateObject.swift in Sources */,
 				35189D8B287F0D850030F987 /* LoginView.swift in Sources */,
 				353038EF28A5F58D00ECAF0D /* UIScreen+Ext.swift in Sources */,
 				3532F5C428E9BA0B002889F1 /* Message.swift in Sources */,
-				35CDECD128F30B1F00517794 /* APIError.swift in Sources */,
 				3507DC3328B75D9A0079E921 /* FloatingPanelLampLayout.swift in Sources */,
 				35189E4E289252020030F987 /* MyTravelCellCollectionViewCell.swift in Sources */,
 				353038DB28A5E3FF00ECAF0D /* LoginUserData.swift in Sources */,
@@ -1596,6 +1642,7 @@
 				35189E46288D09B30030F987 /* ReviewView.swift in Sources */,
 				35CDECED28F6D66300517794 /* LocationDetailInfoData.swift in Sources */,
 				35189E0C2887DD4E0030F987 /* LocationDetailViewHeaderCellButtonStackViewAction.swift in Sources */,
+				35F6B37E2937391C0021BDE8 /* APIError.swift in Sources */,
 				35B2265628C5BB8000346C6F /* RoundedLabelView.swift in Sources */,
 				35CDECE328F6D61F00517794 /* LocationImageResponse.swift in Sources */,
 				35B2265228C4E5F900346C6F /* String+Ext.swift in Sources */,
@@ -1607,12 +1654,15 @@
 				35CDECEF28F6D66D00517794 /* NickNameSettingData.swift in Sources */,
 				35189E8F2894B3810030F987 /* InitialSetPageViewModel.swift in Sources */,
 				35189E37288A4E1F0030F987 /* MyCharacterViewModel.swift in Sources */,
+				3584EF152938EC1B00153799 /* LocationDetailViewControllerDelegateObject.swift in Sources */,
 				35CDECDF28F6D5FD00517794 /* MyCharacter.swift in Sources */,
 				35CDECEB28F6D65A00517794 /* PlanExist.swift in Sources */,
+				3584EF0F2938EBBC00153799 /* FloatingPanelControllerDelegateObject.swift in Sources */,
 				35C2092728A83AA300759C68 /* CustomBalloonView.swift in Sources */,
 				359FB13628E05BA600DE488B /* MyTravelDataSet.swift in Sources */,
 				353038D028A23DD900ECAF0D /* MainView.swift in Sources */,
 				35189E9D2897066A0030F987 /* InitialQuizViewModel.swift in Sources */,
+				35F6B37D2937391C0021BDE8 /* LampService.swift in Sources */,
 				35189DED288571E70030F987 /* FavoriteCell.swift in Sources */,
 				35189D58287F0A3F0030F987 /* SceneDelegate.swift in Sources */,
 				35CDECF328F6D68600517794 /* QuestionsResponse.swift in Sources */,
