@@ -98,10 +98,10 @@ struct NetworkManager: Networkable {
             request.fullUrl,
             method: .delete
         )
-            .validate()
-            .responseDecodable(of: response.self) { response in
-                completion(response.result)
-            }
+        .validate()
+        .responseDecodable(of: response.self) { response in
+            completion(response.result)
+        }
     }
     public func uploadMultipartForm<RESPONSE>(
         _ request: URLConfigurator,
