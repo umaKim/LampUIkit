@@ -71,8 +71,8 @@ class MainView: BaseView<MainViewAction> {
         let view = HorizontalScrollButtonView()
         return view
     }()
-    private lazy var zoomInButton = SquareButton(UIImage(systemName: "plus")?.withTintColor(.darkNavy, renderingMode: .alwaysOriginal))
-    private lazy var zoomOutButton = SquareButton(UIImage(systemName: "minus")?.withTintColor(.darkNavy, renderingMode: .alwaysOriginal))
+    private lazy var zoomInButton = SquareButton(.plus)
+    private lazy var zoomOutButton = SquareButton(.minus)
     private lazy var myLocationButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "myLocation"), for: .normal)

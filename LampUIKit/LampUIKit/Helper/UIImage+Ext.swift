@@ -22,6 +22,8 @@ extension UIImage {
     static let appleLogo = UIImage(named: "appleLogo")
     static let googleLogo = UIImage(named: "googleLogo")
     static let kakaoLogo = UIImage(named: "kakaoLogo")
+    static let plus = UIImage(systemName: "plus")?.withTintColor(.darkNavy, renderingMode: .alwaysOriginal)
+    static let minus = UIImage(systemName: "minus")?.withTintColor(.darkNavy, renderingMode: .alwaysOriginal)
 }
 
 extension UIImage {
