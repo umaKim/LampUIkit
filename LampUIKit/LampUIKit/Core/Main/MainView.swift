@@ -96,84 +96,84 @@ class MainView: BaseView<MainViewAction> {
         allOverButton
             .tapPublisher
             .sink {[weak self] _ in
-                guard let self = self else {return}
+                guard let self = self else { return }
                 self.sendAction(.allOver)
             }
             .store(in: &cancellables)
         destinationButton
             .tapPublisher
             .sink {[weak self] _ in
-                guard let self = self else {return}
+                guard let self = self else { return }
                 self.sendAction(.unvisited)
             }
             .store(in: &cancellables)
         completeButton
             .tapPublisher
             .sink {[weak self] _ in
-                guard let self = self else {return}
+                guard let self = self else { return }
                 self.sendAction(.completed)
             }
             .store(in: &cancellables)
         historyButton
             .tapPublisher
             .sink { [weak self] _ in
-                guard let self = self else {return }
+                guard let self = self else { return }
                 self.sendAction(.history)
             }
             .store(in: &cancellables)
         cultureButton
             .tapPublisher
             .sink {[weak self] _ in
-                guard let self = self else {return }
+                guard let self = self else { return }
                 self.sendAction(.art)
             }
             .store(in: &cancellables)
         cusineButton
             .tapPublisher
             .sink {[weak self] _ in
-                guard let self = self else {return }
+                guard let self = self else { return }
                 self.sendAction(.food)
             }
             .store(in: &cancellables)
         sportsButton
             .tapPublisher
             .sink {[weak self] _ in
-                guard let self = self else {return }
+                guard let self = self else { return }
                 self.sendAction(.activity)
             }
             .store(in: &cancellables)
         forestButton
             .tapPublisher
             .sink {[weak self] _ in
-                guard let self = self else {return }
+                guard let self = self else { return }
                 self.sendAction(.nature)
             }
             .store(in: &cancellables)
         zoomInButton
             .tapPublisher
             .sink {[weak self] _ in
-                guard let self = self else {return}
+                guard let self = self else { return }
                 self.sendAction(.zoomIn)
             }
             .store(in: &cancellables)
         zoomOutButton
             .tapPublisher
             .sink {[weak self] _ in
-                guard let self = self else {return}
+                guard let self = self else { return }
                 self.sendAction(.zoomOut)
             }
             .store(in: &cancellables)
         refreshButton
             .tapPublisher
             .sink { [weak self] _ in
-                guard let self = self else {return}
+                guard let self = self else { return }
                 self.sendAction(.refresh)
             }
             .store(in: &cancellables)
         myLocationButton
             .tapPublisher
             .sink {[weak self] _ in
-                guard let self = self else {return}
+                guard let self = self else { return }
                 self.sendAction(.myLocation)
             }
             .store(in: &cancellables)

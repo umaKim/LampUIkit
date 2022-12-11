@@ -17,7 +17,10 @@ enum MainViewModelNotification: Notifiable {
     case endLoading
     case moveTo(CLLocationCoordinate2D)
     case goBackToBeforeLoginPage
-    case setFloatingPanelWithLocationDetailViewController(_ location: RecommendedLocation, isModal: Bool)
+    case setFloatingPanelWithLocationDetailViewController(
+        _ location: RecommendedLocation,
+        isModal: Bool
+    )
     case showDefaultAlert(String)
     case endEditting(_ isTrue: Bool)
     case changeGoogleMapPadding
@@ -30,6 +33,7 @@ class MainViewModel: BaseViewModel<MainViewModelNotification> {
     private(set) var myLocation: Coord = .init(latitude: 0, longitude: 0)
     private(set) var zoom: Float = 15.0
     private(set) var locationManager = CLLocationManager()
+    lazy var locationinfo: CurrentValueSubject<Coord, Never> = CurrentValueSubject<Coord, Never>(self.coord)
     private let auth: Autheable
     private let network: Networkable
     init(
@@ -59,9 +63,6 @@ extension MainViewModel: CLLocationManagerDelegateObjectProtocol {
 }
 
 extension MainViewModel: GMSMapObjectProtocol {
-    var locationinfo: CurrentValueSubject<Coord, Never> {
-        return CurrentValueSubject<Coord, Never>(self.coord)
-    }
     public func setLocation(with latitude: Double, _ longitude: Double) {
         self.coord = .init(latitude: latitude, longitude: longitude)
     }
@@ -207,6 +208,7 @@ extension MainViewModel {
     }
 }
 
+//MARK: - Private methods
 extension MainViewModel {
     private func mainFlow() {
         self.locationManager.requestLocation()

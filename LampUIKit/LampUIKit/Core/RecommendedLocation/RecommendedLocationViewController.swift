@@ -19,11 +19,12 @@ class RecommendedLocationViewController: BaseViewController<RecommendedLocationV
     private typealias DataSource = UICollectionViewDiffableDataSource<Section, RecommendedLocation>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, RecommendedLocation>
     enum Section { case main }
+    private let lampCollectionViewFlowLayoutObject = LampCollectionViewFlowLayoutObject()
     private var dataSource: DataSource?
     weak var delegate: RecommendedLocationViewControllerDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
-        contentView.collectionView.delegate = self
+        contentView.collectionView.delegate = lampCollectionViewFlowLayoutObject
         configureCollectionView()
         updateSections()
         bind()
@@ -103,7 +104,7 @@ extension RecommendedLocationViewController {
         contentView.collectionView.delegate = self
         dataSource = DataSource(
             collectionView: contentView.collectionView,
-            cellProvider: {[weak self] collectionView, indexPath, itemIdentifier in
+            cellProvider: {[weak self] collectionView, indexPath, _ in
                 guard
                     let cell = collectionView.dequeueReusableCell(
                         withReuseIdentifier: SearchRecommendationCollectionViewCell.identifier,
@@ -181,15 +182,15 @@ extension RecommendedLocationViewController: UICollectionViewDelegate {
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
-extension RecommendedLocationViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAt indexPath: IndexPath
-    ) -> CGSize {
-        .init(width: UIScreen.main.bounds.width - 32, height: 145)
-    }
-}
+//extension RecommendedLocationViewController: UICollectionViewDelegateFlowLayout {
+//    func collectionView(
+//        _ collectionView: UICollectionView,
+//        layout collectionViewLayout: UICollectionViewLayout,
+//        sizeForItemAt indexPath: IndexPath
+//    ) -> CGSize {
+//        .init(width: UIScreen.main.bounds.width - 32, height: 145)
+//    }
+//}
 
 // MARK: - SearchRecommendationCollectionViewCellDelegate
 extension RecommendedLocationViewController: SearchRecommendationCollectionViewCellDelegate {
@@ -207,9 +208,26 @@ extension RecommendedLocationViewController: SearchRecommendationCollectionViewC
     }
 }
 
-class RecommendedLocationViewControllerCollectionViewDelegation: NSObject, UICollectionViewDelegate {
-    override init() {
-        super.init()
+protocol LampCollectionViewFlowLayoutObjectDelegate: AnyObject {
+    func collectionViewDidSelect(itemAt indexPath: IndexPath)
+}
+
+class LampCollectionViewFlowLayoutObject: NSObject  {
+    weak var delegate: LampCollectionViewFlowLayoutObjectDelegate?
+}
+
+extension LampCollectionViewFlowLayoutObject: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        self.delegate?.collectionViewDidSelect(itemAt: index)
     }
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) { }
+}
+
+extension LampCollectionViewFlowLayoutObject: UICollectionViewDelegateFlowLayout {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        .init(width: UIScreen.main.bounds.width - 32, height: 145)
+    }
 }

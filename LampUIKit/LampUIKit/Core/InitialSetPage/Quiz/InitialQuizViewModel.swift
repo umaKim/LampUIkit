@@ -42,7 +42,7 @@ class InitialQuizViewModel: BaseViewModel<InitialQuizViewModelNotification> {
     private var currentIndex: Int = 0
     private func fetch() {
         network.get(.fetchQuestions, [Question].self) {[weak self] result in
-            guard let self = self else {return}
+            guard let self = self else { return }
             switch result {
             case .success(let questions):
                 self.questions = questions
@@ -76,7 +76,7 @@ class InitialQuizViewModel: BaseViewModel<InitialQuizViewModelNotification> {
             }
         } else {
             network.post(.postAnswers, answers, CharacterResponse.self) {[weak self] result in
-                guard let self = self else {return}
+                guard let self = self else { return }
                 switch result {
                 case .success(let response):
                     self.status = .result

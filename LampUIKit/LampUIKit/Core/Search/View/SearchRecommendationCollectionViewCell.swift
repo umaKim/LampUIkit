@@ -22,55 +22,55 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell, BodyCellable
     static let identifier = "SearchRecommendationCollectionViewCell"
     weak var delegate: SearchRecommendationCollectionViewCellDelegate?
     private let titleLabel: UILabel = {
-        let lb = UILabel()
-        lb.font = .systemFont(ofSize: 18, weight: .bold)
-        lb.textColor = .darkNavy
-        lb.numberOfLines = 2
-        return lb
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 18, weight: .bold)
+        label.textColor = .darkNavy
+        label.numberOfLines = 2
+        return label
     }()
     private let descriptionLabel: UILabel = {
-        let lb = UILabel()
-        lb.numberOfLines = 3
-        lb.font = .systemFont(ofSize: 12, weight: .semibold)
-        lb.textColor = .midNavy
-        return lb
+        let label = UILabel()
+        label.numberOfLines = 3
+        label.font = .systemFont(ofSize: 12, weight: .semibold)
+        label.textColor = .midNavy
+        return label
     }()
     private var starDelegate: ContentViewDelegate = ContentViewDelegate()
     private lazy var starRatingImageView = UIImageView()
     private let setThisLocationButton: UIButton = {
-        let bt = UIButton()
-        bt.setImage(UIImage(named: "destinationSetButtonKr".localized), for: .normal)
-        bt.layer.cornerRadius = 2.5
-        bt.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        return bt
+        let button = UIButton()
+        button.setImage(UIImage(named: "destinationSetButtonKr".localized), for: .normal)
+        button.layer.cornerRadius = 2.5
+        button.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        return button
     }()
     private let pinButton: UIButton = {
-        let bt = UIButton()
-        bt.setImage(UIImage(named: "openMapButton"), for: .normal)
-        bt.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        bt.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        bt.layer.cornerRadius = 2.5
-        return bt
+        let button = UIButton()
+        button.setImage(UIImage(named: "openMapButton"), for: .normal)
+        button.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        button.layer.cornerRadius = 2.5
+        return button
     }()
     private let locationImageView: UIImageView = {
-        let uv = UIImageView()
-        uv.layer.cornerRadius = 8
-        uv.clipsToBounds = true
-        uv.contentMode = .scaleAspectFill
-        uv.widthAnchor.constraint(equalToConstant: UIScreen.main.width / 2.4).isActive = true
-        return uv
+        let imageView = UIImageView()
+        imageView.layer.cornerRadius = 8
+        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFill
+        imageView.widthAnchor.constraint(equalToConstant: UIScreen.main.width / 2.4).isActive = true
+        return imageView
     }()
     private let favoriteButton: UIButton = {
-        let bt = UIButton()
+        let button = UIButton()
         let image = UIImage(named: "favorite_unselected")
-        bt.setImage(image, for: .normal)
-        return bt
+        button.setImage(image, for: .normal)
+        return button
     }()
     private let separatorView: UIView = {
-        let uv = UIView()
-        uv.backgroundColor = .lightGrey
-        uv.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        return uv
+        let view = UIView()
+        view.backgroundColor = .lightGrey
+        view.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        return view
     }()
     private var location: RecommendedLocation?
     private var isFavorite: Bool = false
@@ -93,7 +93,8 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell, BodyCellable
         locationImageView.sd_setImage(with: URL(string: location.image ?? ""), placeholderImage: .placeholder)
         isFavorite = location.isBookMarked
         favoriteButton.setImage(
-            UIImage(named: isFavorite ? "favorite_selected" : "favorite_unselected"),
+            UIImage(
+                named: isFavorite ? "favorite_selected" : "favorite_unselected"),
             for: .normal
         )
         let starRating = Double(location.rate ?? 0)
@@ -102,7 +103,9 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell, BodyCellable
         starRatingImageView.image = UIImage(named: "small\(location.rate ?? 0)")
         self.isOnPlan = location.isOnPlan ?? false
         setThisLocationButton.setImage(
-            UIImage(named: isOnPlan ? "destinationCancelButtonKr".localized : "destinationSetButtonKr".localized),
+            UIImage(
+                named: isOnPlan ? "destinationCancelButtonKr".localized : "destinationSetButtonKr".localized
+            ),
             for: .normal
         )
     }
@@ -122,7 +125,9 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell, BodyCellable
                 HapticManager.shared.feedBack(with: .medium)
                 self.isOnPlan.toggle()
                 self.setThisLocationButton.setImage(
-                    UIImage(named: self.isOnPlan ? "destinationCancelButtonKr".localized : "destinationSetButtonKr".localized),
+                    UIImage(
+                        named: self.isOnPlan ? "destinationCancelButtonKr".localized : "destinationSetButtonKr".localized
+                    ),
                     for: .normal
                 )
                 if let location = self.location {
@@ -147,12 +152,16 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell, BodyCellable
                 HapticManager.shared.feedBack(with: .medium)
                 self.isFavorite.toggle()
                 self.favoriteButton.setImage(
-                    UIImage(named: self.isFavorite ? "favorite_selected" : "favorite_unselected"),
+                    UIImage(
+                        named: self.isFavorite ? "favorite_selected" : "favorite_unselected"
+                    ),
                     for: .normal
                 )
                 if let location = self.location {
-                    self.delegate?.didTapFavoriteButton(at: self.tag,
-                                                        location)
+                    self.delegate?.didTapFavoriteButton(
+                        at: self.tag,
+                        location
+                    )
                 }
             }
             .store(in: &cancellables)
@@ -183,10 +192,7 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell, BodyCellable
         totalStackView.spacing = 19
         totalStackView.alignment = .fill
         totalStackView.distribution = .fill
-        [totalStackView, favoriteButton, separatorView].forEach { uv in
-            uv.translatesAutoresizingMaskIntoConstraints = false
-            contentView.addSubview(uv)
-        }
+        addSubviews(totalStackView, favoriteButton, separatorView)
         NSLayoutConstraint.activate([
             totalStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             totalStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),

@@ -95,7 +95,7 @@ extension UIView {
     }
     func showEmptyStateView(with message: String, in view: UIView) {
         emptyStateView = EmptyStateView(message: message)
-        guard let emptyStateView = emptyStateView else {return}
+        guard let emptyStateView = emptyStateView else { return }
         view.addSubview(emptyStateView)
         emptyStateView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

@@ -16,22 +16,22 @@ enum StartPageViewAction: Actionable {
 final class StartPageView: BaseView<StartPageViewAction> {
     // MARK: - UI Objects
     private lazy var background: UIImageView = {
-        let uv = UIImageView()
-        uv.image = UIImage(named: "startImage")
-        return uv
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "startImage")
+        return imageView
     }()
     private lazy var animaionView = LottieAnimationView(name: "TwinkleAnimation")
     private lazy var titleImage: UIImageView = {
-        let uv = UIImageView()
-        uv.image = UIImage(named: "startTitle".localized)
-        return uv
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "startTitle".localized)
+        return imageView
     }()
     private lazy var startButton: UIButton = {
-        let bt = UIButton()
-        bt.setImage(UIImage(named: "startButton"), for: .normal)
-        bt.widthAnchor.constraint(equalToConstant: 62).isActive = true
-        bt.heightAnchor.constraint(equalToConstant: 62).isActive = true
-        return bt
+        let button = UIButton()
+        button.setImage(UIImage(named: "startButton"), for: .normal)
+        button.widthAnchor.constraint(equalToConstant: 62).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 62).isActive = true
+        return button
     }()
     // MARK: - Init
     override init() {
@@ -54,10 +54,7 @@ final class StartPageView: BaseView<StartPageViewAction> {
     private func setupUI() {
         animaionView.loopMode = .loop
         animaionView.play()
-        [background, animaionView, titleImage, startButton].forEach { uv in
-            uv.translatesAutoresizingMaskIntoConstraints = false
-            addSubview(uv)
-        }
+        addSubviews(background, animaionView, titleImage, startButton)
         NSLayoutConstraint.activate([
             background.leadingAnchor.constraint(equalTo: leadingAnchor),
             background.trailingAnchor.constraint(equalTo: trailingAnchor),
