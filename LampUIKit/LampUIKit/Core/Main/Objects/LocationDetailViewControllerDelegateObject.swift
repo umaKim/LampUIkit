@@ -9,8 +9,8 @@ import Foundation
 
 protocol LocationDetailViewControllerDelegateProtocol: AnyObject { }
 
-class LocationDetailViewControllerDelegateObject: NSObject, LocationDetailViewControllerDelegate {
-    weak var viewModel: LocationDetailViewControllerDelegateProtocol?
+final class LocationDetailViewControllerDelegateObject: NSObject, LocationDetailViewControllerDelegate {
+    weak var delegate: LocationDetailViewControllerDelegateProtocol?
     func locationDetailViewControllerDidTapDismissButton() { }
     func locationDetailViewControllerDidTapBackButton() { }
     func locationDetailViewControllerDidTapMapButton(_ location: RecommendedLocation) { }

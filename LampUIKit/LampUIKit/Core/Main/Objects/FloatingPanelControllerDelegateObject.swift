@@ -12,18 +12,13 @@ protocol FloatingPanelControllerDelegateProtocol: AnyObject {
     func changeGoogleMapPadding()
 }
 
-class FloatingPanelControllerDelegateObject: NSObject, FloatingPanelControllerDelegate {
-    weak var viewModel: FloatingPanelControllerDelegateProtocol?
-    init(_ viewModel: FloatingPanelControllerDelegateProtocol?) {
-        self.viewModel = viewModel
-    }
+final class FloatingPanelControllerDelegateObject: NSObject, FloatingPanelControllerDelegate {
+    weak var delegate: FloatingPanelControllerDelegateProtocol?
     func floatingPanelDidMove(_ fpc: FloatingPanelController) {
         if fpc.state == .tip || fpc.state == .half {
-//            view.endEditing(true)
-            viewModel?.endEditing(true)
+            delegate?.endEditing(true)
         }
-//        setGMPadding()
-        viewModel?.changeGoogleMapPadding()
+        delegate?.changeGoogleMapPadding()
     }
     func floatingPanel(
         _ viewController: FloatingPanelController,

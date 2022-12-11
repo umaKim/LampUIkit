@@ -11,14 +11,11 @@ protocol CLLocationManagerDelegateObjectProtocol: AnyObject {
     func showDefaultError(title: String)
 }
 
-class CLLocationManagerDelegateObject: NSObject, CLLocationManagerDelegate {
-    weak var viewModel: CLLocationManagerDelegateObjectProtocol?
-    init(_ viewModel: CLLocationManagerDelegateObjectProtocol) {
-        self.viewModel = viewModel
-    }
+final class CLLocationManagerDelegateObject: NSObject, CLLocationManagerDelegate {
+    weak var delegate: CLLocationManagerDelegateObjectProtocol?
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) { }
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
 //        showDefaultAlert(title: error.localizedDescription)
-        self.viewModel?.showDefaultError(title: error.localizedDescription)
+        self.delegate?.showDefaultError(title: error.localizedDescription)
     }
 }
