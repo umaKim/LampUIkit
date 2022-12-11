@@ -15,3 +15,14 @@ extension UIView {
         layer.shadowRadius = shadowRadius
     }
 }
+
+
+extension UIView {
+    /// Add multiple views
+    func addSubviews(_ views: UIView...) {
+        views.forEach { uiView in
+            uiView.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(uiView)
+        }
+    }
+}
