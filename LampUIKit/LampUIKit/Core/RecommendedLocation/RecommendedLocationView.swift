@@ -65,10 +65,7 @@ class RecommendedLocationView: BaseView<RecommendedLocationViewAction> {
         collectionView.contentInset = .init(top: 16, left: 0, bottom: 80, right: 0)
         showEmptyStateView(with: Message.emptyRecommended)
         customNavigationbar.setRightSideItems([searchButton, travelButton, myCharacter])
-        [customNavigationbar, collectionView].forEach { uiView in
-            uiView.translatesAutoresizingMaskIntoConstraints = false
-            addSubview(uiView)
-        }
+        addSubviews(customNavigationbar, collectionView)
         NSLayoutConstraint.activate([
             customNavigationbar.leadingAnchor.constraint(equalTo: leadingAnchor),
             customNavigationbar.topAnchor.constraint(equalTo: topAnchor),
