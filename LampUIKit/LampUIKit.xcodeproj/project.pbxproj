@@ -142,7 +142,7 @@
 		354A512728CB3B4800599F2C /* Sequence+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354A512628CB3B4700599F2C /* Sequence+Ext.swift */; };
 		3584EF0F2938EBBC00153799 /* FloatingPanelControllerDelegateObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3584EF0E2938EBBC00153799 /* FloatingPanelControllerDelegateObject.swift */; };
 		3584EF112938EBFA00153799 /* CLLocationManagerDelegateObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3584EF102938EBFA00153799 /* CLLocationManagerDelegateObject.swift */; };
-		3584EF132938EC0800153799 /* GMSMapObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3584EF122938EC0800153799 /* GMSMapObject.swift */; };
+		3584EF132938EC0800153799 /* GMSMapDelegateObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3584EF122938EC0800153799 /* GMSMapDelegateObject.swift */; };
 		3584EF152938EC1B00153799 /* LocationDetailViewControllerDelegateObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3584EF142938EC1B00153799 /* LocationDetailViewControllerDelegateObject.swift */; };
 		359FB13228E03D7100DE488B /* StartPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359FB13128E03D7100DE488B /* StartPageViewModel.swift */; };
 		359FB13428E03D9C00DE488B /* StartPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359FB13328E03D9C00DE488B /* StartPageView.swift */; };
@@ -199,11 +199,6 @@
 		35E3EFEA28B60C67009F902B /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E3EFE928B60C67009F902B /* HapticManager.swift */; };
 		35E5FC152907877F007B3E15 /* MyTravelCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E5FC142907877F007B3E15 /* MyTravelCellViewModel.swift */; };
 		35E5FC172907A673007B3E15 /* FavoriteCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E5FC162907A673007B3E15 /* FavoriteCellViewModelTests.swift */; };
-		35F6B37D2937391C0021BDE8 /* LampService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F6B3772937391C0021BDE8 /* LampService.swift */; };
-		35F6B37E2937391C0021BDE8 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F6B3782937391C0021BDE8 /* APIError.swift */; };
-		35F6B37F2937391C0021BDE8 /* URLConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F6B3792937391C0021BDE8 /* URLConfigurator.swift */; };
-		35F6B3802937391C0021BDE8 /* Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F6B37A2937391C0021BDE8 /* Empty.swift */; };
-		35F6B3812937391C0021BDE8 /* URLRequestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F6B37B2937391C0021BDE8 /* URLRequestable.swift */; };
 		35FF5E3728EB49E2004A7EFF /* BaseScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FF5E3628EB49E2004A7EFF /* BaseScrollView.swift */; };
 		35FF5E3928EB49FD004A7EFF /* HorizontalScrollButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FF5E3828EB49FD004A7EFF /* HorizontalScrollButtonView.swift */; };
 		35FF5E3B28EBFDDC004A7EFF /* MyTravelCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FF5E3A28EBFDDC004A7EFF /* MyTravelCellViewModel.swift */; };
@@ -373,8 +368,9 @@
 		355133F42937405400237FE6 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		3584EF0E2938EBBC00153799 /* FloatingPanelControllerDelegateObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingPanelControllerDelegateObject.swift; sourceTree = "<group>"; };
 		3584EF102938EBFA00153799 /* CLLocationManagerDelegateObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationManagerDelegateObject.swift; sourceTree = "<group>"; };
-		3584EF122938EC0800153799 /* GMSMapObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GMSMapObject.swift; sourceTree = "<group>"; };
+		3584EF122938EC0800153799 /* GMSMapDelegateObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GMSMapDelegateObject.swift; sourceTree = "<group>"; };
 		3584EF142938EC1B00153799 /* LocationDetailViewControllerDelegateObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailViewControllerDelegateObject.swift; sourceTree = "<group>"; };
+		359F388329475CF6002B4B57 /* LampNetwork */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = LampNetwork; sourceTree = "<group>"; };
 		359FB13128E03D7100DE488B /* StartPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartPageViewModel.swift; sourceTree = "<group>"; };
 		359FB13328E03D9C00DE488B /* StartPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartPageView.swift; sourceTree = "<group>"; };
 		359FB13528E05BA500DE488B /* MyTravelDataSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTravelDataSet.swift; sourceTree = "<group>"; };
@@ -427,11 +423,6 @@
 		35E3EFE928B60C67009F902B /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
 		35E5FC142907877F007B3E15 /* MyTravelCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTravelCellViewModel.swift; sourceTree = "<group>"; };
 		35E5FC162907A673007B3E15 /* FavoriteCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCellViewModelTests.swift; sourceTree = "<group>"; };
-		35F6B3772937391C0021BDE8 /* LampService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LampService.swift; sourceTree = "<group>"; };
-		35F6B3782937391C0021BDE8 /* APIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
-		35F6B3792937391C0021BDE8 /* URLConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLConfigurator.swift; sourceTree = "<group>"; };
-		35F6B37A2937391C0021BDE8 /* Empty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Empty.swift; sourceTree = "<group>"; };
-		35F6B37B2937391C0021BDE8 /* URLRequestable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLRequestable.swift; sourceTree = "<group>"; };
 		35FF5E3628EB49E2004A7EFF /* BaseScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseScrollView.swift; sourceTree = "<group>"; };
 		35FF5E3828EB49FD004A7EFF /* HorizontalScrollButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalScrollButtonView.swift; sourceTree = "<group>"; };
 		35FF5E3A28EBFDDC004A7EFF /* MyTravelCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTravelCellViewModel.swift; sourceTree = "<group>"; };
@@ -508,6 +499,7 @@
 		35189D49287F0A3F0030F987 = {
 			isa = PBXGroup;
 			children = (
+				359F388329475CF6002B4B57 /* LampNetwork */,
 				355133F42937405400237FE6 /* .swiftlint.yml */,
 				35189D54287F0A3F0030F987 /* LampUIKit */,
 				35189D6E287F0A400030F987 /* LampUIKitTests */,
@@ -949,11 +941,6 @@
 		351BDF9928FE3DE5007EB36F /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				35F6B3782937391C0021BDE8 /* APIError.swift */,
-				35F6B37A2937391C0021BDE8 /* Empty.swift */,
-				35F6B3772937391C0021BDE8 /* LampService.swift */,
-				35F6B3792937391C0021BDE8 /* URLConfigurator.swift */,
-				35F6B37B2937391C0021BDE8 /* URLRequestable.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -988,11 +975,8 @@
 			children = (
 				353038D328A23DE700ECAF0D /* MainViewModel.swift */,
 				353038D128A23DE000ECAF0D /* MainViewController.swift */,
-				3584EF122938EC0800153799 /* GMSMapObject.swift */,
-				3584EF142938EC1B00153799 /* LocationDetailViewControllerDelegateObject.swift */,
-				3584EF102938EBFA00153799 /* CLLocationManagerDelegateObject.swift */,
-				3584EF0E2938EBBC00153799 /* FloatingPanelControllerDelegateObject.swift */,
 				353038CF28A23DD900ECAF0D /* MainView.swift */,
+				359F385E2945B6D6002B4B57 /* Objects */,
 				354A512F28CC88F600599F2C /* View */,
 			);
 			path = Main;
@@ -1075,6 +1059,17 @@
 				359FB13328E03D9C00DE488B /* StartPageView.swift */,
 			);
 			path = StartPage;
+			sourceTree = "<group>";
+		};
+		359F385E2945B6D6002B4B57 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				3584EF122938EC0800153799 /* GMSMapDelegateObject.swift */,
+				3584EF142938EC1B00153799 /* LocationDetailViewControllerDelegateObject.swift */,
+				3584EF102938EBFA00153799 /* CLLocationManagerDelegateObject.swift */,
+				3584EF0E2938EBBC00153799 /* FloatingPanelControllerDelegateObject.swift */,
+			);
+			path = Objects;
 			sourceTree = "<group>";
 		};
 		359FB13728E1C85A00DE488B /* Assets */ = {
@@ -1505,7 +1500,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				35CDECE528F6D62A00517794 /* ReviewPostData.swift in Sources */,
-				3584EF132938EC0800153799 /* GMSMapObject.swift in Sources */,
+				3584EF132938EC0800153799 /* GMSMapDelegateObject.swift in Sources */,
 				35189E33288A4E0A0030F987 /* MyCharacterViewController.swift in Sources */,
 				35FF5E4828F0481D004A7EFF /* ReviewViewCollectionViewCell.swift in Sources */,
 				35189DA42880116D0030F987 /* SearchViewController.swift in Sources */,
@@ -1558,8 +1553,6 @@
 				353038D928A5E3E300ECAF0D /* RecommendedLocationResponse.swift in Sources */,
 				35E3EFDB28AB60C2009F902B /* LocationDescriptionView.swift in Sources */,
 				35189E35288A4E160030F987 /* MyCharacterView.swift in Sources */,
-				35F6B3802937391C0021BDE8 /* Empty.swift in Sources */,
-				35F6B37F2937391C0021BDE8 /* URLConfigurator.swift in Sources */,
 				35189DFA2886D8E50030F987 /* LocationDetailViewController.swift in Sources */,
 				359FB14328E1D04000DE488B /* MileageView.swift in Sources */,
 				35189E0F2887EC490030F987 /* WriteReviewViewController.swift in Sources */,
@@ -1607,7 +1600,6 @@
 				35C2092C28A8A9C600759C68 /* CreateNickNameViewController.swift in Sources */,
 				35189DDC2883077B0030F987 /* StartPageViewController.swift in Sources */,
 				35CDECDB28F6D5E800517794 /* CompleteTripPostData.swift in Sources */,
-				35F6B3812937391C0021BDE8 /* URLRequestable.swift in Sources */,
 				35B2266328C61B3300346C6F /* ReviewDetailView.swift in Sources */,
 				35189D8D287F0D9B0030F987 /* LoginViewModel.swift in Sources */,
 				35189E022887A6F60030F987 /* LocationDetailView.swift in Sources */,
@@ -1642,7 +1634,6 @@
 				35189E46288D09B30030F987 /* ReviewView.swift in Sources */,
 				35CDECED28F6D66300517794 /* LocationDetailInfoData.swift in Sources */,
 				35189E0C2887DD4E0030F987 /* LocationDetailViewHeaderCellButtonStackViewAction.swift in Sources */,
-				35F6B37E2937391C0021BDE8 /* APIError.swift in Sources */,
 				35B2265628C5BB8000346C6F /* RoundedLabelView.swift in Sources */,
 				35CDECE328F6D61F00517794 /* LocationImageResponse.swift in Sources */,
 				35B2265228C4E5F900346C6F /* String+Ext.swift in Sources */,
@@ -1662,7 +1653,6 @@
 				359FB13628E05BA600DE488B /* MyTravelDataSet.swift in Sources */,
 				353038D028A23DD900ECAF0D /* MainView.swift in Sources */,
 				35189E9D2897066A0030F987 /* InitialQuizViewModel.swift in Sources */,
-				35F6B37D2937391C0021BDE8 /* LampService.swift in Sources */,
 				35189DED288571E70030F987 /* FavoriteCell.swift in Sources */,
 				35189D58287F0A3F0030F987 /* SceneDelegate.swift in Sources */,
 				35CDECF328F6D68600517794 /* QuestionsResponse.swift in Sources */,
@@ -1856,6 +1846,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D6192C679DBBFE688FD6F640 /* Pods-LampUIKit.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = LampUIKit/LampUIKit.entitlements;
@@ -1904,6 +1895,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8A787A4809528B6100B8E016 /* Pods-LampUIKit.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = LampUIKit/LampUIKit.entitlements;

@@ -14,10 +14,12 @@ enum RecommendedLocationViewmodelNotification: Notifiable {
     case reload
 }
 
-class RecommendedLocationViewmodel: BaseViewModel<RecommendedLocationViewmodelNotification> {
+final class RecommendedLocationViewmodel: BaseViewModel<RecommendedLocationViewmodelNotification> {
     private let geocoder = GMSGeocoder()
     private var locationManager = CLLocationManager()
     private(set) var locations: [RecommendedLocation] = []
+    private let locationsSubject: AnyPublisher<[RecommendedLocation], Never>
+    private let locationInfo: CurrentValueSubject<Coord, Never>
     private let auth: Autheable
     private let network: Networkable
     init(
@@ -26,36 +28,17 @@ class RecommendedLocationViewmodel: BaseViewModel<RecommendedLocationViewmodelNo
         _ auth: Autheable = AuthManager.shared,
         _ network: Networkable = NetworkManager()
     ) {
+        self.locationsSubject = locatonsSubject
+        self.locationInfo = locationInfo
         self.auth = auth
         self.network = network
         super.init()
-        locatonsSubject
-            .sink {[weak self] locations in
-                self?.locations = locations
-                self?.sendNotification(.reload)
-            }
-            .store(in: &cancellables)
-        locationInfo
-            .debounce(for: 1, scheduler: DispatchQueue.global())
-            .sink {[weak self] coord in
-                guard let self = self else { return }
-                self.geocoder.reverseGeocodeCoordinate(
-                    .init(
-                        latitude: coord.latitude,
-                        longitude: coord.longitude
-                    )
-                ) {[weak self] response, _ in
-                    if let address = response?.firstResult() {
-                        let administrativeArea = address.administrativeArea ?? ""
-                        let locality = address.locality ?? ""
-                        let sublocality = address.subLocality ?? ""
-                        let addressString = administrativeArea + " " + locality + " " + sublocality
-                        self?.sendNotification(.updateAddress(addressString))
-                    }
-                }
-            }
-            .store(in: &cancellables)
+        bind()
     }
+}
+
+// MARK: - Public methods
+extension RecommendedLocationViewmodel {
     public func saveLocation(_ index: Int) {
         locations[index].isBookMarked.toggle()
         let location = locations[index]
@@ -106,5 +89,37 @@ class RecommendedLocationViewmodel: BaseViewModel<RecommendedLocationViewmodelNo
                 self?.sendNotification(.showMessage(error.localizedDescription))
             }
         }
+    }
+}
+
+// MARK: - Private methods
+extension RecommendedLocationViewmodel {
+    private func bind() {
+        locationsSubject
+            .sink {[weak self] locations in
+                self?.locations = locations
+                self?.sendNotification(.reload)
+            }
+            .store(in: &cancellables)
+        locationInfo
+            .debounce(for: 1, scheduler: DispatchQueue.global())
+            .sink {[weak self] coord in
+                guard let self = self else { return }
+                self.geocoder.reverseGeocodeCoordinate(
+                    .init(
+                        latitude: coord.latitude,
+                        longitude: coord.longitude
+                    )
+                ) {[weak self] response, _ in
+                    if let address = response?.firstResult() {
+                        let administrativeArea = address.administrativeArea ?? ""
+                        let locality = address.locality ?? ""
+                        let sublocality = address.subLocality ?? ""
+                        let addressString = [administrativeArea, locality, sublocality].joined(separator: " ")
+                        self?.sendNotification(.updateAddress(addressString))
+                    }
+                }
+            }
+            .store(in: &cancellables)
     }
 }

@@ -20,6 +20,7 @@ class SearchViewController: BaseViewController<SearchView, SearchViewModel>, Ale
     private typealias DataSource = UICollectionViewDiffableDataSource<Section, RecommendedLocation>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, RecommendedLocation>
     enum Section { case main }
+    private let lampCollectionViewFlowLayoutObject = LampCollectionViewFlowLayoutObject()
     private var dataSource: DataSource?
     weak var delegate: SearchViewControllerDelegate?
     override func viewDidLoad() {
@@ -30,7 +31,7 @@ class SearchViewController: BaseViewController<SearchView, SearchViewModel>, Ale
         navigationController?.setNavigationBarHidden(false, animated: false)
         contentView.searchController.searchBar.placeholder = "검색어 입력".localized
         navigationItem.leftBarButtonItems = [contentView.dismissButton]
-        contentView.collectionView.delegate = self
+        contentView.collectionView.delegate = lampCollectionViewFlowLayoutObject
         bind()
         configureCollectionView()
     }
@@ -160,16 +161,5 @@ extension SearchViewController: UICollectionViewDelegate {
         let viewController = LocationDetailViewController(LocationDetailView(), viewModel)
         viewController.delegate = self
         navigationController?.pushViewController(viewController, animated: true)
-    }
-}
-
-// MARK: - UICollectionViewDelegateFlowLayout
-extension SearchViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAt indexPath: IndexPath
-    ) -> CGSize {
-        .init(width: UIScreen.main.bounds.width - 32, height: 145)
     }
 }
