@@ -67,18 +67,23 @@ class LoginView: BaseView<LoginViewAction> {
         kakao
             .tapPublisher
             .sink {[weak self] _ in
-                guard let self = self else {return}
+                guard let self = self else { return }
                 self.sendAction(.kakao)
             }
             .store(in: &cancellables)
         gmail
             .tapPublisher
             .sink {[weak self] _ in
-                guard let self = self else {return}
+                guard let self = self else { return }
                 self.sendAction(.gmail)
             }
             .store(in: &cancellables)
-        apple.addTarget(self, action: #selector(appleSignInButtonPress), for: .touchUpInside)
+        apple
+            .addTarget(
+                self,
+                action: #selector(appleSignInButtonPress),
+                for: .touchUpInside
+            )
     }
     @objc
     private func appleSignInButtonPress() {

@@ -162,7 +162,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                 rawNonce: nonce
             )
             Auth.auth().signIn(with: credential) {[weak self] authResult, error in
-                guard let self = self else {return}
+                guard let self = self else { return }
                 if let error = error {
                     print ("Error Apple sign in: %@", error)
                     return
@@ -201,13 +201,13 @@ extension LoginViewController {
                 accessToken: authentication.accessToken
             )
             Auth.auth().signIn(with: credential) {[weak self] result, error in
-                guard let self = self else {return}
+                guard let self = self else { return }
                 // token을 넘겨주면, 성공했는지 안했는지에 대한 result값과 error값을 넘겨줌
                 if let error = error {
                     self.showDefaultAlert(title: error.localizedDescription)
                     return
                 }
-                guard let uid = result?.user.uid else {return }
+                guard let uid = result?.user.uid else { return }
                 self.viewModel.setUserAuthType(.google)
                 self.checkIfUserAlreadyExist(with: uid)
             }
@@ -240,7 +240,7 @@ extension LoginViewController {
     }
     private func getUserInfo() {
         UserApi.shared.me {[weak self] user, error in
-            guard let self = self else {return}
+            guard let self = self else { return }
             if let error = error {
                 self.showDefaultAlert(title: error.localizedDescription)
             } else {

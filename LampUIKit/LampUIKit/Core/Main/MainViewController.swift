@@ -15,22 +15,39 @@ import Combine
 
 class MainViewController: BaseViewController<MainView, MainViewModel>, Alertable {
     private var fpc = FloatingPanelController()
-    private lazy var floatingPanelControllerDelegateObject = FloatingPanelControllerDelegateObject(self.viewModel)
-    private lazy var locationManagerDelegateObject = CLLocationManagerDelegateObject(self.viewModel)
-    private lazy var mapDelegateObject = GMSMapDelegateObject(self.viewModel)
+    private lazy var floatingPanelControllerDelegateObject = FloatingPanelControllerDelegateObject()
+    private lazy var locationManagerDelegateObject = CLLocationManagerDelegateObject()
+    private lazy var mapDelegateObject = GMSMapDelegateObject()
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(true, animated: false)
+        configureWithDelegateObjects()
+        configureFloatinPanel()
         styleGoogleMaps()
         bind()
-        fpc.addPanel(toParent: self)
-        fpc.delegate = floatingPanelControllerDelegateObject
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         setFloatingPanelWithRecommendedLocationViewController()
         viewModel.setMyLocation()
         viewModel.fetchItems()
+    }
+    private lazy var locationsSubject = PassthroughSubject<[RecommendedLocation], Never>()
+//    private lazy var locationinfo = CurrentValueSubject<Coord, Never>(viewModel.coord)
+}
+
+// MARK: - Private methods
+extension MainViewController {
+    private func configureWithDelegateObjects() {
+        viewModel.locationManager.delegate = locationManagerDelegateObject
+        contentView.mapView.delegate = mapDelegateObject
+        floatingPanelControllerDelegateObject.delegate = viewModel
+        locationManagerDelegateObject.delegate = viewModel
+        mapDelegateObject.delegate = viewModel
+    }
+    private func configureFloatinPanel() {
+        fpc.addPanel(toParent: self)
+        fpc.delegate = floatingPanelControllerDelegateObject
     }
     private func moveTo(_ coord: CLLocationCoordinate2D) {
         let camera = GMSCameraPosition.camera(
@@ -55,8 +72,6 @@ class MainViewController: BaseViewController<MainView, MainViewModel>, Alertable
     private func dismiss() {
         self.dismiss(animated: true)
     }
-    private lazy var locationsSubject = PassthroughSubject<[RecommendedLocation], Never>()
-    private lazy var locationinfo = CurrentValueSubject<Coord, Never>(viewModel.coord)
 }
 
 // MARK: - Configure with FPC
@@ -71,7 +86,8 @@ extension MainViewController {
         })
     }
     private func setFloatingPanelWithLocationDetailViewController(
-        _ location: RecommendedLocation, isModal: Bool = false
+        _ location: RecommendedLocation,
+        isModal: Bool = false
     ) {
         let viewController = LocationDetailViewController(LocationDetailView(), LocationDetailViewModel(location))
         viewController.delegate = self
@@ -83,7 +99,10 @@ extension MainViewController {
         })
     }
     private func setFloatingPanelWithRecommendedLocationViewController() {
-        let viewModel = RecommendedLocationViewmodel(locationsSubject.eraseToAnyPublisher(), locationinfo)
+        let viewModel = RecommendedLocationViewmodel(
+            locationsSubject.eraseToAnyPublisher(),
+            viewModel.locationinfo
+        )
         let viewController = RecommendedLocationViewController(RecommendedLocationView(), viewModel)
         viewController.delegate = self
         let navigationController = UINavigationController(rootViewController: viewController)
@@ -92,7 +111,10 @@ extension MainViewController {
             self?.fpc.track(scrollView: viewController.contentView.collectionView)
         }
     }
-    private func configureFpc(with viewController: UIViewController, completion: @escaping () -> Void) {
+    private func configureFpc(
+        with viewController: UIViewController,
+        completion: @escaping () -> Void
+    ) {
         let appearance = SurfaceAppearance()
         appearance.cornerRadius = 8.0
         appearance.backgroundColor = .clear
@@ -150,8 +172,6 @@ extension MainViewController {
 // MARK: - Bind
 extension MainViewController {
     private func bind() {
-        viewModel.locationManager.delegate = locationManagerDelegateObject
-        contentView.mapView.delegate = mapDelegateObject
         bindWithContentView()
         bindWithViewModel()
     }
