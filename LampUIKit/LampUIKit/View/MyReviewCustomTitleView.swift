@@ -14,10 +14,9 @@ class MyReviewCustomTitleView: UIView {
         layer.borderWidth = 1
         layer.cornerRadius = 9
         layer.borderColor = UIColor(red: 217/250, green: 217/250, blue: 217/250, alpha: 1).cgColor
-        [titleLabel].forEach({ uv in
-            uv.translatesAutoresizingMaskIntoConstraints = false
-            addSubview(uv)
-        })
+        
+        addSubviews(titleLabel)
+        
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
@@ -26,7 +25,7 @@ class MyReviewCustomTitleView: UIView {
         ])
     }
     var text: String? {
-        didSet{
+        didSet {
             titleLabel.text = text
         }
     }
