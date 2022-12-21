@@ -7,6 +7,7 @@
 import KakaoSDKUser
 import FirebaseAuth
 import KakaoSDKAuth
+import LanguageManager
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {

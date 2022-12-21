@@ -6,11 +6,11 @@
 //
 
 import Foundation
-
-enum CategoryType: String {
-    case history = "HISTORY"
-    case nature = "NATURE"
-    case art = "ART"
-    case activity = "ACTIVITY"
-    case food = "FOOD"
-}
+//
+//enum CategoryType: String {
+//    case history = "HISTORY"
+//    case nature = "NATURE"
+//    case art = "ART"
+//    case activity = "ACTIVITY"
+//    case food = "FOOD"
+//}

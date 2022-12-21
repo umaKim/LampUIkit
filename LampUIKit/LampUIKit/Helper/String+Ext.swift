@@ -4,7 +4,7 @@
 //
 //  Created by 김윤석 on 2022/09/04.
 //
-
+import LanguageManager
 import UIKit
 
 extension String {

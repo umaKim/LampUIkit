@@ -166,7 +166,6 @@
 		35B2266328C61B3300346C6F /* ReviewDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B2266228C61B3300346C6F /* ReviewDetailView.swift */; };
 		35B2266528C61B3B00346C6F /* ReviewDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B2266428C61B3B00346C6F /* ReviewDetailViewModel.swift */; };
 		35B2266728C61B4200346C6F /* ReviewDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B2266628C61B4200346C6F /* ReviewDetailViewController.swift */; };
-		35B2267028C6621000346C6F /* LanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B2266F28C6621000346C6F /* LanguageManager.swift */; };
 		35C2092328A8020300759C68 /* QuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C2092228A8020300759C68 /* QuizView.swift */; };
 		35C2092528A8022300759C68 /* QuizResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C2092428A8022300759C68 /* QuizResultView.swift */; };
 		35C2092728A83AA300759C68 /* CustomBalloonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C2092628A83AA300759C68 /* CustomBalloonView.swift */; };
@@ -175,6 +174,7 @@
 		35C2092E28A8A9D200759C68 /* CreateNickNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C2092D28A8A9D200759C68 /* CreateNickNameView.swift */; };
 		35C2093028A8B80500759C68 /* LampRectangleTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C2092F28A8B80500759C68 /* LampRectangleTextField.swift */; };
 		35C2093228AA0E8D00759C68 /* ImageCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C2093128AA0E8D00759C68 /* ImageCollectionHeaderView.swift */; };
+		35C729DF29534B3C00E311FC /* LampNetwork in Frameworks */ = {isa = PBXBuildFile; productRef = 35C729DE29534B3C00E311FC /* LampNetwork */; };
 		35CDECC928F3041D00517794 /* LikeDataPatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CDECC828F3041D00517794 /* LikeDataPatch.swift */; };
 		35CDECDB28F6D5E800517794 /* CompleteTripPostData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CDECDA28F6D5E800517794 /* CompleteTripPostData.swift */; };
 		35CDECDD28F6D5F400517794 /* MyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CDECDC28F6D5F400517794 /* MyInfo.swift */; };
@@ -208,7 +208,6 @@
 		35FF5E4328EC5430004A7EFF /* MyReviewCustomTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FF5E4228EC5430004A7EFF /* MyReviewCustomTitleView.swift */; };
 		35FF5E4628F04804004A7EFF /* ReviewCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FF5E4528F04804004A7EFF /* ReviewCollectionViewHeader.swift */; };
 		35FF5E4828F0481D004A7EFF /* ReviewViewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FF5E4728F0481D004A7EFF /* ReviewViewCollectionViewCell.swift */; };
-		35FF5E4A28F1C860004A7EFF /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FF5E4928F1C860004A7EFF /* AuthManager.swift */; };
 		6717F3226DB9AFBA07831964 /* Pods_LampUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFFAB2822DE1525100BBE124 /* Pods_LampUIKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -366,11 +365,11 @@
 		3532F5D128EB0859002889F1 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		354A512628CB3B4700599F2C /* Sequence+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+Ext.swift"; sourceTree = "<group>"; };
 		355133F42937405400237FE6 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		356DD66229533BA00029DF5C /* Platform */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Platform; sourceTree = "<group>"; };
 		3584EF0E2938EBBC00153799 /* FloatingPanelControllerDelegateObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingPanelControllerDelegateObject.swift; sourceTree = "<group>"; };
 		3584EF102938EBFA00153799 /* CLLocationManagerDelegateObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationManagerDelegateObject.swift; sourceTree = "<group>"; };
 		3584EF122938EC0800153799 /* GMSMapDelegateObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GMSMapDelegateObject.swift; sourceTree = "<group>"; };
 		3584EF142938EC1B00153799 /* LocationDetailViewControllerDelegateObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailViewControllerDelegateObject.swift; sourceTree = "<group>"; };
-		359F388329475CF6002B4B57 /* LampNetwork */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = LampNetwork; sourceTree = "<group>"; };
 		359FB13128E03D7100DE488B /* StartPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartPageViewModel.swift; sourceTree = "<group>"; };
 		359FB13328E03D9C00DE488B /* StartPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartPageView.swift; sourceTree = "<group>"; };
 		359FB13528E05BA500DE488B /* MyTravelDataSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTravelDataSet.swift; sourceTree = "<group>"; };
@@ -392,7 +391,6 @@
 		35B2266228C61B3300346C6F /* ReviewDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailView.swift; sourceTree = "<group>"; };
 		35B2266428C61B3B00346C6F /* ReviewDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailViewModel.swift; sourceTree = "<group>"; };
 		35B2266628C61B4200346C6F /* ReviewDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailViewController.swift; sourceTree = "<group>"; };
-		35B2266F28C6621000346C6F /* LanguageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageManager.swift; sourceTree = "<group>"; };
 		35C2092228A8020300759C68 /* QuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizView.swift; sourceTree = "<group>"; };
 		35C2092428A8022300759C68 /* QuizResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizResultView.swift; sourceTree = "<group>"; };
 		35C2092628A83AA300759C68 /* CustomBalloonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBalloonView.swift; sourceTree = "<group>"; };
@@ -432,7 +430,6 @@
 		35FF5E4228EC5430004A7EFF /* MyReviewCustomTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyReviewCustomTitleView.swift; sourceTree = "<group>"; };
 		35FF5E4528F04804004A7EFF /* ReviewCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCollectionViewHeader.swift; sourceTree = "<group>"; };
 		35FF5E4728F0481D004A7EFF /* ReviewViewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewCollectionViewCell.swift; sourceTree = "<group>"; };
-		35FF5E4928F1C860004A7EFF /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		5A62D20E2C018C13E31D615E /* Pods-LampUIKitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LampUIKitTests.debug.xcconfig"; path = "Target Support Files/Pods-LampUIKitTests/Pods-LampUIKitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		86A679694E62A8499098D704 /* Pods_LampUIKit_LampUIKitUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LampUIKit_LampUIKitUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A787A4809528B6100B8E016 /* Pods-LampUIKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LampUIKit.release.xcconfig"; path = "Target Support Files/Pods-LampUIKit/Pods-LampUIKit.release.xcconfig"; sourceTree = "<group>"; };
@@ -454,6 +451,7 @@
 				35E3EFE228B12154009F902B /* FloatingPanel in Frameworks */,
 				35189DCB2881D2970030F987 /* Alamofire in Frameworks */,
 				35B2265028C0C7B900346C6F /* SkeletonView in Frameworks */,
+				35C729DF29534B3C00E311FC /* LampNetwork in Frameworks */,
 				35D2AD242922067F00E9F9B3 /* UmaBasicAlertKit in Frameworks */,
 				35189DC0288137CD0030F987 /* _CryptoExtras in Frameworks */,
 				35189DBE288137CD0030F987 /* Crypto in Frameworks */,
@@ -499,7 +497,7 @@
 		35189D49287F0A3F0030F987 = {
 			isa = PBXGroup;
 			children = (
-				359F388329475CF6002B4B57 /* LampNetwork */,
+				356DD66229533BA00029DF5C /* Platform */,
 				355133F42937405400237FE6 /* .swiftlint.yml */,
 				35189D54287F0A3F0030F987 /* LampUIKit */,
 				35189D6E287F0A400030F987 /* LampUIKitTests */,
@@ -703,9 +701,7 @@
 			isa = PBXGroup;
 			children = (
 				351BDF9928FE3DE5007EB36F /* Network */,
-				35B2266F28C6621000346C6F /* LanguageManager.swift */,
 				35E3EFE928B60C67009F902B /* HapticManager.swift */,
-				35FF5E4928F1C860004A7EFF /* AuthManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -1191,6 +1187,7 @@
 				3507DC4028BDB2480079E921 /* Lottie */,
 				35B2264F28C0C7B900346C6F /* SkeletonView */,
 				35D2AD232922067F00E9F9B3 /* UmaBasicAlertKit */,
+				35C729DE29534B3C00E311FC /* LampNetwork */,
 			);
 			productName = LampUIKit;
 			productReference = 35189D52287F0A3F0030F987 /* LampUIKit.app */;
@@ -1591,7 +1588,6 @@
 				35189E2C28897FFA0030F987 /* MyReviewsViewModel.swift in Sources */,
 				35189D56287F0A3F0030F987 /* AppDelegate.swift in Sources */,
 				353038ED28A5F58000ECAF0D /* UIColor+Ext.swift in Sources */,
-				35B2267028C6621000346C6F /* LanguageManager.swift in Sources */,
 				35189D8F287F0DAE0030F987 /* RectangleTextButton.swift in Sources */,
 				3507DC3828B776750079E921 /* RecommendedLocationView.swift in Sources */,
 				35B2265828C5BC3900346C6F /* ReviewLabel.swift in Sources */,
@@ -1613,7 +1609,6 @@
 				35189E2928897DA50030F987 /* MyPageViewModel.swift in Sources */,
 				353038F328A5F5AE00ECAF0D /* UIViewController+Ext.swift in Sources */,
 				35CDECDD28F6D5F400517794 /* MyInfo.swift in Sources */,
-				35FF5E4A28F1C860004A7EFF /* AuthManager.swift in Sources */,
 				35C2092328A8020300759C68 /* QuizView.swift in Sources */,
 				352C4379289CA37600189E9F /* CompletedTravelCellCollectionViewCell.swift in Sources */,
 				35CDECF128F6D67700517794 /* UserQuizeAnswer.swift in Sources */,
@@ -2207,6 +2202,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 35B2264E28C0C7B800346C6F /* XCRemoteSwiftPackageReference "SkeletonView" */;
 			productName = SkeletonView;
+		};
+		35C729DE29534B3C00E311FC /* LampNetwork */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = LampNetwork;
 		};
 		35D2AD232922067F00E9F9B3 /* UmaBasicAlertKit */ = {
 			isa = XCSwiftPackageProductDependency;

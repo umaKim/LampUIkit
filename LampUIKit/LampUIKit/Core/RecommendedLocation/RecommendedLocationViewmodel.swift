@@ -60,7 +60,7 @@ extension RecommendedLocationViewmodel {
             token: token,
             contentId: location.contentId,
             contentTypeId: location.contentTypeId,
-            image: location.image ?? "''",
+            image: location.image ?? "",
             placeName: location.title,
             placeInfo: "",
             placeAddress: location.addr,

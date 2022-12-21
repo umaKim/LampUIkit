@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Location: Equatable {
-    let lat: Double
-    let long: Double
-}
+//struct Location: Equatable {
+//    let lat: Double
+//    let long: Double
+//}

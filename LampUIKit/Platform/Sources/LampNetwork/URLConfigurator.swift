@@ -4,8 +4,22 @@
 //
 //  Created by 김윤석 on 2022/10/12.
 //
-
+import LanguageManager
+import AuthManager
 import Foundation
+
+struct Location: Equatable {
+    let lat: Double
+    let long: Double
+}
+
+enum CategoryType: String {
+    case history = "HISTORY"
+    case nature = "NATURE"
+    case art = "ART"
+    case activity = "ACTIVITY"
+    case food = "FOOD"
+}
 
 enum URLConfigurator {
     case checkUserExist(_ uid: String)
