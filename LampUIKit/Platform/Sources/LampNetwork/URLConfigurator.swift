@@ -8,12 +8,20 @@ import LanguageManager
 import AuthManager
 import Foundation
 
-struct Location: Equatable {
-    let lat: Double
-    let long: Double
+public struct Location: Equatable {
+    public let lat: Double
+    public let long: Double
+    
+    public init(
+        lat: Double,
+        long: Double
+    ) {
+        self.lat = lat
+        self.long = long
+    }
 }
 
-enum CategoryType: String {
+public enum CategoryType: String {
     case history = "HISTORY"
     case nature = "NATURE"
     case art = "ART"
@@ -21,7 +29,7 @@ enum CategoryType: String {
     case food = "FOOD"
 }
 
-enum URLConfigurator {
+public enum URLConfigurator {
     case checkUserExist(_ uid: String)
     case deleteUser
     case fetchRecommendation(_ location: Location, _ radius: Float, _ numberOfItems: Int)
@@ -54,7 +62,7 @@ enum URLConfigurator {
 }
 
 extension URLConfigurator: URLRequestable {
-    var baseURL: String {
+    public var baseURL: String {
         "https://dev.twolamps.shop"
     }
     private var token: String {
@@ -63,7 +71,7 @@ extension URLConfigurator: URLRequestable {
     private var language: String {
         LanguageManager.shared.languageType.rawValue
     }
-    var endPoint: String {
+    public var endPoint: String {
         switch self {
         case .checkUserExist(let uid):
             return "/app/users?token=\(uid)"
@@ -201,7 +209,7 @@ extension URLConfigurator: URLRequestable {
             ])
         }
     }
-    var fullUrl: String {
+    public var fullUrl: String {
         return "\(baseURL)" + "\(endPoint)"
     }
     private func makeQuery(for queryParams: [String: String] = [:]) -> String {

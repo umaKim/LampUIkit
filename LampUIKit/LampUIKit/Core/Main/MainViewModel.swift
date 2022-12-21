@@ -4,6 +4,7 @@
 //
 //  Created by 김윤석 on 2022/08/09.
 //
+import AuthManager
 import LampNetwork
 import KakaoSDKUser
 import FirebaseAuth
@@ -160,7 +161,10 @@ extension MainViewModel {
     }
     public func fetchCompleted() {
         sendNotification(.startLoading)
-        network.get(.fetchCompletedTravel, RecommendedLocationResponse.self) {[weak self] result in
+        network.get(
+            .fetchCompletedTravel,
+            RecommendedLocationResponse.self
+        ) {[weak self] result in
             guard let self = self else {return }
             self.sendNotification(.endLoading)
             switch result {
@@ -226,7 +230,10 @@ extension MainViewModel {
     }
     private func checkUserAuth(completion: @escaping () -> Void) {
         guard let uid = auth.token else {return }
-        network.get(.checkUserExist(uid), UserExistCheckResponse.self) {[weak self] result in
+        network.get(
+            .checkUserExist(uid),
+            UserExistCheckResponse.self
+        ) {[weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let response):

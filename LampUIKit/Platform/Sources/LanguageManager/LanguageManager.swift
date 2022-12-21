@@ -7,16 +7,16 @@
 
 import Foundation
 
-enum LanguageType: String {
+public enum LanguageType: String {
     case korean     = "KorService"
     case enghlish   = "EngService"
     case japanese   = "JpnService"
 }
 
-class LanguageManager {
-    static let shared = LanguageManager()
-    private(set) var languageType: LanguageType = .korean
-    private(set) var localizeLang: String = ""
+public class LanguageManager {
+    public static let shared = LanguageManager()
+    public var languageType: LanguageType = .korean
+    public var localizeLang: String = ""
     public func setLanguage(_ type: LanguageType) {
         self.languageType = type
         switch type {

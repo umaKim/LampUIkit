@@ -7,24 +7,24 @@
 
 import UIKit
 
-enum UserAuthType {
+public enum UserAuthType {
     case kakao
     case firebase
     case google
     case apple
 }
 
-protocol Autheable {
+public protocol Autheable {
     var userAuthType: UserAuthType? { get }
     var token: String? { get }
     func setUserAuthType(_ userAuthType: UserAuthType)
     func setToken(_ token: String)
 }
 
-final class AuthManager: Autheable {
-    static let shared = AuthManager()
-    private(set) var userAuthType: UserAuthType?
-    private(set) var token: String?
+public final class AuthManager: Autheable {
+    public static let shared = AuthManager()
+    public var userAuthType: UserAuthType?
+    public var token: String?
     public func setUserAuthType(_ userAuthType: UserAuthType) {
         self.userAuthType = userAuthType
     }

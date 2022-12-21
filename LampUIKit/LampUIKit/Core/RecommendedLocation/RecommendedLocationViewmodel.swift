@@ -4,6 +4,8 @@
 //
 //  Created by 김윤석 on 2022/08/25.
 //
+import LampNetwork
+import AuthManager
 import Combine
 import GoogleMaps
 import Foundation
@@ -49,7 +51,8 @@ extension RecommendedLocationViewmodel {
                 mapX: location.mapX,
                 mapY: location.mapY,
                 placeName: location.title,
-                placeAddr: location.addr),
+                placeAddr: location.addr
+            ),
             Response.self,
             parameters: Empty.value
         ) { _ in }

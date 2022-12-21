@@ -4,6 +4,7 @@
 //
 //  Created by 김윤석 on 2022/07/21.
 //
+import AuthManager
 import LanguageManager
 import UmaBasicAlertKit
 import UIKit
@@ -90,7 +91,7 @@ class MyPageViewController: BaseViewController<MyPageView, MyPageViewModel>, Ale
                 }
         }
         .store(in: &cancellables)
-        guard let provider = viewModel.auth.userAuthType else {return}
+        guard let provider = viewModel.auth.userAuthType else { return }
         contentView.setSocialLogin(provider)
     }
     private var logoutAction: UIAlertAction {

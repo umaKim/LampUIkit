@@ -24,10 +24,13 @@ class RecommendedLocationViewController: BaseViewController<RecommendedLocationV
     weak var delegate: RecommendedLocationViewControllerDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
-        contentView.collectionView.delegate = lampCollectionViewFlowLayoutObject
         configureCollectionView()
         updateSections()
         bind()
+    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        contentView.collectionView.delegate = lampCollectionViewFlowLayoutObject
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -212,7 +215,7 @@ protocol LampCollectionViewFlowLayoutObjectDelegate: AnyObject {
     func collectionViewDidSelect(itemAt indexPath: IndexPath)
 }
 
-class LampCollectionViewFlowLayoutObject: NSObject  {
+class LampCollectionViewFlowLayoutObject: NSObject {
     weak var delegate: LampCollectionViewFlowLayoutObjectDelegate?
 }
 

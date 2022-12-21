@@ -7,7 +7,7 @@
 import Alamofire
 import Foundation
 
-protocol Networkable {
+public protocol Networkable {
     func get<RESPONSE: Decodable>(
         _ request: URLConfigurator,
         _ response: RESPONSE.Type,
@@ -37,8 +37,8 @@ protocol Networkable {
     )
 }
 
-struct NetworkManager: Networkable {
-    func get<RESPONSE>(
+public struct NetworkManager: Networkable {
+    public func get<RESPONSE>(
         _ request: URLConfigurator,
         _ response: RESPONSE.Type,
         completion: @escaping (Result<RESPONSE, Alamofire.AFError>) -> Void
@@ -53,7 +53,7 @@ struct NetworkManager: Networkable {
                 completion(response.result)
             }
     }
-    func post<PARAMETERS, RESPONSE>(
+    public func post<PARAMETERS, RESPONSE>(
         _ request: URLConfigurator,
         _ parameter: PARAMETERS,
         _ response: RESPONSE.Type,
@@ -127,4 +127,5 @@ struct NetworkManager: Networkable {
             completion(response.result)
         }
     }
+    public init() {}
 }

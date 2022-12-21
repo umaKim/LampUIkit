@@ -4,7 +4,7 @@
 //
 //  Created by 김윤석 on 2022/10/04.
 //
-
+import LampNetwork
 import UIKit
 
 enum FavoriteCellViewModelNotification: Notifiable {
