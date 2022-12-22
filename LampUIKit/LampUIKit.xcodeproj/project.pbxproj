@@ -140,6 +140,9 @@
 		3532F5C628EA92D1002889F1 /* CategoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3532F5C528EA92D1002889F1 /* CategoryType.swift */; };
 		3532F5CB28EB0535002889F1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3532F5CD28EB0535002889F1 /* Localizable.strings */; };
 		354A512728CB3B4800599F2C /* Sequence+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354A512628CB3B4700599F2C /* Sequence+Ext.swift */; };
+		35672661295427CD00B90884 /* HapticManager in Frameworks */ = {isa = PBXBuildFile; productRef = 35672660295427CD00B90884 /* HapticManager */; };
+		356726632954280100B90884 /* AuthManager in Frameworks */ = {isa = PBXBuildFile; productRef = 356726622954280100B90884 /* AuthManager */; };
+		356726652954282400B90884 /* LampNetwork in Frameworks */ = {isa = PBXBuildFile; productRef = 356726642954282400B90884 /* LampNetwork */; };
 		3584EF0F2938EBBC00153799 /* FloatingPanelControllerDelegateObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3584EF0E2938EBBC00153799 /* FloatingPanelControllerDelegateObject.swift */; };
 		3584EF112938EBFA00153799 /* CLLocationManagerDelegateObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3584EF102938EBFA00153799 /* CLLocationManagerDelegateObject.swift */; };
 		3584EF132938EC0800153799 /* GMSMapDelegateObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3584EF122938EC0800153799 /* GMSMapDelegateObject.swift */; };
@@ -174,7 +177,6 @@
 		35C2092E28A8A9D200759C68 /* CreateNickNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C2092D28A8A9D200759C68 /* CreateNickNameView.swift */; };
 		35C2093028A8B80500759C68 /* LampRectangleTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C2092F28A8B80500759C68 /* LampRectangleTextField.swift */; };
 		35C2093228AA0E8D00759C68 /* ImageCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C2093128AA0E8D00759C68 /* ImageCollectionHeaderView.swift */; };
-		35C729DF29534B3C00E311FC /* LampNetwork in Frameworks */ = {isa = PBXBuildFile; productRef = 35C729DE29534B3C00E311FC /* LampNetwork */; };
 		35CDECC928F3041D00517794 /* LikeDataPatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CDECC828F3041D00517794 /* LikeDataPatch.swift */; };
 		35CDECDB28F6D5E800517794 /* CompleteTripPostData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CDECDA28F6D5E800517794 /* CompleteTripPostData.swift */; };
 		35CDECDD28F6D5F400517794 /* MyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CDECDC28F6D5F400517794 /* MyInfo.swift */; };
@@ -196,7 +198,6 @@
 		35E3EFE228B12154009F902B /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = 35E3EFE128B12154009F902B /* FloatingPanel */; };
 		35E3EFE628B17B61009F902B /* style.json in Resources */ = {isa = PBXBuildFile; fileRef = 35E3EFE528B17B61009F902B /* style.json */; };
 		35E3EFE828B368CD009F902B /* CustomMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E3EFE728B368CD009F902B /* CustomMarkerView.swift */; };
-		35E3EFEA28B60C67009F902B /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E3EFE928B60C67009F902B /* HapticManager.swift */; };
 		35E5FC152907877F007B3E15 /* MyTravelCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E5FC142907877F007B3E15 /* MyTravelCellViewModel.swift */; };
 		35E5FC172907A673007B3E15 /* FavoriteCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E5FC162907A673007B3E15 /* FavoriteCellViewModelTests.swift */; };
 		35FF5E3728EB49E2004A7EFF /* BaseScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FF5E3628EB49E2004A7EFF /* BaseScrollView.swift */; };
@@ -365,7 +366,7 @@
 		3532F5D128EB0859002889F1 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		354A512628CB3B4700599F2C /* Sequence+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+Ext.swift"; sourceTree = "<group>"; };
 		355133F42937405400237FE6 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
-		356DD66229533BA00029DF5C /* Platform */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Platform; sourceTree = "<group>"; };
+		3567265D2954245A00B90884 /* Platform */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Platform; sourceTree = "<group>"; };
 		3584EF0E2938EBBC00153799 /* FloatingPanelControllerDelegateObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingPanelControllerDelegateObject.swift; sourceTree = "<group>"; };
 		3584EF102938EBFA00153799 /* CLLocationManagerDelegateObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationManagerDelegateObject.swift; sourceTree = "<group>"; };
 		3584EF122938EC0800153799 /* GMSMapDelegateObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GMSMapDelegateObject.swift; sourceTree = "<group>"; };
@@ -418,7 +419,6 @@
 		35E3EFDE28ADE2A7009F902B /* InputTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextView.swift; sourceTree = "<group>"; };
 		35E3EFE528B17B61009F902B /* style.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = style.json; sourceTree = "<group>"; };
 		35E3EFE728B368CD009F902B /* CustomMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMarkerView.swift; sourceTree = "<group>"; };
-		35E3EFE928B60C67009F902B /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
 		35E5FC142907877F007B3E15 /* MyTravelCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTravelCellViewModel.swift; sourceTree = "<group>"; };
 		35E5FC162907A673007B3E15 /* FavoriteCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCellViewModelTests.swift; sourceTree = "<group>"; };
 		35FF5E3628EB49E2004A7EFF /* BaseScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseScrollView.swift; sourceTree = "<group>"; };
@@ -451,11 +451,13 @@
 				35E3EFE228B12154009F902B /* FloatingPanel in Frameworks */,
 				35189DCB2881D2970030F987 /* Alamofire in Frameworks */,
 				35B2265028C0C7B900346C6F /* SkeletonView in Frameworks */,
-				35C729DF29534B3C00E311FC /* LampNetwork in Frameworks */,
 				35D2AD242922067F00E9F9B3 /* UmaBasicAlertKit in Frameworks */,
 				35189DC0288137CD0030F987 /* _CryptoExtras in Frameworks */,
 				35189DBE288137CD0030F987 /* Crypto in Frameworks */,
+				356726652954282400B90884 /* LampNetwork in Frameworks */,
+				35672661295427CD00B90884 /* HapticManager in Frameworks */,
 				3507DC4128BDB2480079E921 /* Lottie in Frameworks */,
+				356726632954280100B90884 /* AuthManager in Frameworks */,
 				35189DAB2880F71B0030F987 /* CombineCocoa in Frameworks */,
 				35189DE928845B6B0030F987 /* SDWebImageMapKit in Frameworks */,
 				6717F3226DB9AFBA07831964 /* Pods_LampUIKit.framework in Frameworks */,
@@ -497,7 +499,7 @@
 		35189D49287F0A3F0030F987 = {
 			isa = PBXGroup;
 			children = (
-				356DD66229533BA00029DF5C /* Platform */,
+				3567265C2954245A00B90884 /* Packages */,
 				355133F42937405400237FE6 /* .swiftlint.yml */,
 				35189D54287F0A3F0030F987 /* LampUIKit */,
 				35189D6E287F0A400030F987 /* LampUIKitTests */,
@@ -701,7 +703,6 @@
 			isa = PBXGroup;
 			children = (
 				351BDF9928FE3DE5007EB36F /* Network */,
-				35E3EFE928B60C67009F902B /* HapticManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -1057,6 +1058,14 @@
 			path = StartPage;
 			sourceTree = "<group>";
 		};
+		3567265C2954245A00B90884 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				3567265D2954245A00B90884 /* Platform */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
 		359F385E2945B6D6002B4B57 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
@@ -1187,7 +1196,9 @@
 				3507DC4028BDB2480079E921 /* Lottie */,
 				35B2264F28C0C7B900346C6F /* SkeletonView */,
 				35D2AD232922067F00E9F9B3 /* UmaBasicAlertKit */,
-				35C729DE29534B3C00E311FC /* LampNetwork */,
+				35672660295427CD00B90884 /* HapticManager */,
+				356726622954280100B90884 /* AuthManager */,
+				356726642954282400B90884 /* LampNetwork */,
 			);
 			productName = LampUIKit;
 			productReference = 35189D52287F0A3F0030F987 /* LampUIKit.app */;
@@ -1540,7 +1551,6 @@
 				35FF5E3D28EC04DF004A7EFF /* FavoriteCellViewModel.swift in Sources */,
 				35189E2528897D7D0030F987 /* MyPageViewController.swift in Sources */,
 				35B2266528C61B3B00346C6F /* ReviewDetailViewModel.swift in Sources */,
-				35E3EFEA28B60C67009F902B /* HapticManager.swift in Sources */,
 				35189E54289254890030F987 /* FavoriteHeaderCell.swift in Sources */,
 				353038E528A5F3BE00ECAF0D /* SquareButton.swift in Sources */,
 				3507DC3528B7765C0079E921 /* RecommendedLocationViewController.swift in Sources */,
@@ -2198,14 +2208,22 @@
 			package = 351BDFA829002B6D007EB36F /* XCRemoteSwiftPackageReference "Quick" */;
 			productName = Quick;
 		};
+		35672660295427CD00B90884 /* HapticManager */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = HapticManager;
+		};
+		356726622954280100B90884 /* AuthManager */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AuthManager;
+		};
+		356726642954282400B90884 /* LampNetwork */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = LampNetwork;
+		};
 		35B2264F28C0C7B900346C6F /* SkeletonView */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 35B2264E28C0C7B800346C6F /* XCRemoteSwiftPackageReference "SkeletonView" */;
 			productName = SkeletonView;
-		};
-		35C729DE29534B3C00E311FC /* LampNetwork */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = LampNetwork;
 		};
 		35D2AD232922067F00E9F9B3 /* UmaBasicAlertKit */ = {
 			isa = XCSwiftPackageProductDependency;

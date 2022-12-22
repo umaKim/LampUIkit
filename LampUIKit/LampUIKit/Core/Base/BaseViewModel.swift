@@ -11,10 +11,10 @@ import Foundation
 protocol Notifiable { }
 
 protocol ViewModelProtocol {
-    associatedtype T
-    var notifyPublisher: AnyPublisher<T, Never> { get }
-    var notifySubject: PassthroughSubject<T, Never> { get }
-    func sendNotification(_ input: T)
+    associatedtype DATATYPE
+    var notifyPublisher: AnyPublisher<DATATYPE, Never> { get }
+    var notifySubject: PassthroughSubject<DATATYPE, Never> { get }
+    func sendNotification(_ input: DATATYPE)
 }
 
 class BaseViewModel<T: Notifiable>: NSObject, ViewModelProtocol {

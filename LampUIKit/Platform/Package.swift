@@ -17,7 +17,11 @@ let package = Package(
         .library(
             name: "LanguageManager",
             targets: ["LanguageManager"]
-        )
+        ),
+        .library(
+            name: "HapticManager",
+            targets: ["HapticManager"]
+        ),
     ],
     dependencies: [
         .package(url: "https://github.com/Alamofire/Alamofire.git", branch: "master")
@@ -37,6 +41,10 @@ let package = Package(
         ),
         .target(
             name: "LanguageManager",
+            dependencies: []
+        ),
+        .target(
+            name: "HapticManager",
             dependencies: []
         )
     ]

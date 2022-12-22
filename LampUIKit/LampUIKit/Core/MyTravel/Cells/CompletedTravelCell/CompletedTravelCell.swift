@@ -4,6 +4,7 @@
 //
 //  Created by 김윤석 on 2022/07/18.
 //
+import HapticManager
 import CombineCocoa
 import Combine
 import UIKit

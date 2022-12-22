@@ -4,7 +4,7 @@
 //
 //  Created by 김윤석 on 2022/12/01.
 //
-
+import HapticManager
 import GoogleMaps
 import Combine
 

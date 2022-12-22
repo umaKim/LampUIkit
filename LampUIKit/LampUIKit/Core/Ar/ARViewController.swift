@@ -4,7 +4,7 @@
 //
 //  Created by 김윤석 on 2022/07/15.
 //
-
+import HapticManager
 import ARCL
 import CoreLocation
 import UIKit

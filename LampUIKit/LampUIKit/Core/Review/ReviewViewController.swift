@@ -4,7 +4,7 @@
 //
 //  Created by 김윤석 on 2022/07/24.
 //
-
+import HapticManager
 import UmaBasicAlertKit
 import Combine
 import UIKit

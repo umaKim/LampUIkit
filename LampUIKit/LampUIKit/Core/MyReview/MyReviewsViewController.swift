@@ -4,7 +4,7 @@
 //
 //  Created by 김윤석 on 2022/07/21.
 //
-
+import HapticManager
 import UIKit
 
 protocol MyReviewsViewControllerDelegate: AnyObject {

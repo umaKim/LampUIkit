@@ -7,13 +7,13 @@
 import UIKit
 import Foundation
 
-class HapticManager {
-    static let shared = HapticManager()
+public class HapticManager {
+    public static let shared = HapticManager()
     private let generator = UINotificationFeedbackGenerator()
-    func feedBack(with type: UINotificationFeedbackGenerator.FeedbackType) {
+    public func feedBack(with type: UINotificationFeedbackGenerator.FeedbackType) {
         generator.notificationOccurred(type)
     }
-    func feedBack(with style: UIImpactFeedbackGenerator.FeedbackStyle) {
+    public func feedBack(with style: UIImpactFeedbackGenerator.FeedbackStyle) {
         let generator = UIImpactFeedbackGenerator(style: style)
         generator.impactOccurred()
     }

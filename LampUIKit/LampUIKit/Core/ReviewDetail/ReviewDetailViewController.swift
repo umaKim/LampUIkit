@@ -4,7 +4,7 @@
 //
 //  Created by 김윤석 on 2022/09/05.
 //
-
+import HapticManager
 import UIKit
 
 class ReviewDetailViewController: BaseViewController<ReviewDetailView, ReviewDetailViewModel> {
