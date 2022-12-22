@@ -23,8 +23,8 @@ public protocol Autheable {
 
 public final class AuthManager: Autheable {
     public static let shared = AuthManager()
-    public var userAuthType: UserAuthType?
-    public var token: String?
+    public private(set) var userAuthType: UserAuthType?
+    public private(set) var token: String?
     public func setUserAuthType(_ userAuthType: UserAuthType) {
         self.userAuthType = userAuthType
     }
