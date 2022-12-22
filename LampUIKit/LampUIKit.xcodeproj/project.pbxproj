@@ -528,7 +528,6 @@
 				35189D57287F0A3F0030F987 /* SceneDelegate.swift */,
 				353038F428A5F5CE00ECAF0D /* Enum */,
 				353038D728A5E3D600ECAF0D /* Model */,
-				35189DD82882FAC50030F987 /* Managers */,
 				35189DB22880F8910030F987 /* Helper */,
 				35189DC72881C2650030F987 /* Core */,
 				35189D88287F0A970030F987 /* View */,
@@ -697,14 +696,6 @@
 				35189DD52882CE490030F987 /* MyTravelCategoryView.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		35189DD82882FAC50030F987 /* Managers */ = {
-			isa = PBXGroup;
-			children = (
-				351BDF9928FE3DE5007EB36F /* Network */,
-			);
-			path = Managers;
 			sourceTree = "<group>";
 		};
 		35189DF72886D8300030F987 /* Base */ = {
@@ -933,13 +924,6 @@
 				35189E862894B3450030F987 /* InitialSetPageView.swift */,
 			);
 			path = InitialMessage;
-			sourceTree = "<group>";
-		};
-		351BDF9928FE3DE5007EB36F /* Network */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Network;
 			sourceTree = "<group>";
 		};
 		351BDFA22900217C007EB36F /* Mock */ = {
