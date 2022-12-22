@@ -8,15 +8,22 @@ import HapticManager
 import UIKit
 import Combine
 
-class InitialQuizViewController: BaseViewController<InitialQuizView, InitialQuizViewModel> {
+final class InitialQuizViewController: BaseViewController<InitialQuizView, InitialQuizViewModel> {
     override func viewDidLoad() {
         super.viewDidLoad()
         isInitialSettingDone(false)
         bind()
     }
-    // MARK: - Bind
+}
+
+// MARK: - Bind
+extension InitialQuizViewController {
     private func bind() {
-        contentView
+        bind(with: contentView)
+        bind(with: viewModel)
+    }
+    private func bind(with initialQuizView: InitialQuizView) {
+        initialQuizView
             .actionPublisher
             .sink {[weak self] action in
                 guard let self = self else {return}
@@ -37,6 +44,8 @@ class InitialQuizViewController: BaseViewController<InitialQuizView, InitialQuiz
                 }
             }
             .store(in: &cancellables)
+    }
+    private func bind(with viewModel: InitialQuizViewModel) {
         viewModel
             .notifyPublisher
             .sink {[weak self] noti in

@@ -18,7 +18,7 @@ enum InitialQuizViewAction: Actionable {
     case next
 }
 
-class InitialQuizView: BaseView<InitialQuizViewAction> {
+final class InitialQuizView: BaseView<InitialQuizViewAction> {
     private let quizView = QuizView()
     private let resultView = QuizResultView()
     // MARK: - Init
@@ -62,10 +62,7 @@ class InitialQuizView: BaseView<InitialQuizViewAction> {
             .store(in: &cancellables)
     }
     private func setupUI() {
-        [quizView, resultView].forEach { uv in
-            uv.translatesAutoresizingMaskIntoConstraints = false
-            addSubview(uv)
-        }
+        addSubviews(quizView, resultView)
         NSLayoutConstraint.activate([
             quizView.leadingAnchor.constraint(equalTo: leadingAnchor),
             quizView.trailingAnchor.constraint(equalTo: trailingAnchor),

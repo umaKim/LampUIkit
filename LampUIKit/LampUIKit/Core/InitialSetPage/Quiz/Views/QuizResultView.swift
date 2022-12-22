@@ -13,7 +13,7 @@ enum QuizResultViewAction: Actionable {
     case next
 }
 
-class QuizResultView: BaseView<QuizResultViewAction> {
+final class QuizResultView: BaseView<QuizResultViewAction> {
     // MARK: - UI Objects
     private lazy var backgroundImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "testBackground"))
@@ -49,6 +49,10 @@ class QuizResultView: BaseView<QuizResultViewAction> {
     public func setupCharacter(_ image: UIImage) {
         characterImageView.image = image
     }
+}
+
+// MARK: - Bind
+extension QuizResultView {
     private func bind() {
         nextButton
             .tapPublisher
@@ -58,11 +62,12 @@ class QuizResultView: BaseView<QuizResultViewAction> {
             }
             .store(in: &cancellables)
     }
+}
+
+// MARK: - Set up UI
+extension QuizResultView {
     private func setupUI() {
-        [backgroundImageView, logoImageView, characterImageView, nextButton].forEach { uiView in
-            addSubview(uiView)
-            uiView.translatesAutoresizingMaskIntoConstraints = false
-        }
+        addSubviews(backgroundImageView, logoImageView, characterImageView, nextButton)
         NSLayoutConstraint.activate([
             backgroundImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             backgroundImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),

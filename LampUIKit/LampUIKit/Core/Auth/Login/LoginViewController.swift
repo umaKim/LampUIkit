@@ -17,7 +17,7 @@ import Firebase
 import UIKit
 import StoreKit
 
-class LoginViewController: BaseViewController<LoginView, LoginViewModel>, Alertable {
+final class LoginViewController: BaseViewController<LoginView, LoginViewModel>, Alertable {
     private var currentNonce: String?
     private let skStoreProductViewController = SKStoreProductViewController()
     override func loadView() {
@@ -29,8 +29,21 @@ class LoginViewController: BaseViewController<LoginView, LoginViewModel>, Alerta
         bind()
         skStoreProductViewController.delegate = self
     }
-    // MARK: - Bind
+    private func changeRootViewcontroller(with uid: String) {
+        changeRoot(MainViewController(MainView(), MainViewModel()))
+    }
+    private func checkIfUserAlreadyExist(with uid: String) {
+        viewModel.checkUserExist(uid)
+    }
+}
+
+// MARK: - Bind
+extension LoginViewController {
     private func bind() {
+        bind(with: contentView)
+        bind(with: viewModel)
+    }
+    private func bind(with contentView: LoginView) {
         contentView
             .actionPublisher
             .sink {[weak self] action in
@@ -46,6 +59,8 @@ class LoginViewController: BaseViewController<LoginView, LoginViewModel>, Alerta
                 }
             }
             .store(in: &cancellables)
+    }
+    private func bind(with viewModel: LoginViewModel) {
         viewModel
             .notifyPublisher
             .sink {[weak self] notification in
@@ -72,12 +87,6 @@ class LoginViewController: BaseViewController<LoginView, LoginViewModel>, Alerta
                 }
             }
             .store(in: &cancellables)
-    }
-    private func changeRootViewcontroller(with uid: String) {
-        changeRoot(MainViewController(MainView(), MainViewModel()))
-    }
-    private func checkIfUserAlreadyExist(with uid: String) {
-        viewModel.checkUserExist(uid)
     }
 }
 
@@ -168,9 +177,6 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                     print ("Error Apple sign in: %@", error)
                     return
                 }
-                // User is signed in to Firebase with Apple.
-                // ...
-                ///Main 화면으로 보내기
                 guard let uid = authResult?.user.uid else {return }
                 self.viewModel.setUserAuthType(.apple)
                 self.checkIfUserAlreadyExist(with: uid)

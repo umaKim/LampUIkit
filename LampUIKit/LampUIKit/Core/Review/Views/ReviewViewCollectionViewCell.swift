@@ -153,20 +153,17 @@ extension ReviewViewCollectionViewCell {
         starSv.axis = .vertical
         starSv.distribution = .fillProportionally
         starSv.alignment = .leading
-        let sv = UIStackView(arrangedSubviews: [imageView, starSv, commentLabelSv, buttonSv])
-        sv.distribution = .fill
-        sv.alignment = .fill
-        sv.axis = .vertical
-        sv.spacing = 8
-        [sv].forEach { uv in
-            uv.translatesAutoresizingMaskIntoConstraints = false
-            contentView.addSubview(uv)
-        }
+        let stackView = UIStackView(arrangedSubviews: [imageView, starSv, commentLabelSv, buttonSv])
+        stackView.distribution = .fill
+        stackView.alignment = .fill
+        stackView.axis = .vertical
+        stackView.spacing = 8
+        addSubviews(stackView)
         NSLayoutConstraint.activate([
-            sv.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 13),
-            sv.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -13),
-            sv.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -13),
-            sv.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 13)
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 13),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -13),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -13),
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 13)
         ])
     }
 }

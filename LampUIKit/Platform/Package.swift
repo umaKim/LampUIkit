@@ -21,7 +21,7 @@ let package = Package(
         .library(
             name: "HapticManager",
             targets: ["HapticManager"]
-        ),
+        )
     ],
     dependencies: [
         .package(url: "https://github.com/Alamofire/Alamofire.git", branch: "master")

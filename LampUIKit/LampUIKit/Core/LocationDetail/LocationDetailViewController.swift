@@ -34,8 +34,25 @@ final class LocationDetailViewController: BaseViewController<LocationDetailView,
         super.viewDidAppear(animated)
         viewModel.fetchLocationDetail()
     }
+    private func scrollToButtonSv() {
+        contentView.scrollToButtonSv()
+    }
+    private func configureNavigationController() {
+        let textAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        navigationController?.navigationBar.titleTextAttributes = textAttributes
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        navigationController?.navigationBar.barTintColor = .greyshWhite
+    }
+}
+
+// MARK: - Bind
+extension LocationDetailViewController {
     private func bind() {
-        contentView
+        bind(with: contentView)
+        bind(with: viewModel)
+    }
+    private func bind(with locationDetailView: LocationDetailView) {
+        locationDetailView
             .actionPublisher
             .sink {[weak self] action in
                 guard let self = self else {return}
@@ -76,6 +93,8 @@ final class LocationDetailViewController: BaseViewController<LocationDetailView,
                 }
             }
             .store(in: &cancellables)
+    }
+    private func bind(with viewModel: LocationDetailViewModel) {
         viewModel
             .notifyPublisher
             .sink {[weak self] noti in
@@ -95,14 +114,5 @@ final class LocationDetailViewController: BaseViewController<LocationDetailView,
                 }
             }
             .store(in: &cancellables)
-    }
-    private func scrollToButtonSv() {
-        contentView.scrollToButtonSv()
-    }
-    private func configureNavigationController() {
-        let textAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
-        navigationController?.navigationBar.titleTextAttributes = textAttributes
-        navigationController?.setNavigationBarHidden(false, animated: false)
-        navigationController?.navigationBar.barTintColor = .greyshWhite
     }
 }

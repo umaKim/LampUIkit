@@ -9,12 +9,12 @@ import UIKit
 
 class ReviewLabel: UIView {
     private let titleLabel: UILabel = {
-        let lb = UILabel()
-        lb.font = .systemFont(ofSize: 15, weight: .bold)
-        lb.textColor = .lightNavy
-        lb.numberOfLines = 2
-        lb.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        return lb
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 15, weight: .bold)
+        label.textColor = .lightNavy
+        label.numberOfLines = 2
+        label.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        return label
     }()
     private lazy var subTitleLabel = RoundedLabelView("")
     public func setSubtitle(_ text: String) {
@@ -32,21 +32,17 @@ class ReviewLabel: UIView {
         super.init(frame: .zero)
         self.subTitleLabel.setText(subTitle.localized)
         self.subTitleLabel.setRound(setRoundDesign)
-        let sv = UIStackView(arrangedSubviews: [titleLabel, subTitleLabel])
-        sv.axis = .horizontal
-        sv.alignment = .fill
-        sv.distribution = .fill
-        sv.spacing = spacing
-        [sv].forEach { uv in
-            uv.translatesAutoresizingMaskIntoConstraints = false
-            addSubview(sv)
-        }
-        
+        let stackView = UIStackView(arrangedSubviews: [titleLabel, subTitleLabel])
+        stackView.axis = .horizontal
+        stackView.alignment = .fill
+        stackView.distribution = .fill
+        stackView.spacing = spacing
+        addSubviews(stackView)
         NSLayoutConstraint.activate([
-            sv.leadingAnchor.constraint(equalTo: leadingAnchor),
-            sv.topAnchor.constraint(equalTo: topAnchor),
-            sv.bottomAnchor.constraint(equalTo: bottomAnchor),
-            sv.trailingAnchor.constraint(equalTo: trailingAnchor)
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            stackView.topAnchor.constraint(equalTo: topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
     required init?(coder: NSCoder) {

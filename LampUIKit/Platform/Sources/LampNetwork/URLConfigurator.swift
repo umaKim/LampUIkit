@@ -11,7 +11,6 @@ import Foundation
 public struct Location: Equatable {
     public let lat: Double
     public let long: Double
-    
     public init(
         lat: Double,
         long: Double

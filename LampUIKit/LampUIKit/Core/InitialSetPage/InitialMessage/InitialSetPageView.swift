@@ -9,7 +9,8 @@ import UIKit
 
 enum InitialSetPageViewAction: Actionable { }
 
-class InitialSetPageView: BaseView<InitialSetPageViewAction> {
+final class InitialSetPageView: BaseView<InitialSetPageViewAction> {
+    // MARK: - UI Objects
     private lazy var beginningMessageLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
@@ -28,6 +29,7 @@ class InitialSetPageView: BaseView<InitialSetPageViewAction> {
         return imageView
     }()
     private var runCount = 0
+    // MARK: - Init
     override init() {
         super.init()
         backgroundColor = .darkNavy
@@ -40,14 +42,16 @@ class InitialSetPageView: BaseView<InitialSetPageViewAction> {
 
 // MARK: - Public Methods
 extension InitialSetPageView {
-    public func animateBeginningMessageLabel(with messages: [String], completion: @escaping () -> Void) {
+    public func animateBeginningMessageLabel(
+        with messages: [String],
+        completion: @escaping () -> Void
+    ) {
         Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) {[weak self] timer in
             guard let self = self else { return }
             if self.runCount == 3 {
                 timer.invalidate()
                 completion()
             } else {
-                print(self.runCount)
                 UIView.transition(
                     with: self.beginningMessageLabel,
                     duration: 0.25,
@@ -61,7 +65,7 @@ extension InitialSetPageView {
     }
 }
 
-// MARK: - Private methods
+// MARK: - Set up UI
 extension InitialSetPageView {
     private func setupUI() {
         addSubviews(darkImageView, twinkles, beginningMessageLabel)

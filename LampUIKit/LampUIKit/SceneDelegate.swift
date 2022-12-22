@@ -45,14 +45,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneDidDisconnect(_ scene: UIScene) {
         guard let isInitialSettingDone = isInitialSettingDone else { return }
-        
         if !isInitialSettingDone {
             UserApi.shared.logout {(error) in
                 if let error = error {
                     print(error)
                 }
             }
-            
             do {
                try Auth.auth().signOut()
             } catch {
@@ -70,11 +68,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // change the root view controller to your specific view controller
         window.rootViewController = vc
-        
-        UIView.transition(with: window,
-                          duration: 0.5,
-                          options: [.transitionFlipFromBottom],
-                          animations: nil,
-                          completion: nil)
+        UIView.transition(
+            with: window,
+            duration: 0.5,
+            options: [.transitionFlipFromBottom],
+            animations: nil,
+            completion: nil
+        )
     }
 }

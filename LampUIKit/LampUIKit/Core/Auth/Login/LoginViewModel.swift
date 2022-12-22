@@ -16,7 +16,7 @@ enum LoginViewModelNotification: Notifiable {
     case showMessage(String)
 }
 
-class LoginViewModel: BaseViewModel<LoginViewModelNotification> {
+final class LoginViewModel: BaseViewModel<LoginViewModelNotification> {
     private let auth: Autheable
     private let network: Networkable
     // MARK: - Init
@@ -28,18 +28,20 @@ class LoginViewModel: BaseViewModel<LoginViewModelNotification> {
         self.network = network
         super.init()
     }
+}
+
+// MARK: - Public Methods
+extension LoginViewModel {
     public func checkUserExist(_ uid: String) {
-        network.get(.checkUserExist(uid), UserExistCheckResponse.self) {[weak self] result in
+        network.get(
+            .checkUserExist(uid),
+            UserExistCheckResponse.self
+        ) {[weak self] result in
             guard let self = self else {return }
             switch result {
             case .success(let response):
                 if response.isSuccess {
-                    if response.nicknameExist ?? false {
-                        self.auth.setToken(uid)
-                        self.sendNotification(.changeRootViewController(uid))
-                    } else {
-                        self.sendNotification(.presentCreateNickName)
-                    }
+                    self.checkUserExist(response.nicknameExist ?? false, with: uid)
                 } else {
                     self.sendNotification(.presentInitialSetpage)
                 }
@@ -50,5 +52,17 @@ class LoginViewModel: BaseViewModel<LoginViewModelNotification> {
     }
     public func setUserAuthType(_ type: UserAuthType) {
         auth.setUserAuthType(type)
+    }
+}
+
+// MARK: - Private Methods
+extension LoginViewModel {
+    private func checkUserExist(_ exist: Bool, with uid: String) {
+        if exist {
+            self.auth.setToken(uid)
+            self.sendNotification(.changeRootViewController(uid))
+        } else {
+            self.sendNotification(.presentCreateNickName)
+        }
     }
 }

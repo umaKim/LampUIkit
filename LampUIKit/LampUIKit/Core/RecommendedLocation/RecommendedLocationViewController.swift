@@ -76,9 +76,15 @@ class RecommendedLocationViewController: BaseViewController<RecommendedLocationV
             .store(in: &cancellables)
     }
     private func setUpNavigationView(_ text: String = "") {
-        let titleView = UIView(frame: CGRect(x: 0, y: 0,
-                                             width: navigationController?.navigationBar.frame.width ?? 0,
-                                             height: navigationController?.navigationBar.frame.height ?? 25))
+        let titleView = UIView(
+            frame:
+                CGRect(
+                    x: 0,
+                    y: 0,
+                    width: navigationController?.navigationBar.frame.width ?? 0,
+                    height: navigationController?.navigationBar.frame.height ?? 25
+                )
+        )
         let label = UILabel(frame: CGRect(x: 10, y: 13, width: titleView.frame.width, height: titleView.frame.height))
         label.text = text
         label.font = .robotoBold(18)

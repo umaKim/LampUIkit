@@ -30,10 +30,10 @@ extension UIViewController {
         }
     }
     func presentWithNav(
-        _ vc: UIViewController,
+        _ viewController: UIViewController,
         _ modalPresentationStyle: UIModalPresentationStyle = .automatic
     ) {
-        let nav = UINavigationController(rootViewController: vc)
+        let nav = UINavigationController(rootViewController: viewController)
         nav.modalPresentationStyle = modalPresentationStyle
         self.present(nav, animated: true)
     }

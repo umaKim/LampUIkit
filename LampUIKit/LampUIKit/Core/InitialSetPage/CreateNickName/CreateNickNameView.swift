@@ -14,7 +14,7 @@ enum CreateNickNameViewAction: Actionable {
     case doneKeyboard
 }
 
-class CreateNickNameView: BaseView<CreateNickNameViewAction> {
+final class CreateNickNameView: BaseView<CreateNickNameViewAction> {
     private let titleImage: UIImageView = {
        let uiView = UIImageView()
         uiView.image = UIImage(named: "lampTitle")
@@ -37,14 +37,14 @@ class CreateNickNameView: BaseView<CreateNickNameViewAction> {
         textColor: .white,
         fontSize: 17
     )
+    private let toolBar = UIToolbar()
+    private let doneButton = UIBarButtonItem(title: "Done", style: .done, target: nil, action: nil)
     override init() {
         self.isEnabledCreateAccountButton = false
         super.init()
         bind()
         setupUI()
     }
-    private let toolBar = UIToolbar()
-    private let doneButton = UIBarButtonItem(title: "Done", style: .done, target: nil, action: nil)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -54,6 +54,10 @@ class CreateNickNameView: BaseView<CreateNickNameViewAction> {
             self.createAccountButton.backgroundColor = self.createAccountButton.isEnabled ? .lightNavy : .systemGray
         }
     }
+}
+
+// MARK: - Bind
+extension CreateNickNameView {
     private func bind() {
         doneButton
             .tapPublisher
@@ -79,6 +83,10 @@ class CreateNickNameView: BaseView<CreateNickNameViewAction> {
             }
             .store(in: &cancellables)
     }
+}
+
+// MARK: Set up UI
+extension CreateNickNameView {
     private func setupUI() {
         toolBar.items = [doneButton]
         toolBar.sizeToFit()

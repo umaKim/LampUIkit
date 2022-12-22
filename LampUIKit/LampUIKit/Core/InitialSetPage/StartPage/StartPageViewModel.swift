@@ -27,7 +27,10 @@ final class StartPageViewModel: BaseViewModel<StartPageViewModelNotification> {
         self.auth = auth
         self.network = network
     }
-    // MARK: - Public
+}
+
+// MARK: - Public
+extension StartPageViewModel {
     public func start() {
         if AuthApi.hasToken() {
             presentMainWithKakao()
@@ -40,14 +43,14 @@ final class StartPageViewModel: BaseViewModel<StartPageViewModelNotification> {
 }
 
 // MARK: - Private
-private extension StartPageViewModel {
-    func setUserAuthType(_ type: UserAuthType) {
+extension StartPageViewModel {
+    private func setUserAuthType(_ type: UserAuthType) {
         auth.setUserAuthType(type)
     }
-    func setToken(_ token: String) {
+    private func setToken(_ token: String) {
         auth.setToken(token)
     }
-    func presentMainWithKakao() {
+    private func presentMainWithKakao() {
         UserApi.shared.me {[weak self] user, _ in
             guard
                 let id = user?.id else {
@@ -59,7 +62,7 @@ private extension StartPageViewModel {
             self?.sendNotification(.presentMain(id: "\(id)"))
         }
     }
-    func presentMainWithFireBase(_ currentUser: Firebase.User) {
+    private func presentMainWithFireBase(_ currentUser: Firebase.User) {
         for userInfo in currentUser.providerData {
             switch userInfo.providerID {
             case "apple.com":
@@ -71,7 +74,7 @@ private extension StartPageViewModel {
                 self.setUserAuthType(.firebase)
             }
         }
-        self.setToken(currentUser.uid)
-        self.sendNotification(.presentMain(id: currentUser.uid))
+        setToken(currentUser.uid)
+        sendNotification(.presentMain(id: currentUser.uid))
     }
 }

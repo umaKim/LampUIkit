@@ -221,6 +221,13 @@ final class LocationDetailView: BaseView<LocationDetailViewAction> {
             }
             .store(in: &cancellables)
     }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+// MARK: - Set up UI
+extension LocationDetailView {
     private func setupUI() {
         addSubview(contentScrollView)
         contentScrollView.addSubview(contentView)
@@ -282,8 +289,5 @@ final class LocationDetailView: BaseView<LocationDetailViewAction> {
             totalTravelReviewView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             totalTravelReviewView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
         ])
-    }
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }

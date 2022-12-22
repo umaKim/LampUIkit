@@ -16,7 +16,6 @@ extension UIView {
     }
 }
 
-
 extension UIView {
     /// Add multiple views
     func addSubviews(_ views: UIView...) {

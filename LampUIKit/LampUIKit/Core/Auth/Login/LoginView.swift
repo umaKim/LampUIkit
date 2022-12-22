@@ -16,7 +16,7 @@ enum LoginViewAction: Actionable {
     case apple
 }
 
-class LoginView: BaseView<LoginViewAction> {
+final class LoginView: BaseView<LoginViewAction> {
     // MARK: - UI Objects
     private let titleImage: UIImageView = {
        let imageView = UIImageView()
@@ -62,7 +62,13 @@ class LoginView: BaseView<LoginViewAction> {
         bind()
         setupUI()
     }
-    // MARK: - Bind
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+// MARK: - Bind
+extension LoginView {
     private func bind() {
         kakao
             .tapPublisher
@@ -89,6 +95,10 @@ class LoginView: BaseView<LoginViewAction> {
     private func appleSignInButtonPress() {
         self.sendAction(.apple)
     }
+}
+
+//MARK: - setup UI
+extension LoginView {
     private func setupUI() {
         backgroundColor = .darkNavy
         let stackView = UIStackView(arrangedSubviews: [kakao, gmail, apple])
@@ -119,8 +129,5 @@ class LoginView: BaseView<LoginViewAction> {
             contractText.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50),
             contractText.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -50)
         ])
-    }
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }

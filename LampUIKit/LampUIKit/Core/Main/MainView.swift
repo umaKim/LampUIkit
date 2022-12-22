@@ -25,7 +25,7 @@ enum MainViewAction: Actionable {
     case refresh
 }
 
-class MainView: BaseView<MainViewAction> {
+final class MainView: BaseView<MainViewAction> {
     private(set) var mapView = GMSMapView()
     private lazy var allOverButton: UIButton = {
         let button = UIButton()
@@ -92,6 +92,10 @@ class MainView: BaseView<MainViewAction> {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+// MARK: - Bind
+extension MainView {
     private func bind() {
         allOverButton
             .tapPublisher
@@ -178,6 +182,10 @@ class MainView: BaseView<MainViewAction> {
             }
             .store(in: &cancellables)
     }
+}
+
+// MARK: - Set up UI
+extension MainView {
     private func setupUI() {
         buttonsView.model = [
             allOverButton,

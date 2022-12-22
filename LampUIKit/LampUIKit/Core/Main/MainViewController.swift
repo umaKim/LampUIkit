@@ -14,7 +14,7 @@ import FloatingPanel
 import GoogleMaps
 import Combine
 
-class MainViewController: BaseViewController<MainView, MainViewModel>, Alertable {
+final class MainViewController: BaseViewController<MainView, MainViewModel>, Alertable {
     private var fpc = FloatingPanelController()
     private lazy var floatingPanelControllerDelegateObject = FloatingPanelControllerDelegateObject()
     private lazy var locationManagerDelegateObject = CLLocationManagerDelegateObject()

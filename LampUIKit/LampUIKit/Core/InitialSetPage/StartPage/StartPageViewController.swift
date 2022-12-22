@@ -13,18 +13,27 @@ import CombineCocoa
 import UIKit
 import Lottie
 
-class StartPageViewController: BaseViewController<StartPageView, StartPageViewModel> {
+final class StartPageViewController: BaseViewController<StartPageView, StartPageViewModel> {
     override func viewDidLoad() {
         super.viewDidLoad()
         bind()
     }
-    // MARK: - Bind
-    private func bind() {
-        bindContentView()
-        bindViewModel()
+    private func presentMain(with uid: String) {
+        let nav = UINavigationController(rootViewController: MainViewController(MainView(), MainViewModel()))
+        present(nav,
+                transitionType: .fromTop,
+                animated: true, pushing: true)
     }
-    private func bindContentView() {
-        contentView
+}
+
+// MARK: - Bind
+extension StartPageViewController {
+    private func bind() {
+        bind(with: contentView)
+        bind(with: viewModel)
+    }
+    private func bind(with startPageView: StartPageView) {
+        startPageView
             .actionPublisher
             .sink {[weak self] action in
                 switch action {
@@ -35,7 +44,7 @@ class StartPageViewController: BaseViewController<StartPageView, StartPageViewMo
             }
             .store(in: &cancellables)
     }
-    private func bindViewModel() {
+    private func bind(with viewModel: StartPageViewModel) {
         viewModel
             .notifyPublisher
             .sink {[weak self] notification in
@@ -52,11 +61,5 @@ class StartPageViewController: BaseViewController<StartPageView, StartPageViewMo
                 }
             }
             .store(in: &cancellables)
-    }
-    private func presentMain(with uid: String) {
-        let nav = UINavigationController(rootViewController: MainViewController(MainView(), MainViewModel()))
-        present(nav,
-                transitionType: .fromTop,
-                animated: true, pushing: true)
     }
 }

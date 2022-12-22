@@ -7,22 +7,11 @@
 
 import UIKit
 
-class MyReviewCustomTitleView: UIView {
+final class MyReviewCustomTitleView: UIView {
     private lazy var titleLabel: UILabel = UILabel()
     init() {
         super.init(frame: .zero)
-        layer.borderWidth = 1
-        layer.cornerRadius = 9
-        layer.borderColor = UIColor(red: 217/250, green: 217/250, blue: 217/250, alpha: 1).cgColor
-        
-        addSubviews(titleLabel)
-        
-        NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            heightAnchor.constraint(equalToConstant: 50)
-        ])
+        setupUI()
     }
     var text: String? {
         didSet {
@@ -41,5 +30,17 @@ class MyReviewCustomTitleView: UIView {
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    private func setupUI() {
+        layer.borderWidth = 1
+        layer.cornerRadius = 9
+        layer.borderColor = UIColor(red: 217/250, green: 217/250, blue: 217/250, alpha: 1).cgColor
+        addSubviews(titleLabel)
+        NSLayoutConstraint.activate([
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            heightAnchor.constraint(equalToConstant: 50)
+        ])
     }
 }

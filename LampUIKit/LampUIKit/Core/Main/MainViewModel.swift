@@ -28,7 +28,7 @@ enum MainViewModelNotification: Notifiable {
     case changeGoogleMapPadding
 }
 
-class MainViewModel: BaseViewModel<MainViewModelNotification> {
+final class MainViewModel: BaseViewModel<MainViewModelNotification> {
     private(set) var recommendedPlaces: [RecommendedLocation] = []
     private(set) var markerType: MapMaker = RecommendedMapMarker()
     private(set) var coord: Coord = .init(latitude: 0, longitude: 0)
@@ -270,6 +270,7 @@ extension MainViewModel {
     }
 }
 
+// MARK: - CLLocationManagerDelegate
 extension MainViewModel: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {

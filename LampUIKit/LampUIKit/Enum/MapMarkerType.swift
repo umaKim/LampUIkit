@@ -35,4 +35,3 @@ struct CompletedMapMarker: MapMaker {
         return .circleCompleted ?? UIImage()
     }
 }
-

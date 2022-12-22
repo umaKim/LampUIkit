@@ -16,7 +16,7 @@ enum CreateNickNameViewModelNotification: Notifiable {
     case isEnableConfirmButton(Bool)
 }
 
-class CreateNickNameViewModel: BaseViewModel<CreateNickNameViewModelNotification> {
+final class CreateNickNameViewModel: BaseViewModel<CreateNickNameViewModelNotification> {
     private var nickName: String = ""
     private let auth: Autheable
     private let network: Networkable
@@ -28,10 +28,18 @@ class CreateNickNameViewModel: BaseViewModel<CreateNickNameViewModelNotification
         self.network = network
         super.init()
     }
+}
+
+// MARK: - Public Methods
+extension CreateNickNameViewModel {
     public func createAccount() {
         guard let token = auth.token else {return }
         let parameters = NickNameSettingData(nickname: nickName, socialToken: token, isAdmin: 0)
-        network.post(.postNickName, parameters, Response.self) { [weak self] result in
+        network.post(
+            .postNickName,
+            parameters,
+            Response.self
+        ) { [weak self] result in
             guard let self = self else {return}
             switch result {
             case .success(let response):

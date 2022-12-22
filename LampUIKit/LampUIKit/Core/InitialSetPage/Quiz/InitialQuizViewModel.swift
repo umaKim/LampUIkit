@@ -20,7 +20,7 @@ enum InitialQuizViewStatus {
     case result
 }
 
-class InitialQuizViewModel: BaseViewModel<InitialQuizViewModelNotification> {
+final class InitialQuizViewModel: BaseViewModel<InitialQuizViewModelNotification> {
     private let characterImages: [UIImage?] = [
         .init(named: "resultRacoon".localized),
         .init(named: "resultRabbit".localized),
@@ -41,19 +41,10 @@ class InitialQuizViewModel: BaseViewModel<InitialQuizViewModelNotification> {
         fetch()
     }
     private var currentIndex: Int = 0
-    private func fetch() {
-        network.get(.fetchQuestions, [Question].self) {[weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let questions):
-                self.questions = questions
-                self.currentIndex = 0
-                self.sendNotification(.quizData(self.questions[self.currentIndex]))
-            case .failure(let error):
-                print(error)
-            }
-        }
-    }
+}
+
+// MARK: - Public Methods
+extension InitialQuizViewModel {
     public func answerChoice(_ answer: Int) {
         answers.removeAll(where: {$0.questionId == self.currentIndex})
         answers.append(.init(questionId: currentIndex, answer: answer))
@@ -66,35 +57,63 @@ class InitialQuizViewModel: BaseViewModel<InitialQuizViewModelNotification> {
             resultProcess()
         }
     }
+}
+
+// MARK: - Private Methods
+extension InitialQuizViewModel {
+    private func fetch() {
+        network.get(
+            .fetchQuestions,
+            [Question].self
+        ) {[weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let questions):
+                self.questions = questions
+                self.currentIndex = 0
+                self.sendNotification(.quizData(self.questions[self.currentIndex]))
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
     private func quizProcess() {
         if currentIndex != 5 {
             if answers.contains(where: {$0.questionId == self.currentIndex}) {
                 currentIndex += 1
-                sendNotification(.quizData(self.questions[currentIndex]))
+                sendNotification(.quizData(questions[currentIndex]))
             } else {
                 // TODO: show alert
                 print("please choose something")
             }
         } else {
-            network.post(.postAnswers, answers, CharacterResponse.self) {[weak self] result in
-                guard let self = self else { return }
-                switch result {
-                case .success(let response):
-                    self.status = .result
-                    if let image = self.characterImages[response.result.characterChosen ?? 0] {
-                        self.sendNotification(.setCharacterImage(image))
-                    } else {
-                        if let image: UIImage = .placeholder {
-                            self.sendNotification(.setCharacterImage(image))
-                        }
-                    }
-                case .failure(let error):
-                    print(error)
-                }
-            }
+            postQuizAnswers()
         }
     }
     private func resultProcess() {
         self.sendNotification(.finishInitialQuiz)
+    }
+    private func postQuizAnswers() {
+        network.post(
+            .postAnswers,
+            answers,
+            CharacterResponse.self
+        ) {[weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                self.status = .result
+                let chosenCharacter = response.result.characterChosen ?? 0
+                if let image = self.characterImages[chosenCharacter] {
+                    self.sendNotification(.setCharacterImage(image))
+                } else {
+                    if let image: UIImage = .placeholder {
+                        self.sendNotification(.setCharacterImage(image))
+                    }
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }

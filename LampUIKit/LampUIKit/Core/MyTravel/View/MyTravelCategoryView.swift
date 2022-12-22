@@ -63,14 +63,15 @@ final class MyTravelCategoryView: BaseView<MenuBarButtonAction> {
         .store(in: &cancellables)
     }
     private func setupUI() {
-        let horizontalStackView = UIStackView(arrangedSubviews: [myTravelButton, favoritePlaceButton, completedTravelButton])
+        let horizontalStackView = UIStackView(arrangedSubviews: [
+            myTravelButton,
+            favoritePlaceButton,
+            completedTravelButton
+        ])
         horizontalStackView.axis = .horizontal
         horizontalStackView.distribution = .fillEqually
         horizontalStackView.alignment = .fill
-        [horizontalStackView, separatorView].forEach { uiView in
-            uiView.translatesAutoresizingMaskIntoConstraints = false
-            addSubview(uiView)
-        }
+        addSubviews(horizontalStackView, separatorView)
         addSubview(selectionBarView)
         NSLayoutConstraint.activate([
             horizontalStackView.leadingAnchor.constraint(equalTo: leadingAnchor),

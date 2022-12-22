@@ -67,20 +67,17 @@ class SearchView: BaseView<SearchViewAction> {
     }
     private func setupUI() {
         collectionView.keyboardDismissMode = .onDrag
-        let sv = UIStackView(arrangedSubviews: [collectionView])
-        sv.alignment = .fill
-        sv.distribution = .fill
-        sv.axis = .vertical
-        sv.spacing = 16
-        [sv].forEach { uv in
-            uv.translatesAutoresizingMaskIntoConstraints = false
-            addSubview(uv)
-        }
+        let stackView = UIStackView(arrangedSubviews: [collectionView])
+        stackView.alignment = .fill
+        stackView.distribution = .fill
+        stackView.axis = .vertical
+        stackView.spacing = 16
+        addSubviews(stackView)
         NSLayoutConstraint.activate([
-            sv.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            sv.leadingAnchor.constraint(equalTo: leadingAnchor),
-            sv.trailingAnchor.constraint(equalTo: trailingAnchor),
-            sv.bottomAnchor.constraint(equalTo: bottomAnchor)
+            stackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
         backgroundColor = .greyshWhite
     }

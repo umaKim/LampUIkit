@@ -16,16 +16,6 @@ protocol ContentViewProtocol<T> {
     var actionSubject: PassthroughSubject<T, Never> { get }
 }
 
-//extension ContentViewProtocol {
-//    var actionSubject: PassthroughSubject<T, Never> {
-//        PassthroughSubject<T, Never>()
-//    }
-//
-//    func sendAction(_ input: T) {
-//        actionSubject.send(input)
-//    }
-//}
-
 class BaseView<T: Actionable>: UIView, ContentViewProtocol {
     private(set) lazy var baseView: UIView = self
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()

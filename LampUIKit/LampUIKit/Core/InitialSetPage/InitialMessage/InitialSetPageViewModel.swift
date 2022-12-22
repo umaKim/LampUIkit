@@ -18,7 +18,7 @@ enum InitialSetPageViewStatus {
 
 enum InitialSetPageViewModelNotification: Notifiable { }
 
-class InitialSetPageViewModel: BaseViewModel<InitialSetPageViewModelNotification> {
+final class InitialSetPageViewModel: BaseViewModel<InitialSetPageViewModelNotification> {
     private(set) lazy var beginningMessages: [String] = [
         " 램프에 오신 것을 환영합니다! ".localized,
         "지금부터 당신에게 맞는\n램프 캐릭터 배정을 시작합니다 ".localized,

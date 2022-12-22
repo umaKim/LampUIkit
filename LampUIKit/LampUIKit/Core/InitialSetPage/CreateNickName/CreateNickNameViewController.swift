@@ -9,7 +9,7 @@ import UmaBasicAlertKit
 import Combine
 import UIKit
 
-class CreateNickNameViewController: BaseViewController<CreateNickNameView, CreateNickNameViewModel>, Alertable {
+final class CreateNickNameViewController: BaseViewController<CreateNickNameView, CreateNickNameViewModel>, Alertable {
     override func loadView() {
         super.loadView()
         view = contentView.baseView
@@ -21,7 +21,15 @@ class CreateNickNameViewController: BaseViewController<CreateNickNameView, Creat
         isInitialSettingDone(false)
         bind()
     }
+}
+
+// MARK: - Bind
+extension CreateNickNameViewController {
     private func bind() {
+        bind(with: contentView)
+        bind(with: viewModel)
+    }
+    private func bind(with contentView: CreateNickNameView) {
         contentView
             .actionPublisher
             .sink {[weak self] action in
@@ -38,6 +46,8 @@ class CreateNickNameViewController: BaseViewController<CreateNickNameView, Creat
                 }
             }
             .store(in: &cancellables)
+    }
+    private func bind(with viewModel: CreateNickNameViewModel) {
         viewModel
             .notifyPublisher
             .sink {[weak self] noti in
