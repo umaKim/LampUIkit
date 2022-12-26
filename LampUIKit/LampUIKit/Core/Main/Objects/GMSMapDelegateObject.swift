@@ -17,7 +17,7 @@ protocol GMSMapObjectProtocol: AnyObject {
 }
 final class GMSMapDelegateObject: NSObject, GMSMapViewDelegate {
     weak var delegate: GMSMapObjectProtocol?
-    //Viewmodel을 weak 로 넘겨준다. 그리고 여기에서 GMS에서 해줄수 있는것들을 해준다.
+    // Viewmodel을 weak 로 넘겨준다. 그리고 여기에서 GMS에서 해줄수 있는것들을 해준다.
     // 이런식으로 Delegate, datasource 구체화를 해주면 vc가 좀더 홀쭉애 질수 있다.
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
         let lat = position.target.latitude

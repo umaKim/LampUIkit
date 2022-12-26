@@ -120,7 +120,6 @@
 		353038D628A4AD8600ECAF0D /* ZoomLevelDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353038D528A4AD8600ECAF0D /* ZoomLevelDistance.swift */; };
 		353038D928A5E3E300ECAF0D /* RecommendedLocationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353038D828A5E3E300ECAF0D /* RecommendedLocationResponse.swift */; };
 		353038DB28A5E3FF00ECAF0D /* LoginUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353038DA28A5E3FF00ECAF0D /* LoginUserData.swift */; };
-		353038DD28A5E40F00ECAF0D /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353038DC28A5E40F00ECAF0D /* Location.swift */; };
 		353038DF28A5E41C00ECAF0D /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353038DE28A5E41C00ECAF0D /* Response.swift */; };
 		353038E128A5F39E00ECAF0D /* CircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353038E028A5F39E00ECAF0D /* CircleButton.swift */; };
 		353038E328A5F3AA00ECAF0D /* EllipseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353038E228A5F3AA00ECAF0D /* EllipseButton.swift */; };
@@ -137,7 +136,6 @@
 		3532F5C028E67285002889F1 /* ImageViewCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3532F5BF28E67285002889F1 /* ImageViewCollectionView.swift */; };
 		3532F5C228E9AC79002889F1 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3532F5C128E9AC79002889F1 /* EmptyStateView.swift */; };
 		3532F5C428E9BA0B002889F1 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3532F5C328E9BA0B002889F1 /* Message.swift */; };
-		3532F5C628EA92D1002889F1 /* CategoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3532F5C528EA92D1002889F1 /* CategoryType.swift */; };
 		3532F5CB28EB0535002889F1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3532F5CD28EB0535002889F1 /* Localizable.strings */; };
 		354A512728CB3B4800599F2C /* Sequence+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354A512628CB3B4700599F2C /* Sequence+Ext.swift */; };
 		35672661295427CD00B90884 /* HapticManager in Frameworks */ = {isa = PBXBuildFile; productRef = 35672660295427CD00B90884 /* HapticManager */; };
@@ -177,6 +175,8 @@
 		35C2092E28A8A9D200759C68 /* CreateNickNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C2092D28A8A9D200759C68 /* CreateNickNameView.swift */; };
 		35C2093028A8B80500759C68 /* LampRectangleTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C2092F28A8B80500759C68 /* LampRectangleTextField.swift */; };
 		35C2093228AA0E8D00759C68 /* ImageCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C2093128AA0E8D00759C68 /* ImageCollectionHeaderView.swift */; };
+		35CB9DE429552BE0008E8383 /* MyTravelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CB9DE329552BE0008E8383 /* MyTravelViewController.swift */; };
+		35CB9DE6295539FE008E8383 /* MyTravelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CB9DE5295539FE008E8383 /* MyTravelView.swift */; };
 		35CDECC928F3041D00517794 /* LikeDataPatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CDECC828F3041D00517794 /* LikeDataPatch.swift */; };
 		35CDECDB28F6D5E800517794 /* CompleteTripPostData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CDECDA28F6D5E800517794 /* CompleteTripPostData.swift */; };
 		35CDECDD28F6D5F400517794 /* MyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CDECDC28F6D5F400517794 /* MyInfo.swift */; };
@@ -341,7 +341,6 @@
 		353038D528A4AD8600ECAF0D /* ZoomLevelDistance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomLevelDistance.swift; sourceTree = "<group>"; };
 		353038D828A5E3E300ECAF0D /* RecommendedLocationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedLocationResponse.swift; sourceTree = "<group>"; };
 		353038DA28A5E3FF00ECAF0D /* LoginUserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserData.swift; sourceTree = "<group>"; };
-		353038DC28A5E40F00ECAF0D /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		353038DE28A5E41C00ECAF0D /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		353038E028A5F39E00ECAF0D /* CircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButton.swift; sourceTree = "<group>"; };
 		353038E228A5F3AA00ECAF0D /* EllipseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EllipseButton.swift; sourceTree = "<group>"; };
@@ -358,7 +357,6 @@
 		3532F5BF28E67285002889F1 /* ImageViewCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewCollectionView.swift; sourceTree = "<group>"; };
 		3532F5C128E9AC79002889F1 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		3532F5C328E9BA0B002889F1 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
-		3532F5C528EA92D1002889F1 /* CategoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryType.swift; sourceTree = "<group>"; };
 		3532F5CC28EB0535002889F1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3532F5CE28EB057A002889F1 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		3532F5CF28EB058F002889F1 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -400,6 +398,8 @@
 		35C2092D28A8A9D200759C68 /* CreateNickNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNickNameView.swift; sourceTree = "<group>"; };
 		35C2092F28A8B80500759C68 /* LampRectangleTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LampRectangleTextField.swift; sourceTree = "<group>"; };
 		35C2093128AA0E8D00759C68 /* ImageCollectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionHeaderView.swift; sourceTree = "<group>"; };
+		35CB9DE329552BE0008E8383 /* MyTravelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTravelViewController.swift; sourceTree = "<group>"; };
+		35CB9DE5295539FE008E8383 /* MyTravelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTravelView.swift; sourceTree = "<group>"; };
 		35CDECC828F3041D00517794 /* LikeDataPatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeDataPatch.swift; sourceTree = "<group>"; };
 		35CDECDA28F6D5E800517794 /* CompleteTripPostData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteTripPostData.swift; sourceTree = "<group>"; };
 		35CDECDC28F6D5F400517794 /* MyInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfo.swift; sourceTree = "<group>"; };
@@ -812,8 +812,10 @@
 		35189E49289251C40030F987 /* MyTravelCell */ = {
 			isa = PBXGroup;
 			children = (
-				35FF5E3A28EBFDDC004A7EFF /* MyTravelCellViewModel.swift */,
 				35189DEA288571C90030F987 /* MyTravelCell.swift */,
+				35FF5E3A28EBFDDC004A7EFF /* MyTravelCellViewModel.swift */,
+				35CB9DE329552BE0008E8383 /* MyTravelViewController.swift */,
+				35CB9DE5295539FE008E8383 /* MyTravelView.swift */,
 				35189E4A289251D50030F987 /* MyTravelHeader */,
 				35189E4F289252130030F987 /* MyTravelCollectionViewCell */,
 			);
@@ -968,7 +970,6 @@
 			children = (
 				353038DA28A5E3FF00ECAF0D /* LoginUserData.swift */,
 				353038D828A5E3E300ECAF0D /* RecommendedLocationResponse.swift */,
-				353038DC28A5E40F00ECAF0D /* Location.swift */,
 				353038DE28A5E41C00ECAF0D /* Response.swift */,
 				353038F728A7F88900ECAF0D /* CharacterData.swift */,
 				359FB13528E05BA500DE488B /* MyTravelDataSet.swift */,
@@ -1001,7 +1002,6 @@
 				35B2265328C5B98A00346C6F /* RatingStandard.swift */,
 				359FB13A28E1CC0700DE488B /* MapMarkerType.swift */,
 				3532F5C328E9BA0B002889F1 /* Message.swift */,
-				3532F5C528EA92D1002889F1 /* CategoryType.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -1525,7 +1525,6 @@
 				353038F828A7F88900ECAF0D /* CharacterData.swift in Sources */,
 				359FB13B28E1CC0700DE488B /* MapMarkerType.swift in Sources */,
 				35FF5E3928EB49FD004A7EFF /* HorizontalScrollButtonView.swift in Sources */,
-				353038DD28A5E40F00ECAF0D /* Location.swift in Sources */,
 				35FF5E3728EB49E2004A7EFF /* BaseScrollView.swift in Sources */,
 				35189DEB288571C90030F987 /* MyTravelCell.swift in Sources */,
 				35FF5E4328EC5430004A7EFF /* MyReviewCustomTitleView.swift in Sources */,
@@ -1540,6 +1539,7 @@
 				3507DC3528B7765C0079E921 /* RecommendedLocationViewController.swift in Sources */,
 				3507DC3E28BA98E90079E921 /* CustomNavigationBarView.swift in Sources */,
 				359FB13228E03D7100DE488B /* StartPageViewModel.swift in Sources */,
+				35CB9DE6295539FE008E8383 /* MyTravelView.swift in Sources */,
 				35189E82289412800030F987 /* ARViewModel.swift in Sources */,
 				353038D928A5E3E300ECAF0D /* RecommendedLocationResponse.swift in Sources */,
 				35E3EFDB28AB60C2009F902B /* LocationDescriptionView.swift in Sources */,
@@ -1572,7 +1572,6 @@
 				353038D228A23DE000ECAF0D /* MainViewController.swift in Sources */,
 				35189E302889800C0030F987 /* MyReviewsViewController.swift in Sources */,
 				35189E56289254A30030F987 /* FavoriteCellCollectionViewCell.swift in Sources */,
-				3532F5C628EA92D1002889F1 /* CategoryType.swift in Sources */,
 				35CDECE928F6D65000517794 /* TotalAvgReviewRate.swift in Sources */,
 				359FB13D28E1CCEC00DE488B /* AnswerButton.swift in Sources */,
 				3507DC3A28B776840079E921 /* RecommendedLocationViewmodel.swift in Sources */,
@@ -1610,6 +1609,7 @@
 				35189E2E288980030030F987 /* MyReviewsView.swift in Sources */,
 				35189DD62882CE490030F987 /* MyTravelCategoryView.swift in Sources */,
 				35189E932894C1590030F987 /* InitialQuizViewController.swift in Sources */,
+				35CB9DE429552BE0008E8383 /* MyTravelViewController.swift in Sources */,
 				3584EF112938EBFA00153799 /* CLLocationManagerDelegateObject.swift in Sources */,
 				35189D8B287F0D850030F987 /* LoginView.swift in Sources */,
 				353038EF28A5F58D00ECAF0D /* UIScreen+Ext.swift in Sources */,

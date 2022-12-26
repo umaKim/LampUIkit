@@ -103,7 +103,7 @@ class MyReviewCollectionViewCell: UICollectionViewCell, BodyCellable {
         totalSv.alignment = .fill
         totalSv.distribution = .fill
         totalSv.spacing = 16
-        addSubViews(totalSv)
+        contentView.addSubviews(totalSv)
         NSLayoutConstraint.activate([
             totalSv.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             totalSv.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),

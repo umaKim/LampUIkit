@@ -8,14 +8,14 @@
 import UmaBasicAlertKit
 import UIKit
 
-protocol MyTravelViewControllerDelegate: AnyObject {
+protocol ContainerViewControllerDelegate: AnyObject {
     func myTravelViewControllerDidTapDismiss()
     func myTravelViewControllerDidTapMapButton(_ location: RecommendedLocation)
     func myTravelViewControllerDidTapNavigation(_ location: RecommendedLocation)
 }
 
-final class MyTravelViewController: BaseViewController<MyTravelView, MyTravelViewModel>, Alertable {
-    weak var delegate: MyTravelViewControllerDelegate?
+final class ContainerViewController: BaseViewController<ContainerView, ContainerViewModel>, Alertable {
+    weak var delegate: ContainerViewControllerDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.largeTitleDisplayMode = .always
@@ -44,7 +44,7 @@ final class MyTravelViewController: BaseViewController<MyTravelView, MyTravelVie
 }
 
 // MARK: - MyTravelCellDelegate
-extension MyTravelViewController: MyTravelCellDelegate {
+extension ContainerViewController: MyTravelCellDelegate {
     func myTravelCellDelegateDidReceiveResponse(_ message: String) {
         self.showDefaultAlert(title: message)
     }
@@ -58,7 +58,7 @@ extension MyTravelViewController: MyTravelCellDelegate {
     func myTravelCellDelegateDidTapDelete(at index: Int) { }
 }
 // MARK: - FavoriteCellDelegate
-extension MyTravelViewController: FavoriteCellDelegate {
+extension ContainerViewController: FavoriteCellDelegate {
     func favoriteCellDidTap(_ item: MyBookMarkLocation) {
         let viewModel = LocationDetailViewModel(item)
         let viewController = LocationDetailViewController(LocationDetailView(), viewModel)
@@ -68,7 +68,7 @@ extension MyTravelViewController: FavoriteCellDelegate {
     func favoriteCellDidTapDelete(at index: Int) { }
 }
 // MARK: - CompletedTravelCellDelegate
-extension MyTravelViewController: CompletedTravelCellDelegate {
+extension ContainerViewController: CompletedTravelCellDelegate {
     func completedTravelCellDidTap(_ item: MyCompletedTripLocation) {
         let viewModel = LocationDetailViewModel(item)
         let viewController = LocationDetailViewController(LocationDetailView(), viewModel)
@@ -79,7 +79,7 @@ extension MyTravelViewController: CompletedTravelCellDelegate {
 }
 
 // MARK: - LocationDetailViewControllerDelegate
-extension MyTravelViewController: LocationDetailViewControllerDelegate {
+extension ContainerViewController: LocationDetailViewControllerDelegate {
     func locationDetailViewControllerDidTapNavigate(_ location: RecommendedLocation) {
         self.delegate?.myTravelViewControllerDidTapNavigation(location)
     }
@@ -93,7 +93,7 @@ extension MyTravelViewController: LocationDetailViewControllerDelegate {
 }
 
 // MARK: - UICollectionViewDataSource
-extension MyTravelViewController: UICollectionViewDataSource {
+extension ContainerViewController: UICollectionViewDataSource {
     func collectionView(
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
@@ -140,7 +140,7 @@ extension MyTravelViewController: UICollectionViewDataSource {
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
-extension MyTravelViewController: UICollectionViewDelegateFlowLayout {
+extension ContainerViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,

@@ -67,7 +67,7 @@ final class MainView: BaseView<MainViewAction> {
         button.setImage(.init(named: "filterForest".localized), for: .normal)
         return button
     }()
-    lazy var buttonsView: HorizontalScrollButtonView = {
+    private lazy var buttonsView: HorizontalScrollButtonView = {
         let view = HorizontalScrollButtonView()
         return view
     }()

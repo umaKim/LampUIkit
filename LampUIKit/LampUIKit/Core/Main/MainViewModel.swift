@@ -115,7 +115,10 @@ extension MainViewModel {
     }
     public func fetchAllOver() {
         sendNotification(.startLoading)
-        network.get(.fetchRecommendationFromAllOver, RecommendedLocationResponse.self) {[weak self] result in
+        network.get(
+            .fetchRecommendationFromAllOver,
+            RecommendedLocationResponse.self
+        ) {[weak self] result in
             guard let self = self else { return }
             self.sendNotification(.endLoading)
             switch result {
@@ -165,7 +168,7 @@ extension MainViewModel {
             .fetchCompletedTravel,
             RecommendedLocationResponse.self
         ) {[weak self] result in
-            guard let self = self else {return }
+            guard let self = self else { return }
             self.sendNotification(.endLoading)
             switch result {
             case .success(let items):
@@ -185,7 +188,7 @@ extension MainViewModel {
             RecommendedLocationResponse.self,
             parameters: Empty.value
         ) { [weak self] result in
-            guard let self = self else {return}
+            guard let self = self else { return }
             self.sendNotification(.endLoading)
             switch result {
             case .success(let items):
@@ -213,7 +216,7 @@ extension MainViewModel {
     }
 }
 
-//MARK: - Private methods
+// MARK: - Private methods
 extension MainViewModel {
     private func mainFlow() {
         self.locationManager.requestLocation()

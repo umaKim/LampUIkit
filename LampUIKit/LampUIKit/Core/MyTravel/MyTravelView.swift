@@ -14,12 +14,12 @@ enum MenuTabBarButtonType: Int {
     case completedTravel = 2
 }
 
-enum MyTravelViewAction: Actionable {
+enum ContainerViewAction: Actionable {
 //    case gear
     case dismiss
 }
 
-class MyTravelView: BaseView<MyTravelViewAction> {
+final class ContainerView: BaseView<ContainerViewAction> {
     private(set) var dismissButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: .back, style: .done, target: nil, action: nil)
         return button
@@ -78,10 +78,7 @@ class MyTravelView: BaseView<MyTravelViewAction> {
             .store(in: &cancellables)
     }
     private func setupUI() {
-        [categoryButton, collectionView].forEach { uiView in
-            uiView.translatesAutoresizingMaskIntoConstraints = false
-            addSubview(uiView)
-        }
+        addSubviews(categoryButton, collectionView)
         NSLayoutConstraint.activate([
             categoryButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             categoryButton.leadingAnchor.constraint(equalTo: leadingAnchor),

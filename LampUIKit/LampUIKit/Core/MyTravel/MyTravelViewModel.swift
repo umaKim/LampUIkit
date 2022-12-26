@@ -8,6 +8,6 @@
 import Combine
 import Foundation
 
-enum MyTravelViewModelNotification: Notifiable { }
+enum ContainerViewModelNotification: Notifiable { }
 
-class MyTravelViewModel: BaseViewModel<MyTravelViewModelNotification> { }
+final class ContainerViewModel: BaseViewModel<ContainerViewModelNotification> { }
