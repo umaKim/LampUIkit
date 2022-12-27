@@ -15,7 +15,7 @@ enum SearchViewAction: Actionable {
     case didTapSearchButton
 }
 
-class SearchView: BaseView<SearchViewAction> {
+final class SearchView: BaseView<SearchViewAction> {
     private(set) var dismissButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: .back, style: .done, target: nil, action: nil)
         return button

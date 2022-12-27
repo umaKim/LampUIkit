@@ -9,16 +9,16 @@ import UIKit
 
 enum CustomNavigationBarViewAction: Actionable { }
 
-class CustomNavigationBarView: BaseView<CustomNavigationBarViewAction> {
+final class CustomNavigationBarView: BaseView<CustomNavigationBarViewAction> {
     private lazy var titleLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.font = .systemFont(ofSize: 20, weight: .bold)
         label.textColor = .midNavy
         label.numberOfLines = 2
         return label
     }()
     private lazy var buttonSv: UIStackView = {
-       let stackView = UIStackView()
+        let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.alignment = .fill
         stackView.distribution = .fill
@@ -27,19 +27,15 @@ class CustomNavigationBarView: BaseView<CustomNavigationBarViewAction> {
     }()
     override init() {
         super.init()
-        heightAnchor.constraint(equalToConstant: 70).isActive = true
-        [titleLabel, buttonSv].forEach { uiView in
-            uiView.translatesAutoresizingMaskIntoConstraints = false
-            addSubview(uiView)
-        }
-        NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
-            titleLabel.trailingAnchor.constraint(equalTo: centerXAnchor, constant: 16),
-            buttonSv.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
-            buttonSv.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
-        ])
+        setupUI()
     }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+// MARK: - Public methods
+extension CustomNavigationBarView {
     public func setRightSideItems(_ buttons: [UIButton]) {
         buttons.forEach { uiView in
             self.buttonSv.addArrangedSubview(uiView)
@@ -48,7 +44,19 @@ class CustomNavigationBarView: BaseView<CustomNavigationBarViewAction> {
     public func updateTitle(_ text: String) {
         titleLabel.text = text
     }
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+}
+
+// MARK: - Set up UI
+extension CustomNavigationBarView {
+    private func setupUI() {
+        heightAnchor.constraint(equalToConstant: 70).isActive = true
+        addSubviews(titleLabel, buttonSv)
+        NSLayoutConstraint.activate([
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
+            titleLabel.trailingAnchor.constraint(equalTo: centerXAnchor, constant: 16),
+            buttonSv.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
+            buttonSv.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
+        ])
     }
 }

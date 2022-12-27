@@ -241,17 +241,14 @@ extension LocationDetailView {
         locationImageView.backgroundColor = .greyshWhite
         locationImageView.clipsToBounds = true
         locationImageView.layer.cornerRadius = 6
-        [
+        contentView.addSubviews(
             locationImageView,
             buttonSv,
             dividerView,
             labelStackView,
             addToMyTravelButton,
             totalTravelReviewView
-        ].forEach { uiView in
-            uiView.translatesAutoresizingMaskIntoConstraints = false
-            contentView.addSubview(uiView)
-        }
+        )
         dividerView.isSkeletonable = true
         addToMyTravelButton.isSkeletonable = true
         totalTravelReviewView.isSkeletonable = true

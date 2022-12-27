@@ -16,7 +16,7 @@ protocol SearchViewControllerDelegate: AnyObject {
     func searchBarDidTap()
 }
 
-class SearchViewController: BaseViewController<SearchView, SearchViewModel>, Alertable {
+final class SearchViewController: BaseViewController<SearchView, SearchViewModel>, Alertable {
     private typealias DataSource = UICollectionViewDiffableDataSource<Section, RecommendedLocation>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, RecommendedLocation>
     enum Section { case main }
@@ -105,7 +105,7 @@ extension SearchViewController {
         dataSource = DataSource(
             collectionView: contentView.collectionView,
             cellProvider: {[weak self] collectionView, indexPath, _ in
-                guard let self = self else {return nil}
+                guard let self = self else { return nil }
                 guard
                     let cell = collectionView.dequeueReusableCell(
                         withReuseIdentifier: SearchRecommendationCollectionViewCell.identifier,

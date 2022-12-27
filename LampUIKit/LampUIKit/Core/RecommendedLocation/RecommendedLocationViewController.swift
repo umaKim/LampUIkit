@@ -4,6 +4,7 @@
 //
 //  Created by 김윤석 on 2022/08/25.
 //
+import UmaBasicAlertKit
 import HapticManager
 import UIKit
 
@@ -15,7 +16,7 @@ protocol RecommendedLocationViewControllerDelegate: AnyObject {
     func recommendedLocationViewControllerDidTapNavigation(location: RecommendedLocation)
 }
 
-class RecommendedLocationViewController: BaseViewController<RecommendedLocationView, RecommendedLocationViewmodel> {
+final class RecommendedLocationViewController: BaseViewController<RecommendedLocationView, RecommendedLocationViewmodel>, Alertable {
     private typealias DataSource = UICollectionViewDiffableDataSource<Section, RecommendedLocation>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, RecommendedLocation>
     enum Section { case main }
@@ -70,7 +71,7 @@ class RecommendedLocationViewController: BaseViewController<RecommendedLocationV
                 case .reload:
                     self?.updateSections()
                 case .showMessage(let message):
-                    break
+                    self?.showBottomAlert(message: message)
                 }
             }
             .store(in: &cancellables)

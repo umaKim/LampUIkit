@@ -16,11 +16,11 @@ class ImageCollectionHeaderView: UICollectionReusableView, HeaderCellable {
     static let identifier = "ImageCollectionHeaderView"
     weak var delegate: ImageCollectionHeaderViewDelegate?
     private lazy var button: UIButton = {
-       let bt = UIButton()
-        bt.setImage(UIImage(named: "newImageButton"), for: .normal)
-        bt.widthAnchor.constraint(equalToConstant: 84).isActive = true
-        bt.heightAnchor.constraint(equalToConstant: 84).isActive = true
-        return bt
+        let button = UIButton()
+        button.setImage(UIImage(named: "newImageButton"), for: .normal)
+        button.widthAnchor.constraint(equalToConstant: 84).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 84).isActive = true
+        return button
     }()
     private var cancellables: Set<AnyCancellable>
     override init(frame: CGRect) {

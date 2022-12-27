@@ -18,7 +18,7 @@ protocol SearchRecommendationCollectionViewCellDelegate: AnyObject {
     func didTapFavoriteButton(at index: Int, _ location: RecommendedLocation)
 }
 
-class SearchRecommendationCollectionViewCell: UICollectionViewCell, BodyCellable {
+final class SearchRecommendationCollectionViewCell: UICollectionViewCell, BodyCellable {
     static let identifier = "SearchRecommendationCollectionViewCell"
     weak var delegate: SearchRecommendationCollectionViewCellDelegate?
     private let titleLabel: UILabel = {
@@ -166,6 +166,10 @@ class SearchRecommendationCollectionViewCell: UICollectionViewCell, BodyCellable
             }
             .store(in: &cancellables)
     }
+}
+
+// MARK: - Set up UI
+extension SearchRecommendationCollectionViewCell {
     private func setupUI() {
         backgroundColor = .greyshWhite
         let descriptionSv = UIStackView(arrangedSubviews: [descriptionLabel])

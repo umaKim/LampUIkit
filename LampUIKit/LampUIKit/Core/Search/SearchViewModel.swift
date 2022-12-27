@@ -16,10 +16,19 @@ enum SearchViewModelNotification: Notifiable {
     case showMessage(String)
 }
 
-class SearchViewModel: BaseViewModel<SearchViewModelNotification> {
+final class SearchViewModel: BaseViewModel<SearchViewModelNotification> {
+    private var pageNumber = 1
+    private var searchKeyword = ""
+    private var isFetching: Bool = false
+    private var isPagenationDone: Bool = false
     private let auth: Autheable
     private let network: Networkable
     private(set) var locations = [RecommendedLocation]()
+    public var isPaginating: Bool? {
+        didSet {
+            self.isPagenationDone = !(isPaginating ?? false)
+        }
+    }
     init(
         _ auth: Autheable = AuthManager.shared,
         _ network: Networkable = NetworkManager()
@@ -27,15 +36,6 @@ class SearchViewModel: BaseViewModel<SearchViewModelNotification> {
         self.auth = auth
         self.network = network
         super.init()
-    }
-    private var pageNumber = 1
-    private var searchKeyword = ""
-    private var isFetching: Bool = false
-    private var isPagenationDone: Bool = false
-    public var isPaginating: Bool? {
-        didSet {
-            self.isPagenationDone = !(isPaginating ?? false)
-        }
     }
 }
 
