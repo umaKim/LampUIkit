@@ -14,7 +14,8 @@ enum RecommendedLocationViewAction: Actionable {
     case myTravel
 }
 
-class RecommendedLocationView: BaseView<RecommendedLocationViewAction> {
+final class RecommendedLocationView: BaseView<RecommendedLocationViewAction> {
+    // MARK: - UI Objects
     private(set) lazy var customNavigationbar = CustomNavigationBarView()
     private(set) var collectionView = BaseCollectionView<SearchRecommendationCollectionViewCell>(.vertical, 18)
     private(set) lazy var searchButton: UIButton = {
@@ -32,14 +33,22 @@ class RecommendedLocationView: BaseView<RecommendedLocationViewAction> {
         button.setImage(UIImage(named: "myCharacter"), for: .normal)
         return button
     }()
-    public func updateCustomNavigationBarTitle(_ text: String) {
-        customNavigationbar.updateTitle(text)
-    }
+    // MARK: - Init
     override init() {
         super.init()
         bind()
         setupUI()
     }
+    public func updateCustomNavigationBarTitle(_ text: String) {
+        customNavigationbar.updateTitle(text)
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+// MARK: - Bind
+extension RecommendedLocationView {
     private func bind() {
         searchButton
             .tapPublisher
@@ -60,6 +69,10 @@ class RecommendedLocationView: BaseView<RecommendedLocationViewAction> {
             }
             .store(in: &cancellables)
     }
+}
+
+// MARK: - Set up UI
+extension RecommendedLocationView {
     private func setupUI() {
         collectionView.keyboardDismissMode = .onDrag
         collectionView.contentInset = .init(top: 16, left: 0, bottom: 80, right: 0)
@@ -75,8 +88,5 @@ class RecommendedLocationView: BaseView<RecommendedLocationViewAction> {
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
             collectionView.topAnchor.constraint(equalTo: customNavigationbar.bottomAnchor)
         ])
-    }
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }

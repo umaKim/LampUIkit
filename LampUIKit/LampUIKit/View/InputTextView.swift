@@ -14,9 +14,9 @@ class InputTextView: UITextView {
         }
     }
     private let placeholderLabel: UILabel = {
-        let lb = UILabel()
-        lb.textColor = .lightGray
-        return lb
+        let label = UILabel()
+        label.textColor = .lightGray
+        return label
     }()
     override init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)

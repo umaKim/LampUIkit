@@ -12,7 +12,7 @@ struct RecommendedLocationResponse: Codable, Hashable {
 }
 
 struct RecommendedLocation: Codable, Hashable {
-    let uid = UUID()
+    var uid = UUID()
     let image: String?
     let contentId: String
     let contentTypeId: String
