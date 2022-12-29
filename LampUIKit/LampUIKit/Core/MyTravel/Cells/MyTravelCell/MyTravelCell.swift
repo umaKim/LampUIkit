@@ -28,10 +28,12 @@ final class MyTravelCell: UICollectionViewCell {
     >(.vertical)
     private lazy var refreshcontrol = UIRefreshControl()
     private var cancellables: Set<AnyCancellable>
+    private let vc = MyTravelViewController(MyTravelView(), MyTravelCellViewModel())
     override init(frame: CGRect) {
         self.cancellables = .init()
         super.init(frame: frame)
         setupUI()
+//        bounds = vc.view.bounds
     }
     private var viewModel: MyTravelCellViewModel?
     public func configure(_ viewModel: MyTravelCellViewModel) {
@@ -148,20 +150,23 @@ extension MyTravelCell: UICollectionViewDelegateFlowLayout {
     }
 }
 
-// MARK: - set up UI
+// MARK: - Set up UI
 extension MyTravelCell {
     private func updateSections() {
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
         snapshot.appendItems(viewModel?.models ?? [])
-        dataSource?.apply(snapshot, animatingDifferences: true, completion: { [weak self] in
-            guard
-                let self = self,
-                let viewModel = self.viewModel
-            else { return }
-            self.collectionView.backgroundColor = viewModel.models.isEmpty ? .clear : .greyshWhite
-            self.collectionView.reloadData()
-        })
+        dataSource?.apply(
+            snapshot,
+            animatingDifferences: true,
+            completion: { [weak self] in
+                guard
+                    let self = self,
+                    let viewModel = self.viewModel
+                else { return }
+                self.collectionView.backgroundColor = viewModel.models.isEmpty ? .clear : .greyshWhite
+                self.collectionView.reloadData()
+            })
     }
     private func configureCollectionView() {
         collectionView.delegate = self

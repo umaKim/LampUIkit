@@ -17,7 +17,7 @@ enum LocationDetailViewHeaderCellButtonStackViewAction {
     case review
 }
 
-class LocationDetailViewHeaderCellButtonStackView: UIView {
+final class LocationDetailViewHeaderCellButtonStackView: UIView {
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<LocationDetailViewHeaderCellButtonStackViewAction, Never>()
     private var cancellables: Set<AnyCancellable>
@@ -73,27 +73,28 @@ class LocationDetailViewHeaderCellButtonStackView: UIView {
         saveButton
             .tapPublisher
             .sink {[weak self] _ in
-                guard let self = self else {return}
+                guard let self = self else { return }
                 self.isSaved.toggle()
-                if self.isSaved {
-                    self.saveButton.setImage(UIImage(named: "favorite_saved"), for: .normal)
-                } else {
-                    self.saveButton.setImage(UIImage(named: "detailSave"), for: .normal)
-                }
+//                if self.isSaved {
+//                    self.saveButton.setImage(UIImage(named: "favorite_saved"), for: .normal)
+//                } else {
+//                    self.saveButton.setImage(UIImage(named: "detailSave"), for: .normal)
+//                }
+                self.saveButton.setImage(self.isSaved ? UIImage(named: "favorite_saved"): UIImage(named: "detailSave"), for: .normal)
                 self.actionSubject.send(.save)
             }
             .store(in: &cancellables)
         arButton
             .tapPublisher
             .sink {[weak self] _ in
-                guard let self = self else {return}
+                guard let self = self else { return }
                 self.actionSubject.send(.ar)
             }
             .store(in: &cancellables)
         mapButton
             .tapPublisher
             .sink {[weak self] _ in
-                guard let self = self else {return}
+                guard let self = self else { return }
                 self.actionSubject.send(.map)
             }
             .store(in: &cancellables)
@@ -107,7 +108,7 @@ class LocationDetailViewHeaderCellButtonStackView: UIView {
         reviewButton
             .tapPublisher
             .sink {[weak self] _ in
-                guard let self = self else {return}
+                guard let self = self else { return }
                 self.actionSubject.send(.review)
             }
             .store(in: &cancellables)
