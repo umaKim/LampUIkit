@@ -72,7 +72,11 @@ extension RecommendedLocationViewmodel {
             mapY: location.mapY
         )
         self.locations[index].isOnPlan = true
-        network.post(.postAddToMyTravel, data, Response.self) {[weak self] result in
+        network.post(
+            .postAddToMyTravel,
+            data,
+            Response.self
+        ) {[weak self] result in
             switch result {
             case .success(let response):
                 self?.sendNotification(.showMessage(response.message ?? ""))
@@ -84,7 +88,10 @@ extension RecommendedLocationViewmodel {
     public func deleteFromMyTrip(at index: Int, _ location: RecommendedLocation) {
         guard let planIdx = location.planIdx else { return }
         self.locations[index].isOnPlan = false
-        network.delete(.myTravel("\(planIdx)"), Response.self) { [weak self] result  in
+        network.delete(
+            .myTravel("\(planIdx)"),
+            Response.self
+        ) { [weak self] result  in
             switch result {
             case .success(let response):
                 self?.sendNotification(.showMessage(response.message ?? ""))

@@ -92,12 +92,17 @@ extension SearchViewController {
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
         snapshot.appendItems(viewModel.locations)
-        dataSource?.apply(snapshot, animatingDifferences: true, completion: {[weak self] in
-            guard let self = self else {return }
-            self.view.showEmptyStateView(on: self.contentView.collectionView,
-                                         when: self.viewModel.locations.isEmpty,
-                                         with: Message.emptySearch)
-        })
+        dataSource?.apply(
+            snapshot,
+            animatingDifferences: true,
+            completion: {[weak self] in
+                guard let self = self else {return }
+                self.view.showEmptyStateView(
+                    on: self.contentView.collectionView,
+                    when: self.viewModel.locations.isEmpty,
+                    with: Message.emptySearch
+                )
+            })
     }
     private func configureCollectionView() {
         contentView.collectionView.delegate = self
@@ -160,15 +165,5 @@ extension SearchViewController: UICollectionViewDelegate {
         let viewController = LocationDetailViewController(LocationDetailView(), viewModel)
         viewController.delegate = self
         navigationController?.pushViewController(viewController, animated: true)
-    }
-}
-
-extension SearchViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAt indexPath: IndexPath
-    ) -> CGSize {
-        .init(width: UIScreen.main.bounds.width - 32, height: 145)
     }
 }

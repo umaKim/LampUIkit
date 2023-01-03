@@ -104,10 +104,13 @@ extension RecommendedLocationViewController {
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
         snapshot.appendItems(viewModel.locations)
-        dataSource?.apply(snapshot, animatingDifferences: true, completion: {[weak self] in
-            guard let self = self else { return }
-            self.contentView.collectionView.backgroundColor = self.viewModel.locations.isEmpty ? .clear : .greyshWhite
-        })
+        dataSource?.apply(
+            snapshot,
+            animatingDifferences: true,
+            completion: {[weak self] in
+                guard let self = self else { return }
+                self.contentView.collectionView.backgroundColor = self.viewModel.locations.isEmpty ? .clear : .greyshWhite
+            })
     }
     private func configureCollectionView() {
         contentView.collectionView.delegate = self
@@ -187,17 +190,6 @@ extension RecommendedLocationViewController: UICollectionViewDelegate {
         let viewController = LocationDetailViewController(LocationDetailView(), viewModel)
         viewController.delegate = self
         navigationController?.pushViewController(viewController, animated: true)
-    }
-}
-
-// MARK: - UICollectionViewDelegateFlowLayout
-extension RecommendedLocationViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAt indexPath: IndexPath
-    ) -> CGSize {
-        .init(width: UIScreen.main.bounds.width - 32, height: 145)
     }
 }
 

@@ -64,3 +64,16 @@ class BaseCollectionView<BODYCELL: BodyCellable>: UICollectionView {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+final class SearchCollectionView: BaseCollectionView<SearchRecommendationCollectionViewCell> {
+    init() {
+        let flowlayout = UICollectionViewFlowLayout()
+        flowlayout.itemSize = .init(width: UIScreen.main.bounds.width - 32, height: 145)
+        flowlayout.scrollDirection = .vertical
+        flowlayout.minimumLineSpacing = 18
+        super.init(flowlayout)
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}

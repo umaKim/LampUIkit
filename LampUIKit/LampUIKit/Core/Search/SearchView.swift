@@ -21,7 +21,7 @@ final class SearchView: BaseView<SearchViewAction> {
         return button
     }()
     private(set) lazy var searchController = UISearchController(searchResultsController: nil)
-    private(set) var collectionView = BaseCollectionView<SearchRecommendationCollectionViewCell>(.vertical, 18)
+    private(set) var collectionView = SearchCollectionView()
     override init() {
         super.init()
         setupSearchController()

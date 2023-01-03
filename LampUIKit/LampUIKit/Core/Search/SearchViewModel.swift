@@ -126,6 +126,7 @@ extension SearchViewModel {
                 case .success(let locationResponse):
                     self.isPagenationDone = true
                     self.locations.append(contentsOf: locationResponse.result)
+                    self.locations = Array(Set(self.locations))
                     self.sendNotification(.reload)
                 case .failure(let error):
                     print(error)
