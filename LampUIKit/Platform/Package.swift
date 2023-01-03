@@ -24,7 +24,10 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/Alamofire/Alamofire.git", branch: "master")
+        .package(
+            url: "https://github.com/Alamofire/Alamofire.git",
+            branch: "master"
+        )
     ],
     targets: [
         .target(

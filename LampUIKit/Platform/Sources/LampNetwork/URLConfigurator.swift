@@ -108,7 +108,8 @@ extension URLConfigurator: URLRequestable {
         case .postReviewImages(let contentId, let dateString):
             return "/app/placeInfo/review/photo?contentId=\(contentId)&token=\(token)&date=\(dateString)"
         case .fetchSearchLocations(let keyword, pageSize: let pageSize, pageNumber: let pageNumber):
-            return "/app/main/placeInfo/keyword?serviceLanguage=\(language)&keyword=\(keyword.addingPercentEncoding)&pageSize=\(pageSize)&pageNumber=\(pageNumber)&token=\(token)"
+            let encodedKeyword = keyword.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+            return "/app/main/placeInfo/keyword?serviceLanguage=\(language)&keyword=\(encodedKeyword)&pageSize=\(pageSize)&pageNumber=\(pageNumber)&token=\(token)"
         case .postAddToMyTravel:
             return "/app/trip"
         case .myTravel(let planIdx):
