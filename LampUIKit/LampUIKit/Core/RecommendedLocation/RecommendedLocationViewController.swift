@@ -20,7 +20,6 @@ final class RecommendedLocationViewController: BaseViewController<RecommendedLoc
     private typealias DataSource = UICollectionViewDiffableDataSource<Section, RecommendedLocation>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, RecommendedLocation>
     enum Section { case main }
-    private let lampCollectionViewFlowLayoutObject = LampCollectionViewFlowLayoutObject()
     private var dataSource: DataSource?
     weak var delegate: RecommendedLocationViewControllerDelegate?
     override func viewDidLoad() {
@@ -31,7 +30,7 @@ final class RecommendedLocationViewController: BaseViewController<RecommendedLoc
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        contentView.collectionView.delegate = lampCollectionViewFlowLayoutObject
+        contentView.collectionView.delegate = self
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -54,7 +53,7 @@ final class RecommendedLocationViewController: BaseViewController<RecommendedLoc
                     self?.delegate?.recommendedLocationViewControllerDidTapMyCharacter()
                     self?.navigationController?.pushViewController(viewController, animated: true)
                 case .myTravel:
-                    let viewController = MyTravelViewController(MyTravelView(), MyTravelViewModel())
+                    let viewController = ContainerViewController(ContainerView(), ContainerViewModel())
                     viewController.delegate = self
                     self?.delegate?.recommendedLocationViewControllerDidTapMyTravel()
                     self?.navigationController?.pushViewController(viewController, animated: true)
@@ -168,14 +167,14 @@ extension RecommendedLocationViewController: MyCharacterViewControllerDelegate {
 }
 
 // MARK: - MyTravelViewControllerDelegate
-extension RecommendedLocationViewController: MyTravelViewControllerDelegate {
-    func myTravelViewControllerDidTapNavigation(_ location: RecommendedLocation) {
+extension RecommendedLocationViewController: ContainerViewControllerDelegate {
+    func containerViewControllerDidTapNavigation(_ location: RecommendedLocation) {
         delegate?.recommendedLocationViewControllerDidTapNavigation(location: location)
     }
-    func myTravelViewControllerDidTapMapButton(_ location: RecommendedLocation) {
+    func containerViewControllerDidTapMapButton(_ location: RecommendedLocation) {
         delegate?.recommendedLocationViewControllerDidTapMapPin(location: location)
     }
-    func myTravelViewControllerDidTapDismiss() {
+    func containerViewControllerDidTapDismiss() {
         self.navigationController?.popViewController(animated: true)
     }
 }
@@ -192,15 +191,15 @@ extension RecommendedLocationViewController: UICollectionViewDelegate {
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
-//extension RecommendedLocationViewController: UICollectionViewDelegateFlowLayout {
-//    func collectionView(
-//        _ collectionView: UICollectionView,
-//        layout collectionViewLayout: UICollectionViewLayout,
-//        sizeForItemAt indexPath: IndexPath
-//    ) -> CGSize {
-//        .init(width: UIScreen.main.bounds.width - 32, height: 145)
-//    }
-//}
+extension RecommendedLocationViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        .init(width: UIScreen.main.bounds.width - 32, height: 145)
+    }
+}
 
 // MARK: - SearchRecommendationCollectionViewCellDelegate
 extension RecommendedLocationViewController: SearchRecommendationCollectionViewCellDelegate {
@@ -215,29 +214,5 @@ extension RecommendedLocationViewController: SearchRecommendationCollectionViewC
     }
     func didTapMapPin(location: RecommendedLocation) {
         delegate?.recommendedLocationViewControllerDidTapMapPin(location: location)
-    }
-}
-
-protocol LampCollectionViewFlowLayoutObjectDelegate: AnyObject {
-    func collectionViewDidSelect(itemAt indexPath: IndexPath)
-}
-
-class LampCollectionViewFlowLayoutObject: NSObject {
-    weak var delegate: LampCollectionViewFlowLayoutObjectDelegate?
-}
-
-extension LampCollectionViewFlowLayoutObject: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        self.delegate?.collectionViewDidSelect(itemAt: index)
-    }
-}
-
-extension LampCollectionViewFlowLayoutObject: UICollectionViewDelegateFlowLayout {
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAt indexPath: IndexPath
-    ) -> CGSize {
-        .init(width: UIScreen.main.bounds.width - 32, height: 145)
     }
 }

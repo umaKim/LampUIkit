@@ -141,14 +141,14 @@ extension MyTravelViewController {
             animatingDifferences: true,
             completion: { [weak self] in
                 guard let self = self else { return }
-                self.collectionView.backgroundColor = self.viewModel.models.isEmpty ? .clear : .greyshWhite
-                self.collectionView.reloadData()
+                self.contentView.collectionView.backgroundColor = self.viewModel.models.isEmpty ? .clear : .greyshWhite
+                self.contentView.collectionView.reloadData()
             })
     }
     private func configureCollectionView() {
         contentView.collectionView.delegate = self
         dataSource = DataSource(
-            collectionView: collectionView
+            collectionView: contentView.collectionView
         ) {[weak self] collectionView, indexPath, _ in
             guard let self = self else { return .init() }
             guard

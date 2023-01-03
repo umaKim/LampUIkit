@@ -9,9 +9,9 @@ import UmaBasicAlertKit
 import UIKit
 
 protocol ContainerViewControllerDelegate: AnyObject {
-    func myTravelViewControllerDidTapDismiss()
-    func myTravelViewControllerDidTapMapButton(_ location: RecommendedLocation)
-    func myTravelViewControllerDidTapNavigation(_ location: RecommendedLocation)
+    func containerViewControllerDidTapDismiss()
+    func containerViewControllerDidTapMapButton(_ location: RecommendedLocation)
+    func containerViewControllerDidTapNavigation(_ location: RecommendedLocation)
 }
 
 final class ContainerViewController: BaseViewController<ContainerView, ContainerViewModel>, Alertable {
@@ -33,7 +33,7 @@ final class ContainerViewController: BaseViewController<ContainerView, Container
                 guard let self = self else {return}
                 switch action {
                 case .dismiss:
-                    self.delegate?.myTravelViewControllerDidTapDismiss()
+                    self.delegate?.containerViewControllerDidTapDismiss()
                 }
             }
             .store(in: &cancellables)
@@ -81,11 +81,11 @@ extension ContainerViewController: CompletedTravelCellDelegate {
 // MARK: - LocationDetailViewControllerDelegate
 extension ContainerViewController: LocationDetailViewControllerDelegate {
     func locationDetailViewControllerDidTapNavigate(_ location: RecommendedLocation) {
-        self.delegate?.myTravelViewControllerDidTapNavigation(location)
+        self.delegate?.containerViewControllerDidTapNavigation(location)
     }
     func locationDetailViewControllerDidTapDismissButton() { }
     func locationDetailViewControllerDidTapMapButton(_ location: RecommendedLocation) {
-        self.delegate?.myTravelViewControllerDidTapMapButton(location)
+        self.delegate?.containerViewControllerDidTapMapButton(location)
     }
     func locationDetailViewControllerDidTapBackButton() {
         self.navigationController?.popViewController(animated: true)

@@ -352,9 +352,11 @@ extension MainViewController: SearchViewControllerDelegate {
 }
 
 // MARK: - MyTravelViewControllerDelegate
-extension MainViewController: MyTravelViewControllerDelegate {
-    func myTravelViewControllerDidTapNavigation(_ location: RecommendedLocation) { }
-    func myTravelViewControllerDidTapMapButton(_ location: RecommendedLocation) {
+extension MainViewController: ContainerViewControllerDelegate {
+    func containerViewControllerDidTapDismiss() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    func containerViewControllerDidTapMapButton(_ location: RecommendedLocation) {
         fpc.move(to: .half, animated: true)
         guard
             let lat = Double(location.mapY),
@@ -362,10 +364,8 @@ extension MainViewController: MyTravelViewControllerDelegate {
         else { return }
         self.moveTo(.init(latitude: lat, longitude: long))
     }
-    func myTravelViewDidTap(_ item: MyTravelLocation) {
-    }
-    func myTravelViewControllerDidTapDismiss() {
-        self.navigationController?.popViewController(animated: true)
+    func containerViewControllerDidTapNavigation(_ location: RecommendedLocation) {
+        
     }
 }
 
