@@ -51,16 +51,16 @@ final class MainViewModel: BaseViewModel<MainViewModelNotification> {
 
 extension MainViewModel: FloatingPanelControllerDelegateProtocol {
     func endEditing(_ isTrue: Bool) {
-        self.notifySubject.send(.endEditting(isTrue))
+        self.sendNotification(.endEditting(isTrue))
     }
     func changeGoogleMapPadding() {
-        self.notifySubject.send(.changeGoogleMapPadding)
+        self.sendNotification(.changeGoogleMapPadding)
     }
 }
 
 extension MainViewModel: CLLocationManagerDelegateObjectProtocol {
     func showDefaultError(title: String) {
-        self.notifySubject.send(.showDefaultAlert(title))
+        self.sendNotification(.showDefaultAlert(title))
     }
 }
 
@@ -72,7 +72,7 @@ extension MainViewModel: GMSMapObjectProtocol {
         zoom = level
     }
     func setFloatingPanelWithLocationDetailViewController(_ location: RecommendedLocation, isModal: Bool) {
-        notifySubject.send(.setFloatingPanelWithLocationDetailViewController(location, isModal: isModal))
+        sendNotification(.setFloatingPanelWithLocationDetailViewController(location, isModal: isModal))
     }
 }
 

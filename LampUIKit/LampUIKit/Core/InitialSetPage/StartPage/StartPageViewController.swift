@@ -20,9 +20,11 @@ final class StartPageViewController: BaseViewController<StartPageView, StartPage
     }
     private func presentMain(with uid: String) {
         let nav = UINavigationController(rootViewController: MainViewController(MainView(), MainViewModel()))
-        present(nav,
-                transitionType: .fromTop,
-                animated: true, pushing: true)
+        present(
+            nav,
+            transitionType: .fromTop,
+            animated: true, pushing: true
+        )
     }
 }
 
