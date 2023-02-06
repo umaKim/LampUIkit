@@ -46,7 +46,7 @@ extension LoginViewModel {
                     self.sendNotification(.presentInitialSetpage)
                 }
             case .failure(let error):
-                self.sendNotification(.showMessage(error.localizedDescription))
+                self.sendNotification(.showMessage("\(error.localizedDescription) SERVER ISSUE"))
             }
         }
     }

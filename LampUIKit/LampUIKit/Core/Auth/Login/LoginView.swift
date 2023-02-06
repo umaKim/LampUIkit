@@ -97,7 +97,7 @@ extension LoginView {
     }
 }
 
-//MARK: - setup UI
+// MARK: - setup UI
 extension LoginView {
     private func setupUI() {
         backgroundColor = .darkNavy
