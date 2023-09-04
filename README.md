@@ -11,6 +11,80 @@ map based app
 
 [https://github.com/umaKim/LampUIkit](https://github.com/umaKim/LampUIkit)
 
+## **👥 Team Composition**
+
+- 1 iOS Developer - Kim Yoonseok
+- 1 Backend Developer
+- 1 Designer
+- 1 Product Manager (Presenter)
+
+## **🛠️ Technologies and Libraries Used**
+
+- Swift, iOS
+- Combine
+- AutoLayout
+- FloatingPanel
+- SDWebImage
+- GoogleMap SDK
+- SkeletonView
+- Lottie
+- Alamofire
+- CombineCocoa
+- UmaBasicAlertKit
+- Kakao SDK
+- Quick, Nimble
+
+## **📱 Features Implemented (iOS)**
+
+- Implemented asynchronous processing to display map pins with animation in the order that the photos are loaded
+- Utilized Combine framework for implementation
+- Reduced code duplication and increased code reusability through modularization
+- Implemented all UI and functionalities programmatically without using Storyboard
+- Implemented animation for changes in cells using DiffableDataSource introduced in WWDC 19
+- Used SDWebImage library for image caching to prevent performance degradation during image loading
+- Implemented auto cell sizing based on content length for variable cell height and improved user experience
+- Implemented localization support for English and Japanese languages
+- Implemented language switching functionality within the app
+- Wrote unit tests (in early stages, not fully completed)
+
+## **👨‍🏭 Problem Encountered and Solution 1**
+
+- Problem:
+    
+    When fetching and displaying approximately 30 locations on the map, the entire process takes about 10 seconds. During this time, the user is forced to view a loading screen, resulting in a poor user experience.
+    
+- Problem Analysis:
+    
+    To understand what happens during the loading screen, I listed the sequence of events:
+    
+    1. Fetch an array containing information and image links of 30 locations.
+    2. Pass the information and image links of each element in the array to a map pin object.
+    3. The object fetches the image using the provided image link, and once all images are fetched, it proceeds to the next location and performs the same operation.
+    4. After completing this process for all 30 locations, the loading screen is removed, and the map with map pins is displayed to the user.
+    
+    The step that takes the most time is step 3, where images are fetched using URLs. This process is time-consuming because it waits for each image to be fully fetched before proceeding to the next one, blocking the main thread.
+    
+- Solution:
+    
+    Instead of waiting for all image data to be fetched, I implemented a solution where each image is displayed as soon as it is fetched. This gives the impression to the user that the map is being updated without any loading time.
+    
+    <Technical Solution>: Execute the **try**? Data(contentsOf: url) part asynchronously on a background thread, and once the image data is fetched, update the view on the main thread.
+    
+
+## **💁‍♂️ Problem Encountered and Solution 2**
+
+- Problem:
+    
+    Following the existing approach, to implement fetching data from a new API, I had to repeatedly write similar code that was already written for other API calls.
+    
+- Desired Approach:
+    
+    Enable fetching of desired APIs by simply adding the endpoint, without having to write repetitive code.
+    
+- Solution:
+    
+    By using generics, I minimized the duplication of code. I actively utilized enums so that by simply adding the endpoint, the desired API could be used immediately.
+
 ## 👥 팀 구성
 
 - iOS 개발자 1명 ← 김윤석
