@@ -13,7 +13,7 @@ map based app
 
 ## **👥 Team Composition**
 
-- 1 iOS Developer - Kim Yoonseok
+- 1 iOS Developer - Kim Yoonsuk (Uma Kim)
 - 1 Backend Developer
 - 1 Designer
 - 1 Product Manager (Presenter)
